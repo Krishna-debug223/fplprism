@@ -12,7 +12,10 @@ type PageMetadataOptions = {
 export function pageMetadata({ title, description, path, noindex = false }: PageMetadataOptions): Metadata {
   const siteUrl = getSiteUrl();
   const canonical = new URL(path, siteUrl).toString();
-  const image = new URL(`/opengraph-image?section=${encodeURIComponent(path.replace(/^\//, "") || "home")}`, siteUrl).toString();
+  const imageUrl = new URL("/og", siteUrl);
+  imageUrl.searchParams.set("title", title);
+  imageUrl.searchParams.set("description", description);
+  const image = imageUrl.toString();
 
   return {
     title: { absolute: title },
@@ -32,6 +35,6 @@ export function pageMetadata({ title, description, path, noindex = false }: Page
       description,
       images: [image],
     },
-    ...(noindex ? { robots: { index: false, follow: false } } : {}),
+    ...(noindex ? { robots: { index: false, follow: true } } : {}),
   };
 }

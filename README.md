@@ -18,12 +18,13 @@ The product is live at **[fplprism.com](https://fplprism.com/dashboard)**. It us
 | [Pricing](https://fplprism.com/pricing) | Keeps the complete product free during launch. Pro and Elite are roadmap tiers; no paid checkout or automatic renewal is active. |
 | **Account / sign in** | Optional Supabase-backed settings for saving a public Team ID, free-transfer default and planner style. An FPL password is never requested. |
 | [FPL Prism Modelbook](https://fplprism.com/modelbook) | Public, timestamped forward-test workspace linked from the dashboard. |
+| [About](https://fplprism.com/about) and [Contact](https://fplprism.com/contact) | Explain the project, its limits, and where to send feedback or privacy questions. |
 
 The production dashboard reports the current Gameweek and model version from the live feed. The active production model is **`1.4.0`**; the live Modelbook follows the next scheduled **Gameweek 7** projection window, with GW3–GW6 preserved as immutable forward-test archives. Both surfaces show the same training status: the live target is trained through the latest completed Gameweek and uses minutes-weighted current-season evidence blended with historical priors.
 
 ### Advertising
 
-Responsive AdSense placements are reserved above and below the main content, with the required [`ads.txt`](public/ads.txt) declaration. The publisher client is `ca-pub-1252559919094271`. After creating responsive display units in AdSense, add their slot IDs as `NEXT_PUBLIC_ADSENSE_SLOT_TOP` and `NEXT_PUBLIC_ADSENSE_SLOT_BOTTOM` in Vercel; until then the layout keeps a quiet reserved band and the rest of the product remains usable.
+AdSense Auto ads are enabled for eligible public pages, with the required [`ads.txt`](public/ads.txt) declaration. The publisher client is `ca-pub-1252559919094271`. Dashboard, planner, account and authentication routes are excluded in both the app and AdSense so ads stay off interactive and private screens. Fixed responsive display units can be added later with `NEXT_PUBLIC_ADSENSE_SLOT_TOP` and `NEXT_PUBLIC_ADSENSE_SLOT_BOTTOM` in Vercel. Final ad serving still depends on Google approving the site.
 
 ## Model overview
 

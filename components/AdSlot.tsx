@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { isAdFreeRoute } from "@/lib/ads";
 import styles from "./AdSlot.module.css";
 
 declare global {
@@ -18,12 +19,10 @@ const slots: Record<Placement, string> = {
   bottom: process.env.NEXT_PUBLIC_ADSENSE_SLOT_BOTTOM || "",
 };
 
-const noAdsRoutes = ["/account", "/sign-in", "/reset-password", "/auth"];
-
 export default function AdSlot({ placement }: { placement: Placement }) {
   const pathname = usePathname();
   const slot = slots[placement];
-  const disabled = noAdsRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
+  const disabled = isAdFreeRoute(pathname);
   const configured = Boolean(client && slot);
 
   useEffect(() => {

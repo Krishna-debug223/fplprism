@@ -155,6 +155,8 @@ function HeaderContent({ search = "" }: { search?: string }) {
           <div>
             <span className={styles.mobileHeading}>Site</span>
             <Link href="/pricing">Pricing</Link>
+            <Link href="/about">About</Link>
+            <Link href="/contact">Contact</Link>
             <Link href="/account">Account</Link>
             <Link href="/privacy">Privacy</Link>
             <Link href="/terms">Terms</Link>

@@ -13,7 +13,7 @@ export default function PrivacyPage() {
     <main className="page page-narrow">
       <article className="legal prose">
         <h1>Privacy Policy</h1>
-        <p className="effective">Effective 16 September 2026</p>
+        <p className="effective">Effective 19 October 2026</p>
         <p>FPL Prism is built to work without an account. An optional account can be used to save a small set of planning preferences across sessions and devices.</p>
 
         <h2>Information you provide</h2>
@@ -29,7 +29,7 @@ export default function PrivacyPage() {
         <AnalyticsPrivacyControls />
 
         <h2>Advertising</h2>
-        <p>FPL Prism may display responsive advertisements through Google AdSense. If ads are served, Google and its partners may use cookies or similar device information to measure, limit or personalise advertising under their own policies. Advertising is disabled on account and authentication screens. You can manage Google&apos;s advertising preferences through <a href="https://adssettings.google.com" rel="noreferrer">Google Ads Settings</a>; where applicable, your browser or regional consent choices also control personalised advertising.</p>
+        <p>FPL Prism may display responsive advertisements through Google AdSense. If ads are served, Google and its partners may use cookies or similar device information to measure, limit or personalise advertising under their own policies. Ads are disabled on dashboard, planner, account and authentication screens. You can manage Google&apos;s advertising preferences through <a href="https://adssettings.google.com" rel="noreferrer">Google Ads Settings</a>; where applicable, your browser or regional consent choices also control personalised advertising.</p>
 
         <h2>AI and automated recommendations</h2>
         <p>Projections and recommendations in FPL Prism are produced by an explainable statistical recommendation engine, not a general-purpose chatbot. It uses football/FPL statistics, fixture data, squad rules, historical priors and probabilistic simulations. We do not currently send your FPL squad to a third-party generative-AI provider.</p>
@@ -46,10 +46,10 @@ export default function PrivacyPage() {
         <h2>Children and sensitive data</h2>
         <p>The service is not designed to collect sensitive personal information. Do not submit payment data, health information or other sensitive information into the Team ID field, account profile or other product inputs.</p>
 
-        {contactEmail && <>
-          <h2>Contact</h2>
-          <p>For privacy questions or account-data requests, email <a href={`mailto:${contactEmail}`}>{contactEmail}</a>.</p>
-        </>}
+        <h2>Contact</h2>
+        {contactEmail
+          ? <p>For privacy questions or account-data requests, email <a href={`mailto:${contactEmail}`}>{contactEmail}</a>.</p>
+          : <p>For contact options, see the <a href="/contact">FPL Prism contact page</a>. Please do not send personal or account information through public product-feedback channels.</p>}
 
         <h2>Changes</h2>
         <p>We may update this policy as the product changes. The effective date at the top of this page will be updated when material changes are made.</p>

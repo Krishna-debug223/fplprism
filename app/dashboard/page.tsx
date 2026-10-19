@@ -5,6 +5,7 @@ export const metadata = pageMetadata({
   title: "FPL Prism Dashboard — Live FPL decision support",
   description: "Import a squad and see expected points, ranges, risk and legal transfer ideas for the current Gameweek.",
   path: "/dashboard",
+  noindex: true,
 });
 
 // The dashboard owns live Gameweek context. Keep its shell dynamic so a normal
