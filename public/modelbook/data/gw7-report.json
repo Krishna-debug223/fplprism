@@ -1,20 +1,20 @@
 {
   "gameweek": 7,
   "modelVersion": "1.4.0",
-  "final": false,
-  "generatedAt": "2026-10-20T03:54:21.571Z",
+  "final": true,
+  "generatedAt": "2026-10-20T08:36:49.962Z",
   "snapshotHash": "a1b9ab9a8d206542e920d1370a40f73300b9802db49972a8c7731fe34fafaf66",
-  "actualsFetchedAt": "2026-10-20T03:54:21.571Z",
+  "actualsFetchedAt": "2026-10-20T08:36:49.962Z",
   "actualsSource": "https://fantasy.premierleague.com/api/event/7/live/",
   "actualsFinality": {
     "fixtureCount": 10,
     "started": 10,
-    "finished": 0,
+    "finished": 10,
     "finishedProvisional": 10,
     "ninetyMinutes": 10
   },
   "forecastProvenance": "reconstructed-after-deadline",
-  "provenanceNote": "Original GW7 pre-deadline forecast and checkpoint are unavailable. This fixed audit baseline was reconstructed after the deadline from data through GW6 and must not be described as the published GW7 prediction. The fixed audit fingerprint is a1b9ab9a8d206542e920d1370a40f73300b9802db49972a8c7731fe34fafaf66. These points are provisional and will be checked again until FPL marks every fixture finished.",
+  "provenanceNote": "Original GW7 pre-deadline forecast and checkpoint are unavailable. This fixed audit baseline was reconstructed after the deadline from data through GW6 and must not be described as the published GW7 prediction. The fixed audit fingerprint is a1b9ab9a8d206542e920d1370a40f73300b9802db49972a8c7731fe34fafaf66. FPL has marked every fixture finished.",
   "training": {
     "trainedThroughGameweek": 6,
     "targetGameweek": 7,
