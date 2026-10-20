@@ -33,7 +33,7 @@ export type ModelbookReport = {
   actualsFetchedAt?: string;
   actualsSource?: string;
   actualsFinality?: { fixtureCount: number; started: number; finished: number; finishedProvisional: number; ninetyMinutes: number };
-  forecastProvenance?: "deadline-frozen" | "predeadline-published" | "reconstructed-after-deadline";
+  forecastProvenance?: "deadline-frozen" | "predeadline-published" | "predeadline-fallback" | "reconstructed-after-deadline";
   provenanceNote?: string;
   training?: { trainedThroughGameweek: number; targetGameweek: number; method: string; validation: string; source?: string };
   overall: ErrorMetrics;
@@ -137,7 +137,7 @@ export type Ledger = {
   data: LedgerSnapshot;
   lockedAt: string | null;
   contentHash: string | null;
-  lockMode: "official-deadline" | "manual-predeadline" | "automatic-predeadline";
+  lockMode: "official-deadline" | "manual-predeadline" | "automatic-predeadline" | "automatic-predeadline-fallback";
 };
 
 type LockedArtifact = {
@@ -226,6 +226,13 @@ export function ledgerStatus(ledger: Pick<Ledger, "mode" | "lockMode">) {
         label: "Locked before deadline",
         tone: "good" as const,
         detail: "This snapshot was automatically captured and fingerprinted shortly before the official deadline. These are the forecasts that will be scored.",
+      };
+    }
+    if (ledger.lockMode === "automatic-predeadline-fallback") {
+      return {
+        label: "Pre-deadline checkpoint",
+        tone: "warn" as const,
+        detail: "The final automatic lock was missed, so this forecast uses the latest verified checkpoint saved before the deadline. It stays fixed and will be the version scored in the Modelbook.",
       };
     }
     return {

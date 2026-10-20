@@ -44,6 +44,7 @@ export default async function ModelbookReportPage({ params }: Params) {
   const hash = report.snapshotHash ?? meta?.contentHash;
   const isReconstructed = report.forecastProvenance === "reconstructed-after-deadline";
   const isPredeadlinePublished = report.forecastProvenance === "predeadline-published";
+  const isPredeadlineFallback = report.forecastProvenance === "predeadline-fallback";
 
   return (
     <main className="page">
@@ -55,6 +56,8 @@ export default async function ModelbookReportPage({ params }: Params) {
           <p className="lead">
             {isReconstructed
               ? `A reconstructed GW${report.gameweek} forecast scored against official FPL points.`
+              : isPredeadlineFallback
+                ? `The latest saved GW${report.gameweek} checkpoint from before the deadline, scored against official FPL points.`
               : isPredeadlinePublished
                 ? `The GW${report.gameweek} forecast published before the deadline, scored against official FPL points.`
                 : `The forecasts frozen at the GW${report.gameweek} deadline, scored against official FPL points.`} The forecast baseline stays fixed when the model changes later.
@@ -63,7 +66,7 @@ export default async function ModelbookReportPage({ params }: Params) {
           {report.provenanceNote && <p className="small muted" style={{ marginTop: 10 }}>{report.provenanceNote}</p>}
         </div>
         <span className={`badge ${!report.final ? "badge-warn" : "badge-good"}`}>
-          {isReconstructed ? "Audit" : !report.final ? "Provisional" : isPredeadlinePublished ? "Published" : "Final"}
+          {isReconstructed ? "Audit" : !report.final ? "Provisional" : isPredeadlineFallback ? "Checkpoint" : isPredeadlinePublished ? "Published" : "Final"}
         </span>
       </div>
 
@@ -193,9 +196,9 @@ export default async function ModelbookReportPage({ params }: Params) {
         <div className="disclosure-body">
           <dl className="kv">
             <dt>Model version</dt><dd>{report.modelVersion}</dd>
-            {report.forecastProvenance && <><dt>Forecast source</dt><dd>{report.forecastProvenance === "reconstructed-after-deadline" ? "Reconstructed after the deadline" : report.forecastProvenance === "predeadline-published" ? "Published pre-deadline export" : "Frozen deadline export"}</dd></>}
+            {report.forecastProvenance && <><dt>Forecast source</dt><dd>{report.forecastProvenance === "reconstructed-after-deadline" ? "Reconstructed after the deadline" : report.forecastProvenance === "predeadline-fallback" ? "Latest saved pre-deadline checkpoint" : report.forecastProvenance === "predeadline-published" ? "Published pre-deadline export" : "Frozen deadline export"}</dd></>}
             {report.training && <><dt>Training window</dt><dd>Results through GW{report.training.trainedThroughGameweek}; {report.training.validation}.</dd></>}
-            {meta && <><dt>{isPredeadlinePublished ? "Published" : "Frozen"}</dt><dd>{formatDate(meta.lockedAt)}{meta.lockedBeforeDeadline ? ", before the deadline" : ""}</dd></>}
+            {meta && <><dt>{isPredeadlinePublished ? "Published" : isPredeadlineFallback ? "Checkpoint captured" : "Frozen"}</dt><dd>{formatDate(meta.lockedAt)}{meta.lockedBeforeDeadline ? ", before the deadline" : ""}</dd></>}
             <dt>Report generated</dt><dd>{formatDate(report.generatedAt)}</dd>
             {report.actualsSource && <><dt>Points source</dt><dd>{report.actualsSource}</dd></>}
             {report.actualsFinality && (

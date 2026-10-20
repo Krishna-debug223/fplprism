@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - feature/fpl-risk-v12-product-model
+    paths-ignore:
+      - ".modelbook-state/**"
   pull_request:
     branches:
       - main
