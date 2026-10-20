@@ -4,6 +4,8 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 import { getSiteUrl } from "@/lib/site-url";
+import { fplFetch } from "@/lib/server-fpl";
+import { enrichUnderlyingTeamData } from "@/lib/fpl-enrichment";
 import { MODEL_VERSION, positionName, projectPlayer } from "@/lib/risk-v12";
 import { buildNewsScan } from "@/lib/news-scan";
 import type { SportsbookPayload } from "@/lib/sportsbook";
@@ -63,6 +65,16 @@ const SNAPSHOT_TTL_MS = 30_000;
 const snapshotCache = new Map<string, { expiresAt: number; promise: Promise<SnapshotPayload> }>();
 const LOCKED_DATA_DIR = path.join(process.cwd(), "public", "modelbook", "data");
 
+async function optionalJson(url: string) {
+  try {
+    const response = await fetch(url, { cache: "no-store", signal: AbortSignal.timeout(8_000) });
+    if (!response.ok || !response.headers.get("content-type")?.includes("application/json")) return null;
+    return await response.json() as unknown;
+  } catch {
+    return null;
+  }
+}
+
 async function frozenSnapshot(eventId: number) {
   try {
     const text = await readFile(path.join(LOCKED_DATA_DIR, `gw${eventId}-locked.json`), "utf8");
@@ -118,13 +130,22 @@ export async function GET(request: NextRequest) {
 
   try {
     const payload = await cachedSnapshot(cacheKey, async () => {
-      // Bootstrap is over 2 MB and exceeds Next's data-cache entry limit. The
-      // route-level snapshot cache and public CDN cache provide bounded reuse.
-      const bootstrapResponse = await fetch(`${origin}/api/fpl/bootstrap`, { cache: "no-store" });
-      if (!bootstrapResponse.ok) {
-        throw new Error("Live FPL source data is unavailable");
-      }
-      const bootstrap = (await bootstrapResponse.json()) as BootstrapPayload;
+      // Read the official feeds directly instead of calling this app's own public
+      // domain. A self-request can be redirected by deployment protection and turn
+      // a valid FPL feed into an HTML login page inside the function.
+      const [rawBootstrap, fixtures, historyPayload, sportsbookPayload] = await Promise.all([
+        fplFetch<Pick<BootstrapPayload, "elements" | "teams" | "events">>("/bootstrap-static/", 300),
+        fplFetch<FplFixture[]>("/fixtures/", 120),
+        optionalJson(`${origin}/api/fpl/history`),
+        optionalJson(`${origin}/api/sportsbook`),
+      ]);
+      const bootstrap: BootstrapPayload = {
+        ...rawBootstrap,
+        teams: enrichUnderlyingTeamData(rawBootstrap.elements, rawBootstrap.teams, fixtures),
+        fetchedAt: new Date().toISOString(),
+      };
+      const history = historyPayload as HistoricalPayload | null;
+      const sportsbook = sportsbookPayload as SportsbookPayload | null;
       const event = Number.isInteger(requestedEvent) && requestedEvent > 0
         ? bootstrap.events.find((item) => item.id === requestedEvent)
         : bootstrap.events.find((item) => item.is_next) ??
@@ -138,22 +159,6 @@ export async function GET(request: NextRequest) {
         throw new Error("NO_FROZEN_SNAPSHOT");
       }
 
-      const [fixturesResponse, historyResponse, sportsbookResponse] = await Promise.all([
-        fetch(`${origin}/api/fpl/fixtures`, { next: { revalidate: 120 } }),
-        fetch(`${origin}/api/fpl/history`, { next: { revalidate: 86400 } }),
-        fetch(`${origin}/api/sportsbook`, { next: { revalidate: 300 } }),
-      ]);
-      if (!fixturesResponse.ok) throw new Error("Live FPL source data is unavailable");
-
-      const fixturePayload = (await fixturesResponse.json()) as { fixtures: FplFixture[] };
-      const history = historyResponse.ok
-        ? ((await historyResponse.json()) as HistoricalPayload)
-        : null;
-      const sportsbook = sportsbookResponse.ok
-        ? ((await sportsbookResponse.json()) as SportsbookPayload)
-        : null;
-
-      const fixtures = fixturePayload.fixtures ?? [];
       const teamMap = new Map(bootstrap.teams.map((team) => [team.id, team]));
       const eventFixtures = fixtures.filter((fixture) => fixture.event === event.id);
       const newsScan = buildNewsScan(bootstrap, fixtures, event.id);
