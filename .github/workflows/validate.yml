@@ -35,6 +35,9 @@ jobs:
       - name: Model v1.2 invariants
         run: npm run model:check:v12
 
+      - name: Modelbook archive calculations
+        run: npm run modelbook:check
+
       - name: Full walk-forward backtest
         env:
           BACKTEST_SEASON: 2025-26

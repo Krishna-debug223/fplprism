@@ -57,11 +57,14 @@ export default async function ModelbookReportPage({ params }: Params) {
               ? `A reconstructed GW${report.gameweek} forecast scored against official FPL points.`
               : isPredeadlinePublished
                 ? `The GW${report.gameweek} forecast published before the deadline, scored against official FPL points.`
-                : `The forecasts frozen at the GW${report.gameweek} deadline, scored against official FPL points.`} This report doesn&apos;t change when the model is updated later.
+                : `The forecasts frozen at the GW${report.gameweek} deadline, scored against official FPL points.`} The forecast baseline stays fixed when the model changes later.
+            {!report.final && " FPL's points are provisional and this report will update until every fixture is marked finished."}
           </p>
           {report.provenanceNote && <p className="small muted" style={{ marginTop: 10 }}>{report.provenanceNote}</p>}
         </div>
-        <span className="badge badge-good">{isReconstructed ? "Audit" : isPredeadlinePublished ? "Published" : "Final"}</span>
+        <span className={`badge ${!report.final ? "badge-warn" : "badge-good"}`}>
+          {isReconstructed ? "Audit" : !report.final ? "Provisional" : isPredeadlinePublished ? "Published" : "Final"}
+        </span>
       </div>
 
       <section className="stats" aria-label="Headline accuracy for players who played">

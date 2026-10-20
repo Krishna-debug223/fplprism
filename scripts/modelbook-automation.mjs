@@ -1,0 +1,301 @@
+import { createHash } from "node:crypto";
+import { readFile, writeFile, readdir } from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const ROOT = process.cwd();
+const DATA_DIR = path.join(ROOT, "public/modelbook/data");
+const MODELBOOK_TS = path.join(ROOT, "lib/modelbook.ts");
+const SITE_URL = (process.env.FPL_PRISM_SITE_URL || "https://fplprism.com").replace(/\/$/, "");
+const FPL_API = "https://fantasy.premierleague.com/api";
+const CAPTURE_WINDOW_MS = 10 * 60 * 1000;
+const ARCHIVE_IMPORT_MARKER = "// Modelbook archive imports are registered below.";
+const requestedEvent = Number(process.env.MODELBOOK_GAMEWEEK || process.argv[2] || 0);
+
+async function fetchJson(url) {
+  const response = await fetch(url, {
+    headers: { "user-agent": "FPL-Prism-Modelbook-Archive/1.0" },
+    signal: AbortSignal.timeout(25_000),
+  });
+  if (!response.ok) throw new Error(`${response.status} ${response.statusText} from ${url}`);
+  return response.json();
+}
+
+async function readJson(file) {
+  try {
+    return JSON.parse(await readFile(file, "utf8"));
+  } catch (error) {
+    if (error?.code === "ENOENT") return null;
+    throw error;
+  }
+}
+
+function digest(text) {
+  return createHash("sha256").update(text).digest("hex");
+}
+
+function isCaptureWindow(deadline, now = Date.now()) {
+  const remaining = Number(deadline) - now;
+  return Number.isFinite(remaining) && remaining > 0 && remaining <= CAPTURE_WINDOW_MS;
+}
+
+function writeJson(file, value) {
+  return writeFile(file, `${JSON.stringify(value, null, 2)}\n`, "utf8");
+}
+
+function snapshotFile(gameweek) {
+  return path.join(DATA_DIR, `gw${gameweek}-locked.json`);
+}
+
+function snapshotMetaFile(gameweek) {
+  return path.join(DATA_DIR, `gw${gameweek}-snapshot-meta.json`);
+}
+
+function reportFile(gameweek) {
+  return path.join(DATA_DIR, `gw${gameweek}-report.json`);
+}
+
+function actualsFile(gameweek) {
+  return path.join(DATA_DIR, `gw${gameweek}-actuals-cache.json`);
+}
+
+function round(value, places = 3) {
+  const factor = 10 ** places;
+  return Math.round(value * factor) / factor;
+}
+
+function metricSet(rows) {
+  const count = rows.length;
+  if (!count) throw new Error("Cannot score an empty report cohort");
+  const errors = rows.map((row) => row.actual - row.projected);
+  const abs = errors.map(Math.abs);
+  return {
+    count,
+    mae: round(abs.reduce((sum, value) => sum + value, 0) / count),
+    rmse: round(Math.sqrt(errors.reduce((sum, value) => sum + value * value, 0) / count)),
+    bias: round(errors.reduce((sum, value) => sum + value, 0) / count),
+    within1: round(abs.filter((value) => value <= 1).length / count * 100, 1),
+    within2: round(abs.filter((value) => value <= 2).length / count * 100, 1),
+    within3: round(abs.filter((value) => value <= 3).length / count * 100, 1),
+  };
+}
+
+function archiveReport(gameweek, locked, livePayload, fixturePayload, fetchedAt) {
+  const actualById = new Map((livePayload.elements ?? []).map((player) => [Number(player.id), player]));
+  const scored = (locked.snapshot?.rows ?? []).flatMap((row) => {
+    const actual = actualById.get(Number(row.id));
+    if (!actual || !Number.isFinite(Number(row.projected))) return [];
+    const minutes = Number(actual.stats?.minutes ?? 0);
+    const points = Number(actual.stats?.total_points ?? 0);
+    const error = points - Number(row.projected);
+    return [{
+      id: Number(row.id),
+      name: String(row.name ?? `Player ${row.id}`),
+      position: String(row.position ?? "—"),
+      projected: Number(row.projected),
+      actual: points,
+      error,
+      absoluteError: Math.abs(error),
+      minutes,
+    }];
+  });
+  const active = scored.filter((row) => row.minutes > 0);
+  const byPosition = {};
+  for (const position of ["GKP", "DEF", "MID", "FWD"]) {
+    const cohort = active.filter((row) => row.position === position);
+    if (cohort.length) byPosition[position] = metricSet(cohort);
+  }
+  const fixtures = fixturePayload ?? [];
+  const allFixturesOfficiallyFinished = fixtures.length > 0 && fixtures.every((fixture) => fixture.finished);
+  const report = {
+    gameweek,
+    modelVersion: locked.modelVersion ?? locked.snapshot?.modelVersion ?? "unknown",
+    final: allFixturesOfficiallyFinished,
+    generatedAt: fetchedAt,
+    snapshotHash: locked.contentHash,
+    actualsFetchedAt: fetchedAt,
+    actualsSource: `${FPL_API}/event/${gameweek}/live/`,
+    actualsFinality: {
+      fixtureCount: fixtures.length,
+      started: fixtures.filter((fixture) => fixture.started).length,
+      finished: fixtures.filter((fixture) => fixture.finished).length,
+      finishedProvisional: fixtures.filter((fixture) => fixture.finished_provisional).length,
+      ninetyMinutes: fixtures.filter((fixture) => Number(fixture.minutes ?? 0) >= 90).length,
+    },
+    forecastProvenance: "predeadline-published",
+    provenanceNote: `Scored against official FPL points using the immutable GW${gameweek} snapshot captured before its deadline. The forecast fingerprint is ${locked.contentHash}.${allFixturesOfficiallyFinished ? " FPL has marked every fixture finished." : " These points are provisional and will be checked again until FPL marks every fixture finished."}`,
+    training: locked.snapshot?.training ?? undefined,
+    overall: metricSet(scored),
+    activeCohort: metricSet(active),
+    byPosition,
+    largestMisses: [...scored]
+      .sort((a, b) => b.absoluteError - a.absoluteError || a.name.localeCompare(b.name))
+      .slice(0, 12),
+    bestPredictions: active
+      .filter((row) => row.actual >= 4 && row.absoluteError <= 1.5)
+      .sort((a, b) => b.actual - a.actual || a.absoluteError - b.absoluteError || a.name.localeCompare(b.name))
+      .slice(0, 12),
+    bestPredictionsNote: "High-output players scoring at least 4 points where the pre-deadline forecast was within 1.5 points of the official result.",
+  };
+  return report;
+}
+
+async function registerReport(gameweek) {
+  let source = await readFile(MODELBOOK_TS, "utf8");
+  const reportImport = `import gw${gameweek}Report from "@/public/modelbook/data/gw${gameweek}-report.json";`;
+  const metaImport = `import gw${gameweek}Meta from "@/public/modelbook/data/gw${gameweek}-snapshot-meta.json";`;
+  if (!source.includes(reportImport)) {
+    if (!source.includes(ARCHIVE_IMPORT_MARKER)) throw new Error("Could not locate the Modelbook archive import marker");
+    source = source.replace(ARCHIVE_IMPORT_MARKER, `${reportImport}\n${metaImport}\n${ARCHIVE_IMPORT_MARKER}`);
+  }
+  const entry = `  ${gameweek}: { report: gw${gameweek}Report as ModelbookReport, meta: gw${gameweek}Meta as SnapshotMeta },`;
+  const archiveMarker = "const ARCHIVE: Record<number, { report: ModelbookReport; meta?: SnapshotMeta }> = {\n";
+  if (!source.includes(entry)) {
+    if (!source.includes(archiveMarker)) throw new Error("Could not locate the Modelbook archive map");
+    source = source.replace(archiveMarker, `${archiveMarker}${entry}\n`);
+  }
+  const activeGameweek = Math.max(8, gameweek + 1);
+  source = source.replace(/export const CURRENT_GAMEWEEK = \d+;/, `export const CURRENT_GAMEWEEK = ${activeGameweek};`);
+  await writeFile(MODELBOOK_TS, source, "utf8");
+}
+
+async function captureUpcomingSnapshot(events) {
+  const now = Date.now();
+  let candidates = events.filter((event) => !event.finished && event.deadline_time && (!requestedEvent || Number(event.id) === requestedEvent));
+  candidates = candidates.sort((a, b) => Date.parse(a.deadline_time) - Date.parse(b.deadline_time));
+  for (const event of candidates) {
+    const gameweek = Number(event.id);
+    const deadline = Date.parse(event.deadline_time);
+    const remaining = deadline - now;
+    if (remaining <= 0) {
+      if (requestedEvent) console.log(`GW${gameweek} deadline has passed; refusing to create a retroactive forecast lock.`);
+      continue;
+    }
+    if (!isCaptureWindow(deadline, now)) {
+      if (requestedEvent) console.log(`GW${gameweek} is outside the final ${Math.round(CAPTURE_WINDOW_MS / 60_000)}-minute lock window; refusing an early or late freeze.`);
+      continue;
+    }
+    if (await readJson(snapshotFile(gameweek))) continue;
+
+    const source = `${SITE_URL}/api/ledger/snapshot?event=${gameweek}`;
+    const fetchUrl = `${source}&freeze=${now}`;
+    const response = await fetch(fetchUrl, { cache: "no-store", signal: AbortSignal.timeout(30_000) });
+    if (!response.ok) throw new Error(`Projection endpoint returned ${response.status} for GW${gameweek}`);
+    const raw = await response.text();
+    const snapshot = JSON.parse(raw);
+    if (Number(snapshot.gameweek) !== gameweek || !Array.isArray(snapshot.rows) || !snapshot.rows.length) {
+      throw new Error(`Projection endpoint returned an invalid GW${gameweek} snapshot`);
+    }
+    if (Date.now() >= deadline) {
+      console.log(`GW${gameweek} deadline passed during capture; refusing to publish a late lock.`);
+      return false;
+    }
+    const capturedAt = snapshot.generatedAt ?? new Date().toISOString();
+    const canonicalSnapshot = JSON.stringify(snapshot);
+    const contentHash = digest(canonicalSnapshot);
+    const lock = {
+      lockSchemaVersion: 3,
+      gameweek,
+      lockedAt: capturedAt,
+      lockMode: "automatic-predeadline",
+      lockNote: "Automatically captured shortly before the official FPL deadline. This exact export is the immutable scoring baseline.",
+      deadlineTime: event.deadline_time,
+      modelVersion: snapshot.modelVersion,
+      source,
+      contentHashAlgorithm: "sha256",
+      contentHash,
+      sourceByteLength: Buffer.byteLength(canonicalSnapshot),
+      snapshot,
+    };
+    const sampleProjections = [...snapshot.rows]
+      .sort((a, b) => Number(b.projected ?? 0) - Number(a.projected ?? 0))
+      .slice(0, 8)
+      .map((row) => ({ id: row.id, name: row.name, projected: row.projected, fixture: row.fixture }));
+    const meta = {
+      season: "2026-27",
+      gameweek,
+      lockedAt: capturedAt,
+      deadline: event.deadline_time,
+      modelVersion: snapshot.modelVersion,
+      sourceModelVersion: snapshot.modelVersion,
+      lockedBeforeDeadline: true,
+      contentHash,
+      feeds: ["Official Fantasy Premier League bootstrap and fixture data", "FPL Prism production projection endpoint"],
+      sampleProjections,
+    };
+    await writeJson(snapshotFile(gameweek), lock);
+    await writeJson(snapshotMetaFile(gameweek), meta);
+    console.log(`Locked GW${gameweek} ${Math.max(0, Math.ceil(remaining / 60_000))} minutes before the deadline; SHA-256 ${contentHash}.`);
+    return true;
+  }
+  if (requestedEvent) console.log(`No new snapshot captured for requested GW${requestedEvent}.`);
+  return false;
+}
+
+async function archiveFinishedGameweeks() {
+  const files = (await readdir(DATA_DIR)).filter((name) => /^gw\d+-locked\.json$/.test(name));
+  for (const file of files) {
+    const lock = await readJson(path.join(DATA_DIR, file));
+    const gameweek = Number(lock?.gameweek);
+    if (!Number.isInteger(gameweek) || !lock?.contentHash || !lock?.snapshot?.rows?.length) continue;
+    if (lock.lockMode === "automatic-predeadline" && digest(JSON.stringify(lock.snapshot)) !== lock.contentHash) {
+      throw new Error(`GW${gameweek} frozen snapshot hash does not match its contents`);
+    }
+    const currentReport = await readJson(reportFile(gameweek));
+    if (lock.lockMode !== "automatic-predeadline" && currentReport) continue;
+    if (currentReport?.actualsFinality?.fixtureCount > 0
+      && currentReport.actualsFinality.finished === currentReport.actualsFinality.fixtureCount) continue;
+    const [fixtures, livePayload] = await Promise.all([
+      fetchJson(`${FPL_API}/fixtures/?event=${gameweek}`),
+      fetchJson(`${FPL_API}/event/${gameweek}/live/`),
+    ]);
+    if (!Array.isArray(fixtures) || !fixtures.length || !fixtures.every((fixture) => fixture.finished_provisional || fixture.finished)) continue;
+    const fetchedAt = new Date().toISOString();
+    const nextReport = archiveReport(gameweek, lock, livePayload, fixtures, fetchedAt);
+    const comparable = (value) => {
+      if (!value) return null;
+      const clone = structuredClone(value);
+      delete clone.generatedAt;
+      delete clone.actualsFetchedAt;
+      return clone;
+    };
+    const reportChanged = JSON.stringify(comparable(currentReport)) !== JSON.stringify(comparable(nextReport));
+    if (!reportChanged) continue;
+
+    const snapshotMeta = await readJson(snapshotMetaFile(gameweek)) ?? {
+      lockedAt: lock.lockedAt,
+      deadline: lock.deadlineTime,
+      contentHash: lock.contentHash,
+      lockedBeforeDeadline: true,
+    };
+    await writeJson(reportFile(gameweek), nextReport);
+    await writeJson(actualsFile(gameweek), {
+      gameweek,
+      fetchedAt,
+      source: `${FPL_API}/event/${gameweek}/live/`,
+      fixturesSource: `${FPL_API}/fixtures/?event=${gameweek}`,
+      finality: nextReport.actualsFinality,
+      elements: livePayload.elements,
+      fixtures,
+    });
+    await writeJson(snapshotMetaFile(gameweek), snapshotMeta);
+    await registerReport(gameweek);
+    console.log(`Published the GW${gameweek} report from its frozen snapshot (${nextReport.activeCohort.count} active players).`);
+  }
+}
+
+async function main() {
+  const bootstrap = await fetchJson(`${FPL_API}/bootstrap-static/`);
+  const captured = await captureUpcomingSnapshot(bootstrap.events ?? []);
+  await archiveFinishedGameweeks();
+  if (!captured && !requestedEvent) console.log("No deadline snapshot was due on this run.");
+}
+
+export { archiveReport, isCaptureWindow, metricSet };
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().catch((error) => {
+    console.error(error instanceof Error ? error.stack ?? error.message : error);
+    process.exitCode = 1;
+  });
+}

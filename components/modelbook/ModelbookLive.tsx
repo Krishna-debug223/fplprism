@@ -120,6 +120,9 @@ export default function ModelbookLive() {
   const filtersActive = Boolean(query || position || risk);
   const countdown = ledger?.mode === "prelock" ? timeUntil(ledger.data.deadlineTime) : null;
   const latestReport = ARCHIVED_GAMEWEEKS[0];
+  const missingCompletedGameweeks = [7].filter((gameweek) =>
+    gameweek < CURRENT_GAMEWEEK && !ARCHIVED_GAMEWEEKS.includes(gameweek),
+  );
 
   return (
     <main className="page">
@@ -134,6 +137,13 @@ export default function ModelbookLive() {
           </p>
         </div>
       </div>
+
+      {missingCompletedGameweeks.length > 0 && (
+        <div className="notice notice-warn" role="status" style={{ marginTop: 16 }}>
+          <strong>GW{missingCompletedGameweeks.join(", GW")} forecast archive is awaiting its original snapshot.</strong>{" "}
+          The pre-deadline export is not available in the repository or live deployment, so we won&apos;t replace it with projections recalculated after the deadline. The current table is for GW{CURRENT_GAMEWEEK}; verified reports remain available below.
+        </div>
+      )}
 
       <section className="card">
         <div className="row-between">

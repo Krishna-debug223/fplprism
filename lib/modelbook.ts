@@ -5,10 +5,11 @@ import gw5Report from "@/public/modelbook/data/gw5-report.json";
 import gw6Report from "@/public/modelbook/data/gw6-report.json";
 import gw6Meta from "@/public/modelbook/data/gw6-snapshot-meta.json";
 
-// Advance this only when the previous Gameweek is archived. The live Modelbook
-// follows this event until its deadline snapshot is frozen and published as a
-// report (add the report JSON to ARCHIVE below at the same time).
-export const CURRENT_GAMEWEEK = 7;
+// Modelbook archive imports are registered below.
+
+// GW7 has no recoverable deadline snapshot, so GW8 is the active forecast.
+// The archive workflow advances this when it publishes each future report.
+export const CURRENT_GAMEWEEK = 8;
 export const SNAPSHOT_URL = `/api/ledger/snapshot?event=${CURRENT_GAMEWEEK}`;
 export const LOCKED_URL = `/modelbook/data/gw${CURRENT_GAMEWEEK}-locked.json`;
 export const LIVE_POINTS_URL = `/api/fpl/live/${CURRENT_GAMEWEEK}`;
@@ -136,7 +137,7 @@ export type Ledger = {
   data: LedgerSnapshot;
   lockedAt: string | null;
   contentHash: string | null;
-  lockMode: "official-deadline" | "manual-predeadline";
+  lockMode: "official-deadline" | "manual-predeadline" | "automatic-predeadline";
 };
 
 type LockedArtifact = {
@@ -172,6 +173,11 @@ export async function loadCurrentLedger(): Promise<Ledger> {
   const data = (await response.json()) as LedgerSnapshot;
   const deadline = Date.parse(data.deadlineTime);
   const mode: LedgerMode = Number.isFinite(deadline) && Date.now() >= deadline ? "lock-pending" : "prelock";
+  if (mode === "lock-pending") {
+    throw new Error(
+      `GW${data.gameweek}'s deadline has passed, but its frozen forecast is missing. To avoid showing projections recalculated after the deadline, this table is hidden until the original snapshot is restored.`,
+    );
+  }
   return { mode, data, lockedAt: null, contentHash: null, lockMode: "official-deadline" };
 }
 
@@ -215,6 +221,13 @@ export function actualPointsFor(row: Pick<LedgerRow, "id">, live: LivePoints) {
 
 export function ledgerStatus(ledger: Pick<Ledger, "mode" | "lockMode">) {
   if (ledger.mode === "locked") {
+    if (ledger.lockMode === "automatic-predeadline") {
+      return {
+        label: "Locked before deadline",
+        tone: "good" as const,
+        detail: "This snapshot was automatically captured and fingerprinted shortly before the official deadline. These are the forecasts that will be scored.",
+      };
+    }
     return {
       label: ledger.lockMode === "manual-predeadline" ? "Locked early" : "Locked",
       tone: "good" as const,
@@ -227,7 +240,7 @@ export function ledgerStatus(ledger: Pick<Ledger, "mode" | "lockMode">) {
     return {
       label: "Lock pending",
       tone: "warn" as const,
-      detail: "The deadline has passed. The frozen snapshot hasn't been published yet, so the table below is the latest live export.",
+      detail: "The deadline has passed, but the frozen snapshot is unavailable. Post-deadline recalculated projections are hidden to protect the historical record.",
     };
   }
   return {

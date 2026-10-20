@@ -20,7 +20,9 @@ The product is live at **[fplprism.com](https://fplprism.com/dashboard)**. It us
 | [FPL Prism Modelbook](https://fplprism.com/modelbook) | Public, timestamped forward-test workspace linked from the dashboard. |
 | [About](https://fplprism.com/about) and [Contact](https://fplprism.com/contact) | Explain the project, its limits, and where to send feedback or privacy questions. |
 
-The production dashboard reports the current Gameweek and model version from the live feed. The active production model is **`1.4.0`**; the live Modelbook follows the next scheduled **Gameweek 7** projection window, with GW3–GW6 preserved as immutable forward-test archives. Both surfaces show the same training status: the live target is trained through the latest completed Gameweek and uses minutes-weighted current-season evidence blended with historical priors.
+The production dashboard reports the current Gameweek and model version from the live feed. The active production model is **`1.4.0`**; the live Modelbook follows **Gameweek 8**, with GW3–GW6 preserved as forward-test archives. GW7 is not scored because its pre-deadline export was not retained; the site does not substitute projections recalculated after the deadline. Both surfaces show the same training status: the live target is trained through completed Gameweeks and uses minutes-weighted current-season evidence blended with historical priors.
+
+The scheduled Modelbook workflow checks the official FPL deadline every five minutes, captures an immutable production export in the final ten minutes before the deadline, fingerprints it with SHA-256 and publishes it to `main`. If a lock is missing after a deadline, the Modelbook hides the recalculated forecast instead of presenting it as the original. Once all fixtures are provisionally finished, the workflow builds the historical report from that frozen export and official points.
 
 ### Advertising
 
@@ -83,6 +85,7 @@ npm run typecheck
 npm run build
 npm run model:check
 npm run model:check:v12
+npm run modelbook:check
 ```
 
 The GitHub Actions workflow runs the type check, both deterministic model suites, the walk-forward backtest and the production build on pushes and pull requests.

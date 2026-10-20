@@ -1,0 +1,51 @@
+name: Freeze and archive Modelbook
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+    inputs:
+      gameweek:
+        description: "Optional Gameweek to process; freezing still happens only in the final 10 minutes before deadline"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: modelbook-snapshots
+  cancel-in-progress: false
+
+jobs:
+  freeze-and-archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Freeze due forecasts and archive completed weeks
+        env:
+          FPL_PRISM_SITE_URL: https://fplprism.com
+          MODELBOOK_GAMEWEEK: ${{ inputs.gameweek }}
+        run: node scripts/modelbook-automation.mjs
+
+      - name: Publish new immutable Modelbook files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/modelbook/data lib/modelbook.ts
+          if git diff --cached --quiet; then
+            echo "No Modelbook changes to publish."
+            exit 0
+          fi
+          git commit -m "Freeze and archive Gameweek Modelbook data"
+          git push origin HEAD:main

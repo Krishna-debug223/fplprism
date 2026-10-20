@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit",
     "model:check": "tsc --target ES2022 --module commonjs --moduleResolution node --strict --esModuleInterop --skipLibCheck --outDir .model-check scripts/model-validation.ts lib/risk.ts lib/types.ts && node .model-check/scripts/model-validation.js",
     "model:check:v12": "rm -rf .model-check-v12 && tsc --target ES2022 --module commonjs --moduleResolution node --strict --esModuleInterop --skipLibCheck --outDir .model-check-v12 scripts/model-validation-v12.ts lib/risk-v12.ts lib/risk.ts lib/sportsbook.ts lib/types.ts && node .model-check-v12/scripts/model-validation-v12.js",
+    "modelbook:check": "node --test scripts/modelbook-automation.test.mjs",
     "backtest": "rm -rf .backtest-build && tsc --target ES2022 --module commonjs --moduleResolution node --strict --esModuleInterop --skipLibCheck --outDir .backtest-build scripts/backtest.ts lib/risk-v12.ts lib/risk.ts lib/sportsbook.ts lib/types.ts && node .backtest-build/scripts/backtest.js",
     "sportsbook:calibrate": "rm -rf .sportsbook-calibration && tsc --target ES2022 --module commonjs --moduleResolution node --strict --esModuleInterop --skipLibCheck --outDir .sportsbook-calibration scripts/calibrate-sportsbook.ts lib/sportsbook.ts && node .sportsbook-calibration/scripts/calibrate-sportsbook.js"
   },

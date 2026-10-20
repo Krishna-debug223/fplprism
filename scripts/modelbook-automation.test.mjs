@@ -1,0 +1,61 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { archiveReport, isCaptureWindow, metricSet } from "./modelbook-automation.mjs";
+
+test("report metrics use actual minus forecast and one consistent active cohort", () => {
+  const locked = {
+    gameweek: 8,
+    modelVersion: "1.3.0",
+    contentHash: "snapshot-hash",
+    lockedAt: "2026-10-23T17:20:00.000Z",
+    snapshot: {
+      training: { trainedThroughGameweek: 7, targetGameweek: 8, method: "walk-forward", validation: "prior weeks" },
+      rows: [
+        { id: 1, name: "Forward", position: "FWD", projected: 3.5 },
+        { id: 2, name: "Midfielder", position: "MID", projected: 3 },
+        { id: 3, name: "Keeper", position: "GKP", projected: 1 },
+      ],
+    },
+  };
+  const live = {
+    elements: [
+      { id: 1, stats: { minutes: 90, total_points: 4 } },
+      { id: 2, stats: { minutes: 90, total_points: 1 } },
+      { id: 3, stats: { minutes: 0, total_points: 0 } },
+    ],
+  };
+  const fixtures = [
+    { started: true, finished: false, finished_provisional: true, minutes: 90 },
+    { started: true, finished: false, finished_provisional: true, minutes: 90 },
+  ];
+
+  const report = archiveReport(8, locked, live, fixtures, "2026-10-25T20:00:00.000Z");
+  assert.equal(report.overall.count, 3);
+  assert.equal(report.overall.mae, 1.167);
+  assert.equal(report.overall.bias, -0.833);
+  assert.equal(report.activeCohort.count, 2);
+  assert.equal(report.activeCohort.mae, 1.25);
+  assert.equal(report.activeCohort.bias, -0.75);
+  assert.equal(report.activeCohort.within2, 100);
+  assert.deepEqual(Object.keys(report.byPosition), ["MID", "FWD"]);
+  assert.equal(report.actualsFinality.fixtureCount, 2);
+  assert.equal(report.actualsFinality.finishedProvisional, 2);
+  assert.equal(report.final, false);
+  assert.equal(report.bestPredictions[0].name, "Forward");
+  assert.equal(report.largestMisses[0].name, "Midfielder");
+
+  const finalized = archiveReport(8, locked, live, fixtures.map((fixture) => ({ ...fixture, finished: true })), "2026-10-25T20:00:00.000Z");
+  assert.equal(finalized.final, true);
+});
+
+test("empty metric cohorts fail instead of publishing misleading zeros", () => {
+  assert.throws(() => metricSet([]), /empty report cohort/);
+});
+
+test("a deadline snapshot can only be captured in the final ten minutes", () => {
+  const deadline = Date.parse("2026-10-23T17:30:00.000Z");
+  assert.equal(isCaptureWindow(deadline, deadline - 60 * 60 * 1000), false);
+  assert.equal(isCaptureWindow(deadline, deadline - 10 * 60 * 1000), true);
+  assert.equal(isCaptureWindow(deadline, deadline - 1), true);
+  assert.equal(isCaptureWindow(deadline, deadline), false);
+});

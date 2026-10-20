@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createHash } from "node:crypto";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 
 import { MODEL_VERSION, positionName, projectPlayer } from "@/lib/risk-v12";
 import { buildNewsScan } from "@/lib/news-scan";
@@ -57,6 +60,28 @@ type SnapshotPayload = {
 
 const SNAPSHOT_TTL_MS = 30_000;
 const snapshotCache = new Map<string, { expiresAt: number; promise: Promise<SnapshotPayload> }>();
+const LOCKED_DATA_DIR = path.join(process.cwd(), "public", "modelbook", "data");
+
+async function frozenSnapshot(eventId: number) {
+  try {
+    const text = await readFile(path.join(LOCKED_DATA_DIR, `gw${eventId}-locked.json`), "utf8");
+    const artifact = JSON.parse(text) as {
+      gameweek?: number;
+      snapshot?: SnapshotPayload;
+      contentHash?: string;
+      lockMode?: string;
+    } & SnapshotPayload;
+    const snapshot = artifact.snapshot ?? artifact;
+    const validHash = Boolean(artifact.snapshot && artifact.contentHash)
+      && (artifact.lockMode !== "automatic-predeadline"
+        || createHash("sha256").update(JSON.stringify(artifact.snapshot)).digest("hex") === artifact.contentHash);
+    return validHash && Number(snapshot.gameweek ?? artifact.gameweek) === eventId && Array.isArray(snapshot.rows) && snapshot.rows.length
+      ? snapshot
+      : null;
+  } catch {
+    return null;
+  }
+}
 
 function cachedSnapshot(key: string, build: () => Promise<SnapshotPayload>) {
   const now = Date.now();
@@ -90,22 +115,33 @@ export async function GET(request: NextRequest) {
 
   try {
     const payload = await cachedSnapshot(cacheKey, async () => {
-      const [bootstrapResponse, fixturesResponse, historyResponse, sportsbookResponse] =
-        await Promise.all([
-          // Bootstrap is over 2 MB and exceeds Next's data-cache entry limit.
-          // The route-level snapshot cache and public CDN cache provide the
-          // bounded reuse instead of repeatedly attempting to cache this body.
-          fetch(`${origin}/api/fpl/bootstrap`, { cache: "no-store" }),
-          fetch(`${origin}/api/fpl/fixtures`, { next: { revalidate: 120 } }),
-          fetch(`${origin}/api/fpl/history`, { next: { revalidate: 86400 } }),
-          fetch(`${origin}/api/sportsbook`, { next: { revalidate: 300 } }),
-        ]);
-
-      if (!bootstrapResponse.ok || !fixturesResponse.ok) {
+      // Bootstrap is over 2 MB and exceeds Next's data-cache entry limit. The
+      // route-level snapshot cache and public CDN cache provide bounded reuse.
+      const bootstrapResponse = await fetch(`${origin}/api/fpl/bootstrap`, { cache: "no-store" });
+      if (!bootstrapResponse.ok) {
         throw new Error("Live FPL source data is unavailable");
       }
-
       const bootstrap = (await bootstrapResponse.json()) as BootstrapPayload;
+      const event = Number.isInteger(requestedEvent) && requestedEvent > 0
+        ? bootstrap.events.find((item) => item.id === requestedEvent)
+        : bootstrap.events.find((item) => item.is_next) ??
+          bootstrap.events.find((item) => item.is_current);
+
+      if (!event) throw new Error("NO_MATCHING_EVENT");
+      const deadline = Date.parse(event.deadline_time);
+      if (Number.isFinite(deadline) && Date.now() >= deadline) {
+        const frozen = await frozenSnapshot(event.id);
+        if (frozen) return frozen;
+        throw new Error("NO_FROZEN_SNAPSHOT");
+      }
+
+      const [fixturesResponse, historyResponse, sportsbookResponse] = await Promise.all([
+        fetch(`${origin}/api/fpl/fixtures`, { next: { revalidate: 120 } }),
+        fetch(`${origin}/api/fpl/history`, { next: { revalidate: 86400 } }),
+        fetch(`${origin}/api/sportsbook`, { next: { revalidate: 300 } }),
+      ]);
+      if (!fixturesResponse.ok) throw new Error("Live FPL source data is unavailable");
+
       const fixturePayload = (await fixturesResponse.json()) as { fixtures: FplFixture[] };
       const history = historyResponse.ok
         ? ((await historyResponse.json()) as HistoricalPayload)
@@ -113,13 +149,6 @@ export async function GET(request: NextRequest) {
       const sportsbook = sportsbookResponse.ok
         ? ((await sportsbookResponse.json()) as SportsbookPayload)
         : null;
-
-      const event = Number.isInteger(requestedEvent) && requestedEvent > 0
-        ? bootstrap.events.find((item) => item.id === requestedEvent)
-        : bootstrap.events.find((item) => item.is_next) ??
-          bootstrap.events.find((item) => item.is_current);
-
-      if (!event) throw new Error("NO_MATCHING_EVENT");
 
       const fixtures = fixturePayload.fixtures ?? [];
       const teamMap = new Map(bootstrap.teams.map((team) => [team.id, team]));
@@ -219,11 +248,21 @@ export async function GET(request: NextRequest) {
       requestId: request.headers.get("x-vercel-id"),
       error: error instanceof Error ? error.message : "Unknown error",
     }));
-    const status = error instanceof Error && error.message === "NO_MATCHING_EVENT" ? 404 : 503;
+    const status = error instanceof Error && error.message === "NO_MATCHING_EVENT"
+      ? 404
+      : error instanceof Error && error.message === "NO_FROZEN_SNAPSHOT"
+        ? 409
+        : 503;
     const headers = jsonHeaders(request);
     headers.set("Cache-Control", "no-store, max-age=0");
     return NextResponse.json(
-      { error: status === 404 ? "No matching FPL event was found." : "Live projection data is temporarily unavailable." },
+      {
+        error: status === 404
+          ? "No matching FPL event was found."
+          : status === 409
+            ? "The Gameweek deadline has passed and its frozen forecast is unavailable. Recalculated projections are hidden to protect the historical record."
+            : "Live projection data is temporarily unavailable.",
+      },
       { status, headers },
     );
   }
