@@ -198,7 +198,7 @@ export default async function ModelbookReportPage({ params }: Params) {
             <dt>Model version</dt><dd>{report.modelVersion}</dd>
             {report.forecastProvenance && <><dt>Forecast source</dt><dd>{report.forecastProvenance === "reconstructed-after-deadline" ? "Reconstructed after the deadline" : report.forecastProvenance === "predeadline-fallback" ? "Latest saved pre-deadline checkpoint" : report.forecastProvenance === "predeadline-published" ? "Published pre-deadline export" : "Frozen deadline export"}</dd></>}
             {report.training && <><dt>Training window</dt><dd>Results through GW{report.training.trainedThroughGameweek}; {report.training.validation}.</dd></>}
-            {meta && <><dt>{isPredeadlinePublished ? "Published" : isPredeadlineFallback ? "Checkpoint captured" : "Frozen"}</dt><dd>{formatDate(meta.lockedAt)}{meta.lockedBeforeDeadline ? ", before the deadline" : ""}</dd></>}
+            {meta && <><dt>{isReconstructed ? "Reconstruction locked" : isPredeadlinePublished ? "Published" : isPredeadlineFallback ? "Checkpoint captured" : "Frozen"}</dt><dd>{formatDate(meta.lockedAt)}{meta.lockedBeforeDeadline ? ", before the deadline" : ""}</dd></>}
             <dt>Report generated</dt><dd>{formatDate(report.generatedAt)}</dd>
             {report.actualsSource && <><dt>Points source</dt><dd>{report.actualsSource}</dd></>}
             {report.actualsFinality && (

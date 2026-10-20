@@ -5,9 +5,11 @@ import gw5Report from "@/public/modelbook/data/gw5-report.json";
 import gw6Report from "@/public/modelbook/data/gw6-report.json";
 import gw6Meta from "@/public/modelbook/data/gw6-snapshot-meta.json";
 
+import gw7Report from "@/public/modelbook/data/gw7-report.json";
+import gw7Meta from "@/public/modelbook/data/gw7-snapshot-meta.json";
 // Modelbook archive imports are registered below.
 
-// GW7 has no recoverable deadline snapshot, so GW8 is the active forecast.
+// GW7 has no recoverable original deadline snapshot; its separate audit reconstruction stays archived.
 // The archive workflow advances this when it publishes each future report.
 export const CURRENT_GAMEWEEK = 8;
 export const SNAPSHOT_URL = `/api/ledger/snapshot?event=${CURRENT_GAMEWEEK}`;
@@ -54,6 +56,7 @@ export type SnapshotMeta = {
 };
 
 const ARCHIVE: Record<number, { report: ModelbookReport; meta?: SnapshotMeta }> = {
+  7: { report: gw7Report as ModelbookReport, meta: gw7Meta as SnapshotMeta },
   6: { report: gw6Report as ModelbookReport, meta: gw6Meta as SnapshotMeta },
   5: { report: gw5Report as ModelbookReport },
   4: { report: gw4Report as ModelbookReport },

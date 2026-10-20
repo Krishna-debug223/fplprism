@@ -85,11 +85,12 @@ async function frozenSnapshot(eventId: number) {
       lockMode?: string;
     } & SnapshotPayload;
     const snapshot = artifact.snapshot ?? artifact;
-    const requiresHash = ["automatic-predeadline", "automatic-predeadline-fallback"].includes(artifact.lockMode ?? "");
+    const isRetrospectiveReconstruction = artifact.lockMode === "retrospective-reconstruction";
+    const requiresHash = ["automatic-predeadline", "automatic-predeadline-fallback", "retrospective-reconstruction"].includes(artifact.lockMode ?? "");
     const validHash = Boolean(artifact.snapshot && artifact.contentHash)
       && (!requiresHash
         || createHash("sha256").update(JSON.stringify(artifact.snapshot)).digest("hex") === artifact.contentHash);
-    return validHash && Number(snapshot.gameweek ?? artifact.gameweek) === eventId && Array.isArray(snapshot.rows) && snapshot.rows.length
+    return !isRetrospectiveReconstruction && validHash && Number(snapshot.gameweek ?? artifact.gameweek) === eventId && Array.isArray(snapshot.rows) && snapshot.rows.length
       ? snapshot
       : null;
   } catch {

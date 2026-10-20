@@ -129,6 +129,7 @@ function archiveReport(gameweek, locked, livePayload, fixturePayload, fetchedAt)
   }
   const fixtures = fixturePayload ?? [];
   const allFixturesOfficiallyFinished = fixtures.length > 0 && fixtures.every((fixture) => fixture.finished);
+  const isReconstructed = locked.lockMode === "retrospective-reconstruction";
   const report = {
     gameweek,
     modelVersion: locked.modelVersion ?? locked.snapshot?.modelVersion ?? "unknown",
@@ -144,8 +145,12 @@ function archiveReport(gameweek, locked, livePayload, fixturePayload, fetchedAt)
       finishedProvisional: fixtures.filter((fixture) => fixture.finished_provisional).length,
       ninetyMinutes: fixtures.filter((fixture) => Number(fixture.minutes ?? 0) >= 90).length,
     },
-    forecastProvenance: locked.lockMode === "automatic-predeadline-fallback" ? "predeadline-fallback" : "predeadline-published",
-    provenanceNote: `${locked.lockMode === "automatic-predeadline-fallback" ? `The final deadline capture was missed, so this report uses the latest saved GW${gameweek} checkpoint from before the deadline.` : `Scored against official FPL points using the immutable GW${gameweek} snapshot captured before its deadline.`} The forecast fingerprint is ${locked.contentHash}.${allFixturesOfficiallyFinished ? " FPL has marked every fixture finished." : " These points are provisional and will be checked again until FPL marks every fixture finished."}`,
+    forecastProvenance: isReconstructed
+      ? "reconstructed-after-deadline"
+      : locked.lockMode === "automatic-predeadline-fallback" ? "predeadline-fallback" : "predeadline-published",
+    provenanceNote: isReconstructed
+      ? `${locked.lockNote ?? `GW${gameweek} was reconstructed after its deadline because the original forecast is unavailable.`} The fixed audit fingerprint is ${locked.contentHash}.${allFixturesOfficiallyFinished ? " FPL has marked every fixture finished." : " These points are provisional and will be checked again until FPL marks every fixture finished."}`
+      : `${locked.lockMode === "automatic-predeadline-fallback" ? `The final deadline capture was missed, so this report uses the latest saved GW${gameweek} checkpoint from before the deadline.` : `Scored against official FPL points using the immutable GW${gameweek} snapshot captured before its deadline.`} The forecast fingerprint is ${locked.contentHash}.${allFixturesOfficiallyFinished ? " FPL has marked every fixture finished." : " These points are provisional and will be checked again until FPL marks every fixture finished."}`,
     training: locked.snapshot?.training ?? undefined,
     overall: metricSet(scored),
     activeCohort: metricSet(active),
@@ -157,7 +162,10 @@ function archiveReport(gameweek, locked, livePayload, fixturePayload, fetchedAt)
       .filter((row) => row.actual >= 4 && row.absoluteError <= 1.5)
       .sort((a, b) => b.actual - a.actual || a.absoluteError - b.absoluteError || a.name.localeCompare(b.name))
       .slice(0, 12),
-    bestPredictionsNote: "High-output players scoring at least 4 points where the pre-deadline forecast was within 1.5 points of the official result.",
+    bestPredictionsTitle: isReconstructed ? "Closest calls in the reconstruction" : undefined,
+    bestPredictionsNote: isReconstructed
+      ? "High-output players scoring at least 4 points where the reconstructed baseline was within 1.5 points. These are not the original GW deadline calls."
+      : "High-output players scoring at least 4 points where the pre-deadline forecast was within 1.5 points of the official result.",
   };
   return report;
 }
@@ -333,12 +341,14 @@ async function archiveFinishedGameweeks(activeGameweek) {
     const lock = await readJson(path.join(DATA_DIR, file));
     const gameweek = Number(lock?.gameweek);
     if (!Number.isInteger(gameweek) || !lock?.contentHash || !lock?.snapshot?.rows?.length) continue;
-    if (["automatic-predeadline", "automatic-predeadline-fallback"].includes(lock.lockMode)
+    const isManagedLock = ["automatic-predeadline", "automatic-predeadline-fallback"].includes(lock.lockMode);
+    const isReconstructed = lock.lockMode === "retrospective-reconstruction";
+    if ((isManagedLock || isReconstructed)
       && digest(JSON.stringify(lock.snapshot)) !== lock.contentHash) {
       throw new Error(`GW${gameweek} frozen snapshot hash does not match its contents`);
     }
     const currentReport = await readJson(reportFile(gameweek));
-    if (!["automatic-predeadline", "automatic-predeadline-fallback"].includes(lock.lockMode) && currentReport) continue;
+    if (!isManagedLock && !isReconstructed && currentReport) continue;
     if (currentReport?.actualsFinality?.fixtureCount > 0
       && currentReport.actualsFinality.finished === currentReport.actualsFinality.fixtureCount) continue;
     const [fixtures, livePayload] = await Promise.all([
@@ -362,7 +372,8 @@ async function archiveFinishedGameweeks(activeGameweek) {
       lockedAt: lock.lockedAt,
       deadline: lock.deadlineTime,
       contentHash: lock.contentHash,
-      lockedBeforeDeadline: true,
+      lockedBeforeDeadline: !isReconstructed,
+      reconstruction: isReconstructed,
     };
     await writeJson(reportFile(gameweek), nextReport);
     await writeJson(actualsFile(gameweek), {

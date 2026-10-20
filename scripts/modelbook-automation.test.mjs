@@ -97,3 +97,29 @@ test("fallback report provenance clearly identifies the last saved checkpoint", 
   assert.equal(report.forecastProvenance, "predeadline-fallback");
   assert.match(report.provenanceNote, /latest saved GW8 checkpoint/);
 });
+
+test("retrospective reports identify a reconstruction and never call it a deadline forecast", () => {
+  const locked = {
+    gameweek: 7,
+    modelVersion: "1.4.0",
+    contentHash: "reconstruction-hash",
+    lockMode: "retrospective-reconstruction",
+    lockNote: "The original GW7 pre-deadline forecast is unavailable.",
+    snapshot: {
+      training: { trainedThroughGameweek: 6, targetGameweek: 7 },
+      rows: [{ id: 1, name: "Player", position: "MID", projected: 4.5 }],
+    },
+  };
+  const report = archiveReport(
+    7,
+    locked,
+    { elements: [{ id: 1, stats: { minutes: 90, total_points: 5 } }] },
+    [{ finished: false, finished_provisional: true, started: true, minutes: 90 }],
+    "2026-10-20T03:00:00.000Z",
+  );
+  assert.equal(report.forecastProvenance, "reconstructed-after-deadline");
+  assert.equal(report.final, false);
+  assert.match(report.provenanceNote, /original GW7 pre-deadline forecast is unavailable/i);
+  assert.match(report.bestPredictionsNote, /not the original GW deadline calls/i);
+  assert.doesNotMatch(report.provenanceNote, /captured before its deadline/i);
+});

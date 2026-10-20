@@ -1,0 +1,19 @@
+{
+  "season": "2026/27",
+  "gameweek": 7,
+  "lockedAt": "2026-10-20T03:54:15.818Z",
+  "deadline": "2026-10-17T10:00:00Z",
+  "modelVersion": "1.4.0",
+  "sourceModelVersion": "1.4.0",
+  "lockedBeforeDeadline": false,
+  "reconstruction": true,
+  "contentHash": "a1b9ab9a8d206542e920d1370a40f73300b9802db49972a8c7731fe34fafaf66",
+  "method": "Projection features use only event live feeds for GW1-GW6 and finished fixtures before GW7. GW7 actuals, scores, team form, and live player news are used only in the separate scoring report.",
+  "limitations": [
+    "The original GW7 deadline model version and exact player/news state cannot be recovered.",
+    "Availability and injury news are neutral assumptions because a GW7 pre-deadline news snapshot is missing.",
+    "The player universe, team, position, and price baseline come from the frozen GW6 export.",
+    "Model code version 1.4.0 is applied retrospectively and is not the model version published for GW7.",
+    "The archive is an audit reconstruction and is not directly comparable to published pre-deadline reports."
+  ]
+}

@@ -1,0 +1,317 @@
+{
+  "gameweek": 7,
+  "modelVersion": "1.4.0",
+  "final": false,
+  "generatedAt": "2026-10-20T03:54:21.571Z",
+  "snapshotHash": "a1b9ab9a8d206542e920d1370a40f73300b9802db49972a8c7731fe34fafaf66",
+  "actualsFetchedAt": "2026-10-20T03:54:21.571Z",
+  "actualsSource": "https://fantasy.premierleague.com/api/event/7/live/",
+  "actualsFinality": {
+    "fixtureCount": 10,
+    "started": 10,
+    "finished": 0,
+    "finishedProvisional": 10,
+    "ninetyMinutes": 10
+  },
+  "forecastProvenance": "reconstructed-after-deadline",
+  "provenanceNote": "Original GW7 pre-deadline forecast and checkpoint are unavailable. This fixed audit baseline was reconstructed after the deadline from data through GW6 and must not be described as the published GW7 prediction. The fixed audit fingerprint is a1b9ab9a8d206542e920d1370a40f73300b9802db49972a8c7731fe34fafaf66. These points are provisional and will be checked again until FPL marks every fixture finished.",
+  "training": {
+    "trainedThroughGameweek": 6,
+    "targetGameweek": 7,
+    "method": "Retrospective walk-forward reconstruction using official FPL live player statistics and completed fixtures through GW6.",
+    "validation": "Not a recovered deadline forecast; neutral availability and no historical news/market snapshot.",
+    "source": "Official FPL bootstrap, fixtures, and event live feeds."
+  },
+  "overall": {
+    "count": 667,
+    "mae": 1.59,
+    "rmse": 2.154,
+    "bias": -0.508,
+    "within1": 24.3,
+    "within2": 80.7,
+    "within3": 89.7
+  },
+  "activeCohort": {
+    "count": 304,
+    "mae": 1.909,
+    "rmse": 2.797,
+    "bias": 0.466,
+    "within1": 41.4,
+    "within2": 68.4,
+    "within3": 78.9
+  },
+  "byPosition": {
+    "GKP": {
+      "count": 21,
+      "mae": 2.083,
+      "rmse": 2.499,
+      "bias": -0.023,
+      "within1": 19,
+      "within2": 57.1,
+      "within3": 81
+    },
+    "DEF": {
+      "count": 104,
+      "mae": 2.106,
+      "rmse": 2.842,
+      "bias": 0.551,
+      "within1": 35.6,
+      "within2": 59.6,
+      "within3": 73.1
+    },
+    "MID": {
+      "count": 144,
+      "mae": 1.71,
+      "rmse": 2.68,
+      "bias": 0.359,
+      "within1": 47.2,
+      "within2": 75,
+      "within3": 83.3
+    },
+    "FWD": {
+      "count": 35,
+      "mae": 2.04,
+      "rmse": 3.264,
+      "bias": 0.947,
+      "within1": 48.6,
+      "within2": 74.3,
+      "within3": 77.1
+    }
+  },
+  "largestMisses": [
+    {
+      "id": 156,
+      "name": "Neto",
+      "position": "MID",
+      "projected": 2.8539952828071025,
+      "actual": 15,
+      "error": 12.146004717192898,
+      "absoluteError": 12.146004717192898,
+      "minutes": 90
+    },
+    {
+      "id": 129,
+      "name": "Ayari",
+      "position": "MID",
+      "projected": 3.0534150419049015,
+      "actual": 13,
+      "error": 9.946584958095098,
+      "absoluteError": 9.946584958095098,
+      "minutes": 80
+    },
+    {
+      "id": 53,
+      "name": "Manzambi",
+      "position": "MID",
+      "projected": 1.9909688848936815,
+      "actual": 11,
+      "error": 9.009031115106318,
+      "absoluteError": 9.009031115106318,
+      "minutes": 71
+    },
+    {
+      "id": 148,
+      "name": "Hato",
+      "position": "DEF",
+      "projected": 2.006282633930158,
+      "actual": 11,
+      "error": 8.993717366069841,
+      "absoluteError": 8.993717366069841,
+      "minutes": 90
+    },
+    {
+      "id": 138,
+      "name": "Kostoulas",
+      "position": "FWD",
+      "projected": 3.063437962566569,
+      "actual": 12,
+      "error": 8.936562037433431,
+      "absoluteError": 8.936562037433431,
+      "minutes": 70
+    },
+    {
+      "id": 79,
+      "name": "Evanilson",
+      "position": "FWD",
+      "projected": 3.219224572835605,
+      "actual": 12,
+      "error": 8.780775427164395,
+      "absoluteError": 8.780775427164395,
+      "minutes": 78
+    },
+    {
+      "id": 515,
+      "name": "Maddison",
+      "position": "MID",
+      "projected": 1.159047851270736,
+      "actual": 9,
+      "error": 7.840952148729264,
+      "absoluteError": 7.840952148729264,
+      "minutes": 68
+    },
+    {
+      "id": 261,
+      "name": "Iwobi",
+      "position": "MID",
+      "projected": 3.291479770826132,
+      "actual": 11,
+      "error": 7.7085202291738675,
+      "absoluteError": 7.7085202291738675,
+      "minutes": 90
+    },
+    {
+      "id": 411,
+      "name": "Haaland",
+      "position": "FWD",
+      "projected": 5.313303175779408,
+      "actual": 13,
+      "error": 7.686696824220592,
+      "absoluteError": 7.686696824220592,
+      "minutes": 90
+    },
+    {
+      "id": 504,
+      "name": "Vuskovic",
+      "position": "DEF",
+      "projected": 3.774451643297065,
+      "actual": 11,
+      "error": 7.2255483567029355,
+      "absoluteError": 7.2255483567029355,
+      "minutes": 90
+    },
+    {
+      "id": 114,
+      "name": "Boscagli",
+      "position": "DEF",
+      "projected": 3.124673710804213,
+      "actual": 10,
+      "error": 6.875326289195787,
+      "absoluteError": 6.875326289195787,
+      "minutes": 80
+    },
+    {
+      "id": 31,
+      "name": "Konsa",
+      "position": "DEF",
+      "projected": 2.4074918692879668,
+      "actual": 9,
+      "error": 6.592508130712034,
+      "absoluteError": 6.592508130712034,
+      "minutes": 90
+    }
+  ],
+  "bestPredictions": [
+    {
+      "id": 124,
+      "name": "Groß",
+      "position": "MID",
+      "projected": 4.2472203102517225,
+      "actual": 5,
+      "error": 0.7527796897482775,
+      "absoluteError": 0.7527796897482775,
+      "minutes": 70
+    },
+    {
+      "id": 334,
+      "name": "Muharemović",
+      "position": "DEF",
+      "projected": 3.594905045302152,
+      "actual": 5,
+      "error": 1.405094954697848,
+      "absoluteError": 1.405094954697848,
+      "minutes": 90
+    },
+    {
+      "id": 112,
+      "name": "Van Hecke",
+      "position": "DEF",
+      "projected": 3.6917923500660974,
+      "actual": 4,
+      "error": 0.3082076499339026,
+      "absoluteError": 0.3082076499339026,
+      "minutes": 90
+    },
+    {
+      "id": 449,
+      "name": "Hall",
+      "position": "DEF",
+      "projected": 3.6839720408286856,
+      "actual": 4,
+      "error": 0.31602795917131443,
+      "absoluteError": 0.31602795917131443,
+      "minutes": 90
+    },
+    {
+      "id": 542,
+      "name": "E.Le Fée",
+      "position": "MID",
+      "projected": 3.629146317571649,
+      "actual": 4,
+      "error": 0.37085368242835104,
+      "absoluteError": 0.37085368242835104,
+      "minutes": 90
+    },
+    {
+      "id": 106,
+      "name": "Thiago",
+      "position": "FWD",
+      "projected": 3.624051142887983,
+      "actual": 4,
+      "error": 0.3759488571120171,
+      "absoluteError": 0.3759488571120171,
+      "minutes": 90
+    },
+    {
+      "id": 455,
+      "name": "Tonali",
+      "position": "MID",
+      "projected": 3.202085454464249,
+      "actual": 4,
+      "error": 0.7979145455357508,
+      "absoluteError": 0.7979145455357508,
+      "minutes": 90
+    },
+    {
+      "id": 277,
+      "name": "Egan",
+      "position": "DEF",
+      "projected": 3.07260195917129,
+      "actual": 4,
+      "error": 0.9273980408287099,
+      "absoluteError": 0.9273980408287099,
+      "minutes": 90
+    },
+    {
+      "id": 356,
+      "name": "Virgil",
+      "position": "DEF",
+      "projected": 2.986702411571323,
+      "actual": 4,
+      "error": 1.013297588428677,
+      "absoluteError": 1.013297588428677,
+      "minutes": 90
+    },
+    {
+      "id": 418,
+      "name": "Maguire",
+      "position": "DEF",
+      "projected": 2.875946825809977,
+      "actual": 4,
+      "error": 1.1240531741900228,
+      "absoluteError": 1.1240531741900228,
+      "minutes": 90
+    },
+    {
+      "id": 558,
+      "name": "Schlager",
+      "position": "MID",
+      "projected": 2.8192435561232116,
+      "actual": 4,
+      "error": 1.1807564438767884,
+      "absoluteError": 1.1807564438767884,
+      "minutes": 90
+    }
+  ],
+  "bestPredictionsTitle": "Closest calls in the reconstruction",
+  "bestPredictionsNote": "High-output players scoring at least 4 points where the reconstructed baseline was within 1.5 points. These are not the original GW deadline calls."
+}
