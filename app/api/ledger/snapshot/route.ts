@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 
+import { getSiteUrl } from "@/lib/site-url";
 import { MODEL_VERSION, positionName, projectPlayer } from "@/lib/risk-v12";
 import { buildNewsScan } from "@/lib/news-scan";
 import type { SportsbookPayload } from "@/lib/sportsbook";
@@ -109,7 +110,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Too many projection requests. Try again shortly." }, { status: 429, headers });
   }
 
-  const origin = request.nextUrl.origin;
+  // Preview deployment hostnames may be access-protected. Use the canonical
+  // public host for our own FPL proxy routes so snapshots work in every env.
+  const origin = getSiteUrl();
   const requestedEvent = Number(request.nextUrl.searchParams.get("event") ?? "");
   const cacheKey = Number.isInteger(requestedEvent) && requestedEvent > 0 ? `event:${requestedEvent}` : "next";
 
@@ -242,12 +245,15 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(payload, { headers: jsonHeaders(request) });
   } catch (error) {
-    console.error(JSON.stringify({
-      level: "error",
-      route: "/api/ledger/snapshot",
-      requestId: request.headers.get("x-vercel-id"),
-      error: error instanceof Error ? error.message : "Unknown error",
-    }));
+    const message = error instanceof Error ? error.message : "Unknown error";
+    if (message !== "NO_FROZEN_SNAPSHOT") {
+      console.error(JSON.stringify({
+        level: "error",
+        route: "/api/ledger/snapshot",
+        requestId: request.headers.get("x-vercel-id"),
+        error: message,
+      }));
+    }
     const status = error instanceof Error && error.message === "NO_MATCHING_EVENT"
       ? 404
       : error instanceof Error && error.message === "NO_FROZEN_SNAPSHOT"
