@@ -42,7 +42,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .modelbook-state public/modelbook/data lib/modelbook.ts
+          git add -A -- public/modelbook/data lib/modelbook.ts
+          if [ -d .modelbook-state ]; then git add -A -- .modelbook-state; fi
           if git diff --cached --quiet; then
             echo "No Modelbook changes to publish."
             exit 0

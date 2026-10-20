@@ -85,8 +85,9 @@ async function frozenSnapshot(eventId: number) {
       lockMode?: string;
     } & SnapshotPayload;
     const snapshot = artifact.snapshot ?? artifact;
+    const requiresHash = ["automatic-predeadline", "automatic-predeadline-fallback"].includes(artifact.lockMode ?? "");
     const validHash = Boolean(artifact.snapshot && artifact.contentHash)
-      && (artifact.lockMode !== "automatic-predeadline"
+      && (!requiresHash
         || createHash("sha256").update(JSON.stringify(artifact.snapshot)).digest("hex") === artifact.contentHash);
     return validHash && Number(snapshot.gameweek ?? artifact.gameweek) === eventId && Array.isArray(snapshot.rows) && snapshot.rows.length
       ? snapshot
