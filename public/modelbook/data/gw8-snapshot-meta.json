@@ -1,0 +1,65 @@
+{
+  "season": "2026-27",
+  "gameweek": 8,
+  "lockedAt": "2026-10-23T15:12:31.917Z",
+  "deadline": "2026-10-23T17:30:00Z",
+  "modelVersion": "1.4.3",
+  "sourceModelVersion": "1.4.3",
+  "lockedBeforeDeadline": true,
+  "captureType": "last-predeadline-checkpoint",
+  "contentHash": "6033b55140cfb3174656108c98e08a1373933e2fff0e0d5fa2ca0e3ed476d6f9",
+  "feeds": [
+    "Official Fantasy Premier League bootstrap and fixture data",
+    "FPL Prism production projection endpoint"
+  ],
+  "sampleProjections": [
+    {
+      "id": 411,
+      "name": "Haaland",
+      "projected": 5.5863542171771305,
+      "fixture": "AVL (A)"
+    },
+    {
+      "id": 427,
+      "name": "Mbeumo",
+      "projected": 4.5723759876651915,
+      "fixture": "BOU (H)"
+    },
+    {
+      "id": 426,
+      "name": "B.Fernandes",
+      "projected": 4.448942529382584,
+      "fixture": "BOU (H)"
+    },
+    {
+      "id": 40,
+      "name": "Rogers",
+      "projected": 3.902807264158488,
+      "fixture": "TOT (H)"
+    },
+    {
+      "id": 106,
+      "name": "Thiago",
+      "projected": 3.854613139763675,
+      "fixture": "HUL (A)"
+    },
+    {
+      "id": 379,
+      "name": "Isak",
+      "projected": 3.811771253165557,
+      "fixture": "BHA (H)"
+    },
+    {
+      "id": 165,
+      "name": "João Pedro",
+      "projected": 3.791353995807455,
+      "fixture": "TOT (H)"
+    },
+    {
+      "id": 154,
+      "name": "Palmer",
+      "projected": 3.7824968357981565,
+      "fixture": "TOT (H)"
+    }
+  ]
+}
