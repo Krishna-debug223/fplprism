@@ -13,6 +13,7 @@ out/
 .DS_Store
 .model-check/
 .model-check*/
+.squad-check/
 *.tsbuildinfo
 .vercel
 .env*

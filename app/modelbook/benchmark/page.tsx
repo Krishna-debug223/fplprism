@@ -27,6 +27,7 @@ export default function BenchmarkPage() {
         <a className="btn" href={`/api/ledger/snapshot?event=${CURRENT_GAMEWEEK}`}>View complete JSON</a>
       </div>
       <p className="small muted" style={{ marginTop: 10 }}>The CSV response includes the generation time, model version and SHA-256 of the exported bytes in its HTTP headers. For a fair deadline comparison, fetch it during the benchmark&apos;s collection window.</p>
+      <p className="small" style={{ marginTop: 10 }}><Link href="/modelbook/squad-of-the-week">See the legal Free Hit Squad of the Week →</Link></p>
     </section>
     <section style={{ marginTop: 28 }}>
       <h2>Scored Gameweeks</h2>
@@ -51,7 +52,7 @@ export default function BenchmarkPage() {
     <section className="card" style={{ marginTop: 28 }}>
       <h2>What the comparison covers</h2>
       <p className="muted" style={{ marginTop: 7 }}>GW7 is left out because its forecast was rebuilt after the deadline. GW4 has no frozen ownership field for the same cohort filter. The historical GW5 source was provisionally scored; its points may be revised by the official feed. Older source hashes refer to the original export bytes and cannot be independently recomputed from the embedded JSON. Future automatic locks are rehashed before analysis.</p>
-      <p className="muted" style={{ marginTop: 7 }}>A full FPL Bench score also optimizes and scores a legal £100m Free Hit squad with captain and bench weights. The CSV contains the IDs, prices, clubs and positions needed for that process; this page does not claim to reproduce its optimizer.</p>
+      <p className="muted" style={{ marginTop: 7 }}>The <Link href="/modelbook/squad-of-the-week">Squad of the Week</Link> solves the published £100m Free Hit selection with the specified captain and bench weights and scores completed weeks with official player points. FPL Bench&apos;s own collection time, solver tie-breaking and published score remain authoritative for its leaderboard.</p>
       <p className="small" style={{ marginTop: 12 }}><a href="https://www.fplbench.com/methodology">Read FPL Bench&apos;s methodology ↗</a></p>
     </section>
   </main>;

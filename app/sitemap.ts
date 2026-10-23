@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteUrl}/contact` },
     { url: `${siteUrl}/modelbook` },
     { url: `${siteUrl}/modelbook/benchmark` },
+    { url: `${siteUrl}/modelbook/squad-of-the-week` },
     { url: `${siteUrl}/modelbook/reports/gw7` },
     { url: `${siteUrl}/modelbook/reports/gw6` },
     { url: `${siteUrl}/modelbook/reports/gw5` },

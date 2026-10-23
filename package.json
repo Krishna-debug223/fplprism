@@ -11,6 +11,7 @@
     "model:check:v12": "rm -rf .model-check-v12 && tsc --target ES2022 --module commonjs --moduleResolution node --strict --esModuleInterop --skipLibCheck --outDir .model-check-v12 scripts/model-validation-v12.ts lib/risk-v12.ts lib/risk.ts lib/sportsbook.ts lib/types.ts && node .model-check-v12/scripts/model-validation-v12.js",
     "modelbook:check": "node --test scripts/modelbook-automation.test.mjs scripts/benchmark-modelbook.test.mjs",
     "modelbook:benchmark": "node scripts/benchmark-modelbook.mjs",
+    "squad:check": "tsc --target ES2022 --module commonjs --moduleResolution node --strict --esModuleInterop --skipLibCheck --outDir .squad-check lib/free-hit-squad.ts && node --test scripts/free-hit-squad.test.mjs",
     "modelbook:reconstruct": "tsc --target ES2022 --module commonjs --moduleResolution node --strict --esModuleInterop --skipLibCheck --outDir .reconstruct-build scripts/reconstruct-modelbook-gameweek.ts lib/risk-v12.ts lib/risk.ts lib/sportsbook.ts lib/types.ts && node .reconstruct-build/scripts/reconstruct-modelbook-gameweek.js",
     "backtest": "rm -rf .backtest-build && tsc --target ES2022 --module commonjs --moduleResolution node --strict --esModuleInterop --skipLibCheck --outDir .backtest-build scripts/backtest.ts lib/risk-v12.ts lib/risk.ts lib/sportsbook.ts lib/types.ts && node .backtest-build/scripts/backtest.js",
     "replay:compile": "tsc --target ES2022 --module commonjs --moduleResolution node --strict --esModuleInterop --skipLibCheck --outDir .backtest-build scripts/historical-replay.ts scripts/backtest.ts lib/risk-v12.ts lib/risk.ts lib/sportsbook.ts lib/types.ts",
@@ -24,6 +25,7 @@
     "@supabase/supabase-js": "^2.57.4",
     "@vercel/analytics": "2.0.1",
     "@vercel/speed-insights": "2.0.0",
+    "highs": "^1.15.4",
     "next": "16.3.3",
     "react": "19.2.0",
     "react-dom": "19.2.0"

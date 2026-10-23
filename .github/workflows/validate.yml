@@ -40,6 +40,9 @@ jobs:
       - name: Modelbook archive calculations
         run: npm run modelbook:check
 
+      - name: Free Hit squad optimization and scoring
+        run: npm run squad:check
+
       - name: Full walk-forward backtest
         env:
           BACKTEST_SEASON: 2025-26
