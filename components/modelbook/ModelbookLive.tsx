@@ -6,6 +6,7 @@ import { formatClock, formatDeadline, riskBadge, timeUntil } from "@/components/
 import {
   ARCHIVED_GAMEWEEKS,
   CURRENT_GAMEWEEK,
+  SNAPSHOT_URL,
   actualPointsFor,
   ledgerStatus,
   loadCurrentLedger,
@@ -132,7 +133,7 @@ export default function ModelbookLive() {
         <div>
           <h1>Modelbook</h1>
           <p className="lead">
-            Every Gameweek&apos;s forecasts are published before the deadline, frozen, then scored against official points — misses included.
+            We publish forecasts before the deadline, freeze the available snapshot, then score it against official points — misses included. GW7 is labelled as an audit reconstruction because its original deadline snapshot is unavailable.
             {latestReport ? <> The latest scored week is <Link href={`/modelbook/reports/gw${latestReport}`}>GW{latestReport}</Link>.</> : null}
           </p>
         </div>
@@ -189,6 +190,9 @@ export default function ModelbookLive() {
         <h2 id="ledger-heading">Player forecasts</h2>
         <p className="muted small" style={{ marginTop: 2 }}>
           Sorting and filtering only change the view; stored forecasts never change. A dash under Actual means no minutes yet.
+        </p>
+        <p className="muted small" style={{ marginTop: 6 }}>
+          Independent comparisons can use the <a href={SNAPSHOT_URL}>complete GW{CURRENT_GAMEWEEK} JSON export</a>, including FPL player IDs, club, position, price and projected points. Before the deadline it can update with new information; the deadline snapshot is frozen for scoring.
         </p>
 
         <div className={`${styles.filters} card card-tight`} style={{ marginTop: 12 }}>
