@@ -74,6 +74,8 @@ test("a deadline snapshot can only be captured in the final ten minutes", () => 
 
 test("pre-deadline checkpoints cover a missed final lock without updating too frequently", () => {
   const deadline = Date.parse("2026-10-23T17:30:00.000Z");
+  assert.equal(isCheckpointDue(deadline, null, deadline - 23 * 60 * 60 * 1000), true);
+  assert.equal(isCheckpointDue(deadline, null, deadline - 25 * 60 * 60 * 1000), false);
   const now = deadline - 45 * 60 * 1000;
   assert.equal(isCheckpointDue(deadline, null, now), true);
   assert.equal(isCheckpointDue(deadline, new Date(now).toISOString(), now + 30 * 60 * 1000), false);

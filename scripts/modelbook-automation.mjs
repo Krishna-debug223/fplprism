@@ -10,7 +10,9 @@ const MODELBOOK_TS = path.join(ROOT, "lib/modelbook.ts");
 const SITE_URL = (process.env.FPL_PRISM_SITE_URL || "https://fplprism.com").replace(/\/$/, "");
 const FPL_API = "https://fantasy.premierleague.com/api";
 const CAPTURE_WINDOW_MS = 10 * 60 * 1000;
-const CHECKPOINT_WINDOW_MS = 60 * 60 * 1000;
+// GitHub's scheduled workflows can run hours late. Keep a verified forecast
+// from the entire pre-deadline comparison window as a fallback.
+const CHECKPOINT_WINDOW_MS = 24 * 60 * 60 * 1000;
 const CHECKPOINT_INTERVAL_MS = 45 * 60 * 1000;
 const ARCHIVE_IMPORT_MARKER = "// Modelbook archive imports are registered below.";
 const requestedEvent = Number(process.env.MODELBOOK_GAMEWEEK || process.argv[2] || 0);
