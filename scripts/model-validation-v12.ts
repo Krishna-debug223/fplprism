@@ -1,11 +1,11 @@
 import { projectPlayer as baseProjectPlayer } from "../lib/risk";
-import { projectPlayer, recommendJointTransferPlan } from "../lib/risk-v12";
+import { MODEL_VERSION, POSITION_CALIBRATION, projectPlayer, recommendJointTransferPlan } from "../lib/risk-v12";
 import { analyzePortfolioRisk } from "../lib/portfolio-risk";
 import type { SportsbookPayload } from "../lib/sportsbook";
 import type { FplFixture, FplPlayer, FplTeam } from "../lib/types";
 
 function assert(condition: unknown, message: string): asserts condition {
-  if (!condition) throw new Error(`MODEL V1.2 CHECK FAILED: ${message}`);
+  if (!condition) throw new Error(`MODEL V${MODEL_VERSION} CHECK FAILED: ${message}`);
 }
 
 function player(overrides: Partial<FplPlayer> = {}): FplPlayer {
@@ -68,7 +68,9 @@ const fixtures: FplFixture[] = [
 const midfielder = player({ id: 1, code: 101, team: 1, element_type: 3 });
 const base = baseProjectPlayer(midfielder, fixtures, teams, 1);
 const noMarket = projectPlayer(midfielder, fixtures, teams, 1, undefined, null);
-assert(Math.abs(base.expected - noMarket.expected) < 1e-10, "no sportsbook payload must leave the base model unchanged");
+const midCalibration = POSITION_CALIBRATION.coefficients.MID;
+assert(Math.abs(noMarket.expected - Math.max(0, midCalibration.intercept + midCalibration.slope * base.expected)) < 1e-10, "the position calibration must transform raw one-Gameweek expected points with the held-out coefficients");
+assert(Math.abs(noMarket.components.calibrationAdjustment - (noMarket.expected - base.expected)) < 1e-10, "the calibration must be exposed separately in the points breakdown");
 assert(noMarket.components.fixtureDifficulty > 0, "an easy FDR 1/2 fixture should expose a positive fixture-difficulty component");
 
 const neutralFixtures = fixtures.map((fixture) => fixture.id === 10 ? { ...fixture, team_h_difficulty: 3 } : fixture);
@@ -108,19 +110,45 @@ const zeroWeight: SportsbookPayload = {
   }],
 };
 const zeroWeightProjection = projectPlayer(midfielder, fixtures, teams, 1, undefined, zeroWeight);
-assert(Math.abs(base.expected - zeroWeightProjection.expected) < 1e-10, "a connected market feed with zero configured weight must not change xPts");
+assert(Math.abs(noMarket.expected - zeroWeightProjection.expected) < 1e-10, "a connected market feed with zero configured weight must not change calibrated xPts");
 assert(zeroWeightProjection.components.sportsbookMarket === 0, "zero market weight must expose a zero sportsbook component");
 
 const weighted: SportsbookPayload = { ...zeroWeight, configuredWeight: 0.2, calibrationStatus: "configured" };
 const weightedProjection = projectPlayer(midfielder, fixtures, teams, 1, undefined, weighted);
-assert(weightedProjection.expected > base.expected, "a materially stronger market attack signal should lift an attacking player's projection");
+assert(weightedProjection.expected > noMarket.expected, "a materially stronger market attack signal should lift an attacking player's calibrated projection");
 assert(weightedProjection.sportsbook.applied, "matching weighted sportsbook data should be marked as applied");
-assert(weightedProjection.expected / Math.max(base.expected, 0.1) <= 1.061, "sportsbook influence must remain inside the six-percent per-fixture cap");
+assert(weightedProjection.expected / Math.max(noMarket.expected, 0.1) <= 1.061, "sportsbook influence must remain inside the six-percent per-fixture cap");
 
 const goalkeeper = player({ id: 2, code: 102, team: 1, element_type: 1, now_cost: 50, expected_goals: "0", expected_assists: "0", expected_goal_involvements: "0", expected_goals_per_90: "0", expected_assists_per_90: "0", expected_goal_involvements_per_90: "0", saves: 12, saves_per_90: "3.0", defensive_contribution: 0, defensive_contribution_per_90: "0" });
 const goalkeeperBase = projectPlayer(goalkeeper, fixtures, teams, 1, undefined, zeroWeight);
 const goalkeeperMarket = projectPlayer(goalkeeper, fixtures, teams, 1, undefined, weighted);
+assert(goalkeeperBase.expected < baseProjectPlayer(goalkeeper, fixtures, teams, 1).expected, "goalkeeper overprediction calibration should reduce raw expected points");
 assert(goalkeeperMarket.expected > goalkeeperBase.expected, "stronger market clean-sheet odds should lift a goalkeeper projection");
+
+const observedFixtures: FplFixture[] = [
+  ...fixtures,
+  ...[3, 4, 5].map((id) => ({ ...fixtures[0], id, event: 1, finished: true, started: true })),
+];
+const reserveGoalkeeper = player({ id: 200, code: 1200, element_type: 1, now_cost: 45, minutes: 0, starts: 0, total_points: 0 });
+const startingGoalkeeper = player({ id: 201, code: 1201, element_type: 1, now_cost: 45, minutes: 360, starts: 4 });
+const reserveMidfielder = player({ id: 202, code: 1202, element_type: 3, now_cost: 50, minutes: 0, starts: 0, total_points: 0 });
+const reserveProjection = projectPlayer(reserveGoalkeeper, observedFixtures, teams, 1);
+const starterProjection = projectPlayer(startingGoalkeeper, observedFixtures, teams, 1);
+const reserveMidfielderProjection = projectPlayer(reserveMidfielder, observedFixtures, teams, 1);
+const returningStarterProjection = baseProjectPlayer(reserveGoalkeeper, observedFixtures, teams, 1, {
+  [String(reserveGoalkeeper.code)]: [{
+    season: "2025-26", minutes: 2700, starts: 30, totalPoints: 110,
+    pointsPerGame: 3.7, xgi90: 0, startsPerMatch: 0.8, minutesPerStart: 90,
+  }],
+});
+assert(reserveProjection.appearanceProbabilities[0] < 0.15, "a goalkeeper with no minutes after four team matches must not retain a starter-like appearance chance");
+assert(reserveMidfielderProjection.appearanceProbabilities[0] < 0.2, "an outfield reserve with no minutes after four team matches must not retain a regular appearance chance");
+assert(starterProjection.appearanceProbabilities[0] > 0.8, "four observed starts must preserve a high starter appearance chance");
+assert(returningStarterProjection.appearanceProbabilities[0] > 0.4, "a previous-season regular must not receive the unobserved-reserve cameo penalty");
+
+const defender = player({ id: 3, code: 103, team: 1, element_type: 2, expected_goals: "0.2", expected_assists: "0.3", expected_goal_involvements: "0.5", expected_goals_per_90: "0.05", expected_assists_per_90: "0.08", expected_goal_involvements_per_90: "0.13" });
+const defenderCalibrated = projectPlayer(defender, fixtures, teams, 1, undefined, null);
+assert(defenderCalibrated.expected < baseProjectPlayer(defender, fixtures, teams, 1).expected, "defender calibration should temper the positive historical bias");
 
 // Portfolio covariance must use actual fixture identity. Sharing an event is
 // insufficient because most players in a Gameweek play in unrelated matches.
@@ -185,4 +213,4 @@ const resultingPlayers = [...resultingIds].map((id) => universe.find((item) => i
 const clubOneCount = resultingPlayers.filter((item) => item.team === 1).length;
 assert(clubOneCount <= 3, "joint optimizer must enforce the maximum-three-per-club rule across the resulting squad");
 
-console.log("Model v1.2 checks passed: fixture-component directionality, sportsbook fail-open/zero-weight invariance, bounded market influence, directional attack/clean-sheet response, real-fixture portfolio covariance, and joint-transfer legality.");
+console.log(`Model v${MODEL_VERSION} checks passed: reserve/starter minutes evidence, position-calibration mapping and transparency, fixture-component directionality, sportsbook fail-open/zero-weight invariance, bounded market influence, directional attack/clean-sheet response, real-fixture portfolio covariance, and joint-transfer legality.`);

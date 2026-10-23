@@ -97,6 +97,51 @@ export default async function ModelbookReportPage({ params }: Params) {
         Across all {report.overall.count} players the average miss was {report.overall.mae.toFixed(2)} pts.
       </p>
 
+      {report.flatTwoBaseline && (
+        <section style={{ marginTop: 24 }}>
+          <h2>Against a flat 2-point guess</h2>
+          <p className="small muted" style={{ marginTop: 4 }}>
+            Both rows use the same {active.count} players who recorded minutes. A hit-rate can hide how far misses are, so compare average miss and RMSE too.
+          </p>
+          <div className="table-wrap" style={{ marginTop: 10 }}>
+            <table className="table">
+              <thead><tr><th>Forecast</th><th className="r">Within 2</th><th className="r">Avg miss</th><th className="r">RMSE</th><th className="r">Bias</th></tr></thead>
+              <tbody>
+                <tr><td>FPL Prism</td><td className="r">{active.within2.toFixed(1)}%</td><td className="r">{active.mae.toFixed(2)}</td><td className="r">{active.rmse.toFixed(2)}</td><td className="r">{signed(active.bias)}</td></tr>
+                <tr><td>Always forecast 2</td><td className="r">{report.flatTwoBaseline.within2.toFixed(1)}%</td><td className="r">{report.flatTwoBaseline.mae.toFixed(2)}</td><td className="r">{report.flatTwoBaseline.rmse.toFixed(2)}</td><td className="r">{signed(report.flatTwoBaseline.bias)}</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      {report.topPickResults?.length ? (
+        <section style={{ marginTop: 24 }}>
+          <h2>How the xPts rankings performed</h2>
+          <p className="small muted" style={{ marginTop: 4 }}>
+            Top picks are ranked by forecast xPts. Actual averages include zero-minute picks; the field average uses the same {report.topPickResults[0].fieldPlayers} forecasted players.
+            {report.topPickResultsNote ? ` ${report.topPickResultsNote}` : " This measures ranking signal, not a guaranteed squad result."}
+          </p>
+          <div className="table-wrap" style={{ marginTop: 10 }}>
+            <table className="table">
+              <thead><tr><th>Highest xPts</th><th className="r">Total actual</th><th className="r">Avg per pick</th><th className="r">Field avg / player</th><th className="r">Uplift / pick</th><th className="r">Played</th></tr></thead>
+              <tbody>
+                {report.topPickResults.map((result) => (
+                  <tr key={result.count}>
+                    <td>Top {result.count}</td>
+                    <td className="r">{result.totalActual}</td>
+                    <td className="r"><strong>{result.averageActual.toFixed(2)}</strong></td>
+                    <td className="r">{result.fieldAverageActual.toFixed(2)}</td>
+                    <td className="r">{result.uplift > 0 ? "+" : ""}{result.uplift.toFixed(2)}</td>
+                    <td className="r">{result.playersWithMinutes}/{result.matchedPlayers}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      ) : null}
+
       <div className="grid-2" style={{ marginTop: 24, alignItems: "start" }}>
         <section>
           <h2>By position</h2>

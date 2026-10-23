@@ -14,7 +14,8 @@ test("report metrics use actual minus forecast and one consistent active cohort"
       rows: [
         { id: 1, name: "Forward", position: "FWD", projected: 3.5 },
         { id: 2, name: "Midfielder", position: "MID", projected: 3 },
-        { id: 3, name: "Keeper", position: "GKP", projected: 1 },
+        { id: 3, name: "Keeper", position: "GK", projected: 1 },
+        { id: 4, name: "Bench defender", position: "DEF", projected: 0.5 },
       ],
     },
   };
@@ -22,7 +23,8 @@ test("report metrics use actual minus forecast and one consistent active cohort"
     elements: [
       { id: 1, stats: { minutes: 90, total_points: 4 } },
       { id: 2, stats: { minutes: 90, total_points: 1 } },
-      { id: 3, stats: { minutes: 0, total_points: 0 } },
+      { id: 3, stats: { minutes: 90, total_points: 0 } },
+      { id: 4, stats: { minutes: 0, total_points: 0 } },
     ],
   };
   const fixtures = [
@@ -31,14 +33,23 @@ test("report metrics use actual minus forecast and one consistent active cohort"
   ];
 
   const report = archiveReport(8, locked, live, fixtures, "2026-10-25T20:00:00.000Z");
-  assert.equal(report.overall.count, 3);
-  assert.equal(report.overall.mae, 1.167);
-  assert.equal(report.overall.bias, -0.833);
-  assert.equal(report.activeCohort.count, 2);
-  assert.equal(report.activeCohort.mae, 1.25);
-  assert.equal(report.activeCohort.bias, -0.75);
+  assert.equal(report.overall.count, 4);
+  assert.equal(report.overall.mae, 1);
+  assert.equal(report.overall.bias, -0.75);
+  assert.equal(report.activeCohort.count, 3);
+  assert.equal(report.activeCohort.mae, 1.167);
+  assert.equal(report.activeCohort.bias, -0.833);
   assert.equal(report.activeCohort.within2, 100);
-  assert.deepEqual(Object.keys(report.byPosition), ["MID", "FWD"]);
+  assert.equal(report.flatTwoBaseline.within2, 100);
+  assert.equal(report.flatTwoBaseline.mae, 1.667);
+  assert.equal(report.topPickResults.length, 1);
+  assert.equal(report.topPickResults[0].count, 4);
+  assert.equal(report.topPickResults[0].totalActual, 5);
+  assert.equal(report.topPickResults[0].averageActual, 1.25);
+  assert.equal(report.topPickResults[0].fieldAverageActual, 1.25);
+  assert.equal(report.topPickResults[0].playersWithMinutes, 3);
+  assert.equal(report.topPickResults[0].uplift, 0);
+  assert.deepEqual(Object.keys(report.byPosition), ["GKP", "MID", "FWD"]);
   assert.equal(report.actualsFinality.fixtureCount, 2);
   assert.equal(report.actualsFinality.finishedProvisional, 2);
   assert.equal(report.final, false);

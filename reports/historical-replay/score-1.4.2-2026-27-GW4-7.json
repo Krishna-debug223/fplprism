@@ -1,0 +1,720 @@
+{
+  "modelVersion": "1.4.2",
+  "season": "2026-27",
+  "scoredAt": "2026-10-22T22:24:31.826Z",
+  "forecastPath": "/Users/krishnadesai/Documents/ChatGPT/fpl/fpl-risk-ui/reports/historical-replay/forecast-1.4.2-2026-27-GW4-7.json",
+  "forecastHash": "62ec1b4e1ed63765556fc254d61754ca6efe6daae4b7b467d87df0127a787ada",
+  "codeHash": "33de3327d4b68e056f7043978e382a75300367a21ec51a2c6f9f448f73b3523f",
+  "sample": {
+    "playerGameweeks": 1980,
+    "gameweeks": [
+      4,
+      5,
+      6
+    ],
+    "doubleGameweekPlayerWeeks": 0,
+    "activePlayers": 923
+  },
+  "methodology": {
+    "forecastFirst": true,
+    "targetDataAllowedInForecast": "Player identity, position, team and fixture metadata only; target points, minutes, xG and bonus are excluded.",
+    "scoring": "One prediction per player per Gameweek compared with summed FPL points across all fixtures in that Gameweek.",
+    "calibrationTrainingSeason": "2024-25",
+    "caveats": [
+      "This is a walk-forward reconstruction from post-match public archives, not a literal pre-deadline forecast archive.",
+      "Target-week player identity/team/fixture metadata are reconstructed from the archive; roster and fixture changes may not have been knowable at the original deadline.",
+      "Historical injury, suspension, official team-strength, and sportsbook snapshots are unavailable; the replay substitutes neutral availability and lagged team xG strength.",
+      "Historical multi-season player-prior profiles are unavailable, so this replay uses current-season prior rows only.",
+      "Players without any current-season prior row are excluded. The 2024-25 calibration used an earlier harness later found to score double Gameweeks by fixture, which can bias its coefficients.",
+      "2025-26 was examined during v1.4.1 development, so it is after the coefficient-training season but not an untouched pre-registered test set."
+    ]
+  },
+  "all": {
+    "calibrated": {
+      "n": 1980,
+      "mae": 1.2066,
+      "rmse": 2.2355,
+      "bias": -0.1973,
+      "within2": 0.8283,
+      "pearson": 0.5147,
+      "spearman": 0.6602,
+      "appearanceBrier": 0.1316,
+      "interval80Coverage": 0.9066,
+      "topDecileActualAverage": 3.7677,
+      "topDecileHaulRate": 0.0657,
+      "overallHaulRate": 0.0202
+    },
+    "uncalibrated": {
+      "n": 1980,
+      "mae": 1.388,
+      "rmse": 2.221,
+      "bias": 0.1571,
+      "within2": 0.7965,
+      "pearson": 0.517,
+      "spearman": 0.6549,
+      "appearanceBrier": null,
+      "interval80Coverage": null,
+      "topDecileActualAverage": 4.0556,
+      "topDecileHaulRate": 0.0808,
+      "overallHaulRate": 0.0202
+    },
+    "flatTwo": {
+      "n": 1980,
+      "mae": 2.0197,
+      "rmse": 2.6458,
+      "bias": 0.5934,
+      "within2": 0.8899,
+      "pearson": null,
+      "spearman": null,
+      "appearanceBrier": null,
+      "interval80Coverage": null,
+      "topDecileActualAverage": 1.197,
+      "topDecileHaulRate": 0.0202,
+      "overallHaulRate": 0.0202
+    }
+  },
+  "active": {
+    "calibrated": {
+      "n": 923,
+      "mae": 1.9791,
+      "rmse": 3.1363,
+      "bias": -1.0325,
+      "within2": 0.6999,
+      "pearson": 0.2597,
+      "spearman": 0.3532,
+      "appearanceBrier": 0.1439,
+      "interval80Coverage": 0.7996,
+      "topDecileActualAverage": 4.4194,
+      "topDecileHaulRate": 0.0968,
+      "overallHaulRate": 0.0433
+    },
+    "uncalibrated": {
+      "n": 923,
+      "mae": 2.0184,
+      "rmse": 3.0203,
+      "bias": -0.622,
+      "within2": 0.6836,
+      "pearson": 0.268,
+      "spearman": 0.3539,
+      "appearanceBrier": null,
+      "interval80Coverage": null,
+      "topDecileActualAverage": 4.0323,
+      "topDecileHaulRate": 0.0538,
+      "overallHaulRate": 0.0433
+    },
+    "flatTwo": {
+      "n": 923,
+      "mae": 2.0423,
+      "rmse": 3.2306,
+      "bias": -1.0173,
+      "within2": 0.7638,
+      "pearson": null,
+      "spearman": null,
+      "appearanceBrier": null,
+      "interval80Coverage": null,
+      "topDecileActualAverage": 2.5376,
+      "topDecileHaulRate": 0.043,
+      "overallHaulRate": 0.0433
+    }
+  },
+  "byPosition": {
+    "GKP": {
+      "all": {
+        "calibrated": {
+          "n": 215,
+          "mae": 0.7577,
+          "rmse": 1.8193,
+          "bias": -0.1969,
+          "within2": 0.8698,
+          "pearson": 0.6452,
+          "spearman": 0.8363,
+          "appearanceBrier": 0.0439,
+          "interval80Coverage": 0.9209,
+          "topDecileActualAverage": 3.5,
+          "topDecileHaulRate": 0.0455,
+          "overallHaulRate": 0.014
+        },
+        "uncalibrated": {
+          "n": 215,
+          "mae": 1.0777,
+          "rmse": 1.8155,
+          "bias": 0.2996,
+          "within2": 0.8093,
+          "pearson": 0.6446,
+          "spearman": 0.6919,
+          "appearanceBrier": null,
+          "interval80Coverage": null,
+          "topDecileActualAverage": 3.5,
+          "topDecileHaulRate": 0.0455,
+          "overallHaulRate": 0.014
+        },
+        "flatTwo": {
+          "n": 215,
+          "mae": 2.0558,
+          "rmse": 2.5335,
+          "bias": 0.9674,
+          "within2": 0.9209,
+          "pearson": null,
+          "spearman": null,
+          "appearanceBrier": null,
+          "interval80Coverage": null,
+          "topDecileActualAverage": 1.4545,
+          "topDecileHaulRate": 0,
+          "overallHaulRate": 0.014
+        }
+      },
+      "active": {
+        "calibrated": {
+          "n": 60,
+          "mae": 2.341,
+          "rmse": 3.3225,
+          "bias": -1.0797,
+          "within2": 0.6333,
+          "pearson": 0.0713,
+          "spearman": 0.0374,
+          "appearanceBrier": 0.0418,
+          "interval80Coverage": 0.7167,
+          "topDecileActualAverage": 3.6667,
+          "topDecileHaulRate": 0.1667,
+          "overallHaulRate": 0.05
+        },
+        "uncalibrated": {
+          "n": 60,
+          "mae": 2.5237,
+          "rmse": 3.163,
+          "bias": -0.2644,
+          "within2": 0.5,
+          "pearson": 0.0745,
+          "spearman": 0.0374,
+          "appearanceBrier": null,
+          "interval80Coverage": null,
+          "topDecileActualAverage": 3.6667,
+          "topDecileHaulRate": 0.1667,
+          "overallHaulRate": 0.05
+        },
+        "flatTwo": {
+          "n": 60,
+          "mae": 2.2,
+          "rmse": 3.559,
+          "bias": -1.7,
+          "within2": 0.7167,
+          "pearson": null,
+          "spearman": null,
+          "appearanceBrier": null,
+          "interval80Coverage": null,
+          "topDecileActualAverage": 5.3333,
+          "topDecileHaulRate": 0,
+          "overallHaulRate": 0.05
+        }
+      }
+    },
+    "DEF": {
+      "all": {
+        "calibrated": {
+          "n": 646,
+          "mae": 1.3835,
+          "rmse": 2.4631,
+          "bias": -0.3783,
+          "within2": 0.7771,
+          "pearson": 0.464,
+          "spearman": 0.5679,
+          "appearanceBrier": 0.1507,
+          "interval80Coverage": 0.8545,
+          "topDecileActualAverage": 4.4308,
+          "topDecileHaulRate": 0.0923,
+          "overallHaulRate": 0.0201
+        },
+        "uncalibrated": {
+          "n": 646,
+          "mae": 1.6236,
+          "rmse": 2.4243,
+          "bias": 0.1691,
+          "within2": 0.7167,
+          "pearson": 0.4638,
+          "spearman": 0.5672,
+          "appearanceBrier": null,
+          "interval80Coverage": null,
+          "topDecileActualAverage": 4.4308,
+          "topDecileHaulRate": 0.0923,
+          "overallHaulRate": 0.0201
+        },
+        "flatTwo": {
+          "n": 646,
+          "mae": 2.1594,
+          "rmse": 2.769,
+          "bias": 0.5,
+          "within2": 0.8591,
+          "pearson": null,
+          "spearman": null,
+          "appearanceBrier": null,
+          "interval80Coverage": null,
+          "topDecileActualAverage": 1.2923,
+          "topDecileHaulRate": 0.0154,
+          "overallHaulRate": 0.0201
+        }
+      },
+      "active": {
+        "calibrated": {
+          "n": 310,
+          "mae": 2.2964,
+          "rmse": 3.428,
+          "bias": -1.3749,
+          "within2": 0.6129,
+          "pearson": 0.2225,
+          "spearman": 0.2554,
+          "appearanceBrier": 0.1411,
+          "interval80Coverage": 0.6968,
+          "topDecileActualAverage": 3.9677,
+          "topDecileHaulRate": 0.0645,
+          "overallHaulRate": 0.0419
+        },
+        "uncalibrated": {
+          "n": 310,
+          "mae": 2.3084,
+          "rmse": 3.2246,
+          "bias": -0.7226,
+          "within2": 0.5935,
+          "pearson": 0.2222,
+          "spearman": 0.2553,
+          "appearanceBrier": null,
+          "interval80Coverage": null,
+          "topDecileActualAverage": 3.9677,
+          "topDecileHaulRate": 0.0645,
+          "overallHaulRate": 0.0419
+        },
+        "flatTwo": {
+          "n": 310,
+          "mae": 2.3323,
+          "rmse": 3.412,
+          "bias": -1.1258,
+          "within2": 0.7065,
+          "pearson": null,
+          "spearman": null,
+          "appearanceBrier": null,
+          "interval80Coverage": null,
+          "topDecileActualAverage": 2.6452,
+          "topDecileHaulRate": 0.0323,
+          "overallHaulRate": 0.0419
+        }
+      }
+    },
+    "MID": {
+      "all": {
+        "calibrated": {
+          "n": 884,
+          "mae": 1.1925,
+          "rmse": 2.1295,
+          "bias": -0.0697,
+          "within2": 0.8507,
+          "pearson": 0.5225,
+          "spearman": 0.6946,
+          "appearanceBrier": 0.1357,
+          "interval80Coverage": 0.9333,
+          "topDecileActualAverage": 4,
+          "topDecileHaulRate": 0.0787,
+          "overallHaulRate": 0.0181
+        },
+        "uncalibrated": {
+          "n": 884,
+          "mae": 1.2997,
+          "rmse": 2.1282,
+          "bias": 0.1359,
+          "within2": 0.8428,
+          "pearson": 0.5225,
+          "spearman": 0.6946,
+          "appearanceBrier": null,
+          "interval80Coverage": null,
+          "topDecileActualAverage": 4,
+          "topDecileHaulRate": 0.0787,
+          "overallHaulRate": 0.0181
+        },
+        "flatTwo": {
+          "n": 884,
+          "mae": 1.8993,
+          "rmse": 2.5426,
+          "bias": 0.5667,
+          "within2": 0.9072,
+          "pearson": null,
+          "spearman": null,
+          "appearanceBrier": null,
+          "interval80Coverage": null,
+          "topDecileActualAverage": 0.9551,
+          "topDecileHaulRate": 0.0112,
+          "overallHaulRate": 0.0181
+        }
+      },
+      "active": {
+        "calibrated": {
+          "n": 443,
+          "mae": 1.7282,
+          "rmse": 2.8627,
+          "bias": -0.7905,
+          "within2": 0.763,
+          "pearson": 0.2743,
+          "spearman": 0.4069,
+          "appearanceBrier": 0.1527,
+          "interval80Coverage": 0.8668,
+          "topDecileActualAverage": 4.3556,
+          "topDecileHaulRate": 0.0889,
+          "overallHaulRate": 0.0361
+        },
+        "uncalibrated": {
+          "n": 443,
+          "mae": 1.7651,
+          "rmse": 2.8084,
+          "bias": -0.5572,
+          "within2": 0.763,
+          "pearson": 0.2743,
+          "spearman": 0.4069,
+          "appearanceBrier": null,
+          "interval80Coverage": null,
+          "topDecileActualAverage": 4.3556,
+          "topDecileHaulRate": 0.0889,
+          "overallHaulRate": 0.0361
+        },
+        "flatTwo": {
+          "n": 443,
+          "mae": 1.7991,
+          "rmse": 2.9864,
+          "bias": -0.86,
+          "within2": 0.8149,
+          "pearson": null,
+          "spearman": null,
+          "appearanceBrier": null,
+          "interval80Coverage": null,
+          "topDecileActualAverage": 2.1333,
+          "topDecileHaulRate": 0.0222,
+          "overallHaulRate": 0.0361
+        }
+      }
+    },
+    "FWD": {
+      "all": {
+        "calibrated": {
+          "n": 235,
+          "mae": 1.1842,
+          "rmse": 2.3115,
+          "bias": -0.18,
+          "within2": 0.8468,
+          "pearson": 0.5407,
+          "spearman": 0.6585,
+          "appearanceBrier": 0.1438,
+          "interval80Coverage": 0.9362,
+          "topDecileActualAverage": 3.9583,
+          "topDecileHaulRate": 0.0833,
+          "overallHaulRate": 0.034
+        },
+        "uncalibrated": {
+          "n": 235,
+          "mae": 1.3564,
+          "rmse": 2.3131,
+          "bias": 0.0735,
+          "within2": 0.8298,
+          "pearson": 0.5407,
+          "spearman": 0.6585,
+          "appearanceBrier": null,
+          "interval80Coverage": null,
+          "topDecileActualAverage": 3.9583,
+          "topDecileHaulRate": 0.0833,
+          "overallHaulRate": 0.034
+        },
+        "flatTwo": {
+          "n": 235,
+          "mae": 2.0553,
+          "rmse": 2.7776,
+          "bias": 0.6085,
+          "within2": 0.8809,
+          "pearson": null,
+          "spearman": null,
+          "appearanceBrier": null,
+          "interval80Coverage": null,
+          "topDecileActualAverage": 1.7917,
+          "topDecileHaulRate": 0.0833,
+          "overallHaulRate": 0.034
+        }
+      },
+      "active": {
+        "calibrated": {
+          "n": 110,
+          "mae": 1.8978,
+          "rmse": 3.224,
+          "bias": -1.0166,
+          "within2": 0.7273,
+          "pearson": 0.3961,
+          "spearman": 0.5349,
+          "appearanceBrier": 0.1719,
+          "interval80Coverage": 0.8636,
+          "topDecileActualAverage": 5.5455,
+          "topDecileHaulRate": 0.0909,
+          "overallHaulRate": 0.0727
+        },
+        "uncalibrated": {
+          "n": 110,
+          "mae": 1.9459,
+          "rmse": 3.1655,
+          "bias": -0.7948,
+          "within2": 0.7182,
+          "pearson": 0.3961,
+          "spearman": 0.5349,
+          "appearanceBrier": null,
+          "interval80Coverage": null,
+          "topDecileActualAverage": 5.5455,
+          "topDecileHaulRate": 0.0909,
+          "overallHaulRate": 0.0727
+        },
+        "flatTwo": {
+          "n": 110,
+          "mae": 2.1182,
+          "rmse": 3.4549,
+          "bias": -0.9727,
+          "within2": 0.7455,
+          "pearson": null,
+          "spearman": null,
+          "appearanceBrier": null,
+          "interval80Coverage": null,
+          "topDecileActualAverage": 2.5455,
+          "topDecileHaulRate": 0.0909,
+          "overallHaulRate": 0.0727
+        }
+      }
+    }
+  },
+  "byGameweek": {
+    "4": {
+      "calibrated": {
+        "n": 654,
+        "mae": 1.2584,
+        "rmse": 2.3074,
+        "bias": -0.2038,
+        "within2": 0.818,
+        "pearson": 0.5169,
+        "spearman": 0.6525,
+        "appearanceBrier": 0.1254,
+        "interval80Coverage": 0.893,
+        "topDecileActualAverage": 4.0303,
+        "topDecileHaulRate": 0.0758,
+        "overallHaulRate": 0.0214
+      },
+      "uncalibrated": {
+        "n": 654,
+        "mae": 1.4453,
+        "rmse": 2.2838,
+        "bias": 0.1505,
+        "within2": 0.7875,
+        "pearson": 0.5241,
+        "spearman": 0.649,
+        "appearanceBrier": null,
+        "interval80Coverage": null,
+        "topDecileActualAverage": 4.5606,
+        "topDecileHaulRate": 0.1061,
+        "overallHaulRate": 0.0214
+      },
+      "flatTwo": {
+        "n": 654,
+        "mae": 2.0749,
+        "rmse": 2.7224,
+        "bias": 0.5917,
+        "within2": 0.8853,
+        "pearson": null,
+        "spearman": null,
+        "appearanceBrier": null,
+        "interval80Coverage": null,
+        "topDecileActualAverage": 1.1515,
+        "topDecileHaulRate": 0.0152,
+        "overallHaulRate": 0.0214
+      }
+    },
+    "5": {
+      "calibrated": {
+        "n": 659,
+        "mae": 1.2042,
+        "rmse": 2.2646,
+        "bias": -0.2549,
+        "within2": 0.8361,
+        "pearson": 0.5406,
+        "spearman": 0.6904,
+        "appearanceBrier": 0.1332,
+        "interval80Coverage": 0.9105,
+        "topDecileActualAverage": 3.9242,
+        "topDecileHaulRate": 0.0606,
+        "overallHaulRate": 0.0228
+      },
+      "uncalibrated": {
+        "n": 659,
+        "mae": 1.3709,
+        "rmse": 2.2287,
+        "bias": 0.0988,
+        "within2": 0.8058,
+        "pearson": 0.5493,
+        "spearman": 0.6825,
+        "appearanceBrier": null,
+        "interval80Coverage": null,
+        "topDecileActualAverage": 4.6061,
+        "topDecileHaulRate": 0.1061,
+        "overallHaulRate": 0.0228
+      },
+      "flatTwo": {
+        "n": 659,
+        "mae": 2.0349,
+        "rmse": 2.6929,
+        "bias": 0.5357,
+        "within2": 0.8847,
+        "pearson": null,
+        "spearman": null,
+        "appearanceBrier": null,
+        "interval80Coverage": null,
+        "topDecileActualAverage": 1.5606,
+        "topDecileHaulRate": 0.0303,
+        "overallHaulRate": 0.0228
+      }
+    },
+    "6": {
+      "calibrated": {
+        "n": 667,
+        "mae": 1.1582,
+        "rmse": 2.1326,
+        "bias": -0.1339,
+        "within2": 0.8306,
+        "pearson": 0.4873,
+        "spearman": 0.6437,
+        "appearanceBrier": 0.1361,
+        "interval80Coverage": 0.916,
+        "topDecileActualAverage": 3.4478,
+        "topDecileHaulRate": 0.0597,
+        "overallHaulRate": 0.0165
+      },
+      "uncalibrated": {
+        "n": 667,
+        "mae": 1.3487,
+        "rmse": 2.1497,
+        "bias": 0.2213,
+        "within2": 0.7961,
+        "pearson": 0.4777,
+        "spearman": 0.6342,
+        "appearanceBrier": null,
+        "interval80Coverage": null,
+        "topDecileActualAverage": 3,
+        "topDecileHaulRate": 0.0448,
+        "overallHaulRate": 0.0165
+      },
+      "flatTwo": {
+        "n": 667,
+        "mae": 1.9505,
+        "rmse": 2.5198,
+        "bias": 0.6522,
+        "within2": 0.8996,
+        "pearson": null,
+        "spearman": null,
+        "appearanceBrier": null,
+        "interval80Coverage": null,
+        "topDecileActualAverage": 1.403,
+        "topDecileHaulRate": 0.0299,
+        "overallHaulRate": 0.0165
+      }
+    }
+  },
+  "topPicks": {
+    "10": {
+      "n": 30,
+      "expectedAverage": 3.7891,
+      "actualAverage": 4.2333,
+      "haulRate": 0.0333,
+      "calibrated": {
+        "n": 30,
+        "mae": 2.6933,
+        "rmse": 3.1908,
+        "bias": -0.4442,
+        "within2": 0.4667,
+        "pearson": -0.0676,
+        "spearman": -0.1851,
+        "appearanceBrier": 0.0672,
+        "interval80Coverage": 0.9,
+        "topDecileActualAverage": 4.3333,
+        "topDecileHaulRate": 0,
+        "overallHaulRate": 0.0333
+      },
+      "uncalibrated": {
+        "n": 30,
+        "mae": 2.7396,
+        "rmse": 3.184,
+        "bias": -0.2078,
+        "within2": 0.3667,
+        "pearson": -0.1136,
+        "spearman": -0.1395,
+        "appearanceBrier": null,
+        "interval80Coverage": null,
+        "topDecileActualAverage": 4.3333,
+        "topDecileHaulRate": 0,
+        "overallHaulRate": 0.0333
+      }
+    },
+    "20": {
+      "n": 60,
+      "expectedAverage": 3.5174,
+      "actualAverage": 3.85,
+      "haulRate": 0.05,
+      "calibrated": {
+        "n": 60,
+        "mae": 2.6225,
+        "rmse": 3.3052,
+        "bias": -0.3326,
+        "within2": 0.4667,
+        "pearson": 0.0669,
+        "spearman": 0.0517,
+        "appearanceBrier": 0.0957,
+        "interval80Coverage": 0.8667,
+        "topDecileActualAverage": 5.3333,
+        "topDecileHaulRate": 0,
+        "overallHaulRate": 0.05
+      },
+      "uncalibrated": {
+        "n": 60,
+        "mae": 2.7243,
+        "rmse": 3.308,
+        "bias": -0.0645,
+        "within2": 0.4167,
+        "pearson": 0.0169,
+        "spearman": 0.008,
+        "appearanceBrier": null,
+        "interval80Coverage": null,
+        "topDecileActualAverage": 5.3333,
+        "topDecileHaulRate": 0,
+        "overallHaulRate": 0.05
+      }
+    },
+    "50": {
+      "n": 150,
+      "expectedAverage": 3.1854,
+      "actualAverage": 3.8667,
+      "haulRate": 0.08,
+      "calibrated": {
+        "n": 150,
+        "mae": 2.5526,
+        "rmse": 3.6706,
+        "bias": -0.6813,
+        "within2": 0.5867,
+        "pearson": 0.0438,
+        "spearman": 0.0699,
+        "appearanceBrier": 0.0582,
+        "interval80Coverage": 0.8333,
+        "topDecileActualAverage": 3.3333,
+        "topDecileHaulRate": 0,
+        "overallHaulRate": 0.08
+      },
+      "uncalibrated": {
+        "n": 150,
+        "mae": 2.6746,
+        "rmse": 3.6261,
+        "bias": -0.3189,
+        "within2": 0.52,
+        "pearson": 0.0315,
+        "spearman": 0.0688,
+        "appearanceBrier": null,
+        "interval80Coverage": null,
+        "topDecileActualAverage": 3.2667,
+        "topDecileHaulRate": 0,
+        "overallHaulRate": 0.08
+      }
+    }
+  }
+}

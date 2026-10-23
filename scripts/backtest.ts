@@ -2,16 +2,18 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
 import { MODEL_VERSION, projectPlayer } from "../lib/risk-v12";
+import { projectPlayer as projectPlayerBase } from "../lib/risk";
 import type { SportsbookPayload } from "../lib/sportsbook";
 import type { FplFixture, FplPlayer, FplTeam } from "../lib/types";
 
-type CsvRow = Record<string, string>;
-type Observation = {
+export type CsvRow = Record<string, string>;
+export type Observation = {
   gw: number;
   playerId: number;
   player: string;
   position: string;
   predicted: number;
+  rawPredicted?: number;
   actual: number;
   appearanceProbability: number;
   appeared: number;
@@ -19,10 +21,12 @@ type Observation = {
   p90: number;
 };
 
-type MetricSet = {
+export type MetricSet = {
   n: number;
   mae: number | null;
   rmse: number | null;
+  bias: number | null;
+  within2: number | null;
   pearson: number | null;
   spearman: number | null;
   appearanceBrier: number | null;
@@ -32,14 +36,26 @@ type MetricSet = {
   overallHaulRate: number | null;
 };
 
-type TeamCsv = { id: number; name: string; shortName: string };
+export type TeamCsv = { id: number; name: string; shortName: string };
+
+export type HistoricalForecast = {
+  gw: number;
+  playerId: number;
+  player: string;
+  position: string;
+  predicted: number;
+  rawPredicted: number;
+  appearanceProbability: number;
+  p10: number;
+  p90: number;
+};
 
 const TARGET_SEASON = process.env.BACKTEST_SEASON ?? "2025-26";
 const START_GW = Math.max(2, Number.parseInt(process.env.BACKTEST_START_GW ?? "4", 10) || 4);
 const END_GW = Math.min(38, Number.parseInt(process.env.BACKTEST_END_GW ?? "38", 10) || 38);
 const BASE = `https://raw.githubusercontent.com/vaastav/Fantasy-Premier-League/master/data/${TARGET_SEASON}`;
 
-function parseCsv(text: string): CsvRow[] {
+export function parseCsv(text: string): CsvRow[] {
   const rows: string[][] = [];
   let row: string[] = [];
   let field = "";
@@ -64,7 +80,7 @@ function parseCsv(text: string): CsvRow[] {
   return rows.slice(1).map((values) => Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ""])));
 }
 
-async function fetchCsv(url: string) {
+export async function fetchCsv(url: string) {
   const response = await fetch(url, { headers: { "User-Agent": "FPL-Prism-Backtest/1.0" } });
   if (!response.ok) throw new Error(`Backtest source returned ${response.status}: ${url}`);
   return parseCsv(await response.text());
@@ -74,20 +90,20 @@ const num = (value: string | undefined, fallback = 0) => {
   const parsed = Number.parseFloat(value ?? "");
   return Number.isFinite(parsed) ? parsed : fallback;
 };
-const integer = (value: string | undefined, fallback = 0) => Math.trunc(num(value, fallback));
+export const integer = (value: string | undefined, fallback = 0) => Math.trunc(num(value, fallback));
 const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value));
 const mean = (values: number[]) => values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : 0;
 
-function column(row: CsvRow, ...names: string[]) {
+export function column(row: CsvRow, ...names: string[]) {
   for (const name of names) if (row[name] != null && row[name] !== "") return row[name];
   return "";
 }
 
-function gwOf(row: CsvRow) {
+export function gwOf(row: CsvRow) {
   return integer(column(row, "GW", "round"));
 }
 
-function playerId(row: CsvRow) {
+export function playerId(row: CsvRow) {
   return integer(column(row, "element", "id"));
 }
 
@@ -225,7 +241,10 @@ function aggregatePlayer(target: CsvRow, prior: CsvRow[], teamId: number): FplPl
   const name = column(target, "name", "web_name") || `Player ${playerId(target)}`;
   const parts = name.split(" ");
   const position = positionType(target);
-  const price = Math.max(35, integer(column(target, "value"), 50));
+  // The target-GW archive row was scraped after the match. Use the latest
+  // earlier price so an in-Gameweek price change cannot enter the forecast.
+  const lastKnown = prior.reduce((latest, row) => gwOf(row) >= gwOf(latest) ? row : latest, prior[0]);
+  const price = Math.max(35, integer(column(lastKnown, "value"), 50));
   const ppg = games ? points / games : 0;
 
   return {
@@ -267,6 +286,82 @@ function aggregatePlayer(target: CsvRow, prior: CsvRow[], teamId: number): FplPl
   };
 }
 
+const FORECAST_METADATA_COLUMNS = [
+  "GW", "round", "element", "id", "name", "web_name", "position",
+  "team", "team_name", "fixture", "was_home", "kickoff_time",
+] as const;
+
+/** Target-GW scores, minutes, xG, bonus and other match stats never enter this object. */
+export function forecastMetadata(row: CsvRow): CsvRow {
+  return Object.fromEntries(FORECAST_METADATA_COLUMNS.map((key) => [key, row[key] ?? ""]));
+}
+
+export function forecastGameweek(
+  targetRows: CsvRow[],
+  priorRows: CsvRow[],
+  teams: TeamCsv[],
+  gw: number,
+  sportsbook: SportsbookPayload | null = null,
+): HistoricalForecast[] {
+  const safeTargets = targetRows.map(forecastMetadata);
+  const modelTeams = buildTeams(priorRows, teams);
+  const modelFixtures = buildFixtures([...priorRows, ...safeTargets], teams, gw);
+  const lookup = teamLookup(teams);
+  const priorByPlayer = new Map<number, CsvRow[]>();
+  priorRows.forEach((row) => {
+    const id = playerId(row);
+    if (!id) return;
+    const bucket = priorByPlayer.get(id) ?? [];
+    bucket.push(row);
+    priorByPlayer.set(id, bucket);
+  });
+
+  // One forecast per player and Gameweek, even when they have two fixtures.
+  const playerTargets = new Map<number, CsvRow>();
+  safeTargets.forEach((target) => {
+    const id = playerId(target);
+    if (id && !playerTargets.has(id)) playerTargets.set(id, target);
+  });
+
+  const forecasts: HistoricalForecast[] = [];
+  playerTargets.forEach((target, id) => {
+    const team = lookup.get(normalizeName(teamName(target)));
+    const prior = priorByPlayer.get(id) ?? [];
+    if (!team || !prior.length) return;
+    const modelPlayer = aggregatePlayer(target, prior, team.id);
+    const projection = projectPlayer(modelPlayer, modelFixtures, modelTeams, 1, undefined, sportsbook);
+    const rawProjection = projectPlayerBase(modelPlayer, modelFixtures, modelTeams, 1);
+    const interval = 1.2815515655446004 * projection.volatility;
+    forecasts.push({
+      gw,
+      playerId: id,
+      player: column(target, "name", "web_name"),
+      position: ["", "GKP", "DEF", "MID", "FWD"][modelPlayer.element_type] ?? "UNK",
+      predicted: projection.expected,
+      rawPredicted: rawProjection.expected,
+      appearanceProbability: projection.appearanceProbabilities[0] ?? 0,
+      p10: Math.max(0, projection.expected - interval),
+      p90: projection.expected + interval,
+    });
+  });
+  return forecasts;
+}
+
+export function actualsByPlayer(targetRows: CsvRow[]) {
+  const actuals = new Map<number, { points: number; minutes: number; fixtures: number }>();
+  targetRows.forEach((row) => {
+    const id = playerId(row);
+    if (!id) return;
+    const prior = actuals.get(id) ?? { points: 0, minutes: 0, fixtures: 0 };
+    actuals.set(id, {
+      points: prior.points + integer(column(row, "total_points")),
+      minutes: prior.minutes + integer(column(row, "minutes")),
+      fixtures: prior.fixtures + 1,
+    });
+  });
+  return actuals;
+}
+
 function ranks(values: number[]) {
   const indexed = values.map((value, index) => ({ value, index })).sort((a, b) => a.value - b.value);
   const output = new Array<number>(values.length);
@@ -291,26 +386,121 @@ function pearson(a: number[], b: number[]) {
   return da > 0 && db > 0 ? numerator / Math.sqrt(da * db) : null;
 }
 
-function metrics(rows: Observation[]): MetricSet {
-  if (!rows.length) return { n: 0, mae: null, rmse: null, pearson: null, spearman: null, appearanceBrier: null, interval80Coverage: null, topDecileActualAverage: null, topDecileHaulRate: null, overallHaulRate: null };
-  const errors = rows.map((row) => row.predicted - row.actual);
-  const predicted = rows.map((row) => row.predicted);
+export function metrics(
+  rows: Observation[],
+  prediction: (row: Observation) => number = (row) => row.predicted,
+  interval: (row: Observation) => [number, number] = (row) => [row.p10, row.p90],
+  includeReliability = true,
+): MetricSet {
+  if (!rows.length) return { n: 0, mae: null, rmse: null, bias: null, within2: null, pearson: null, spearman: null, appearanceBrier: null, interval80Coverage: null, topDecileActualAverage: null, topDecileHaulRate: null, overallHaulRate: null };
+  const predicted = rows.map(prediction);
+  const errors = rows.map((row, index) => predicted[index] - row.actual);
   const actual = rows.map((row) => row.actual);
-  const sortedByProjection = [...rows].sort((a, b) => b.predicted - a.predicted);
+  const sortedByProjection = [...rows].sort((a, b) => prediction(b) - prediction(a));
   const top = sortedByProjection.slice(0, Math.max(1, Math.ceil(rows.length * 0.1)));
   const round = (value: number | null) => value == null ? null : Number(value.toFixed(4));
   return {
     n: rows.length,
     mae: round(mean(errors.map(Math.abs))),
     rmse: round(Math.sqrt(mean(errors.map((error) => error * error)))),
+    bias: round(mean(errors)),
+    within2: round(mean(errors.map((error) => Math.abs(error) <= 2 ? 1 : 0))),
     pearson: round(pearson(predicted, actual)),
     spearman: round(pearson(ranks(predicted), ranks(actual))),
-    appearanceBrier: round(mean(rows.map((row) => Math.pow(row.appearanceProbability - row.appeared, 2)))),
-    interval80Coverage: round(mean(rows.map((row) => row.actual >= row.p10 && row.actual <= row.p90 ? 1 : 0))),
+    appearanceBrier: includeReliability ? round(mean(rows.map((row) => Math.pow(row.appearanceProbability - row.appeared, 2)))) : null,
+    interval80Coverage: includeReliability ? round(mean(rows.map((row) => {
+      const [p10, p90] = interval(row);
+      return row.actual >= p10 && row.actual <= p90 ? 1 : 0;
+    }))) : null,
     topDecileActualAverage: round(mean(top.map((row) => row.actual))),
     topDecileHaulRate: round(mean(top.map((row) => row.actual >= 10 ? 1 : 0))),
     overallHaulRate: round(mean(rows.map((row) => row.actual >= 10 ? 1 : 0)),
     ),
+  };
+}
+
+function fitLinearCalibration(rows: Observation[]) {
+  if (rows.length < 2) return { intercept: 0, slope: 1, samples: rows.length };
+  const xMean = mean(rows.map((row) => row.predicted));
+  const yMean = mean(rows.map((row) => row.actual));
+  const numerator = rows.reduce((sum, row) => sum + (row.predicted - xMean) * (row.actual - yMean), 0);
+  const denominator = rows.reduce((sum, row) => sum + (row.predicted - xMean) ** 2, 0);
+  const slope = denominator > 0 ? numerator / denominator : 1;
+  return { intercept: yMean - slope * xMean, slope, samples: rows.length };
+}
+
+function calibrationEvaluation(rows: Observation[], positions: string[], startGw: number, endGw: number) {
+  const splitGw = startGw + Math.floor((endGw - startGw + 1) * 2 / 3);
+  const training = rows.filter((row) => row.gw < splitGw && row.predicted > 0);
+  const validation = rows.filter((row) => row.gw >= splitGw);
+  const appearedValidation = validation.filter((row) => row.appeared === 1);
+  const pooled = fitLinearCalibration(training);
+  const byPosition = Object.fromEntries(positions.map((position) => {
+    const cohort = training.filter((row) => row.position === position);
+    return [position, fitLinearCalibration(cohort.length >= 100 ? cohort : training)];
+  }));
+  const correctedValue = (value: number, row: Observation) => {
+    if (row.predicted <= 0) return 0;
+    const calibration = byPosition[row.position] ?? pooled;
+    return Math.max(0, calibration.intercept + calibration.slope * value);
+  };
+  const corrected = (row: Observation) => correctedValue(row.predicted, row);
+  const correctedInterval = (row: Observation): [number, number] => [
+    row.p10 <= 0 ? 0 : correctedValue(row.p10, row),
+    row.p90 <= 0 ? 0 : correctedValue(row.p90, row),
+  ];
+  return {
+    split: { trainingGameweeks: `${startGw}-${splitGw - 1}`, validationGameweeks: `${splitGw}-${endGw}`, trainingPlayers: training.length, validationPlayers: validation.length },
+    baseline: { allPlayers: metrics(validation), playersWhoAppeared: metrics(validation.filter((row) => row.appeared === 1)) },
+    flatTwo: { playersWhoAppeared: metrics(appearedValidation, () => 2) },
+    conditionalOnAppearance: {
+      note: "For players with minutes, unconditional expected points are divided by the model's appearance probability. This is conditional expected points, not the pre-deadline all-player xPts used for transfers.",
+      playersWhoAppeared: metrics(appearedValidation, (row) => row.appearanceProbability > 0 ? row.predicted / row.appearanceProbability : row.predicted, undefined, false),
+    },
+    positionLinearCalibration: {
+      coefficients: byPosition,
+      allPlayers: metrics(validation, corrected, correctedInterval),
+      playersWhoAppeared: metrics(validation.filter((row) => row.appeared === 1), corrected, correctedInterval),
+    },
+  };
+}
+
+function fullSeasonCalibration(rows: Observation[], positions: string[]) {
+  const training = rows.filter((row) => row.predicted > 0);
+  const pooled = fitLinearCalibration(training);
+  const byPosition = Object.fromEntries(positions.map((position) => {
+    const cohort = training.filter((row) => row.position === position);
+    return [position, fitLinearCalibration(cohort.length >= 100 ? cohort : training)];
+  }));
+  return { pooled, byPosition };
+}
+
+function externalCalibrationEvaluation(rows: Observation[], coefficientsPath: string | undefined) {
+  if (!coefficientsPath) return { status: "not-run" as const };
+  const source = JSON.parse(readFileSync(resolve(coefficientsPath), "utf-8")) as {
+    targetSeason?: string;
+    fullSeasonPositionCalibration?: { pooled?: { intercept: number; slope: number }; byPosition?: Record<string, { intercept: number; slope: number }> };
+  };
+  const calibration = source.fullSeasonPositionCalibration;
+  const pooled = calibration?.pooled;
+  const byPosition = calibration?.byPosition;
+  if (!pooled || !byPosition) throw new Error(`Missing fullSeasonPositionCalibration in ${coefficientsPath}`);
+  const correctedValue = (value: number, row: Observation) => {
+    if (row.predicted <= 0) return 0;
+    const params = byPosition[row.position] ?? pooled;
+    return Math.max(0, params.intercept + params.slope * value);
+  };
+  const corrected = (row: Observation) => correctedValue(row.predicted, row);
+  const correctedInterval = (row: Observation): [number, number] => [
+    row.p10 <= 0 ? 0 : correctedValue(row.p10, row),
+    row.p90 <= 0 ? 0 : correctedValue(row.p90, row),
+  ];
+  return {
+    status: "evaluated" as const,
+    trainedOnSeason: source.targetSeason ?? "unknown",
+    coefficients: byPosition,
+    baseline: { allPlayers: metrics(rows), playersWhoAppeared: metrics(rows.filter((row) => row.appeared === 1)) },
+    calibrated: { allPlayers: metrics(rows, corrected, correctedInterval), playersWhoAppeared: metrics(rows.filter((row) => row.appeared === 1), corrected, correctedInterval) },
   };
 }
 
@@ -333,61 +523,43 @@ async function main() {
     name: column(row, "name"),
     shortName: column(row, "short_name", "shortName", "name").slice(0, 3).toUpperCase(),
   })).filter((team) => team.id && team.name);
-  const lookup = teamLookup(teams);
   const sportsbook = loadOptionalSportsbook();
   const observations: Observation[] = [];
+  let doubleGameweekPlayerWeeks = 0;
 
   for (let gw = START_GW; gw <= END_GW; gw += 1) {
     const targetRows = allRows.filter((row) => gwOf(row) === gw);
     if (!targetRows.length) continue;
     const priorRows = allRows.filter((row) => gwOf(row) > 0 && gwOf(row) < gw);
-    const modelTeams = buildTeams(priorRows, teams);
-    const modelFixtures = buildFixtures([...priorRows, ...targetRows], teams, gw);
-    const priorByPlayer = new Map<number, CsvRow[]>();
-    priorRows.forEach((row) => {
-      const id = playerId(row); if (!id) return;
-      const bucket = priorByPlayer.get(id) ?? []; bucket.push(row); priorByPlayer.set(id, bucket);
-    });
-
-    targetRows.forEach((target) => {
-      const id = playerId(target);
-      if (!id) return;
-      const team = lookup.get(normalizeName(teamName(target)));
-      if (!team) return;
-      const prior = priorByPlayer.get(id) ?? [];
-      if (!prior.length) return; // new players have no current-season evidence in this first harness.
-      const modelPlayer = aggregatePlayer(target, prior, team.id);
-      const projection = projectPlayer(modelPlayer, modelFixtures, modelTeams, 1, undefined, sportsbook);
-      const actual = integer(column(target, "total_points"));
-      const appeared = integer(column(target, "minutes")) > 0 ? 1 : 0;
-      const interval = 1.2815515655446004 * projection.volatility;
+    const forecasts = forecastGameweek(targetRows, priorRows, teams, gw, sportsbook);
+    const actuals = actualsByPlayer(targetRows);
+    forecasts.forEach((forecast) => {
+      const outcome = actuals.get(forecast.playerId);
+      if (!outcome) throw new Error(`Missing actual for GW${gw} player ${forecast.playerId}`);
+      if (outcome.fixtures > 1) doubleGameweekPlayerWeeks += 1;
       observations.push({
-        gw,
-        playerId: id,
-        player: column(target, "name", "web_name"),
-        position: ["", "GKP", "DEF", "MID", "FWD"][modelPlayer.element_type] ?? "UNK",
-        predicted: projection.expected,
-        actual,
-        appearanceProbability: projection.appearanceProbabilities[0] ?? 0,
-        appeared,
-        p10: Math.max(0, projection.expected - interval),
-        p90: projection.expected + interval,
+        ...forecast,
+        actual: outcome.points,
+        appeared: outcome.minutes > 0 ? 1 : 0,
       });
     });
-    console.log(`GW${gw}: ${targetRows.length} source rows, ${observations.filter((row) => row.gw === gw).length} evaluated.`);
+    console.log(`GW${gw}: ${targetRows.length} source rows, ${forecasts.length} player-Gameweek predictions.`);
   }
 
   const positions = ["GKP", "DEF", "MID", "FWD"];
+  const fullSeasonPositionCalibration = fullSeasonCalibration(observations, positions);
+  const externalPath = process.env.BACKTEST_CALIBRATION_JSON?.trim();
   const report = {
     modelVersion: MODEL_VERSION,
     targetSeason: TARGET_SEASON,
     generatedAt: new Date().toISOString(),
     methodology: {
       walkForward: true,
-      noLookahead: "Player/team rates for target GW N are built only from merged_gw rows where GW < N. Target-GW rows supply identity, deadline price/fixture mapping and realized outcome only.",
+      noLookahead: "Player/team rates and player price for target GW N are built only from rows where GW < N. Target-GW rows supply identity and fixture metadata during forecasting; points and minutes are used only during scoring.",
       source: "vaastav/Fantasy-Premier-League historical data",
       startingGw: START_GW,
       endingGw: END_GW,
+      doubleGameweekPlayerWeeks,
       limitations: [
         "Historical injury/suspension snapshots are not reconstructed, so availability is neutral in this harness.",
         "Official historical FDR/static team-strength snapshots are not reconstructed; lagged team xG-derived strength is used instead.",
@@ -396,6 +568,11 @@ async function main() {
       ],
     },
     overall: metrics(observations),
+    playersWhoAppeared: metrics(observations.filter((row) => row.appeared === 1)),
+    flatTwoBaselineForPlayersWhoAppeared: metrics(observations.filter((row) => row.appeared === 1), () => 2),
+    temporalCalibrationExperiment: calibrationEvaluation(observations, positions, START_GW, END_GW),
+    fullSeasonPositionCalibration,
+    externalCalibrationExperiment: externalCalibrationEvaluation(observations, externalPath),
     byPosition: Object.fromEntries(positions.map((position) => [position, metrics(observations.filter((row) => row.position === position))])),
     byGameweek: Object.fromEntries([...new Set(observations.map((row) => row.gw))].map((gw) => [String(gw), metrics(observations.filter((row) => row.gw === gw))])),
     sportsbookComparison: sportsbook ? { status: "signals-loaded", note: "This run includes the supplied historical market payload. Run again without SPORTSBOOK_BACKTEST_JSON for a diffable baseline." } : { status: "not-run", note: "Historical sportsbook odds were not supplied, so no market-improvement claim is made." },
@@ -408,7 +585,9 @@ async function main() {
   console.log(JSON.stringify({ overall: report.overall, byPosition: report.byPosition, sportsbookComparison: report.sportsbookComparison }, null, 2));
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+if (require.main === module) {
+  main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
+}

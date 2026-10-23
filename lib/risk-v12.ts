@@ -13,9 +13,65 @@ import {
   simulateProjection,
 } from "./risk";
 
-export const MODEL_VERSION = "1.4.0";
+export const MODEL_VERSION = "1.4.3";
 export { assessChips, positionName };
 export type { ChipAdvice, HistoricalProfileMap, ModelConfidence, Recommendation, ProjectionDistribution };
+
+/**
+ * Cross-season position calibration. Coefficients were fit on walk-forward
+ * forecasts from 2024-25 and evaluated, without refitting, on 2025-26.
+ * The coefficients came from an earlier harness that scored double
+ * Gameweeks per fixture; the holdout figures below use the corrected
+ * one-player-one-Gameweek replay. Refit before relying on the calibration
+ * as a settled improvement.
+ * Keeping the profile explicit makes the adjustment auditable and easy to
+ * replace after a future season-level validation.
+ */
+export const POSITION_CALIBRATION = {
+  trainedOnSeason: "2024-25",
+  coefficients: {
+    GKP: { intercept: -0.5800954423, slope: 0.9289719047, samples: 2654 },
+    DEF: { intercept: -0.3142582469, slope: 0.8591202595, samples: 8470 },
+    MID: { intercept: -0.1464379820, slope: 0.9622678744, samples: 11644 },
+    FWD: { intercept: -0.3186483583, slope: 1.0445026962, samples: 2788 },
+  },
+  holdout: {
+    season: "2025-26",
+    allPlayerGameweeks: 27102,
+    baselineMae: 1.2319,
+    calibratedMae: 1.0487,
+    baselineWithin2: 0.8225,
+    calibratedWithin2: 0.8553,
+    appearedMaeBaseline: 1.9676,
+    appearedMaeCalibrated: 1.9677,
+    appearedRmseBaseline: 2.9829,
+    appearedRmseCalibrated: 3.1023,
+    appearedWithin2Baseline: 0.6780,
+    appearedWithin2Calibrated: 0.7086,
+    appearedWithin2FlatTwo: 0.7717,
+  },
+} as const;
+
+export const MINUTES_EVIDENCE_VALIDATION = {
+  previousVersion: "1.4.1",
+  testedSeason: "2025-26",
+  allPlayerMaeBefore: 1.1635,
+  allPlayerMaeAfter: 1.0507,
+  appearanceBrierBefore: 0.1535,
+  appearanceBrierAfter: 0.1260,
+  activeWithin2Before: 0.7068,
+  activeWithin2After: 0.7066,
+  activeMaeBefore: 1.9631,
+  activeMaeAfter: 1.9676,
+  nextSeasonPartial: {
+    season: "2026-27",
+    gameweeks: "4-6",
+    allPlayerMaeBefore: 1.5186,
+    allPlayerMaeAfter: 1.2066,
+    appearanceBrierBefore: 0.1882,
+    appearanceBrierAfter: 0.1316,
+  },
+} as const;
 
 export type RiskMode = "protect" | "balanced" | "chase" | "mini";
 
@@ -56,6 +112,30 @@ export type JointTransferPlan = {
 
 const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value));
 const average = (values: number[]) => values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : 0;
+
+function positionCalibration(player: FplPlayer) {
+  const name = positionName(player.element_type) as keyof typeof POSITION_CALIBRATION.coefficients;
+  return POSITION_CALIBRATION.coefficients[name] ?? POSITION_CALIBRATION.coefficients.MID;
+}
+
+function calibratedMean(player: FplPlayer, value: number) {
+  if (!(value > 0)) return 0;
+  const calibration = positionCalibration(player);
+  return Math.max(0, calibration.intercept + calibration.slope * value);
+}
+
+function calibratedVolatility(player: FplPlayer, fixtureMeans: number[], minutesByFixture: Projection["minutesByFixture"]) {
+  const roleVolatility = player.element_type === 1 ? 0.78 : player.element_type === 2 ? 0.9 : player.element_type === 3 ? 1.05 : 1.12;
+  const variance = fixtureMeans.reduce((total, mean, index) => {
+    if (mean <= 0) return total;
+    const minutes = minutesByFixture[index];
+    const pointsPerMinute = mean / Math.max(minutes?.expected ?? 1, 1);
+    const minutesVariance = pointsPerMinute ** 2 * (minutes?.variance ?? 0);
+    const scoringSd = (1.7 + mean * 0.64) * roleVolatility * 0.78;
+    return total + minutesVariance + scoringSd * scoringSd;
+  }, 0);
+  return Math.sqrt(variance);
+}
 
 function availability(player: FplPlayer) {
   if (["u", "n", "s"].includes(player.status)) return 0;
@@ -147,26 +227,30 @@ export function projectPlayer(
 ): MarketProjection {
   const base = projectPlayerBase(player, fixtures, teams, horizon, history, eventIdsOverride);
   const adjustments = base.fixtureMeans.map((mean, index) => marketFactor(player, base, index, sportsbook));
-  const adjustedFixtureMeans = base.fixtureMeans.map((mean, index) => mean * (adjustments[index]?.factor ?? 1));
+  const marketFixtureMeans = base.fixtureMeans.map((mean, index) => mean * (adjustments[index]?.factor ?? 1));
+  const adjustedFixtureMeans = marketFixtureMeans.map((mean) => calibratedMean(player, mean));
   const expected = adjustedFixtureMeans.reduce((sum, value) => sum + value, 0);
+  const calibrationAdjustment = expected - marketFixtureMeans.reduce((sum, value) => sum + value, 0);
+  const volatility = calibratedVolatility(player, adjustedFixtureMeans, base.minutesByFixture);
   const fixtureDifficulty = fixtureDifficultyComponent(base);
-  const sportsbookMarket = expected - base.expected;
+  const sportsbookMarket = marketFixtureMeans.reduce((sum, value) => sum + value, 0) - base.expected;
   const fixturesUsed = adjustments.reduce((sum, item) => sum + item.fixtures, 0);
   const effectiveWeight = adjustments.length ? average(adjustments.map((item) => item.weight)) : 0;
   const dataQuality = clamp(base.dataQuality + (fixturesUsed > 0 ? Math.round(effectiveWeight * 20) : 0), 0, 100);
-  const cv = base.volatility / Math.max(expected, 1);
+  const cv = volatility / Math.max(expected, 1);
   const distribution = includeDistribution
-    ? simulateProjection(player, { ...base, expected, fixtureMeans: adjustedFixtureMeans }, 768)
+    ? simulateProjection(player, { ...base, expected, volatility, fixtureMeans: adjustedFixtureMeans }, 768)
     : undefined;
 
   return {
     ...base,
     expected,
+    volatility,
     fixtureMeans: adjustedFixtureMeans,
     risk: cv < 0.46 ? "Low" : cv < 0.63 ? "Medium" : "High",
     dataQuality,
     confidence: confidenceFromQuality(dataQuality),
-    components: { ...base.components, fixtureDifficulty, sportsbookMarket },
+    components: { ...base.components, fixtureDifficulty, sportsbookMarket, calibrationAdjustment },
     distribution,
     sportsbook: {
       applied: fixturesUsed > 0 && effectiveWeight > 0,

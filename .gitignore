@@ -1,5 +1,9 @@
 node_modules/
 .next/
+.next-*/
+# Retain exploratory replay forecasts locally; release forecasts are archived.
+reports/historical-replay/forecast-1.4.1-*.json
+reports/historical-replay/forecast-1.4.2-*.json
 out/
 .vercel/
 .env

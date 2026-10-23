@@ -24,6 +24,8 @@ import type {
 import type { SportsbookPayload } from "@/lib/sportsbook";
 import {
   MODEL_VERSION,
+  MINUTES_EVIDENCE_VALIDATION,
+  POSITION_CALIBRATION,
   assessChips,
   projectPlayer,
   recommendJointTransferPlan,
@@ -1479,6 +1481,38 @@ export default function LiveRefreshV12() {
               <li><strong>Fixture context.</strong> Opponent strength, home or away, and fixture difficulty adjust each match.</li>
               <li><strong>Double and blank Gameweeks.</strong> A Gameweek with two matches counts both; a blank scores zero.</li>
             </ul>
+
+            <h2>Position calibration</h2>
+            <p>
+              Raw points are adjusted with a separate straight-line calibration for each position. The adjustment was fit using walk-forward forecasts from {POSITION_CALIBRATION.trainedOnSeason} and then tested on {POSITION_CALIBRATION.holdout.season} without refitting. It corrects persistent over- or under-prediction; it does not use a player&apos;s actual points from the Gameweek being forecast.
+            </p>
+            <div className="table-wrap" style={{ marginTop: 8 }}>
+              <table className="table">
+                <thead><tr><th>Position</th><th>Adjustment</th><th>Training player-weeks</th></tr></thead>
+                <tbody>
+                  {Object.entries(POSITION_CALIBRATION.coefficients).map(([position, value]) => (
+                    <tr key={position}>
+                      <td>{position}</td>
+                      <td>{value.intercept.toFixed(2)} + {value.slope.toFixed(3)} × raw xPts</td>
+                      <td>{value.samples.toLocaleString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="muted small" style={{ marginTop: 8 }}>
+              On the {POSITION_CALIBRATION.holdout.allPlayerGameweeks.toLocaleString()} player-Gameweeks in the held-out season, all-player MAE changed from {POSITION_CALIBRATION.holdout.baselineMae.toFixed(3)} to {POSITION_CALIBRATION.holdout.calibratedMae.toFixed(3)}. Among players who appeared, within two points rose from {(POSITION_CALIBRATION.holdout.appearedWithin2Baseline * 100).toFixed(1)}% to {(POSITION_CALIBRATION.holdout.appearedWithin2Calibrated * 100).toFixed(1)}%, but RMSE worsened from {POSITION_CALIBRATION.holdout.appearedRmseBaseline.toFixed(3)} to {POSITION_CALIBRATION.holdout.appearedRmseCalibrated.toFixed(3)}. A flat two-point forecast reached {(POSITION_CALIBRATION.holdout.appearedWithin2FlatTwo * 100).toFixed(1)}% within two. The calibration training run used an earlier double-Gameweek scoring method and needs refitting before these gains can be relied on.
+            </p>
+
+            <h2>Playing-time evidence</h2>
+            <p>
+              When a player has no minutes after their team has played at least two matches, and no historical starting record is available, the model gives less weight to its pre-season playing-time assumption. Players who have appeared or have a known previous-season role keep the existing estimate. In a reconstructed {MINUTES_EVIDENCE_VALIDATION.testedSeason} replay, this reduced all-player average error from {MINUTES_EVIDENCE_VALIDATION.allPlayerMaeBefore.toFixed(3)} to {MINUTES_EVIDENCE_VALIDATION.allPlayerMaeAfter.toFixed(3)} points and appearance-probability error from {MINUTES_EVIDENCE_VALIDATION.appearanceBrierBefore.toFixed(3)} to {MINUTES_EVIDENCE_VALIDATION.appearanceBrierAfter.toFixed(3)}. Accuracy within two points among players who appeared stayed near {(MINUTES_EVIDENCE_VALIDATION.activeWithin2After * 100).toFixed(1)}%. The available {MINUTES_EVIDENCE_VALIDATION.nextSeasonPartial.season} GW{MINUTES_EVIDENCE_VALIDATION.nextSeasonPartial.gameweeks} replay also improved all-player error, though that sample is small.
+            </p>
+
+            <h2>Goalkeeper saves</h2>
+            <p>
+              Save points now count complete groups of three saves per match, as FPL awards them. The model estimates the chance of reaching each three-save threshold, including the chance that the goalkeeper does not play. Historical checks improved average error slightly but raised the size of some goalkeeper misses, so this remains under review.
+            </p>
 
             <h2>Expected points, range and median</h2>
             <p>Expected points is the average outcome, not the most likely exact score. The likely range runs from the 10th to the 90th percentile of simulated outcomes, so roughly 1 in 10 results fall below it and 1 in 10 above. The median is the middle outcome and is often lower than the average because big hauls pull the average up.</p>

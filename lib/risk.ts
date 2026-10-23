@@ -1,6 +1,6 @@
 import type { FplEvent, FplFixture, FplPlayer, FplTeam, HistoricalPayload, HistoricalSeasonSummary, UsedChip } from "./types";
 
-export const MODEL_VERSION = "1.4.0";
+export const MODEL_VERSION = "1.4.3";
 
 export type HistoricalProfileMap = HistoricalPayload["players"];
 export type ModelConfidence = "High" | "Medium" | "Low";
@@ -57,6 +57,7 @@ export type ProjectionComponents = {
   bonus: number;
   discipline: number;
   empiricalAnchor: number;
+  calibrationAdjustment: number;
 };
 
 /**
@@ -570,7 +571,12 @@ function minutesEstimate(player: FplPlayer, fixtures: FplFixture[], historyInfo:
     : clamp(historyInfo.historicalStartRate * 0.7 + marketStartPrior * 0.3, 0.25, 0.97);
 
   const observedStarts = Math.min(player.starts, matches);
-  const priorMatches = 4;
+  // Zero minutes after several team matches is strong evidence of a reserve
+  // role only when there is no previous-season role information. Retain the
+  // wider prior for players who have actually appeared this season.
+  const unobservedReserve = historyInfo.historicalStartRate == null
+    && player.minutes === 0 && player.starts === 0 && matches >= 2;
+  const priorMatches = unobservedReserve ? (player.element_type === 1 ? 0.2 : 0.5) : 4;
   const healthyStartProbability = matches
     ? clamp((observedStarts + startPrior * priorMatches) / (matches + priorMatches), 0.08, 0.99)
     : startPrior;
@@ -588,7 +594,8 @@ function minutesEstimate(player: FplPlayer, fixtures: FplFixture[], historyInfo:
   // evidence, then narrows as observed starts establish a stable role.
   const minutesIfStartSd = clamp(15 - player.starts * 0.35, 5, 15);
 
-  const cameoConditional = player.element_type === 1 ? 0.02 : player.element_type === 2 ? 0.16 : 0.24;
+  const cameoEvidence = unobservedReserve ? 0.35 : 1;
+  const cameoConditional = (player.element_type === 1 ? 0.02 : player.element_type === 2 ? 0.16 : 0.24) * cameoEvidence;
   const cameoProbability = clamp((1 - startProbability) * availability * cameoConditional, 0, 0.35);
   const appearanceProbability = clamp(startProbability + cameoProbability, 0, 1);
   const minutesIfCameo = player.element_type === 1 ? 8 : 17;
@@ -666,6 +673,16 @@ function poissonTail(lambda: number, threshold: number) {
   return clamp(1 - cumulative, 0, 1);
 }
 
+function expectedSavePoints(lambda: number) {
+  // FPL awards one point for each complete set of three saves in a match.
+  // Sum P(saves >= 3k) rather than dividing the expected save count by three.
+  let points = 0;
+  for (let threshold = 3; threshold <= 30; threshold += 3) {
+    points += poissonTail(lambda, threshold);
+  }
+  return points;
+}
+
 function expectedConcededPenalty(lambda: number) {
   if (lambda <= 0) return 0;
   let probability = Math.exp(-lambda);
@@ -698,7 +715,7 @@ function confidenceFromQuality(quality: number): ModelConfidence {
 }
 
 function zeroComponents(): ProjectionComponents {
-  return { appearance: 0, attack: 0, cleanSheet: 0, saves: 0, defensiveContribution: 0, bonus: 0, discipline: 0, empiricalAnchor: 0 };
+  return { appearance: 0, attack: 0, cleanSheet: 0, saves: 0, defensiveContribution: 0, bonus: 0, discipline: 0, empiricalAnchor: 0, calibrationAdjustment: 0 };
 }
 
 export function projectPlayer(player: FplPlayer, fixtures: FplFixture[], teams: FplTeam[], horizon = 5, history?: HistoricalProfileMap, eventIdsOverride?: number[]): Projection {
@@ -772,7 +789,10 @@ export function projectPlayer(player: FplPlayer, fixtures: FplFixture[], teams: 
       const attackPoints = (xg90 * context.attackFactor * minutesFraction * goalPoints)
         + (xa90 * context.attackFactor * minutesFraction * 3);
       const cleanSheetPointsExpected = cleanSheetPoints * context.cleanSheetProbability * minutes.sixtyProbability;
-      const savePoints = player.element_type === 1 ? (saves90 * minutesFraction) / 3 : 0;
+      const savePoints = player.element_type === 1
+        ? minutes.startProbability * expectedSavePoints(saves90 * minutes.minutesIfStart / 90)
+          + minutes.cameoProbability * expectedSavePoints(saves90 * minutes.minutesIfCameo / 90)
+        : 0;
       const threshold = player.element_type === 2 ? 10 : 12;
       const startDcLambda = dc90 * (minutes.minutesIfStart / 90);
       const cameoDcLambda = dc90 * (minutes.minutesIfCameo / 90);

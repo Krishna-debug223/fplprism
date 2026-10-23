@@ -12,6 +12,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Allow side-by-side localhost previews without sharing Next's dev cache.
+  distDir: process.env.FPL_PRISM_NEXT_DIST_DIR || ".next",
   reactStrictMode: true,
   poweredByHeader: false,
   async headers() {

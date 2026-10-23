@@ -116,7 +116,7 @@
       "minutes": 71
     },
     {
-      "name": "Gro\u00df",
+      "name": "Groß",
       "position": "MID",
       "projected": 3.782,
       "actual": 14,
@@ -143,7 +143,7 @@
       "minutes": 90
     },
     {
-      "name": "Buend\u00eda",
+      "name": "Buendía",
       "position": "MID",
       "projected": 2.808,
       "actual": 12,
@@ -181,95 +181,169 @@
   ],
   "bestPredictions": [
     {
+      "id": 411,
       "name": "Haaland",
       "position": "FWD",
-      "projected": 5.991,
+      "projected": 5.9906796890066465,
       "actual": 6,
-      "error": 0.009,
-      "absoluteError": 0.009,
+      "error": 0.009320310993353509,
+      "absoluteError": 0.009320310993353509,
       "minutes": 90
     },
     {
+      "id": 106,
       "name": "Thiago",
       "position": "FWD",
-      "projected": 4.238,
+      "projected": 4.237827853538733,
       "actual": 5,
-      "error": 0.762,
-      "absoluteError": 0.762,
+      "error": 0.7621721464612667,
+      "absoluteError": 0.7621721464612667,
       "minutes": 90
     },
     {
+      "id": 335,
       "name": "Stach",
       "position": "MID",
-      "projected": 3.992,
+      "projected": 3.992004401489878,
       "actual": 5,
-      "error": 1.008,
-      "absoluteError": 1.008,
+      "error": 1.007995598510122,
+      "absoluteError": 1.007995598510122,
       "minutes": 90
     },
     {
-      "name": "E.Le F\u00e9e",
+      "id": 542,
+      "name": "E.Le Fée",
       "position": "MID",
-      "projected": 3.833,
+      "projected": 3.8328657116838167,
       "actual": 5,
-      "error": 1.167,
-      "absoluteError": 1.167,
+      "error": 1.1671342883161833,
+      "absoluteError": 1.1671342883161833,
       "minutes": 90
     },
     {
+      "id": 330,
       "name": "Bogle",
       "position": "DEF",
-      "projected": 3.652,
+      "projected": 3.6524703162835763,
       "actual": 5,
-      "error": 1.348,
-      "absoluteError": 1.348,
+      "error": 1.3475296837164237,
+      "absoluteError": 1.3475296837164237,
       "minutes": 66
     },
     {
+      "id": 338,
       "name": "Ampadu",
       "position": "MID",
-      "projected": 3.575,
+      "projected": 3.5745566418035692,
       "actual": 5,
-      "error": 1.425,
-      "absoluteError": 1.425,
+      "error": 1.4254433581964308,
+      "absoluteError": 1.4254433581964308,
       "minutes": 90
     },
     {
+      "id": 445,
       "name": "Thiaw",
       "position": "DEF",
-      "projected": 3.93,
+      "projected": 3.93000015702441,
       "actual": 4,
-      "error": 0.07,
-      "absoluteError": 0.07,
+      "error": 0.06999984297558992,
+      "absoluteError": 0.06999984297558992,
       "minutes": 90
     },
     {
+      "id": 472,
       "name": "Murillo",
       "position": "DEF",
-      "projected": 3.859,
+      "projected": 3.8587890566160667,
       "actual": 4,
-      "error": 0.141,
-      "absoluteError": 0.141,
+      "error": 0.14121094338393325,
+      "absoluteError": 0.14121094338393325,
       "minutes": 90
     },
     {
-      "name": "Gu\u00e9hi",
+      "id": 388,
+      "name": "Guéhi",
       "position": "DEF",
-      "projected": 4.196,
+      "projected": 4.195791325608898,
       "actual": 4,
-      "error": -0.196,
-      "absoluteError": 0.196,
+      "error": -0.1957913256088979,
+      "absoluteError": 0.1957913256088979,
       "minutes": 90
     },
     {
+      "id": 391,
       "name": "Gvardiol",
       "position": "DEF",
-      "projected": 3.563,
+      "projected": 3.5629251121556944,
       "actual": 4,
-      "error": 0.437,
-      "absoluteError": 0.437,
+      "error": 0.4370748878443056,
+      "absoluteError": 0.4370748878443056,
+      "minutes": 90
+    },
+    {
+      "id": 412,
+      "name": "Lammens",
+      "position": "GKP",
+      "projected": 3.414858811120343,
+      "actual": 4,
+      "error": 0.5851411888796569,
+      "absoluteError": 0.5851411888796569,
+      "minutes": 90
+    },
+    {
+      "id": 447,
+      "name": "Botman",
+      "position": "DEF",
+      "projected": 3.3325878319826363,
+      "actual": 4,
+      "error": 0.6674121680173637,
+      "absoluteError": 0.6674121680173637,
       "minutes": 90
     }
   ],
-  "bestPredictionsNote": "High-output players scoring at least 4 points where the forecast was within 1.5 points of the official result."
+  "bestPredictionsNote": "High-output players scoring at least 4 points where the pre-deadline forecast was within 1.5 points of the official result.",
+  "flatTwoBaseline": {
+    "count": 301,
+    "mae": 2.076,
+    "rmse": 3.335,
+    "bias": 1.206,
+    "within1": 62.8,
+    "within2": 74.8,
+    "within3": 79.7
+  },
+  "topPickResults": [
+    {
+      "count": 10,
+      "matchedPlayers": 10,
+      "fieldPlayers": 659,
+      "playersWithMinutes": 10,
+      "totalActual": 35,
+      "averageActual": 3.5,
+      "fieldAverageActual": 1.46,
+      "uplift": 2.04
+    },
+    {
+      "count": 20,
+      "matchedPlayers": 20,
+      "fieldPlayers": 659,
+      "playersWithMinutes": 20,
+      "totalActual": 105,
+      "averageActual": 5.25,
+      "fieldAverageActual": 1.46,
+      "uplift": 3.79
+    },
+    {
+      "count": 50,
+      "matchedPlayers": 50,
+      "fieldPlayers": 659,
+      "playersWithMinutes": 49,
+      "totalActual": 238,
+      "averageActual": 4.76,
+      "fieldAverageActual": 1.46,
+      "uplift": 3.3
+    }
+  ],
+  "topPickResultsNote": "This is selection signal from the frozen forecast pool, not a guaranteed squad result.",
+  "forecastProvenance": "predeadline-published",
+  "provenanceNote": "Official GW5 results scored against the published pre-deadline forecast. The original forecast fingerprint is c6a9aa57a720d5f2868aaf1b31fec5c2ca5044e2c9a6e99b7f2b0191ac09f15a."
 }

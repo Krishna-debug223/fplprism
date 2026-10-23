@@ -29,6 +29,7 @@ const componentLabels: Array<[keyof MarketProjection["components"], string]> = [
   ["bonus", "Bonus"],
   ["discipline", "Cards"],
   ["empiricalAnchor", "Blend with past points record"],
+  ["calibrationAdjustment", "Position calibration adjustment"],
 ];
 
 type Props = {
@@ -218,6 +219,9 @@ export default function PlayerDetail({ row, team, events, marketPriorAvailable, 
           <p className="muted small" style={{ marginTop: 6 }}>
             Fixture difficulty is already built into the rows above. Its estimated effect for this horizon
             is {signed(forecast.components.fixtureDifficulty, 2)} points — shown for context, not added again.
+            {Math.abs(forecast.components.calibrationAdjustment) > 0.005
+              ? " Position calibration is learned from historical walk-forward forecasts and applied once to each Gameweek estimate."
+              : " Position calibration made no material change to this forecast."}
           </p>
         </section>
 

@@ -86,6 +86,11 @@ function round(value, places = 3) {
   return Math.round(value * factor) / factor;
 }
 
+function normalizePosition(value) {
+  const position = String(value ?? "—").trim().toUpperCase();
+  return position === "GK" || position === "GOALKEEPER" || position === "GOALKEEPERS" ? "GKP" : position;
+}
+
 function metricSet(rows) {
   const count = rows.length;
   if (!count) throw new Error("Cannot score an empty report cohort");
@@ -102,6 +107,28 @@ function metricSet(rows) {
   };
 }
 
+function topPickResults(rows) {
+  if (!rows.length) return [];
+  const ranked = [...rows].sort((a, b) => b.projected - a.projected || a.name.localeCompare(b.name));
+  const requestedCounts = [10, 20, 50].filter((count) => count <= ranked.length);
+  const counts = requestedCounts.length ? requestedCounts : [ranked.length];
+  const fieldAverageActual = round(rows.reduce((sum, row) => sum + row.actual, 0) / rows.length, 2);
+  return counts.map((count) => {
+    const picks = ranked.slice(0, count);
+    const averageActual = round(picks.reduce((sum, row) => sum + row.actual, 0) / picks.length, 2);
+    return {
+      count,
+      matchedPlayers: picks.length,
+      fieldPlayers: rows.length,
+      playersWithMinutes: picks.filter((row) => row.minutes > 0).length,
+      totalActual: picks.reduce((sum, row) => sum + row.actual, 0),
+      averageActual,
+      fieldAverageActual,
+      uplift: round(averageActual - fieldAverageActual, 2),
+    };
+  });
+}
+
 function archiveReport(gameweek, locked, livePayload, fixturePayload, fetchedAt) {
   const actualById = new Map((livePayload.elements ?? []).map((player) => [Number(player.id), player]));
   const scored = (locked.snapshot?.rows ?? []).flatMap((row) => {
@@ -113,7 +140,7 @@ function archiveReport(gameweek, locked, livePayload, fixturePayload, fetchedAt)
     return [{
       id: Number(row.id),
       name: String(row.name ?? `Player ${row.id}`),
-      position: String(row.position ?? "—"),
+      position: normalizePosition(row.position),
       projected: Number(row.projected),
       actual: points,
       error,
@@ -154,6 +181,11 @@ function archiveReport(gameweek, locked, livePayload, fixturePayload, fetchedAt)
     training: locked.snapshot?.training ?? undefined,
     overall: metricSet(scored),
     activeCohort: metricSet(active),
+    flatTwoBaseline: metricSet(active.map((row) => ({ ...row, projected: 2 }))),
+    topPickResults: topPickResults(scored),
+    topPickResultsNote: isReconstructed
+      ? "GW7 is reconstructed after the deadline, so treat this as audit-only selection signal, not a pre-deadline result."
+      : "This is selection signal from the frozen forecast pool, not a guaranteed squad result.",
     byPosition,
     largestMisses: [...scored]
       .sort((a, b) => b.absoluteError - a.absoluteError || a.name.localeCompare(b.name))
@@ -349,6 +381,9 @@ async function archiveFinishedGameweeks(activeGameweek) {
     }
     const currentReport = await readJson(reportFile(gameweek));
     if (!isManagedLock && !isReconstructed && currentReport) continue;
+    // A finalized archive is immutable. Later FPL fixture responses can omit
+    // finished=true even after an earlier response marked every match final.
+    if (currentReport?.final === true) continue;
     if (currentReport?.actualsFinality?.fixtureCount > 0
       && currentReport.actualsFinality.finished === currentReport.actualsFinality.fixtureCount) continue;
     const [fixtures, livePayload] = await Promise.all([

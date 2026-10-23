@@ -118,7 +118,7 @@
       "minutes": 90
     },
     {
-      "name": "Jo\u00e3o Pedro",
+      "name": "João Pedro",
       "position": "FWD",
       "projected": 2.958,
       "actual": 12,
@@ -185,100 +185,152 @@
     "trainedThroughGameweek": 5,
     "targetGameweek": 6,
     "method": "Walk-forward, minutes-weighted current-season blending",
-    "validation": "GW4\u2013GW5 walk-forward validation",
+    "validation": "GW4–GW5 walk-forward validation",
     "source": "FPL Prism GW6 pre-deadline export"
   },
   "bestPredictions": [
     {
+      "id": 411,
       "name": "Haaland",
       "position": "FWD",
-      "projected": 5.432,
+      "projected": 5.431511050267983,
       "actual": 6,
-      "error": 0.568,
-      "absoluteError": 0.568,
+      "error": 0.5684889497320169,
+      "absoluteError": 0.5684889497320169,
       "minutes": 79
     },
     {
+      "id": 106,
       "name": "Thiago",
       "position": "FWD",
-      "projected": 3.861,
+      "projected": 3.8606723341604834,
       "actual": 4,
-      "error": 0.139,
-      "absoluteError": 0.139,
+      "error": 0.1393276658395166,
+      "absoluteError": 0.1393276658395166,
       "minutes": 90
     },
     {
+      "id": 173,
       "name": "Thomas",
       "position": "DEF",
-      "projected": 3.632,
+      "projected": 3.632499438698759,
       "actual": 4,
-      "error": 0.368,
-      "absoluteError": 0.368,
+      "error": 0.3675005613012412,
+      "absoluteError": 0.3675005613012412,
       "minutes": 90
     },
     {
+      "id": 204,
       "name": "Mitchell",
       "position": "DEF",
-      "projected": 3.583,
+      "projected": 3.583120050641703,
       "actual": 4,
-      "error": 0.417,
-      "absoluteError": 0.417,
+      "error": 0.4168799493582971,
+      "absoluteError": 0.4168799493582971,
       "minutes": 90
     },
     {
+      "id": 202,
       "name": "Richards",
       "position": "DEF",
-      "projected": 3.352,
+      "projected": 3.3520126546332625,
       "actual": 4,
-      "error": 0.648,
-      "absoluteError": 0.648,
+      "error": 0.6479873453667375,
+      "absoluteError": 0.6479873453667375,
       "minutes": 90
     },
     {
+      "id": 261,
       "name": "Iwobi",
       "position": "MID",
-      "projected": 3.259,
+      "projected": 3.259093433275269,
       "actual": 4,
-      "error": 0.741,
-      "absoluteError": 0.741,
+      "error": 0.740906566724731,
+      "absoluteError": 0.740906566724731,
       "minutes": 86
     },
     {
-      "name": "Buend\u00eda",
+      "id": 41,
+      "name": "Buendía",
       "position": "MID",
-      "projected": 3.119,
+      "projected": 3.119057798565896,
       "actual": 4,
-      "error": 0.881,
-      "absoluteError": 0.881,
+      "error": 0.8809422014341042,
+      "absoluteError": 0.8809422014341042,
       "minutes": 63
     },
     {
+      "id": 391,
       "name": "Gvardiol",
       "position": "DEF",
-      "projected": 3.026,
+      "projected": 3.0259689331543425,
       "actual": 4,
-      "error": 0.974,
-      "absoluteError": 0.974,
+      "error": 0.9740310668456575,
+      "absoluteError": 0.9740310668456575,
       "minutes": 24
     },
     {
+      "id": 203,
       "name": "Canvot",
       "position": "DEF",
-      "projected": 2.876,
+      "projected": 2.875512816687018,
       "actual": 4,
-      "error": 1.124,
-      "absoluteError": 1.124,
+      "error": 1.124487183312982,
+      "absoluteError": 1.124487183312982,
       "minutes": 90
     },
     {
+      "id": 239,
       "name": "Garner",
       "position": "MID",
-      "projected": 2.528,
+      "projected": 2.527583909643027,
       "actual": 4,
-      "error": 1.472,
-      "absoluteError": 1.472,
+      "error": 1.472416090356973,
+      "absoluteError": 1.472416090356973,
       "minutes": 90
     }
   ],
-  "bestPredictionsNote": "High-output players scoring at least 4 points where the forecast was within 1.5 points of the official result."
+  "bestPredictionsNote": "High-output players scoring at least 4 points where the pre-deadline forecast was within 1.5 points of the official result.",
+  "flatTwoBaseline": {
+    "count": 315,
+    "mae": 1.895,
+    "rmse": 2.996,
+    "bias": 0.854,
+    "within1": 66.7,
+    "within2": 78.7,
+    "within3": 82.9
+  },
+  "topPickResults": [
+    {
+      "count": 10,
+      "matchedPlayers": 10,
+      "fieldPlayers": 667,
+      "playersWithMinutes": 9,
+      "totalActual": 37,
+      "averageActual": 3.7,
+      "fieldAverageActual": 1.35,
+      "uplift": 2.35
+    },
+    {
+      "count": 20,
+      "matchedPlayers": 20,
+      "fieldPlayers": 667,
+      "playersWithMinutes": 18,
+      "totalActual": 62,
+      "averageActual": 3.1,
+      "fieldAverageActual": 1.35,
+      "uplift": 1.75
+    },
+    {
+      "count": 50,
+      "matchedPlayers": 50,
+      "fieldPlayers": 667,
+      "playersWithMinutes": 45,
+      "totalActual": 153,
+      "averageActual": 3.06,
+      "fieldAverageActual": 1.35,
+      "uplift": 1.71
+    }
+  ],
+  "topPickResultsNote": "This is selection signal from the frozen forecast pool, not a guaranteed squad result."
 }
