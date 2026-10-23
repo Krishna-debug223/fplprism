@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "methodology": "FPL Bench-style cohort diagnostics, not an official FPL Bench score",
+  "notes": [
+    "MAE and RMSE include every frozen forecast with at least 1% ownership and a fixture, including players with zero minutes.",
+    "Ranking uses all frozen players with a fixture. Missing post-deadline additions cannot be reconstructed from the frozen ownership feed.",
+    "Local NDCG@15 uses nonnegative actual points as linear gain and player ID as a tie break; it may differ from FPL Bench's undisclosed gain and tie conventions.",
+    "GW7 is excluded because its forecast was reconstructed after the deadline. GW4 lacks frozen ownership and price fields for a matched-cohort calculation.",
+    "Legacy GW5 and GW6 source hashes were calculated on original export bytes and cannot be rehashed from the embedded JSON; managed future locks are verified against their embedded snapshot."
+  ],
+  "weeks": [
+    {
+      "gameweek": 5,
+      "modelVersion": "1.3.0",
+      "capturedAt": "2026-09-18T13:09:32.185Z",
+      "deadlineTime": "2026-09-18T17:30:00Z",
+      "hoursBeforeDeadline": 4.3,
+      "captureWindow": "within-24-hours",
+      "sourceHash": "c6a9aa57a720d5f2868aaf1b31fec5c2ca5044e2c9a6e99b7f2b0191ac09f15a",
+      "hashCheck": "legacy-source-hash-not-reproducible",
+      "officialPointsFetchedAt": "2026-09-20T20:02:23.157Z",
+      "pointsStatus": "provisional",
+      "forecastPlayers": 659,
+      "ownershipCohort": {
+        "players": 187,
+        "mae": 2.028,
+        "rmse": 2.913
+      },
+      "ranking": {
+        "eligiblePlayers": 659,
+        "top15Overlap": 1,
+        "top15ActualPoints": 67,
+        "localLinearNdcg15": 0.3133
+      }
+    },
+    {
+      "gameweek": 6,
+      "modelVersion": "1.3.0",
+      "capturedAt": "2026-09-23T01:49:19.632Z",
+      "deadlineTime": "2026-10-10T10:00:00Z",
+      "hoursBeforeDeadline": 416.2,
+      "captureWindow": "earlier-checkpoint",
+      "sourceHash": "bc3494505fafc078c3244d374a8852e1377cf760de20af539f3b10b3098c5945",
+      "hashCheck": "legacy-source-hash-not-reproducible",
+      "officialPointsFetchedAt": "2026-10-22T21:01:53.126Z",
+      "pointsStatus": "final",
+      "forecastPlayers": 667,
+      "ownershipCohort": {
+        "players": 186,
+        "mae": 2.024,
+        "rmse": 2.793
+      },
+      "ranking": {
+        "eligiblePlayers": 667,
+        "top15Overlap": 2,
+        "top15ActualPoints": 54,
+        "localLinearNdcg15": 0.2865
+      }
+    }
+  ]
+}

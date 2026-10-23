@@ -8,6 +8,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteUrl}/about` },
     { url: `${siteUrl}/contact` },
     { url: `${siteUrl}/modelbook` },
+    { url: `${siteUrl}/modelbook/benchmark` },
+    { url: `${siteUrl}/modelbook/reports/gw7` },
     { url: `${siteUrl}/modelbook/reports/gw6` },
     { url: `${siteUrl}/modelbook/reports/gw5` },
     { url: `${siteUrl}/modelbook/reports/gw4` },

@@ -38,6 +38,9 @@ jobs:
           MODELBOOK_GAMEWEEK: ${{ inputs.gameweek }}
         run: node scripts/modelbook-automation.mjs
 
+      - name: Refresh independent benchmark diagnostics
+        run: node scripts/benchmark-modelbook.mjs
+
       - name: Publish new immutable Modelbook files
         run: |
           git config user.name "github-actions[bot]"

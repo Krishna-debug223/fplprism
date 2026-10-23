@@ -18,9 +18,10 @@ The product is live at **[fplprism.com](https://fplprism.com/dashboard)**. It us
 | [Pricing](https://fplprism.com/pricing) | Keeps the complete product free during launch. Pro and Elite are roadmap tiers; no paid checkout or automatic renewal is active. |
 | **Account / sign in** | Optional Supabase-backed settings for saving a public Team ID, free-transfer default and planner style. An FPL password is never requested. |
 | [FPL Prism Modelbook](https://fplprism.com/modelbook) | Public, timestamped forward-test workspace linked from the dashboard. |
+| [Forecast benchmark](https://fplprism.com/modelbook/benchmark) | Frozen-forecast error and ranking diagnostics with a machine-readable CSV feed for independent comparisons. |
 | [About](https://fplprism.com/about) and [Contact](https://fplprism.com/contact) | Explain the project, its limits, and where to send feedback or privacy questions. |
 
-The production dashboard reports the current Gameweek and model version from the live feed. The active production model is **`1.4.0`**; the live Modelbook follows **Gameweek 8**, with GW3–GW6 preserved as forward-test archives. GW7 is not scored because its pre-deadline export was not retained; the site does not substitute projections recalculated after the deadline. Both surfaces show the same training status: the live target is trained through completed Gameweeks and uses minutes-weighted current-season evidence blended with historical priors.
+The production dashboard reports the current Gameweek and model version from the live feed. The current source model is **`1.4.3`**; the live Modelbook follows **Gameweek 8**. GW3–GW6 retain their archived forecasts; GW7 is explicitly labelled a retrospective audit because its original pre-deadline export was not retained. It is excluded from prospective benchmark results. Both surfaces show the target Gameweek and training status.
 
 The scheduled Modelbook workflow checks the official FPL deadline every five minutes, captures an immutable production export in the final ten minutes before the deadline, fingerprints it with SHA-256 and publishes it to `main`. If a lock is missing after a deadline, the Modelbook hides the recalculated forecast instead of presenting it as the original. Once all fixtures are provisionally finished, the workflow builds the historical report from that frozen export and official points.
 
@@ -46,7 +47,13 @@ The optional sportsbook integration is present behind a server-side flag and is 
 
 The model version is defined in [`lib/risk-v12.ts`](lib/risk-v12.ts). A version change is required for material changes to weights, priors, thresholds, simulation logic or data sources.
 
-The latest current-season walk-forward validation through GW5 is recorded in [`reports/backtest-1.3.0-2025-26.json`](reports/backtest-1.3.0-2025-26.json). Each target Gameweek is evaluated using only earlier Gameweek rows, so the published GW6 archive remains a forward test rather than a retrospective rewrite.
+The latest current-season walk-forward validation is recorded in [`reports/backtest-1.4.3-2025-26.json`](reports/backtest-1.4.3-2025-26.json). Each target Gameweek is evaluated using only earlier Gameweek rows. Backtests are separate from frozen live forecasts.
+
+### Independent benchmark feed
+
+`GET /api/benchmark/forecast?event=8` returns a CSV with `fpl_id`, `expected_points`, `price_millions`, `team_id`, `position`, and `ownership_percent`. The HTTP headers include its generation time, model version, and CSV SHA-256. `GET /api/ledger/snapshot?event=8` remains the complete JSON source, including fixture and scoring components. Before the deadline, both reflect the latest model; after the deadline they only serve a genuine frozen snapshot. The scheduled Modelbook job updates [`benchmark-report.json`](public/modelbook/data/benchmark-report.json) from archived locks and official points.
+
+The [benchmark page](https://fplprism.com/modelbook/benchmark) uses the >=1% ownership and scheduled-fixture cohort for MAE/RMSE, and all forecast players with a fixture for top-15 diagnostics. Its NDCG uses a disclosed local gain rule; it is not an official FPL Bench score. GW6 is an early checkpoint, GW5 official points are still marked provisional in the stored feed, and GW7 is excluded because its forecast was reconstructed after the deadline. A full FPL Bench result additionally requires its legal Free Hit squad optimizer.
 
 ### Weekly learning loop
 
