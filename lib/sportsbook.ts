@@ -16,6 +16,7 @@ export type SportsbookFixtureSignal = {
   awayCleanSheetProbability: number | null;
   bookmakerCount: number;
   quality: number;
+  marketUpdatedAt?: string;
 };
 
 export type SportsbookPayload = {
@@ -54,10 +55,13 @@ function poissonCdf(k: number, lambda: number) {
 
 /**
  * Convert a de-vigged over probability into an implied Poisson total-goals mean.
- * Half-goal lines are the common case (2.5 => P(total >= 3)). Other lines are
- * handled by using the nearest integer threshold.
+ * Only half-goal lines have a binary over/under result. Whole- and quarter-goal
+ * Asian lines can push or half-win, so they cannot use this conversion.
  */
 export function impliedGoalMeanFromTotal(overProbability: number, line = 2.5) {
+  if (!Number.isFinite(line) || Math.abs(line % 1 - 0.5) > 1e-8) {
+    throw new RangeError("A half-goal totals line is required to infer a Poisson goal mean");
+  }
   const target = clampProbability(overProbability);
   const threshold = Math.max(1, Math.floor(line) + 1);
   let low = 0.2;

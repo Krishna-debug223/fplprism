@@ -1,0 +1,214 @@
+{
+  "trainingSeasons": [
+    "2023-24",
+    "2024-25"
+  ],
+  "testSeason": "2025-26",
+  "generatedAt": "2026-10-24T17:23:30.768Z",
+  "matchedFixtures": {
+    "2023-24": 351,
+    "2024-25": 350,
+    "2025-26": 350
+  },
+  "sources": {
+    "fpl": "vaastav/Fantasy-Premier-League merged_gw.csv",
+    "sportsbook": "football-data.co.uk season CSV, opening 1X2 and O/U 2.5 average prices (never closing prices)"
+  },
+  "methodology": "Walk-forward within-season team xG baseline; opening 1X2 and O/U 2.5 odds are de-vigged and converted to market expected goals. Choose blend weight on 2023-24 and 2024-25; evaluate the odds-weight choice on 2025-26, which was not used to select that weight. No target-match result or xG enters its forecast. Football-Data does not give per-quote timestamps, so opening odds cannot be guaranteed to predate every FPL deadline. The player sensitivity check uses reconstructed model forecasts and is not an independent prospective trial.",
+  "trainingResults": [
+    {
+      "weight": 0,
+      "nMatches": 701,
+      "goalRmse": 1.235056,
+      "poissonNll": 1.537378,
+      "cleanSheetBrier": 0.165895
+    },
+    {
+      "weight": 0.025,
+      "nMatches": 701,
+      "goalRmse": 1.234175,
+      "poissonNll": 1.536733,
+      "cleanSheetBrier": 0.165834
+    },
+    {
+      "weight": 0.05,
+      "nMatches": 701,
+      "goalRmse": 1.233314,
+      "poissonNll": 1.536108,
+      "cleanSheetBrier": 0.165777
+    },
+    {
+      "weight": 0.07500000000000001,
+      "nMatches": 701,
+      "goalRmse": 1.232475,
+      "poissonNll": 1.535502,
+      "cleanSheetBrier": 0.165722
+    },
+    {
+      "weight": 0.1,
+      "nMatches": 701,
+      "goalRmse": 1.231656,
+      "poissonNll": 1.534915,
+      "cleanSheetBrier": 0.16567
+    },
+    {
+      "weight": 0.125,
+      "nMatches": 701,
+      "goalRmse": 1.230858,
+      "poissonNll": 1.534348,
+      "cleanSheetBrier": 0.165622
+    },
+    {
+      "weight": 0.15000000000000002,
+      "nMatches": 701,
+      "goalRmse": 1.230082,
+      "poissonNll": 1.533799,
+      "cleanSheetBrier": 0.165576
+    },
+    {
+      "weight": 0.17500000000000002,
+      "nMatches": 701,
+      "goalRmse": 1.229326,
+      "poissonNll": 1.53327,
+      "cleanSheetBrier": 0.165533
+    },
+    {
+      "weight": 0.2,
+      "nMatches": 701,
+      "goalRmse": 1.228591,
+      "poissonNll": 1.53276,
+      "cleanSheetBrier": 0.165493
+    },
+    {
+      "weight": 0.225,
+      "nMatches": 701,
+      "goalRmse": 1.227877,
+      "poissonNll": 1.532268,
+      "cleanSheetBrier": 0.165457
+    },
+    {
+      "weight": 0.25,
+      "nMatches": 701,
+      "goalRmse": 1.227185,
+      "poissonNll": 1.531796,
+      "cleanSheetBrier": 0.165423
+    }
+  ],
+  "selectedTrainingWeight": 0.25,
+  "holdoutBaseline": {
+    "weight": 0,
+    "nMatches": 350,
+    "goalRmse": 1.0858785316651058,
+    "poissonNll": 1.4438081370598688,
+    "cleanSheetBrier": 0.18067345307352634
+  },
+  "holdoutSelected": {
+    "weight": 0.25,
+    "nMatches": 350,
+    "goalRmse": 1.080264379232968,
+    "poissonNll": 1.4398457817406418,
+    "cleanSheetBrier": 0.17923001429844646
+  },
+  "holdoutUncertainty": {
+    "clusteredBy": "FPL Gameweek",
+    "gameweeks": 35,
+    "samples": 2000,
+    "poissonNllImprovement95PercentInterval": [
+      0.001592,
+      0.006469
+    ],
+    "cleanSheetBrierImprovement95PercentInterval": [
+      0.000753,
+      0.002184
+    ]
+  },
+  "playerSensitivity": {
+    "caveat": "Sensitivity check on reconstructed historical FPL Prism forecasts. Applies the bounded market factor after player calibration and uses fixture team xG from a simplified baseline; this is not an exact rerun of the full player model or a timestamp-certified predeadline forecast.",
+    "withoutMatchOdds": 0,
+    "all": {
+      "players": 27102,
+      "baseline": {
+        "mae": 1.0487379004330823,
+        "rmse": 2.0308739511353746,
+        "within2": 0.8553243303077264
+      },
+      "withMarket": {
+        "mae": 1.0504400815952117,
+        "rmse": 2.0291798068132123,
+        "within2": 0.8545494797431924
+      }
+    },
+    "active": {
+      "players": 10416,
+      "baseline": {
+        "mae": 1.9676810832153746,
+        "rmse": 3.1023402960082347,
+        "within2": 0.7086213517665131
+      },
+      "withMarket": {
+        "mae": 1.9682705816490418,
+        "rmse": 3.0977384350788353,
+        "within2": 0.7081413210445469
+      }
+    },
+    "activeByPosition": {
+      "DEF": {
+        "players": 3582,
+        "baseline": {
+          "mae": 2.1964053151233838,
+          "rmse": 3.335700055412614,
+          "within2": 0.6571747627024009
+        },
+        "withMarket": {
+          "mae": 2.1936459731315816,
+          "rmse": 3.33428344961838,
+          "within2": 0.6574539363484088
+        }
+      },
+      "MID": {
+        "players": 4833,
+        "baseline": {
+          "mae": 1.782510740960179,
+          "rmse": 2.895762220911605,
+          "within2": 0.749637906062487
+        },
+        "withMarket": {
+          "mae": 1.7851808243061429,
+          "rmse": 2.8870865410980855,
+          "within2": 0.7483964411338713
+        }
+      },
+      "FWD": {
+        "players": 1305,
+        "baseline": {
+          "mae": 1.980640569904381,
+          "rmse": 3.2189866386353665,
+          "within2": 0.7088122605363985
+        },
+        "withMarket": {
+          "mae": 1.983980534251655,
+          "rmse": 3.213875406380379,
+          "within2": 0.7095785440613027
+        }
+      },
+      "GKP": {
+        "players": 696,
+        "baseline": {
+          "mae": 2.052057427030994,
+          "rmse": 3.0189395789814686,
+          "within2": 0.6882183908045977
+        },
+        "withMarket": {
+          "mae": 2.0502772724554603,
+          "rmse": 3.024179133002125,
+          "within2": 0.6867816091954023
+        }
+      }
+    }
+  },
+  "candidateWeight": 0.25,
+  "productionRecommendedWeight": 0,
+  "holdoutRelativePoissonNllImprovementPercent": 0.2744,
+  "holdoutRelativeCleanSheetBrierImprovementPercent": 0.7989,
+  "note": "A 0.250 market prior improved team-goal metrics, but the reconstructed player sensitivity check worsened overall point MAE and within-two accuracy. Live influence stays at zero pending timestamped predeadline odds and prospective player testing."
+}

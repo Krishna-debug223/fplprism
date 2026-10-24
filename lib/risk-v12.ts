@@ -143,9 +143,12 @@ function availability(player: FplPlayer) {
   return clamp((player.chance_of_playing_next_round ?? fallback) / 100, 0, 1);
 }
 
-function marketSignalsFor(player: FplPlayer, event: number | null, sportsbook?: SportsbookPayload | null) {
-  if (!sportsbook?.available || !event) return [];
-  return sportsbook.fixtures.filter((signal) => signal.event === event && (signal.homeTeamId === player.team || signal.awayTeamId === player.team));
+function marketSignalsFor(player: FplPlayer, projection: Projection, index: number, sportsbook?: SportsbookPayload | null) {
+  if (!sportsbook?.available) return [];
+  const fixtureIds = new Set(projection.fixtureContexts[index]?.fixtures.map((fixture) => fixture.id) ?? []);
+  if (!fixtureIds.size) return [];
+  return sportsbook.fixtures.filter((signal) => fixtureIds.has(signal.fixtureId)
+    && (signal.homeTeamId === player.team || signal.awayTeamId === player.team));
 }
 
 function teamMarketGoals(player: FplPlayer, signal: SportsbookFixtureSignal) {
@@ -159,7 +162,7 @@ function teamMarketCleanSheet(player: FplPlayer, signal: SportsbookFixtureSignal
 function marketFactor(player: FplPlayer, projection: Projection, index: number, sportsbook?: SportsbookPayload | null) {
   const context = projection.fixtureContexts[index];
   if (!context || !sportsbook?.available || sportsbook.configuredWeight <= 0) return { factor: 1, weight: 0, fixtures: 0 };
-  const signals = marketSignalsFor(player, context.event, sportsbook);
+  const signals = marketSignalsFor(player, projection, index, sportsbook);
   if (!signals.length) return { factor: 1, weight: 0, fixtures: 0 };
 
   const validGoalSignals = signals.map((signal) => teamMarketGoals(player, signal)).filter((value): value is number => value != null && Number.isFinite(value));

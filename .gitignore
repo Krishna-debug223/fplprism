@@ -14,6 +14,7 @@ out/
 .model-check/
 .model-check*/
 .squad-check/
+.sportsbook-calibration/
 *.tsbuildinfo
 .vercel
 .env*

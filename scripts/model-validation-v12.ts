@@ -1,7 +1,7 @@
 import { projectPlayer as baseProjectPlayer } from "../lib/risk";
 import { MODEL_VERSION, POSITION_CALIBRATION, projectPlayer, recommendJointTransferPlan } from "../lib/risk-v12";
 import { analyzePortfolioRisk } from "../lib/portfolio-risk";
-import type { SportsbookPayload } from "../lib/sportsbook";
+import { impliedGoalMeanFromTotal, type SportsbookPayload } from "../lib/sportsbook";
 import type { FplFixture, FplPlayer, FplTeam } from "../lib/types";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -114,10 +114,24 @@ assert(Math.abs(noMarket.expected - zeroWeightProjection.expected) < 1e-10, "a c
 assert(zeroWeightProjection.components.sportsbookMarket === 0, "zero market weight must expose a zero sportsbook component");
 
 const weighted: SportsbookPayload = { ...zeroWeight, configuredWeight: 0.2, calibrationStatus: "configured" };
+assert(Math.abs(impliedGoalMeanFromTotal(0.5, 2.5) - 2.674) < 0.01,
+  "a balanced over/under 2.5 market should imply a sensible goal mean");
+let asianLineRejected = false;
+try { impliedGoalMeanFromTotal(0.5, 2.0); } catch (error) { asianLineRejected = error instanceof RangeError; }
+assert(asianLineRejected, "a whole-goal Asian total with possible pushes must not be treated as a binary over/under");
 const weightedProjection = projectPlayer(midfielder, fixtures, teams, 1, undefined, weighted);
 assert(weightedProjection.expected > noMarket.expected, "a materially stronger market attack signal should lift an attacking player's calibrated projection");
 assert(weightedProjection.sportsbook.applied, "matching weighted sportsbook data should be marked as applied");
 assert(weightedProjection.expected / Math.max(noMarket.expected, 0.1) <= 1.061, "sportsbook influence must remain inside the six-percent per-fixture cap");
+const unrelatedSameEvent = {
+  ...weighted.fixtures[0], fixtureId: 999, expectedHomeGoals: 0.35, expectedAwayGoals: 3.5,
+  homeCleanSheetProbability: 0.03, awayCleanSheetProbability: 0.75,
+};
+const withUnrelatedQuote = projectPlayer(midfielder, fixtures, teams, 1, undefined, {
+  ...weighted, fixtures: [...weighted.fixtures, unrelatedSameEvent],
+});
+assert(Math.abs(withUnrelatedQuote.expected - weightedProjection.expected) < 1e-10,
+  "a bookmaker quote for another fixture in the same Gameweek must not affect this player's forecast");
 
 const goalkeeper = player({ id: 2, code: 102, team: 1, element_type: 1, now_cost: 50, expected_goals: "0", expected_assists: "0", expected_goal_involvements: "0", expected_goals_per_90: "0", expected_assists_per_90: "0", expected_goal_involvements_per_90: "0", saves: 12, saves_per_90: "3.0", defensive_contribution: 0, defensive_contribution_per_90: "0" });
 const goalkeeperBase = projectPlayer(goalkeeper, fixtures, teams, 1, undefined, zeroWeight);

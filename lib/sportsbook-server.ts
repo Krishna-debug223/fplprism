@@ -12,8 +12,8 @@ import {
 } from "./sportsbook";
 
 type OddsOutcome = { name: string; price: number; point?: number };
-type OddsMarket = { key: string; outcomes: OddsOutcome[] };
-type OddsBookmaker = { key: string; title: string; markets: OddsMarket[] };
+type OddsMarket = { key: string; last_update?: string; outcomes: OddsOutcome[] };
+type OddsBookmaker = { key: string; title: string; last_update?: string; markets: OddsMarket[] };
 type OddsEvent = {
   id: string;
   commence_time: string;
@@ -55,15 +55,21 @@ function average(values: number[]) {
   return values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : null;
 }
 
-function aggregateEvent(event: OddsEvent) {
+function aggregateEvent(event: OddsEvent, fetchedAt: number) {
   const homeProbabilities: number[] = [];
   const drawProbabilities: number[] = [];
   const awayProbabilities: number[] = [];
   const totalMeans: number[] = [];
+  const quoteTimes: number[] = [];
 
   event.bookmakers.forEach((bookmaker) => {
     const h2h = bookmaker.markets.find((market) => market.key === "h2h");
-    if (h2h) {
+    const totals = bookmaker.markets.find((market) => market.key === "totals");
+    const h2hUpdated = Date.parse(h2h?.last_update ?? bookmaker.last_update ?? "");
+    const totalsUpdated = Date.parse(totals?.last_update ?? bookmaker.last_update ?? "");
+    const fresh = (time: number) => Number.isFinite(time)
+      && time <= fetchedAt + 5 * 60_000 && fetchedAt - time <= 72 * 60 * 60_000;
+    if (h2h && fresh(h2hUpdated)) {
       const home = h2h.outcomes.find((outcome) => outcome.name === event.home_team);
       const away = h2h.outcomes.find((outcome) => outcome.name === event.away_team);
       const draw = h2h.outcomes.find((outcome) => outcome.name.toLowerCase() === "draw");
@@ -77,13 +83,14 @@ function aggregateEvent(event: OddsEvent) {
           homeProbabilities.push(pHome);
           drawProbabilities.push(pDraw);
           awayProbabilities.push(pAway);
+          quoteTimes.push(h2hUpdated);
         }
       }
     }
 
-    const totals = bookmaker.markets.find((market) => market.key === "totals");
-    if (totals) {
-      const points = [...new Set(totals.outcomes.map((outcome) => outcome.point).filter((point): point is number => typeof point === "number"))]
+    if (totals && fresh(totalsUpdated)) {
+      const points = [...new Set(totals.outcomes.map((outcome) => outcome.point).filter((point): point is number =>
+        typeof point === "number" && Math.abs(point % 1 - 0.5) < 1e-8))]
         .sort((a, b) => Math.abs(a - 2.5) - Math.abs(b - 2.5));
       const point = points[0];
       if (point != null) {
@@ -91,7 +98,10 @@ function aggregateEvent(event: OddsEvent) {
         const under = totals.outcomes.find((outcome) => outcome.name.toLowerCase() === "under" && outcome.point === point);
         if (over && under) {
           const [pOver] = removeVig([decimalOddsToProbability(over.price), decimalOddsToProbability(under.price)]);
-          if (pOver) totalMeans.push(impliedGoalMeanFromTotal(pOver, point));
+          if (pOver) {
+            totalMeans.push(impliedGoalMeanFromTotal(pOver, point));
+            quoteTimes.push(totalsUpdated);
+          }
         }
       }
     }
@@ -110,7 +120,8 @@ function aggregateEvent(event: OddsEvent) {
     expectedTotalGoals,
     expectedHomeGoals: split.home,
     expectedAwayGoals: split.away,
-    bookmakerCount: Math.max(homeProbabilities.length, totalMeans.length),
+    bookmakerCount: Math.min(homeProbabilities.length, totalMeans.length),
+    marketUpdatedAt: new Date(Math.min(...quoteTimes)).toISOString(),
   };
 }
 
@@ -145,19 +156,22 @@ export async function loadSportsbookSignals(teams: FplTeam[], fixtures: FplFixtu
     const response = await fetch(url, { next: { revalidate: 300 }, headers: { Accept: "application/json" } });
     if (!response.ok) return emptyPayload(`Sportsbook provider returned ${response.status}; base model remains active.`);
     const events = await response.json() as OddsEvent[];
+    const fetchedAt = Date.now();
     const signals: SportsbookFixtureSignal[] = [];
 
     events.forEach((event) => {
       const home = matchTeam(event.home_team, teams);
       const away = matchTeam(event.away_team, teams);
-      const market = aggregateEvent(event);
+      const market = aggregateEvent(event, fetchedAt);
       if (!home || !away || !market) return;
 
       const commence = new Date(event.commence_time).getTime();
+      if (!Number.isFinite(commence) || commence <= fetchedAt) return;
       const fixture = fixtures
         .filter((candidate) => !candidate.finished && candidate.team_h === home.id && candidate.team_a === away.id)
         .sort((a, b) => Math.abs(new Date(a.kickoff_time ?? 0).getTime() - commence) - Math.abs(new Date(b.kickoff_time ?? 0).getTime() - commence))[0];
       if (!fixture) return;
+      if (fixture.started) return;
       const kickoff = new Date(fixture.kickoff_time ?? event.commence_time).getTime();
       if (Math.abs(kickoff - commence) > 48 * 60 * 60 * 1000) return;
 
@@ -179,6 +193,7 @@ export async function loadSportsbookSignals(teams: FplTeam[], fixtures: FplFixtu
         awayCleanSheetProbability: Math.exp(-market.expectedHomeGoals),
         bookmakerCount: market.bookmakerCount,
         quality: Math.max(0.25, Math.min(1, market.bookmakerCount / 8)),
+        marketUpdatedAt: market.marketUpdatedAt,
       });
     });
 
@@ -187,7 +202,7 @@ export async function loadSportsbookSignals(teams: FplTeam[], fixtures: FplFixtu
       available: signals.length > 0,
       provider: "the-odds-api",
       sourceLabel: "The Odds API consensus (de-vigged h2h + totals)",
-      fetchedAt: new Date().toISOString(),
+      fetchedAt: new Date(fetchedAt).toISOString(),
       configuredWeight: weight,
       calibrationStatus: weight > 0 ? "configured" : "disabled-until-calibrated",
       fixtures: signals,

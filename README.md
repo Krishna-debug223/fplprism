@@ -46,6 +46,8 @@ The active model is component-based and fixture-aware. It combines:
 
 The optional sportsbook integration is present behind a server-side flag and is disabled in the current release (`SPORTSBOOK_ENABLED` is not `true`, and the model weight remains `0`). When no market data is available, the core model continues unchanged.
 
+[The opening-odds study](reports/sportsbook-opening-study.md) found a small improvement in historical match-goal and clean-sheet predictions, while an approximate player-point check was mixed. The production weight therefore stays at zero while timestamped predeadline odds and full player-model outcomes are collected.
+
 The model version is defined in [`lib/risk-v12.ts`](lib/risk-v12.ts). A version change is required for material changes to weights, priors, thresholds, simulation logic or data sources.
 
 The latest current-season walk-forward validation is recorded in [`reports/backtest-1.4.3-2025-26.json`](reports/backtest-1.4.3-2025-26.json). Each target Gameweek is evaluated using only earlier Gameweek rows. Backtests are separate from frozen live forecasts.
