@@ -6,14 +6,36 @@ import { readFile } from "node:fs/promises";
 const require = createRequire(import.meta.url);
 const { selectFreeHitSquad, scoreFreeHitSquad, validateFreeHitSquad } = require("../.squad-check/free-hit-squad.js");
 
-test("optimizes the full published GW8 forecast under squad and lineup constraints", async () => {
-  const candidate = JSON.parse(await readFile(new URL("../.modelbook-state/gw8-predeadline-candidate.json", import.meta.url), "utf8"));
-  const result = await selectFreeHitSquad(candidate.snapshot.rows);
+test("optimizes the frozen GW8 forecast under squad and lineup constraints", async () => {
+  const lock = JSON.parse(await readFile(new URL("../public/modelbook/data/gw8-locked.json", import.meta.url), "utf8"));
+  const result = await selectFreeHitSquad(lock.snapshot.rows);
   assert.equal(result.modelStatus, "Optimal");
   assert.equal(result.picks.length, 15);
   assert.ok(result.totalPrice <= 1000);
   assert.equal(result.picks.filter((pick) => pick.role === "captain").length, 1);
+  // Keep the already-published GW8 selection stable when adding explanations or future strategies.
+  assert.deepEqual(result.picks.map((pick) => `${pick.id}:${pick.role}`).sort(), [
+    "106:starter", "110:benchGoalkeeper", "173:starter", "200:starter", "272:bench3",
+    "304:bench1", "305:bench2", "40:starter", "411:captain", "426:starter",
+    "427:vice", "533:starter", "542:starter", "572:starter", "68:starter",
+  ]);
   validateFreeHitSquad(result.picks);
+});
+
+test("a forced defender produces a legal, no-better counterfactual without changing the archived optimum", async () => {
+  const lock = JSON.parse(await readFile(new URL("../public/modelbook/data/gw8-locked.json", import.meta.url), "utf8"));
+  const players = lock.snapshot.rows;
+  const gabriel = players.find((row) => row.name === "Gabriel" && row.team === "ARS" && row.position === "DEF");
+  assert.ok(gabriel);
+  const [original, alternative] = await Promise.all([
+    selectFreeHitSquad(players),
+    selectFreeHitSquad(players, gabriel.id),
+  ]);
+  validateFreeHitSquad(alternative.picks);
+  assert.ok(alternative.picks.some((pick) => pick.id === gabriel.id));
+  assert.ok(alternative.weightedExpectedPoints <= original.weightedExpectedPoints + 1e-8);
+  assert.equal(original.picks.some((pick) => pick.id === gabriel.id), false);
+  await assert.rejects(selectFreeHitSquad(players, -1), /not in the eligible forecast pool/);
 });
 
 test("official scoring respects bench order, formation and vice-captain fallback", () => {

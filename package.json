@@ -12,6 +12,7 @@
     "modelbook:check": "node --test scripts/modelbook-automation.test.mjs scripts/benchmark-modelbook.test.mjs",
     "modelbook:benchmark": "node scripts/benchmark-modelbook.mjs",
     "squad:check": "tsc --target ES2022 --module commonjs --moduleResolution node --strict --esModuleInterop --skipLibCheck --outDir .squad-check lib/free-hit-squad.ts && node --test scripts/free-hit-squad.test.mjs",
+    "squad:research": "npm run replay:compile && npm run squad:check && node scripts/research-free-hit.mjs",
     "modelbook:reconstruct": "tsc --target ES2022 --module commonjs --moduleResolution node --strict --esModuleInterop --skipLibCheck --outDir .reconstruct-build scripts/reconstruct-modelbook-gameweek.ts lib/risk-v12.ts lib/risk.ts lib/sportsbook.ts lib/types.ts && node .reconstruct-build/scripts/reconstruct-modelbook-gameweek.js",
     "backtest": "rm -rf .backtest-build && tsc --target ES2022 --module commonjs --moduleResolution node --strict --esModuleInterop --skipLibCheck --outDir .backtest-build scripts/backtest.ts lib/risk-v12.ts lib/risk.ts lib/sportsbook.ts lib/types.ts && node .backtest-build/scripts/backtest.js",
     "replay:compile": "tsc --target ES2022 --module commonjs --moduleResolution node --strict --esModuleInterop --skipLibCheck --outDir .backtest-build scripts/historical-replay.ts scripts/backtest.ts lib/risk-v12.ts lib/risk.ts lib/sportsbook.ts lib/types.ts",

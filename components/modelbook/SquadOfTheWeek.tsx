@@ -9,11 +9,16 @@ type Pick = {
   id: number; name: string; team: string; position: string; price: number;
   projected: number; role: string; multiplier: number;
 };
+type Candidate = Omit<Pick, "role" | "multiplier">;
 export type SquadOfTheWeekPayload = {
   gameweek: number; modelVersion: string; generatedAt: string; deadlineTime: string;
   snapshotHash: string; status: "live-preview" | "frozen";
   lockMode: string | null;
   squad: { picks: Pick[]; totalPrice: number; weightedExpectedPoints: number; modelStatus: string };
+  selectionAnalysis: {
+    player: Candidate; forecastCost: number; alternativeExpectedPoints: number;
+    swappedOut: Candidate[]; swappedIn: Candidate[];
+  } | null;
   actual: { score: { points: number; countedIds: number[]; substitutedIds: number[]; captainBonusId: number | null }; players: Array<{ id: number; points: number; minutes: number }>; fetchedAt: string } | null;
 };
 
@@ -109,6 +114,20 @@ export default function SquadOfTheWeek({ initial }: { initial: SquadOfTheWeekPay
         <p className="small muted">Forecast generated {date(data.generatedAt)} · model {data.modelVersion}. {data.status === "live-preview" ? "This squad can change before the deadline; the frozen version will be the public scoring baseline." : `Built from the archived predeadline Modelbook forecast${hoursBeforeDeadline != null && hoursBeforeDeadline > 24 ? `, captured ${Math.round(hoursBeforeDeadline)} hours before the deadline` : ""}.`}</p>
         <button className="btn btn-sm" type="button" onClick={() => void load()} disabled={refreshing}>{refreshing ? "Refreshing…" : "Refresh squad"}</button>
       </div>
+      {data.selectionAnalysis && <section className={`card ${styles.explanation}`} aria-label="Why a defender was left out">
+        <div>
+          <span className="label">Selection reasoning</span>
+          <h2>Why not {data.selectionAnalysis.player.name}?</h2>
+          <p className="muted">{data.selectionAnalysis.player.name} ({data.selectionAnalysis.player.team}) is the highest projected defender outside this squad: {data.selectionAnalysis.player.projected.toFixed(2)} xPts at {money(data.selectionAnalysis.player.price)}. The optimizer checked the best legal 15-player squad that includes him.</p>
+        </div>
+        <div className={styles.scenarioStats}>
+          <div><span className="label">Published squad</span><strong>{data.squad.weightedExpectedPoints.toFixed(2)}</strong></div>
+          <div><span className="label">With {data.selectionAnalysis.player.name}</span><strong>{data.selectionAnalysis.alternativeExpectedPoints.toFixed(2)}</strong></div>
+          <div><span className="label">Forecast difference</span><strong>{data.selectionAnalysis.forecastCost.toFixed(2)}</strong></div>
+        </div>
+        <p className="small muted">To fit him within the £100m budget and squad rules, the best alternative removes {data.selectionAnalysis.swappedOut.map((pick) => pick.name).join(", ")} and adds {data.selectionAnalysis.swappedIn.map((pick) => pick.name).join(", ")}. These are pre-match forecasts; a player&apos;s eventual haul cannot be used to rewrite the frozen selection.</p>
+        {data.selectionAnalysis.forecastCost < 0.15 && <p className="small muted">The difference is under 0.15 projected points, so treat this as a near tie rather than a strong call against {data.selectionAnalysis.player.name}.</p>}
+      </section>}
       <div className={styles.layout}>
         <section className="card">
           <h2>Starting XI</h2>
@@ -129,6 +148,7 @@ export default function SquadOfTheWeek({ initial }: { initial: SquadOfTheWeekPay
             <li>Starting XI: one goalkeeper, at least three defenders and one forward.</li>
             <li>Forecast weights: captain ×2, vice ×1.0322; other starters ×1; bench GK ×0.0194; outfield bench ×0.2603, ×0.0751, ×0.0165.</li>
           </ul>
+          <p className="small muted" style={{ marginTop: 12 }}>The solver chooses the highest projected score for the whole squad. A player with more xPts can still miss out when his price forces larger losses elsewhere.</p>
         </aside>
       </div>
       <section className="card" style={{ marginTop: 22 }}>

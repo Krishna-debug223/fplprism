@@ -20,6 +20,17 @@ type Live = { elements: Array<{ id: number; stats?: { total_points?: number; min
 
 const solved = new Map<string, Promise<SquadResult>>();
 
+function solveCached(key: string, players: SquadPlayer[], requiredPlayerId?: number) {
+  let promise = solved.get(key);
+  if (!promise) {
+    promise = selectFreeHitSquad(players, requiredPlayerId);
+    solved.set(key, promise);
+    promise.catch(() => solved.delete(key));
+    if (solved.size > 8) solved.delete(solved.keys().next().value!);
+  }
+  return promise;
+}
+
 export async function GET(request: NextRequest) {
   const limit = rateLimit(request, "squad-of-the-week", 12);
   if (!limit.allowed) return NextResponse.json({ error: "Too many squad requests. Please retry shortly." }, { status: 429, headers: { "Retry-After": String(limit.retryAfter) } });
@@ -48,14 +59,30 @@ export async function GET(request: NextRequest) {
     } catch { /* The snapshot route already verified the available lock. */ }
   }
   try {
-    let squadPromise = solved.get(snapshotHash);
-    if (!squadPromise) {
-      squadPromise = selectFreeHitSquad(forecastPool);
-      solved.set(snapshotHash, squadPromise);
-      squadPromise.catch(() => solved.delete(snapshotHash));
-      if (solved.size > 4) solved.delete(solved.keys().next().value!);
+    const squad = await solveCached(snapshotHash, forecastPool);
+    const selectedIds = new Set(squad.picks.map((pick) => pick.id));
+    const topOmittedDefender = forecastPool
+      .filter((player) => player.position === "DEF" && player.projected > 0 && !selectedIds.has(player.id))
+      .sort((a, b) => b.projected - a.projected || a.id - b.id)[0];
+    let selectionAnalysis: {
+      player: SquadPlayer; forecastCost: number; alternativeExpectedPoints: number;
+      swappedOut: SquadPlayer[]; swappedIn: SquadPlayer[];
+    } | null = null;
+    if (topOmittedDefender) {
+      try {
+        const alternative = await solveCached(`${snapshotHash}:include:${topOmittedDefender.id}`, forecastPool, topOmittedDefender.id);
+        const alternativeIds = new Set(alternative.picks.map((pick) => pick.id));
+        selectionAnalysis = {
+          player: topOmittedDefender,
+          forecastCost: Math.max(0, squad.weightedExpectedPoints - alternative.weightedExpectedPoints),
+          alternativeExpectedPoints: alternative.weightedExpectedPoints,
+          swappedOut: squad.picks.filter((pick) => !alternativeIds.has(pick.id)),
+          swappedIn: alternative.picks.filter((pick) => !selectedIds.has(pick.id)),
+        };
+      } catch {
+        // The published optimum remains available if an optional scenario cannot be solved.
+      }
     }
-    const squad = await squadPromise;
     let actual: { score: ReturnType<typeof scoreFreeHitSquad>; players: Array<{ id: number; points: number; minutes: number }>; fetchedAt: string } | null = null;
     if (frozen && fixtures.length && fixtures.every((fixture) => Date.parse(fixture.kickoff_time ?? "") < Date.now())) {
       try {
@@ -87,7 +114,7 @@ export async function GET(request: NextRequest) {
       deadlineTime: snapshot.deadlineTime, snapshotHash,
       status: frozen ? "frozen" : "live-preview", lockMode,
       rules: { budget: 1000, positions: { GKP: 2, DEF: 5, MID: 5, FWD: 3 }, maxPerClub: 3, captain: 2, vice: 1.0322, benchGoalkeeper: 0.0194, benchOutfield: [0.2603, 0.0751, 0.0165] },
-      squad, actual,
+      squad, selectionAnalysis, actual,
     }, { headers: { "Cache-Control": "public, s-maxage=30, stale-while-revalidate=30" } });
   } catch (error) {
     console.error(JSON.stringify({ route: "/api/squad-of-the-week", gameweek: event, error: error instanceof Error ? error.message : "Unknown error" }));

@@ -57,12 +57,15 @@ function linear(terms: Array<{ variable: string; coefficient: number }>) {
     : "0";
 }
 
-export function buildFreeHitModel(players: SquadPlayer[]) {
+export function buildFreeHitModel(players: SquadPlayer[], requiredPlayerId?: number) {
   const eligible = players.filter((player) =>
     Number.isInteger(player.id) && Number.isInteger(player.teamId) && Number.isInteger(player.price)
     && player.price > 0 && Number.isFinite(player.projected)
     && Object.hasOwn(positionCounts, player.position));
   if (new Set(eligible.map((player) => player.id)).size !== eligible.length) throw new Error("Duplicate FPL player IDs in forecast pool");
+  if (requiredPlayerId !== undefined && !eligible.some((player) => player.id === requiredPlayerId)) {
+    throw new Error(`Required player ${requiredPlayerId} is not in the eligible forecast pool`);
+  }
   const choices = eligible.flatMap((player) => availableRoles(player.position).map((role) => ({ player, role, variable: term(player, role) })));
   const subjectTo: string[] = [];
   const add = (name: string, selected: typeof choices, coefficient: (choice: (typeof choices)[number]) => number, relation: string, bound: number) => {
@@ -78,6 +81,9 @@ export function buildFreeHitModel(players: SquadPlayer[]) {
   const clubIds = [...new Set(eligible.map((player) => player.teamId))];
   for (const clubId of clubIds) add(`club_${clubId}`, choices.filter((choice) => choice.player.teamId === clubId), () => 1, "<=", 3);
   for (const player of eligible) add(`once_${player.id}`, choices.filter((choice) => choice.player.id === player.id), () => 1, "<=", 1);
+  if (requiredPlayerId !== undefined) {
+    add(`required_${requiredPlayerId}`, choices.filter((choice) => choice.player.id === requiredPlayerId), () => 1, "=", 1);
+  }
   for (const [position, relation, bound] of [["GKP", "=", 1], ["DEF", ">=", 3], ["FWD", ">=", 1]] as const) {
     add(`starting_${position}`, choices.filter((choice) => choice.player.position === position && starters.has(choice.role)), () => 1, relation, bound);
   }
@@ -91,8 +97,8 @@ export function buildFreeHitModel(players: SquadPlayer[]) {
 
 let highsPromise: ReturnType<typeof loadHighs> | null = null;
 
-export async function selectFreeHitSquad(players: SquadPlayer[]): Promise<SquadResult> {
-  const { model, choices } = buildFreeHitModel(players);
+export async function selectFreeHitSquad(players: SquadPlayer[], requiredPlayerId?: number): Promise<SquadResult> {
+  const { model, choices } = buildFreeHitModel(players, requiredPlayerId);
   highsPromise ??= loadHighs().catch((error) => { highsPromise = null; throw error; });
   const highs = await highsPromise;
   const solution = highs.solve(model, { output_flag: false, mip_rel_gap: 0, time_limit: 30 });
