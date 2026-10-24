@@ -245,9 +245,9 @@ export function ledgerStatus(ledger: Pick<Ledger, "mode" | "lockMode">) {
     }
     if (ledger.lockMode === "automatic-predeadline-fallback") {
       return {
-        label: "Pre-deadline checkpoint",
-        tone: "warn" as const,
-        detail: "The final automatic lock was missed, so this forecast uses the latest verified checkpoint saved before the deadline. It stays fixed and will be the version scored in the Modelbook.",
+        label: "Locked",
+        tone: "good" as const,
+        detail: "This forecast is locked to the latest verified checkpoint saved before the deadline. The scheduled final capture was missed; this fixed snapshot is the version scored in the Modelbook.",
       };
     }
     return {
