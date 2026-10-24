@@ -14,11 +14,5 @@
 .rules { color: var(--text-2); font-size: 13px; line-height: 1.55; padding-left: 18px; margin-top: 10px; }
 .rules li + li { margin-top: 7px; }
 .hash { word-break: break-all; font-size: 11px; }
-.explanation { display: grid; gap: 16px; margin-top: 22px; }
-.explanation h2 { margin-top: 5px; }
-.explanation p { margin-top: 7px; max-width: 74ch; }
-.scenarioStats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-.scenarioStats > div { display: flex; flex-direction: column; gap: 5px; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; }
-.scenarioStats strong { font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; }
 @media (max-width: 900px) { .layout { grid-template-columns: minmax(0, 1fr); } .bench { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 520px) { .players { grid-template-columns: repeat(2, minmax(0, 1fr)); } .bench { grid-template-columns: repeat(2, minmax(0, 1fr)); } .player { padding: 10px; } .scenarioStats { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .players { grid-template-columns: repeat(2, minmax(0, 1fr)); } .bench { grid-template-columns: repeat(2, minmax(0, 1fr)); } .player { padding: 10px; } }
