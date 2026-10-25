@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { archiveReport, isCaptureWindow, isCheckpointDue, isValidCheckpoint, isValidFixtureCheckpoint, metricSet, CHECKPOINT_INTERVAL_MS } from "./modelbook-automation.mjs";
+import { archiveReport, scoreKickoffForecasts, isCaptureWindow, isCheckpointDue, isValidCheckpoint, isValidFixtureCheckpoint, metricSet, CHECKPOINT_INTERVAL_MS } from "./modelbook-automation.mjs";
 
 test("report metrics use actual minus forecast and one consistent active cohort", () => {
   const locked = {
@@ -108,8 +108,45 @@ test("fixture checkpoints require a matching kickoff and a pre-kickoff hash", ()
   assert.equal(isValidFixtureCheckpoint(candidate, fixture), true);
   assert.equal(isValidFixtureCheckpoint({ ...candidate, contentHash: "changed" }, fixture), false);
   assert.equal(isValidFixtureCheckpoint(candidate, { ...fixture, kickoff_time: "2026-11-01T17:30:00.000Z" }), false);
+  const badPoints = { ...snapshot, rows: [{ id: 1, projected: "invalid" }] };
+  assert.equal(isValidFixtureCheckpoint({ ...candidate, snapshot: badPoints, contentHash: createHash("sha256").update(JSON.stringify(badPoints)).digest("hex") }, fixture), false);
   const late = { ...snapshot, generatedAt: fixture.kickoff_time };
   assert.equal(isValidFixtureCheckpoint({ ...candidate, snapshot: late, contentHash: createHash("sha256").update(JSON.stringify(late)).digest("hex") }, fixture), false);
+});
+
+test("pre-kickoff accuracy uses every verified fixture and the same deadline player cohort", () => {
+  const deadline = {
+    snapshot: { rows: [
+      { id: 1, name: "Striker", position: "FWD", projected: 5 },
+      { id: 2, name: "Keeper", position: "GK", projected: 3 },
+      { id: 3, name: "Unused", position: "DEF", projected: 1 },
+    ] },
+  };
+  const fixtures = [
+    { id: 101, finished: true, kickoff_time: "2026-11-01T15:00:00Z" },
+    { id: 102, finished: true, kickoff_time: "2026-11-02T15:00:00Z" },
+  ];
+  const locks = [
+    { fixtureId: 101, contentHash: "a", snapshot: { generatedAt: "2026-11-01T14:55:00Z", modelVersion: "1.4.5", rows: [{ id: 1, projected: 6 }, { id: 3, projected: 0.5 }] } },
+    { fixtureId: 102, contentHash: "b", snapshot: { generatedAt: "2026-11-02T14:55:00Z", modelVersion: "1.4.5", rows: [{ id: 2, projected: 2 }] } },
+  ];
+  const live = { elements: [
+    { id: 1, stats: { minutes: 90, total_points: 6 } },
+    { id: 2, stats: { minutes: 90, total_points: 2 } },
+    { id: 3, stats: { minutes: 0, total_points: 0 } },
+  ] };
+  const { capture, comparison } = scoreKickoffForecasts(9, deadline, locks, live, fixtures, "2026-11-02T20:00:00Z");
+  assert.deepEqual(capture, { captured: 2, total: 2, missingFixtures: [] });
+  assert.equal(comparison.activeCohort.count, 2);
+  assert.equal(comparison.activeCohort.mae, 0);
+  assert.equal(comparison.activeCohort.within2, 100);
+  assert.equal(comparison.overall.count, 3);
+  assert.equal(comparison.fixtureHashes.length, 2);
+  assert.match(comparison.aggregateHash, /^[a-f0-9]{64}$/);
+  assert.equal(scoreKickoffForecasts(9, deadline, [...locks].reverse(), live, fixtures, "2026-11-02T20:00:00Z").comparison.aggregateHash, comparison.aggregateHash);
+  const incomplete = scoreKickoffForecasts(9, deadline, locks.slice(0, 1), live, fixtures, "2026-11-02T20:00:00Z");
+  assert.deepEqual(incomplete.capture, { captured: 1, total: 2, missingFixtures: [102] });
+  assert.equal(incomplete.comparison, null);
 });
 
 test("fallback report provenance clearly identifies the last saved checkpoint", () => {

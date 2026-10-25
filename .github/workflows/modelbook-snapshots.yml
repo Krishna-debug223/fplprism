@@ -2,7 +2,8 @@ name: Refresh fixture forecasts and archive Modelbook
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    # Avoid the top-of-hour surge that can delay scheduled workflows.
+    - cron: "3-58/5 * * * *"
   workflow_dispatch:
     inputs:
       gameweek:

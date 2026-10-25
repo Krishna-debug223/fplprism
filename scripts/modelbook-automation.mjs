@@ -86,9 +86,12 @@ function isValidFixtureCheckpoint(candidate, fixture) {
   const captured = Date.parse(candidate?.snapshot?.generatedAt ?? "");
   return candidate?.gameweek === fixture.event && candidate?.fixtureId === fixture.id
     && candidate?.fixtureKickoffTime === fixture.kickoff_time
+    && candidate?.snapshot?.gameweek === fixture.event
     && candidate?.snapshot?.fixtureId === fixture.id
     && candidate?.snapshot?.forecastMode === "fixture"
     && Array.isArray(candidate?.snapshot?.rows) && candidate.snapshot.rows.length > 0
+    && candidate.snapshot.rows.every((row) => Number.isInteger(Number(row.id)) && Number(row.id) > 0
+      && typeof row.projected === "number" && Number.isFinite(row.projected))
     && Number.isFinite(kickoff) && Number.isFinite(captured) && captured < kickoff
     && digest(JSON.stringify(candidate.snapshot)) === candidate.contentHash;
 }
@@ -294,6 +297,44 @@ function archiveReport(gameweek, locked, livePayload, fixturePayload, fetchedAt)
   return report;
 }
 
+function scoreKickoffForecasts(gameweek, deadlineLock, fixtureLocks, livePayload, fixtures, fetchedAt) {
+  const missingFixtures = fixtures.filter((fixture) => !fixtureLocks.some((lock) => lock?.fixtureId === fixture.id)).map((fixture) => fixture.id);
+  const capture = { captured: fixtures.length - missingFixtures.length, total: fixtures.length, missingFixtures };
+  if (!fixtures.length || missingFixtures.length) return { capture, comparison: null };
+
+  const rows = (deadlineLock.snapshot?.rows ?? []).map((row) => ({ ...row, projected: 0 }));
+  const byId = new Map(rows.map((row) => [Number(row.id), row]));
+  for (const lock of fixtureLocks) {
+    for (const row of lock.snapshot.rows) {
+      const target = byId.get(Number(row.id));
+      if (target) target.projected += Number(row.projected ?? 0);
+    }
+  }
+  const hashes = fixtureLocks.map((lock) => ({ fixtureId: lock.fixtureId, contentHash: lock.contentHash, capturedAt: lock.snapshot.generatedAt, modelVersion: lock.snapshot.modelVersion }))
+    .sort((a, b) => a.fixtureId - b.fixtureId);
+  const aggregateHash = digest(JSON.stringify(hashes));
+  const scored = archiveReport(gameweek, {
+    gameweek,
+    contentHash: aggregateHash,
+    modelVersion: [...new Set(hashes.map((item) => item.modelVersion))].join(", "),
+    lockMode: "automatic-predeadline",
+    snapshot: { rows },
+  }, livePayload, fixtures, fetchedAt);
+  return {
+    capture,
+    comparison: {
+      aggregateHash,
+      fixtureHashes: hashes,
+      modelVersion: scored.modelVersion,
+      overall: scored.overall,
+      activeCohort: scored.activeCohort,
+      flatTwoBaseline: scored.flatTwoBaseline,
+      byPosition: scored.byPosition,
+      topPickResults: scored.topPickResults,
+    },
+  };
+}
+
 async function registerReport(gameweek, activeGameweek) {
   let source = await readFile(MODELBOOK_TS, "utf8");
   const reportImport = `import gw${gameweek}Report from "@/public/modelbook/data/gw${gameweek}-report.json";`;
@@ -485,6 +526,15 @@ async function archiveFinishedGameweeks(activeGameweek) {
     if (!Array.isArray(fixtures) || !fixtures.length || !fixtures.every((fixture) => fixture.finished_provisional || fixture.finished)) continue;
     const fetchedAt = new Date().toISOString();
     const nextReport = archiveReport(gameweek, lock, livePayload, fixtures, fetchedAt);
+    if (gameweek >= 9 && !isReconstructed) {
+      const fixtureLocks = await Promise.all(fixtures.map(async (fixture) => {
+        const candidate = await readJson(fixtureLockFile(gameweek, fixture.id));
+        return isValidFixtureCheckpoint(candidate, fixture) ? candidate : null;
+      }));
+      const kickoff = scoreKickoffForecasts(gameweek, lock, fixtureLocks.filter(Boolean), livePayload, fixtures, fetchedAt);
+      nextReport.kickoffCapture = kickoff.capture;
+      if (kickoff.comparison) nextReport.preKickoff = kickoff.comparison;
+    }
     const comparable = (value) => {
       if (!value) return null;
       const clone = structuredClone(value);
@@ -531,7 +581,7 @@ async function main() {
   if (!captured && !requestedEvent) console.log("No deadline snapshot was due on this run.");
 }
 
-export { archiveReport, isCaptureWindow, isCheckpointDue, isValidCheckpoint, isValidFixtureCheckpoint, metricSet, CHECKPOINT_INTERVAL_MS, CHECKPOINT_WINDOW_MS };
+export { archiveReport, scoreKickoffForecasts, isCaptureWindow, isCheckpointDue, isValidCheckpoint, isValidFixtureCheckpoint, metricSet, CHECKPOINT_INTERVAL_MS, CHECKPOINT_WINDOW_MS };
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   main().catch((error) => {

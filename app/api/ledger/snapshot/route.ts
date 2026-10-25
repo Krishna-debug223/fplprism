@@ -95,8 +95,12 @@ async function verifiedFixtureArtifact(eventId: number, fixture: FplFixture) {
       const kickoff = Date.parse(fixture.kickoff_time ?? "");
       if (artifact.gameweek === eventId && artifact.fixtureId === fixture.id
         && artifact.fixtureKickoffTime === fixture.kickoff_time
+        && artifact.snapshot?.gameweek === eventId
         && artifact.snapshot?.fixtureId === fixture.id
+        && artifact.snapshot?.forecastMode === "fixture"
         && Array.isArray(artifact.snapshot.rows) && artifact.snapshot.rows.length
+        && artifact.snapshot.rows.every((row) => Number.isInteger(Number(row.id)) && Number(row.id) > 0
+          && typeof row.projected === "number" && Number.isFinite(row.projected))
         && Number.isFinite(capturedAt) && capturedAt < kickoff
         && createHash("sha256").update(JSON.stringify(artifact.snapshot)).digest("hex") === artifact.contentHash) {
         return { snapshot: artifact.snapshot, checkpoint: name.endsWith("-candidate.json"), contentHash: artifact.contentHash };

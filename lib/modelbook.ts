@@ -61,6 +61,17 @@ export type ModelbookReport = {
   bestPredictions?: Array<{ name: string; position: string; projected: number; actual: number; error: number; absoluteError?: number; minutes?: number }>;
   bestPredictionsTitle?: string;
   bestPredictionsNote?: string;
+  kickoffCapture?: { captured: number; total: number; missingFixtures: number[] };
+  preKickoff?: {
+    aggregateHash: string;
+    fixtureHashes: Array<{ fixtureId: number; contentHash: string; capturedAt: string; modelVersion: string }>;
+    modelVersion: string;
+    overall: ErrorMetrics;
+    activeCohort: ErrorMetrics;
+    flatTwoBaseline: ErrorMetrics;
+    byPosition: Record<string, ErrorMetrics>;
+    topPickResults: ModelbookReport["topPickResults"];
+  };
 };
 
 export type SnapshotMeta = {

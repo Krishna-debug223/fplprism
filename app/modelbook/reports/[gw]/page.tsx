@@ -97,6 +97,39 @@ export default async function ModelbookReportPage({ params }: Params) {
         Across all {report.overall.count} players the average miss was {report.overall.mae.toFixed(2)} pts.
       </p>
 
+      {report.preKickoff ? (
+        <section className="card" style={{ marginTop: 24 }}>
+          <h2>Last saved forecasts before each kickoff</h2>
+          <p className="small muted" style={{ marginTop: 5 }}>
+            All {report.preKickoff.fixtureHashes.length} fixture forecasts were saved before their own kickoff and scored against the same {active.count} players who played. The main figures above and the independent benchmark still use the original deadline snapshot.
+          </p>
+          <div className="table-wrap" style={{ marginTop: 12 }}>
+            <table className="table">
+              <thead><tr><th>Forecast timing</th><th className="r">Within 2</th><th className="r">Avg miss</th><th className="r">RMSE</th><th className="r">Bias</th></tr></thead>
+              <tbody>
+                <tr><td>Deadline snapshot</td><td className="r">{active.within2.toFixed(1)}%</td><td className="r">{active.mae.toFixed(2)}</td><td className="r">{active.rmse.toFixed(2)}</td><td className="r">{signed(active.bias)}</td></tr>
+                <tr><td>Pre-kickoff snapshots</td><td className="r">{report.preKickoff.activeCohort.within2.toFixed(1)}%</td><td className="r">{report.preKickoff.activeCohort.mae.toFixed(2)}</td><td className="r">{report.preKickoff.activeCohort.rmse.toFixed(2)}</td><td className="r">{signed(report.preKickoff.activeCohort.bias)}</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <details className="disclosure" style={{ marginTop: 12 }}>
+            <summary>Fixture capture record</summary>
+            <div className="disclosure-body">
+              <p className="small muted">Model version: {report.preKickoff.modelVersion}. Aggregate fingerprint: <span className={styles.hash}>{report.preKickoff.aggregateHash}</span></p>
+              <div className="table-wrap" style={{ marginTop: 10 }}>
+                <table className="table"><thead><tr><th>Fixture ID</th><th>Captured</th><th>Fingerprint</th></tr></thead>
+                  <tbody>{report.preKickoff.fixtureHashes.map((fixture) => <tr key={fixture.fixtureId}><td>{fixture.fixtureId}</td><td>{formatDate(fixture.capturedAt)}</td><td className={styles.hash}>{fixture.contentHash.slice(0, 12)}</td></tr>)}</tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+        </section>
+      ) : report.kickoffCapture ? (
+        <p className="notice notice-warn" style={{ marginTop: 24 }}>
+          Pre-kickoff comparison is unavailable: {report.kickoffCapture.captured} of {report.kickoffCapture.total} fixture forecasts were saved. We only publish that comparison when every fixture has a verified pre-kickoff capture.
+        </p>
+      ) : null}
+
       {report.flatTwoBaseline && (
         <section style={{ marginTop: 24 }}>
           <h2>Against a flat 2-point guess</h2>
