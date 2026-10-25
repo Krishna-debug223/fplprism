@@ -54,5 +54,7 @@ test("rejects reconstructed, late, unfinished, or tampered forecasts", () => {
 test("checked-in benchmark report matches source archives", async () => {
   const checkedIn = JSON.parse(await readFile(new URL("../public/modelbook/data/benchmark-report.json", import.meta.url), "utf8"));
   assert.deepEqual(checkedIn, await buildBenchmarkReport());
-  assert.deepEqual(checkedIn.weeks.map((week) => week.gameweek), [5, 6]);
+  // Future automatic locks can add more weeks; GW7 remains excluded because
+  // its forecast was reconstructed after the deadline.
+  assert.deepEqual(checkedIn.weeks.map((week) => week.gameweek).filter((gw) => gw <= 8), [5, 6, 8]);
 });

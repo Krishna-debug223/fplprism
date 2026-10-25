@@ -56,6 +56,30 @@
         "top15ActualPoints": 54,
         "localLinearNdcg15": 0.2865
       }
+    },
+    {
+      "gameweek": 8,
+      "modelVersion": "1.4.3",
+      "capturedAt": "2026-10-23T15:12:31.917Z",
+      "deadlineTime": "2026-10-23T17:30:00Z",
+      "hoursBeforeDeadline": 2.3,
+      "captureWindow": "within-24-hours",
+      "sourceHash": "6033b55140cfb3174656108c98e08a1373933e2fff0e0d5fa2ca0e3ed476d6f9",
+      "hashCheck": "embedded-snapshot-verified",
+      "officialPointsFetchedAt": "2026-10-25T18:34:16.663Z",
+      "pointsStatus": "provisional",
+      "forecastPlayers": 668,
+      "ownershipCohort": {
+        "players": 186,
+        "mae": 2.067,
+        "rmse": 3.186
+      },
+      "ranking": {
+        "eligiblePlayers": 668,
+        "top15Overlap": 1,
+        "top15ActualPoints": 51,
+        "localLinearNdcg15": 0.3162
+      }
     }
   ]
 }
