@@ -6,6 +6,7 @@ import { formatClock, formatDeadline, riskBadge, timeUntil } from "@/components/
 import {
   ARCHIVED_GAMEWEEKS,
   CURRENT_GAMEWEEK,
+  ROLLING_URL,
   SNAPSHOT_URL,
   actualPointsFor,
   ledgerStatus,
@@ -55,6 +56,13 @@ export default function ModelbookLive() {
     void load();
     void refreshLive();
   }, [load, refreshLive]);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => { if (!document.hidden) void load(); }, 60_000);
+    const onVisibility = () => { if (!document.hidden) void load(); };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => { window.clearInterval(timer); document.removeEventListener("visibilitychange", onVisibility); };
+  }, [load]);
 
   // Poll official points: quickly once matches can be under way, slowly before
   // the deadline, and rarely while the tab is hidden.
@@ -133,7 +141,7 @@ export default function ModelbookLive() {
         <div>
           <h1>Modelbook</h1>
           <p className="lead">
-            We publish forecasts before the deadline, freeze the available snapshot, then score it against official points — misses included. GW7 is labelled as an audit reconstruction because its original deadline snapshot is unavailable.
+            Forecasts refresh until each match starts, then that match&apos;s last pre-kickoff forecast is saved. The separate deadline snapshot remains fixed for independent comparisons. GW7 is labelled as an audit reconstruction because its original deadline snapshot is unavailable.
             {latestReport ? <> The latest scored week is <Link href={`/modelbook/reports/gw${latestReport}`}>GW{latestReport}</Link>.</> : null}
           </p>
         </div>
@@ -157,6 +165,11 @@ export default function ModelbookLive() {
           <dd>{ledger ? <>{formatDeadline(ledger.data.deadlineTime)}{countdown ? ` · ${countdown}` : ""}</> : "Loading…"}</dd>
           <dt>Players</dt>
           <dd>{ledger ? ledger.data.playerCount ?? ledger.data.rows.length : "Loading…"}</dd>
+          <dt>Forecast updated</dt>
+          <dd>{ledger ? formatClock(ledger.data.generatedAt) : "Loading…"}</dd>
+          {ledger?.data.forecastStates && Object.values(ledger.data.forecastStates).includes("deadline-fallback") && (
+            <><dt>Fixture capture</dt><dd>One or more matches use the labelled deadline forecast because a pre-kickoff capture was unavailable.</dd></>
+          )}
           <dt>Official points</dt>
           <dd>
             {actualsLive
@@ -171,7 +184,7 @@ export default function ModelbookLive() {
           <div className="disclosure-body">
             <dl className="kv">
               <dt>Model version</dt><dd>{ledger?.data.modelVersion ?? "—"}</dd>
-              <dt>{ledger?.mode === "locked" ? "Frozen" : "Generated"}</dt>
+              <dt>{ledger?.mode === "locked" ? "Deadline forecast" : "Latest update"}</dt>
               <dd>{ledger ? formatDeadline(ledger.mode === "locked" ? ledger.lockedAt : ledger.data.generatedAt) : "—"}</dd>
               {ledger?.data.training && (
                 <>
@@ -179,9 +192,27 @@ export default function ModelbookLive() {
                   <dd>Uses results through GW{ledger.data.training.trainedThroughGameweek}. {ledger.data.training.method}. Validation: {ledger.data.training.validation}.</dd>
                 </>
               )}
-              <dt>Fingerprint</dt>
+              <dt>Deadline fingerprint</dt>
               <dd className={styles.hash}>{ledger?.contentHash ?? "Published when the deadline snapshot is frozen"}</dd>
             </dl>
+            {ledger?.data.fixtureForecasts?.length ? (
+              <div style={{ marginTop: 16 }}>
+                <strong>Forecast by fixture</strong>
+                <div className="table-wrap" style={{ marginTop: 8 }}>
+                  <table className="table">
+                    <thead><tr><th>Match</th><th>Status</th><th>Forecast time</th><th>Fingerprint</th></tr></thead>
+                    <tbody>{ledger.data.fixtureForecasts.map((fixture) => (
+                      <tr key={fixture.fixtureId}>
+                        <td>{fixture.fixture}</td>
+                        <td>{fixture.state === "upcoming" ? "Updating" : fixture.state === "deadline-fallback" ? "Deadline fallback" : "Saved before kickoff"}</td>
+                        <td>{formatDeadline(fixture.capturedAt)}</td>
+                        <td className={styles.hash}>{fixture.contentHash?.slice(0, 12) ?? "—"}</td>
+                      </tr>
+                    ))}</tbody>
+                  </table>
+                </div>
+              </div>
+            ) : null}
           </div>
         </details>
       </section>
@@ -189,10 +220,10 @@ export default function ModelbookLive() {
       <section style={{ marginTop: 24 }} aria-labelledby="ledger-heading">
         <h2 id="ledger-heading">Player forecasts</h2>
         <p className="muted small" style={{ marginTop: 2 }}>
-          Sorting and filtering only change the view; stored forecasts never change. A dash under Actual means no minutes yet.
+          Sorting and filtering only change the view. Upcoming forecasts refresh; a match&apos;s forecast stops changing at kickoff. A dash under Actual means no minutes yet.
         </p>
         <p className="muted small" style={{ marginTop: 6 }}>
-          Independent comparisons can use the <a href={SNAPSHOT_URL}>complete GW{CURRENT_GAMEWEEK} JSON export</a>, including FPL player IDs, club, position, price and projected points. Before the deadline it can update with new information; the deadline snapshot is frozen for scoring.
+          See the <a href={ROLLING_URL}>current fixture forecasts</a> or the <a href={SNAPSHOT_URL}>deadline JSON export</a> used for independent comparisons. Both include FPL player IDs, club, position, price and expected points.
         </p>
 
         <div className={`${styles.filters} card card-tight`} style={{ marginTop: 12 }}>
@@ -275,7 +306,7 @@ export default function ModelbookLive() {
                             {row.name}
                             {flagged && <span className={styles.flag} title={row.news || "Flagged by FPL"} aria-label={`Flagged: ${row.news || "availability doubt"}`}>!</span>}
                           </strong>
-                          <span>{row.team} · {row.fixture}</span>
+                          <span>{row.team} · {row.fixture}{row.forecastState === "deadline-fallback" ? " · deadline fallback" : row.forecastState === "kickoff-locked" || row.forecastState === "pre-kickoff-checkpoint" ? " · pre-kickoff forecast" : ""}</span>
                         </td>
                         <td>{row.position}</td>
                         <td className="r strong">{Number(row.projected).toFixed(1)}</td>

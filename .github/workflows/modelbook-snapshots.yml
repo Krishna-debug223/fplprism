@@ -1,4 +1,4 @@
-name: Freeze and archive Modelbook
+name: Refresh fixture forecasts and archive Modelbook
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       gameweek:
-        description: "Optional Gameweek to process; freezing still happens only in the final 10 minutes before deadline"
+        description: "Optional Gameweek to process; deadline and fixture locks keep their normal pre-match timing"
         required: false
         type: string
 
@@ -18,7 +18,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  freeze-and-archive:
+  refresh-and-archive:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Freeze due forecasts and archive completed weeks
+      - name: Refresh pre-kickoff forecasts and archive completed weeks
         env:
           FPL_PRISM_SITE_URL: https://fplprism.com
           MODELBOOK_GAMEWEEK: ${{ inputs.gameweek }}
@@ -41,7 +41,7 @@ jobs:
       - name: Refresh independent benchmark diagnostics
         run: node scripts/benchmark-modelbook.mjs
 
-      - name: Publish new immutable Modelbook files
+      - name: Publish fixture checkpoints and immutable Modelbook files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -51,5 +51,5 @@ jobs:
             echo "No Modelbook changes to publish."
             exit 0
           fi
-          git commit -m "Freeze and archive Gameweek Modelbook data"
+          git commit -m "Refresh fixture forecasts and archive Modelbook data"
           git push origin HEAD:main

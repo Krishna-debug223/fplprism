@@ -1,6 +1,7 @@
 import { projectPlayer as baseProjectPlayer } from "../lib/risk";
 import { APPEARANCE_ANCHOR_WEIGHT, MODEL_VERSION, POSITION_CALIBRATION, projectPlayer, recommendJointTransferPlan } from "../lib/risk-v12";
 import { analyzePortfolioRisk } from "../lib/portfolio-risk";
+import { playerForForecastEvent } from "../lib/fpl-availability";
 import { impliedGoalMeanFromTotal, type SportsbookPayload } from "../lib/sportsbook";
 import type { FplFixture, FplPlayer, FplTeam } from "../lib/types";
 
@@ -48,6 +49,12 @@ function player(overrides: Partial<FplPlayer> = {}): FplPlayer {
   };
 }
 
+const lateDoubt = player({ status: "d", chance_of_playing_next_round: 100, chance_of_playing_this_round: 25 });
+assert(playerForForecastEvent(lateDoubt, { is_current: true }).chance_of_playing_next_round === 25,
+  "a current-Gameweek fixture must use FPL's this-round availability after the next-round field moves on");
+assert(playerForForecastEvent(lateDoubt, { is_current: false }).chance_of_playing_next_round === 100,
+  "a future fixture must continue using FPL's next-round availability");
+
 const teams: FplTeam[] = [
   { id: 1, name: "Alpha FC", short_name: "ALP", strength: 4, strength_attack_home: 1250, strength_attack_away: 1180, strength_defence_home: 1200, strength_defence_away: 1150, elo: 1700, underlying_matches: 4, underlying_attack_xg_per_match: 1.65, underlying_attack_xa_per_match: 1.2, underlying_defence_xga_per_match: 1.05 },
   { id: 2, name: "Beta FC", short_name: "BET", strength: 3, strength_attack_home: 1080, strength_attack_away: 1040, strength_defence_home: 1050, strength_defence_away: 1020, elo: 1550, underlying_matches: 4, underlying_attack_xg_per_match: 1.25, underlying_attack_xa_per_match: 0.95, underlying_defence_xga_per_match: 1.55 },
@@ -64,6 +71,11 @@ const fixtures: FplFixture[] = [
   { id: 12, event: 3, team_h: 5, team_a: 1, team_h_difficulty: 4, team_a_difficulty: 2, kickoff_time: "2026-09-27T14:00:00Z", finished: false, started: false },
   { id: 13, event: 3, team_h: 2, team_a: 3, team_h_difficulty: 3, team_a_difficulty: 3, kickoff_time: "2026-09-27T14:00:00Z", finished: false, started: false },
 ];
+
+const currentRoundDoubt = projectPlayer(playerForForecastEvent(lateDoubt, { is_current: true }), fixtures, teams, 1, undefined, null, [2]);
+const nextRoundDoubt = projectPlayer(playerForForecastEvent(lateDoubt, { is_current: false }), fixtures, teams, 1, undefined, null, [2]);
+assert(currentRoundDoubt.expected < nextRoundDoubt.expected,
+  "a current-round availability downgrade must lower the pre-kickoff forecast");
 
 const midfielder = player({ id: 1, code: 101, team: 1, element_type: 3 });
 const base = baseProjectPlayer(midfielder, fixtures, teams, 1);
@@ -229,4 +241,4 @@ const resultingPlayers = [...resultingIds].map((id) => universe.find((item) => i
 const clubOneCount = resultingPlayers.filter((item) => item.team === 1).length;
 assert(clubOneCount <= 3, "joint optimizer must enforce the maximum-three-per-club rule across the resulting squad");
 
-console.log(`Model v${MODEL_VERSION} checks passed: reserve/starter minutes evidence, position-calibration mapping and transparency, fixture-component directionality, sportsbook fail-open/zero-weight invariance, bounded market influence, directional attack/clean-sheet response, real-fixture portfolio covariance, and joint-transfer legality.`);
+console.log(`Model v${MODEL_VERSION} checks passed: current-round availability, reserve/starter minutes evidence, position-calibration mapping and transparency, fixture-component directionality, sportsbook fail-open/zero-weight invariance, bounded market influence, directional attack/clean-sheet response, real-fixture portfolio covariance, and joint-transfer legality.`);

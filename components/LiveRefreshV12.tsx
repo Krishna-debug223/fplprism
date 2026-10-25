@@ -35,6 +35,7 @@ import {
   type RiskMode,
 } from "@/lib/risk-v12";
 import { analyzePortfolioRisk } from "@/lib/portfolio-risk";
+import { playerForForecastEvent } from "@/lib/fpl-availability";
 import { createClient as createSupabaseClient } from "@/lib/supabase/client";
 
 type ProjectionRow = {
@@ -188,6 +189,21 @@ export default function LiveRefreshV12() {
     return () => { cancelled = true; };
   }, [refreshKey]);
 
+  // Recheck official availability and fixtures throughout the Gameweek. Close
+  // to a kickoff, refresh every minute so late FPL news reaches the model.
+  useEffect(() => {
+    const nextKickoff = fixtures
+      .filter((fixture) => !fixture.started && !fixture.finished)
+      .map((fixture) => Date.parse(fixture.kickoff_time ?? ""))
+      .filter((time) => Number.isFinite(time) && time > Date.now())
+      .sort((a, b) => a - b)[0];
+    const nearKickoff = nextKickoff != null && nextKickoff - Date.now() <= 60 * 60_000;
+    const interval = window.setInterval(() => {
+      if (!document.hidden) setRefreshKey((value) => value + 1);
+    }, nearKickoff ? 60_000 : 300_000);
+    return () => window.clearInterval(interval);
+  }, [fixtures]);
+
   const players = useMemo(() => bootstrap?.elements ?? [], [bootstrap]);
   const teams = useMemo(() => bootstrap?.teams ?? [], [bootstrap]);
   const events = useMemo(() => bootstrap?.events ?? [], [bootstrap]);
@@ -199,7 +215,7 @@ export default function LiveRefreshV12() {
   // The projection engine forecasts the next Gameweeks that still have
   // unfinished fixtures. Name them so every horizon has a real label.
   const projectionEvents = useMemo<HorizonEvent[]>(() => {
-    const ids = [...new Set(fixtures.filter((f) => !f.finished && f.event != null).map((f) => f.event as number))]
+    const ids = [...new Set(fixtures.filter((f) => !f.started && !f.finished && f.event != null).map((f) => f.event as number))]
       .sort((a, b) => a - b)
       .slice(0, 5);
     return ids.map((id) => ({ id, name: events.find((event) => event.id === id)?.name ?? `Gameweek ${id}` }));
@@ -239,11 +255,10 @@ export default function LiveRefreshV12() {
     let cancelled = false;
     async function loadLockedSnapshot() {
       try {
-        const response = await fetch(`/modelbook/data/gw${liveEventId}-locked.json`, { cache: "no-store" });
-        if (!response.ok) throw new Error("No locked snapshot");
-        const artifact = (await response.json()) as { gameweek?: number; snapshot?: { gameweek?: number; rows?: LockedProjectionRow[] }; rows?: LockedProjectionRow[] };
-        const snapshot = artifact.snapshot ?? artifact;
-        const eventId = Number(snapshot.gameweek ?? artifact.gameweek);
+        const response = await fetch(`/api/ledger/snapshot?event=${liveEventId}&view=rolling`, { cache: "no-store" });
+        if (!response.ok) throw new Error("No current forecast");
+        const snapshot = (await response.json()) as { gameweek?: number; rows?: LockedProjectionRow[] };
+        const eventId = Number(snapshot.gameweek);
         const rows = snapshot.rows ?? [];
         if (!cancelled && eventId === liveEventId && rows.length) {
           setLockedEventId(eventId);
@@ -268,14 +283,15 @@ export default function LiveRefreshV12() {
   const projectionRows = useMemo<ProjectionRow[]>(() => {
     if (!bootstrap || !fixtures.length) return [];
     return players.map((player) => {
-      const one = projectPlayer(player, fixtures, teams, 1, historicalProfiles, sportsbook, undefined, true);
+      const firstEvent = events.find((event) => event.id === projectionEvents[0]?.id);
+      const one = projectPlayer(playerForForecastEvent(player, firstEvent), fixtures, teams, 1, historicalProfiles, sportsbook, undefined, true);
       const three = projectPlayer(player, fixtures, teams, 3, historicalProfiles, sportsbook, undefined, true);
       const five = projectPlayer(player, fixtures, teams, 5, historicalProfiles, sportsbook, undefined, true);
       // Value keeps a £3.5m floor on the denominator, as the engine always has.
       const price = Math.max(player.now_cost / 10, 3.5);
       return { player, one, three, five, value: five.expected / price };
     });
-  }, [bootstrap, fixtures, historicalProfiles, players, sportsbook, teams]);
+  }, [bootstrap, events, fixtures, historicalProfiles, players, projectionEvents, sportsbook, teams]);
 
   const projectionMap = useMemo(() => new Map(projectionRows.map((row) => [row.player.id, row])), [projectionRows]);
   const projectableMarket = useMemo(
@@ -327,11 +343,12 @@ export default function LiveRefreshV12() {
   // squad is projected against that event specifically.
   const nextSquad = useMemo<SquadItem[]>(() => {
     if (!transferEventId) return squad;
+    const transferEvent = events.find((event) => event.id === transferEventId);
     return squad.map((item) => ({
       ...item,
-      one: projectPlayer(item.player, fixtures, teams, 1, historicalProfiles, sportsbook, [transferEventId], true),
+      one: projectPlayer(playerForForecastEvent(item.player, transferEvent), fixtures, teams, 1, historicalProfiles, sportsbook, [transferEventId], true),
     }));
-  }, [fixtures, historicalProfiles, squad, sportsbook, teams, transferEventId]);
+  }, [events, fixtures, historicalProfiles, squad, sportsbook, teams, transferEventId]);
 
   const squadPlayers = useMemo(() => squad.map((item) => item.player), [squad]);
   // Public FPL picks do not include personal selling prices, so the listed
@@ -984,7 +1001,7 @@ export default function LiveRefreshV12() {
                   />
                   <p className="muted small">
                     {teamMode === "result" && hasLockedScoringComparison
-                      ? `Official GW${manager.eventId} points beside the forecast preserved at the deadline. "Not played" means no minutes recorded yet.`
+                      ? `Official GW${manager.eventId} points beside the latest available forecast, saved before each fixture starts. "Not played" means no minutes recorded yet.`
                       : `Numbers are projected points for ${nextEvent?.name ?? "the next Gameweek"} (before captaincy). C = captain, V = vice-captain, ! = official availability flag. Select a player for details.`}
                   </p>
                 </section>
@@ -1549,7 +1566,7 @@ export default function LiveRefreshV12() {
             <p>Team news, rotation, injuries and tactics change after forecasts are made. Players with few minutes have thin evidence. Public data doesn&apos;t include your selling prices or remaining free transfers. Treat every number as an estimate.</p>
 
             <h2>Track record</h2>
-            <p>Forecasts are preserved at each deadline and compared with official points, including the misses, in the <Link href="/modelbook">Modelbook</Link>.</p>
+            <p>Forecasts update until each fixture starts. The separate deadline snapshot is preserved for independent comparisons in the <Link href="/modelbook">Modelbook</Link>.</p>
           </article>
         )}
         </div>

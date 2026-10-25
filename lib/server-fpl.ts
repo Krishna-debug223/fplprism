@@ -20,13 +20,17 @@ export async function fplFetch<T>(path: string, revalidate = 300, timeoutMs = DE
   if (revalidate <= 0) return fetchFresh() as Promise<T>;
 
   const now = Date.now();
-  const current = cache.get(path);
+  // The same FPL path is requested with different freshness requirements.
+  // Keep their caches separate so a five-minute page cache cannot satisfy a
+  // one-minute pre-kickoff refresh with stale player availability.
+  const cacheKey = `${path}:${revalidate}`;
+  const current = cache.get(cacheKey);
   if (current && current.expiresAt > now) return current.promise as Promise<T>;
 
   const promise = fetchFresh();
-  cache.set(path, { expiresAt: now + revalidate * 1_000, promise });
+  cache.set(cacheKey, { expiresAt: now + revalidate * 1_000, promise });
   promise.catch(() => {
-    if (cache.get(path)?.promise === promise) cache.delete(path);
+    if (cache.get(cacheKey)?.promise === promise) cache.delete(cacheKey);
   });
   return promise as Promise<T>;
 }

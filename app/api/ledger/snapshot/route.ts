@@ -6,6 +6,7 @@ import path from "node:path";
 import { getSiteUrl } from "@/lib/site-url";
 import { fplFetch } from "@/lib/server-fpl";
 import { enrichUnderlyingTeamData } from "@/lib/fpl-enrichment";
+import { playerForForecastEvent } from "@/lib/fpl-availability";
 import { MODEL_VERSION, positionName, projectPlayer } from "@/lib/risk-v12";
 import { buildNewsScan } from "@/lib/news-scan";
 import type { SportsbookFixtureSignal, SportsbookPayload } from "@/lib/sportsbook";
@@ -28,10 +29,11 @@ const allowedOrigins = new Set([
 ]);
 
 function jsonHeaders(request: NextRequest) {
+  const capture = request.nextUrl.searchParams.has("capture") || request.nextUrl.searchParams.has("freeze");
   const headers = new Headers({
   "Access-Control-Allow-Methods": "GET, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type",
-  "Cache-Control": "public, s-maxage=30, stale-while-revalidate=60",
+  "Cache-Control": capture ? "no-store, max-age=0" : "public, s-maxage=30",
   });
   const origin = request.headers.get("origin");
   if (origin && allowedOrigins.has(origin)) {
@@ -62,11 +64,49 @@ type SnapshotPayload = {
   fixtures: FplFixture[];
   newsScan?: NewsScanPayload;
   rows: Array<Record<string, unknown>>;
+  forecastMode?: "deadline" | "fixture" | "rolling";
+  fixtureId?: number;
+  fixtureKickoffTime?: string;
+  forecastStates?: Record<string, "upcoming" | "kickoff-locked" | "pre-kickoff-checkpoint" | "deadline-fallback">;
+  fixtureForecasts?: Array<{ fixtureId: number; fixture: string; kickoffTime: string | null; state: "upcoming" | "kickoff-locked" | "pre-kickoff-checkpoint" | "deadline-fallback"; capturedAt: string; contentHash: string | null }>;
 };
 
 const SNAPSHOT_TTL_MS = 30_000;
 const snapshotCache = new Map<string, { expiresAt: number; promise: Promise<SnapshotPayload> }>();
 const LOCKED_DATA_DIR = path.join(process.cwd(), "public", "modelbook", "data");
+
+function fixtureHasStarted(fixture: FplFixture) {
+  const kickoff = Date.parse(fixture.kickoff_time ?? "");
+  return fixture.started || fixture.finished || (Number.isFinite(kickoff) && Date.now() >= kickoff);
+}
+
+async function verifiedFixtureArtifact(eventId: number, fixture: FplFixture) {
+  const names = [
+    `gw${eventId}-fixture-${fixture.id}-locked.json`,
+    `gw${eventId}-fixture-${fixture.id}-candidate.json`,
+  ];
+  for (const name of names) {
+    try {
+      const artifact = JSON.parse(await readFile(path.join(process.cwd(), "public", "modelbook", "data", name), "utf8")) as {
+        gameweek: number; fixtureId: number; fixtureKickoffTime: string;
+        contentHash: string; snapshot: SnapshotPayload;
+      };
+      const capturedAt = Date.parse(artifact.snapshot?.generatedAt ?? "");
+      const kickoff = Date.parse(fixture.kickoff_time ?? "");
+      if (artifact.gameweek === eventId && artifact.fixtureId === fixture.id
+        && artifact.fixtureKickoffTime === fixture.kickoff_time
+        && artifact.snapshot?.fixtureId === fixture.id
+        && Array.isArray(artifact.snapshot.rows) && artifact.snapshot.rows.length
+        && Number.isFinite(capturedAt) && capturedAt < kickoff
+        && createHash("sha256").update(JSON.stringify(artifact.snapshot)).digest("hex") === artifact.contentHash) {
+        return { snapshot: artifact.snapshot, checkpoint: name.endsWith("-candidate.json"), contentHash: artifact.contentHash };
+      }
+    } catch {
+      // An optional checkpoint may not have been published yet.
+    }
+  }
+  return null;
+}
 
 async function optionalJson(url: string) {
   try {
@@ -131,16 +171,20 @@ export async function GET(request: NextRequest) {
   // public host for our own FPL proxy routes so snapshots work in every env.
   const origin = getSiteUrl();
   const requestedEvent = Number(request.nextUrl.searchParams.get("event") ?? "");
-  const cacheKey = Number.isInteger(requestedEvent) && requestedEvent > 0 ? `event:${requestedEvent}` : "next";
+  const requestedFixture = Number(request.nextUrl.searchParams.get("fixture") ?? "");
+  const fixtureRequest = Number.isInteger(requestedFixture) && requestedFixture > 0;
+  const rolling = request.nextUrl.searchParams.get("view") === "rolling";
+  const capture = request.nextUrl.searchParams.has("capture") || request.nextUrl.searchParams.has("freeze");
+  const cacheKey = `${Number.isInteger(requestedEvent) && requestedEvent > 0 ? `event:${requestedEvent}` : "next"}:${fixtureRequest ? requestedFixture : rolling ? "rolling" : "deadline"}`;
 
   try {
-    const payload = await cachedSnapshot(cacheKey, async () => {
+    const build = async (): Promise<SnapshotPayload> => {
       // Read the official feeds directly instead of calling this app's own public
       // domain. A self-request can be redirected by deployment protection and turn
       // a valid FPL feed into an HTML login page inside the function.
       const [rawBootstrap, fixtures, historyPayload, sportsbookPayload] = await Promise.all([
-        fplFetch<Pick<BootstrapPayload, "elements" | "teams" | "events">>("/bootstrap-static/", 300),
-        fplFetch<FplFixture[]>("/fixtures/", 120),
+        fplFetch<Pick<BootstrapPayload, "elements" | "teams" | "events">>("/bootstrap-static/", fixtureRequest || rolling ? 60 : 300),
+        fplFetch<FplFixture[]>("/fixtures/", fixtureRequest || rolling ? 30 : 120),
         optionalJson(`${origin}/api/fpl/history`),
         optionalJson(`${origin}/api/sportsbook`),
       ]);
@@ -158,7 +202,7 @@ export async function GET(request: NextRequest) {
 
       if (!event) throw new Error("NO_MATCHING_EVENT");
       const deadline = Date.parse(event.deadline_time);
-      if (Number.isFinite(deadline) && Date.now() >= deadline) {
+      if (!fixtureRequest && !rolling && Number.isFinite(deadline) && Date.now() >= deadline) {
         const frozen = await frozenSnapshot(event.id);
         if (frozen) return frozen;
         throw new Error("NO_FROZEN_SNAPSHOT");
@@ -166,6 +210,9 @@ export async function GET(request: NextRequest) {
 
       const teamMap = new Map(bootstrap.teams.map((team) => [team.id, team]));
       const eventFixtures = fixtures.filter((fixture) => fixture.event === event.id);
+      const selectedFixture = fixtureRequest ? eventFixtures.find((item) => item.id === requestedFixture) : null;
+      if (fixtureRequest && !selectedFixture) throw new Error("NO_MATCHING_FIXTURE");
+      if (selectedFixture && fixtureHasStarted(selectedFixture)) throw new Error("FIXTURE_STARTED");
       const newsScan = buildNewsScan(bootstrap, fixtures, event.id);
       const kickoffByTeam = new Map<number, string | null>();
 
@@ -174,10 +221,13 @@ export async function GET(request: NextRequest) {
         kickoffByTeam.set(fixture.team_a, fixture.kickoff_time);
       });
 
-      const rows = bootstrap.elements.map((player) => {
+      const buildRow = (player: BootstrapPayload["elements"][number], target?: FplFixture) => {
+        const projectionFixtures = target
+          ? fixtures.filter((item) => item.event !== event.id || item.id === target.id)
+          : fixtures;
         const projection = projectPlayer(
-          player,
-          fixtures,
+          playerForForecastEvent(player, event),
+          projectionFixtures,
           bootstrap.teams,
           1,
           history?.players,
@@ -200,7 +250,8 @@ export async function GET(request: NextRequest) {
           ownership: Number.parseFloat(player.selected_by_percent || "0"),
           status: player.status,
           fixture: projection.fixtureLabels[0] ?? "BLANK",
-          kickoffTime: kickoffByTeam.get(player.team) ?? null,
+          kickoffTime: target?.kickoff_time ?? kickoffByTeam.get(player.team) ?? null,
+          fixtureId: target?.id ?? null,
           projected: projection.expected,
           volatility: projection.volatility,
           risk: projection.risk,
@@ -217,7 +268,12 @@ export async function GET(request: NextRequest) {
           newsAdded: player.news_added ?? null,
           chanceOfPlayingThisRound: player.chance_of_playing_this_round ?? null,
         };
-      });
+      };
+
+      const rows = selectedFixture
+        ? bootstrap.elements.filter((player) => player.team === selectedFixture.team_h || player.team === selectedFixture.team_a)
+          .map((player) => buildRow(player, selectedFixture))
+        : rolling ? [] : bootstrap.elements.map((player) => buildRow(player));
 
       const generatedAt = new Date().toISOString();
       const historicalPriorCount = history?.seasons.length ?? 0;
@@ -232,7 +288,7 @@ export async function GET(request: NextRequest) {
         validation: "GW4–GW5 walk-forward validation",
       };
 
-      return {
+      const snapshot: SnapshotPayload = {
         schemaVersion: 2,
         gameweek: event.id,
         eventName: event.name,
@@ -255,13 +311,75 @@ export async function GET(request: NextRequest) {
         fixtures: eventFixtures,
         newsScan,
         rows,
+        forecastMode: selectedFixture ? "fixture" : rolling ? "rolling" : "deadline",
+        fixtureId: selectedFixture?.id,
+        fixtureKickoffTime: selectedFixture?.kickoff_time ?? undefined,
       };
-    });
+
+      if (!rolling) return snapshot;
+
+      // Keep every match independent: the deadline export is immutable for
+      // comparisons, while this view is refreshed only until each kickoff.
+      const baseline = await frozenSnapshot(event.id);
+      const baselineRows = new Map((baseline?.rows ?? []).map((row) => [Number(row.id), row]));
+      const fixtureParts = await Promise.all(eventFixtures.map(async (fixture) => {
+        if (!fixtureHasStarted(fixture)) {
+          return { fixture, state: "upcoming" as const,
+            capturedAt: snapshot.generatedAt, contentHash: null,
+            rows: bootstrap.elements.filter((player) => player.team === fixture.team_h || player.team === fixture.team_a)
+              .map((player) => buildRow(player, fixture)) };
+        }
+        const saved = await verifiedFixtureArtifact(event.id, fixture);
+        if (saved) return { fixture, state: saved.checkpoint ? "pre-kickoff-checkpoint" as const : "kickoff-locked" as const,
+          capturedAt: saved.snapshot.generatedAt, contentHash: saved.contentHash, rows: saved.snapshot.rows };
+        // Never recompute a match after kickoff. A deadline forecast is a
+        // labelled fallback if the final per-fixture capture was missed.
+        const fixtureCountForTeam = (teamId: number) => eventFixtures.filter((item) => item.team_h === teamId || item.team_a === teamId).length;
+        if (!baseline || fixtureCountForTeam(fixture.team_h) !== 1 || fixtureCountForTeam(fixture.team_a) !== 1) {
+          throw new Error("NO_FROZEN_SNAPSHOT");
+        }
+        return { fixture, state: "deadline-fallback" as const,
+          capturedAt: baseline.generatedAt, contentHash: null,
+          rows: bootstrap.elements.filter((player) => player.team === fixture.team_h || player.team === fixture.team_a)
+            .map((player) => baselineRows.get(player.id)).filter((row): row is Record<string, unknown> => Boolean(row)) };
+      }));
+      const byPlayer = new Map<number, Array<Record<string, unknown>>>();
+      for (const part of fixtureParts) {
+        for (const row of part.rows) {
+          const id = Number(row.id);
+          byPlayer.set(id, [...(byPlayer.get(id) ?? []), row]);
+        }
+      }
+      snapshot.rows = bootstrap.elements.map((player) => {
+        const parts = byPlayer.get(player.id) ?? [];
+        if (!parts.length) return { ...(baselineRows.get(player.id) ?? buildRow(player)), projected: 0, fixture: "BLANK", floor: 0, median: 0, ceiling: 0, probabilities: null };
+        if (parts.length === 1) return { ...parts[0], forecastState: fixtureParts.find((part) => part.fixture.id === Number(parts[0].fixtureId))?.state ?? "deadline-fallback" };
+        const total = (key: string) => parts.reduce((sum, part) => sum + Number(part[key] ?? 0), 0);
+        const volatility = Math.sqrt(parts.reduce((sum, part) => sum + Number(part.volatility ?? 0) ** 2, 0));
+        return { ...parts[0], projected: total("projected"), volatility,
+          fixture: parts.map((part) => part.fixture).join(" + "),
+          floor: total("floor"), median: total("median"), ceiling: total("ceiling"),
+          sharpe: total("projected") / Math.max(volatility, 0.35),
+          probabilities: null, simulations: null, forecastState: "mixed-fixtures" };
+      });
+      snapshot.playerCount = snapshot.rows.length;
+      snapshot.forecastStates = Object.fromEntries(fixtureParts.map((part) => [String(part.fixture.id), part.state]));
+      snapshot.fixtureForecasts = fixtureParts.map((part) => ({
+        fixtureId: part.fixture.id,
+        fixture: `${teamMap.get(part.fixture.team_h)?.short_name ?? "?"} v ${teamMap.get(part.fixture.team_a)?.short_name ?? "?"}`,
+        kickoffTime: part.fixture.kickoff_time,
+        state: part.state,
+        capturedAt: part.capturedAt,
+        contentHash: part.contentHash,
+      }));
+      return snapshot;
+    };
+    const payload = capture ? await build() : await cachedSnapshot(cacheKey, build);
 
     return NextResponse.json(payload, { headers: jsonHeaders(request) });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
-    if (message !== "NO_FROZEN_SNAPSHOT") {
+    if (!["NO_FROZEN_SNAPSHOT", "FIXTURE_STARTED", "NO_MATCHING_FIXTURE"].includes(message)) {
       console.error(JSON.stringify({
         level: "error",
         route: "/api/ledger/snapshot",
@@ -269,19 +387,23 @@ export async function GET(request: NextRequest) {
         error: message,
       }));
     }
-    const status = error instanceof Error && error.message === "NO_MATCHING_EVENT"
+    const status = error instanceof Error && ["NO_MATCHING_EVENT", "NO_MATCHING_FIXTURE"].includes(error.message)
       ? 404
       : error instanceof Error && error.message === "NO_FROZEN_SNAPSHOT"
         ? 409
+        : error instanceof Error && error.message === "FIXTURE_STARTED"
+          ? 409
         : 503;
     const headers = jsonHeaders(request);
     headers.set("Cache-Control", "no-store, max-age=0");
     return NextResponse.json(
       {
         error: status === 404
-          ? "No matching FPL event was found."
+          ? message === "NO_MATCHING_FIXTURE" ? "No matching fixture was found in that Gameweek." : "No matching FPL event was found."
           : status === 409
-            ? "The Gameweek deadline has passed and its frozen forecast is unavailable. Recalculated projections are hidden to protect the historical record."
+            ? message === "FIXTURE_STARTED"
+              ? "This fixture has kicked off. Its forecast can no longer be recalculated."
+              : "The Gameweek deadline has passed and its frozen forecast is unavailable. Recalculated projections are hidden to protect the historical record."
             : "Live projection data is temporarily unavailable.",
       },
       { status, headers },

@@ -15,6 +15,7 @@ import gw8Meta from "@/public/modelbook/data/gw8-snapshot-meta.json";
 // The archive workflow advances this when it publishes each future report.
 export const CURRENT_GAMEWEEK = 9;
 export const SNAPSHOT_URL = `/api/ledger/snapshot?event=${CURRENT_GAMEWEEK}`;
+export const ROLLING_URL = `${SNAPSHOT_URL}&view=rolling`;
 export const LOCKED_URL = `/modelbook/data/gw${CURRENT_GAMEWEEK}-locked.json`;
 export const LIVE_POINTS_URL = `/api/fpl/live/${CURRENT_GAMEWEEK}`;
 
@@ -135,6 +136,7 @@ export type LedgerRow = {
   probabilities: { bust?: number; haul?: number } | null;
   news?: string | null;
   chanceOfPlayingThisRound?: number | null;
+  forecastState?: "upcoming" | "kickoff-locked" | "pre-kickoff-checkpoint" | "deadline-fallback" | "mixed-fixtures";
 };
 
 export type LedgerSnapshot = {
@@ -146,9 +148,11 @@ export type LedgerSnapshot = {
   playerCount?: number;
   training?: { trainedThroughGameweek: number; targetGameweek: number; method: string; validation: string; source?: string };
   rows: LedgerRow[];
+  forecastStates?: Record<string, "upcoming" | "kickoff-locked" | "pre-kickoff-checkpoint" | "deadline-fallback">;
+  fixtureForecasts?: Array<{ fixtureId: number; fixture: string; kickoffTime: string | null; state: "upcoming" | "kickoff-locked" | "pre-kickoff-checkpoint" | "deadline-fallback"; capturedAt: string; contentHash: string | null }>;
 };
 
-export type LedgerMode = "prelock" | "lock-pending" | "locked";
+export type LedgerMode = "prelock" | "lock-pending" | "locked" | "rolling";
 
 export type Ledger = {
   mode: LedgerMode;
@@ -166,37 +170,39 @@ type LockedArtifact = {
 } & Partial<LedgerSnapshot>;
 
 export async function loadCurrentLedger(): Promise<Ledger> {
+  let deadlineArtifact: LockedArtifact | null = null;
   try {
     const lockedResponse = await fetch(LOCKED_URL, { cache: "no-store" });
     if (lockedResponse.ok) {
-      const artifact = (await lockedResponse.json()) as LockedArtifact;
-      const snapshot = (artifact.snapshot ?? artifact) as LedgerSnapshot & { lockedAt?: string; contentHash?: string };
-      return {
-        mode: "locked",
-        data: snapshot,
-        lockedAt: artifact.lockedAt ?? snapshot.lockedAt ?? null,
-        contentHash: artifact.contentHash ?? snapshot.contentHash ?? null,
-        lockMode: artifact.lockMode ?? "official-deadline",
-      };
+      deadlineArtifact = (await lockedResponse.json()) as LockedArtifact;
     }
   } catch {
     // The lock artifact intentionally does not exist before the deadline.
   }
 
-  const response = await fetch(SNAPSHOT_URL, { cache: "no-store" });
+  const response = await fetch(ROLLING_URL, { cache: "no-store" });
   if (!response.ok) {
+    if (deadlineArtifact) {
+      return {
+        mode: "locked",
+        data: (deadlineArtifact.snapshot ?? deadlineArtifact) as LedgerSnapshot,
+        lockedAt: deadlineArtifact.lockedAt ?? null,
+        contentHash: deadlineArtifact.contentHash ?? null,
+        lockMode: deadlineArtifact.lockMode ?? "official-deadline",
+      };
+    }
     const body = (await response.json().catch(() => null)) as { error?: string } | null;
     throw new Error(body?.error ?? `Projection export unavailable (${response.status})`);
   }
   const data = (await response.json()) as LedgerSnapshot;
   const deadline = Date.parse(data.deadlineTime);
-  const mode: LedgerMode = Number.isFinite(deadline) && Date.now() >= deadline ? "lock-pending" : "prelock";
-  if (mode === "lock-pending") {
-    throw new Error(
-      `GW${data.gameweek}'s deadline has passed, but its frozen forecast is missing. To avoid showing projections recalculated after the deadline, this table is hidden until the original snapshot is restored.`,
-    );
-  }
-  return { mode, data, lockedAt: null, contentHash: null, lockMode: "official-deadline" };
+  const mode: LedgerMode = Number.isFinite(deadline) && Date.now() >= deadline ? "rolling" : "prelock";
+  return {
+    mode, data,
+    lockedAt: deadlineArtifact?.lockedAt ?? null,
+    contentHash: deadlineArtifact?.contentHash ?? null,
+    lockMode: deadlineArtifact?.lockMode ?? "official-deadline",
+  };
 }
 
 export type LivePoints = {
@@ -238,6 +244,13 @@ export function actualPointsFor(row: Pick<LedgerRow, "id">, live: LivePoints) {
 }
 
 export function ledgerStatus(ledger: Pick<Ledger, "mode" | "lockMode">) {
+  if (ledger.mode === "rolling") {
+    return {
+      label: "Updates until each kickoff",
+      tone: "info" as const,
+      detail: "Upcoming matches use fresh forecasts. Once a match starts, its last saved pre-kickoff forecast stays fixed. The separate deadline export remains frozen for independent comparisons.",
+    };
+  }
   if (ledger.mode === "locked") {
     if (ledger.lockMode === "automatic-predeadline") {
       return {
@@ -269,8 +282,8 @@ export function ledgerStatus(ledger: Pick<Ledger, "mode" | "lockMode">) {
     };
   }
   return {
-    label: "Live until deadline",
+    label: "Live before kickoff",
     tone: "info" as const,
-    detail: "Forecasts update until the FPL deadline. The exact deadline output is then frozen, fingerprinted and scored against official points.",
+    detail: "Forecasts keep updating after the FPL deadline until each fixture kicks off. A separate deadline snapshot is frozen for independent comparisons.",
   };
 }

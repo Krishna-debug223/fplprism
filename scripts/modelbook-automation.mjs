@@ -14,6 +14,8 @@ const CAPTURE_WINDOW_MS = 10 * 60 * 1000;
 // from the entire pre-deadline comparison window as a fallback.
 const CHECKPOINT_WINDOW_MS = 24 * 60 * 60 * 1000;
 const CHECKPOINT_INTERVAL_MS = 45 * 60 * 1000;
+const FIXTURE_CHECKPOINT_WINDOW_MS = 90 * 60 * 1000;
+const FIXTURE_CHECKPOINT_INTERVAL_MS = 15 * 60 * 1000;
 const ARCHIVE_IMPORT_MARKER = "// Modelbook archive imports are registered below.";
 const requestedEvent = Number(process.env.MODELBOOK_GAMEWEEK || process.argv[2] || 0);
 
@@ -69,6 +71,94 @@ function snapshotFile(gameweek) {
 
 function checkpointFile(gameweek) {
   return path.join(STATE_DIR, `gw${gameweek}-predeadline-candidate.json`);
+}
+
+function fixtureCheckpointFile(gameweek, fixtureId) {
+  return path.join(DATA_DIR, `gw${gameweek}-fixture-${fixtureId}-candidate.json`);
+}
+
+function fixtureLockFile(gameweek, fixtureId) {
+  return path.join(DATA_DIR, `gw${gameweek}-fixture-${fixtureId}-locked.json`);
+}
+
+function isValidFixtureCheckpoint(candidate, fixture) {
+  const kickoff = Date.parse(fixture.kickoff_time ?? "");
+  const captured = Date.parse(candidate?.snapshot?.generatedAt ?? "");
+  return candidate?.gameweek === fixture.event && candidate?.fixtureId === fixture.id
+    && candidate?.fixtureKickoffTime === fixture.kickoff_time
+    && candidate?.snapshot?.fixtureId === fixture.id
+    && candidate?.snapshot?.forecastMode === "fixture"
+    && Array.isArray(candidate?.snapshot?.rows) && candidate.snapshot.rows.length > 0
+    && Number.isFinite(kickoff) && Number.isFinite(captured) && captured < kickoff
+    && digest(JSON.stringify(candidate.snapshot)) === candidate.contentHash;
+}
+
+async function captureFixtureForecasts(fixtures) {
+  const now = Date.now();
+  const due = fixtures.filter((fixture) => {
+    const kickoff = Date.parse(fixture.kickoff_time ?? "");
+    return Number.isInteger(fixture.event) && Number.isInteger(fixture.id)
+      && Number.isFinite(kickoff) && kickoff - now <= FIXTURE_CHECKPOINT_WINDOW_MS
+      && (!requestedEvent || Number(fixture.event) === requestedEvent);
+  }).sort((a, b) => Date.parse(a.kickoff_time) - Date.parse(b.kickoff_time));
+
+  for (const fixture of due) {
+    const lockPath = fixtureLockFile(fixture.event, fixture.id);
+    if (await readJson(lockPath)) continue;
+    const checkpointPath = fixtureCheckpointFile(fixture.event, fixture.id);
+    const candidate = await readJson(checkpointPath);
+    const kickoff = Date.parse(fixture.kickoff_time);
+    if (now >= kickoff || fixture.started) {
+      if (!isValidFixtureCheckpoint(candidate, fixture)) {
+        if (candidate) console.warn(`No valid pre-kickoff checkpoint for GW${fixture.event} fixture ${fixture.id}; leaving the deadline fallback visible.`);
+        continue;
+      }
+      await writeJson(lockPath, {
+        lockSchemaVersion: 1,
+        gameweek: fixture.event,
+        fixtureId: fixture.id,
+        fixtureKickoffTime: fixture.kickoff_time,
+        lockedAt: candidate.snapshot.generatedAt,
+        lockMode: "latest-pre-kickoff-checkpoint",
+        contentHashAlgorithm: "sha256",
+        contentHash: candidate.contentHash,
+        snapshot: candidate.snapshot,
+      });
+      await unlink(checkpointPath);
+      console.log(`Locked GW${fixture.event} fixture ${fixture.id} from its last verified pre-kickoff forecast (${candidate.snapshot.generatedAt}).`);
+      continue;
+    }
+    const previous = Date.parse(candidate?.snapshot?.generatedAt ?? "");
+    const remaining = kickoff - now;
+    const interval = remaining <= 20 * 60_000 ? 0 : FIXTURE_CHECKPOINT_INTERVAL_MS;
+    if (isValidFixtureCheckpoint(candidate, fixture) && now - previous < interval) continue;
+    try {
+      const source = `${SITE_URL}/api/ledger/snapshot?event=${fixture.event}&fixture=${fixture.id}&capture=${now}`;
+      const snapshot = await fetchJson(source);
+      if (Date.now() >= kickoff || !isValidFixtureCheckpoint({
+        gameweek: fixture.event,
+        fixtureId: fixture.id,
+        fixtureKickoffTime: fixture.kickoff_time,
+        contentHash: digest(JSON.stringify(snapshot)),
+        snapshot,
+      }, fixture)) {
+        console.warn(`Fixture ${fixture.id} began during capture or returned invalid data; retaining the previous checkpoint.`);
+        continue;
+      }
+      await mkdir(STATE_DIR, { recursive: true });
+      await writeJson(checkpointPath, {
+        gameweek: fixture.event,
+        fixtureId: fixture.id,
+        fixtureKickoffTime: fixture.kickoff_time,
+        contentHashAlgorithm: "sha256",
+        contentHash: digest(JSON.stringify(snapshot)),
+        snapshot,
+      });
+      console.log(`Updated GW${fixture.event} fixture ${fixture.id} forecast ${Math.ceil((kickoff - Date.now()) / 60_000)} minutes before kickoff.`);
+    } catch (error) {
+      console.warn(`Could not refresh GW${fixture.event} fixture ${fixture.id}: ${error instanceof Error ? error.message : error}`);
+    }
+  }
 }
 
 function snapshotMetaFile(gameweek) {
@@ -429,15 +519,19 @@ async function archiveFinishedGameweeks(activeGameweek) {
 }
 
 async function main() {
-  const bootstrap = await fetchJson(`${FPL_API}/bootstrap-static/`);
+  const [bootstrap, fixtures] = await Promise.all([
+    fetchJson(`${FPL_API}/bootstrap-static/`),
+    fetchJson(`${FPL_API}/fixtures/`),
+  ]);
   const captured = await captureUpcomingSnapshot(bootstrap.events ?? []);
   await recoverMissedDeadlineLocks(bootstrap.events ?? []);
+  await captureFixtureForecasts(fixtures ?? []);
   const activeGameweek = Number(bootstrap.events?.find((event) => event.is_next)?.id ?? bootstrap.events?.find((event) => event.is_current)?.id ?? 8);
   await archiveFinishedGameweeks(activeGameweek);
   if (!captured && !requestedEvent) console.log("No deadline snapshot was due on this run.");
 }
 
-export { archiveReport, isCaptureWindow, isCheckpointDue, isValidCheckpoint, metricSet, CHECKPOINT_INTERVAL_MS, CHECKPOINT_WINDOW_MS };
+export { archiveReport, isCaptureWindow, isCheckpointDue, isValidCheckpoint, isValidFixtureCheckpoint, metricSet, CHECKPOINT_INTERVAL_MS, CHECKPOINT_WINDOW_MS };
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   main().catch((error) => {

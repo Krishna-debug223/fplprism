@@ -149,14 +149,14 @@ export const positionName = (type: number) => ["", "GKP", "DEF", "MID", "FWD"][t
 export function upcomingPlayerFixtures(player: FplPlayer, fixtures: FplFixture[], teams: FplTeam[], horizon: number, eventIdsOverride?: number[]) {
   const teamMap = new Map(teams.map((team) => [team.id, team]));
   const eventIds = eventIdsOverride ?? [...new Set(fixtures
-    .filter((fixture) => !fixture.finished && fixture.event != null)
+    .filter((fixture) => !fixture.started && !fixture.finished && fixture.event != null)
     .map((fixture) => fixture.event as number))]
     .sort((a, b) => a - b)
     .slice(0, horizon);
   const eventSet = new Set(eventIds);
 
   return fixtures
-    .filter((fixture) => !fixture.finished && fixture.event != null && eventSet.has(fixture.event) && (fixture.team_h === player.team || fixture.team_a === player.team))
+    .filter((fixture) => !fixture.started && !fixture.finished && fixture.event != null && eventSet.has(fixture.event) && (fixture.team_h === player.team || fixture.team_a === player.team))
     .sort((a, b) => (a.event ?? 99) - (b.event ?? 99) || (a.kickoff_time ?? "").localeCompare(b.kickoff_time ?? ""))
     .map((fixture) => {
       const home = fixture.team_h === player.team;
@@ -721,7 +721,7 @@ function zeroComponents(): ProjectionComponents {
 export function projectPlayer(player: FplPlayer, fixtures: FplFixture[], teams: FplTeam[], horizon = 5, history?: HistoricalProfileMap, eventIdsOverride?: number[]): Projection {
   const historyInfo = historyBlendInfo(player, history);
   const eventIds = eventIdsOverride ?? [...new Set(fixtures
-    .filter((fixture) => !fixture.finished && fixture.event != null)
+    .filter((fixture) => !fixture.started && !fixture.finished && fixture.event != null)
     .map((fixture) => fixture.event as number))]
     .sort((a, b) => a - b)
     .slice(0, horizon);
@@ -1329,7 +1329,7 @@ function normalizeChipName(name: string): ChipKey | null {
 }
 
 function projectedEventPoints(player: FplPlayer, eventId: number, fixtures: FplFixture[], teams: FplTeam[], history?: HistoricalProfileMap) {
-  const eventFixtures = fixtures.filter((fixture) => !fixture.finished && fixture.event === eventId && (fixture.team_h === player.team || fixture.team_a === player.team));
+  const eventFixtures = fixtures.filter((fixture) => !fixture.started && !fixture.finished && fixture.event === eventId && (fixture.team_h === player.team || fixture.team_a === player.team));
   if (!eventFixtures.length) return 0;
   return projectPlayer(player, fixtures, teams, 1, history, [eventId]).expected;
 }
@@ -1461,7 +1461,7 @@ export function assessChips({
       gw,
       player,
       points: projectedEventPoints(player, gw, fixtures, teams, history),
-      fixtures: fixtures.filter((fixture) => !fixture.finished && fixture.event === gw && (fixture.team_h === player.team || fixture.team_a === player.team)).length,
+      fixtures: fixtures.filter((fixture) => !fixture.started && !fixture.finished && fixture.event === gw && (fixture.team_h === player.team || fixture.team_a === player.team)).length,
       quality: projectPlayer(player, fixtures, teams, 1, history, [gw]).dataQuality,
     }))).sort((a, b) => b.points - a.points);
     const best = scans[0];

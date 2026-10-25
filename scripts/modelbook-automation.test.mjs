@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { archiveReport, isCaptureWindow, isCheckpointDue, isValidCheckpoint, metricSet, CHECKPOINT_INTERVAL_MS } from "./modelbook-automation.mjs";
+import { archiveReport, isCaptureWindow, isCheckpointDue, isValidCheckpoint, isValidFixtureCheckpoint, metricSet, CHECKPOINT_INTERVAL_MS } from "./modelbook-automation.mjs";
 
 test("report metrics use actual minus forecast and one consistent active cohort", () => {
   const locked = {
@@ -96,6 +96,20 @@ test("only a verified snapshot captured before its matching deadline can be reco
   const late = { ...candidate, capturedAt: deadline, snapshot: { ...snapshot, generatedAt: deadline } };
   late.contentHash = createHash("sha256").update(JSON.stringify(late.snapshot)).digest("hex");
   assert.equal(isValidCheckpoint(late, 8, deadline), false);
+});
+
+test("fixture checkpoints require a matching kickoff and a pre-kickoff hash", () => {
+  const fixture = { id: 451, event: 9, kickoff_time: "2026-11-01T16:30:00.000Z" };
+  const snapshot = { gameweek: 9, fixtureId: 451, forecastMode: "fixture", generatedAt: "2026-11-01T16:26:00.000Z", rows: [{ id: 1, projected: 4.1 }] };
+  const candidate = {
+    gameweek: 9, fixtureId: 451, fixtureKickoffTime: fixture.kickoff_time,
+    contentHash: createHash("sha256").update(JSON.stringify(snapshot)).digest("hex"), snapshot,
+  };
+  assert.equal(isValidFixtureCheckpoint(candidate, fixture), true);
+  assert.equal(isValidFixtureCheckpoint({ ...candidate, contentHash: "changed" }, fixture), false);
+  assert.equal(isValidFixtureCheckpoint(candidate, { ...fixture, kickoff_time: "2026-11-01T17:30:00.000Z" }), false);
+  const late = { ...snapshot, generatedAt: fixture.kickoff_time };
+  assert.equal(isValidFixtureCheckpoint({ ...candidate, snapshot: late, contentHash: createHash("sha256").update(JSON.stringify(late)).digest("hex") }, fixture), false);
 });
 
 test("fallback report provenance clearly identifies the last saved checkpoint", () => {
