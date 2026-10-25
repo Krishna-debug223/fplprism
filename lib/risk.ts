@@ -1,6 +1,6 @@
 import type { FplEvent, FplFixture, FplPlayer, FplTeam, HistoricalPayload, HistoricalSeasonSummary, UsedChip } from "./types";
 
-export const MODEL_VERSION = "1.4.3";
+export const MODEL_VERSION = "1.4.4";
 
 export type HistoricalProfileMap = HistoricalPayload["players"];
 export type ModelConfidence = "High" | "Medium" | "Low";

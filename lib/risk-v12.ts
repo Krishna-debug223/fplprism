@@ -13,7 +13,7 @@ import {
   simulateProjection,
 } from "./risk";
 
-export const MODEL_VERSION = "1.4.3";
+export const MODEL_VERSION = "1.4.4";
 export { assessChips, positionName };
 export type { ChipAdvice, HistoricalProfileMap, ModelConfidence, Recommendation, ProjectionDistribution };
 
@@ -112,6 +112,10 @@ export type JointTransferPlan = {
 
 const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value));
 const average = (values: number[]) => values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : 0;
+// A small, pre-match minutes anchor tempers extreme conditional scoring rates.
+// The 10% weight was selected on earlier-season replays; keep it fixed when
+// scoring a new Gameweek so archived outcomes cannot tune their own forecasts.
+export const APPEARANCE_ANCHOR_WEIGHT = 0.1;
 
 function positionCalibration(player: FplPlayer) {
   const name = positionName(player.element_type) as keyof typeof POSITION_CALIBRATION.coefficients;
@@ -231,7 +235,13 @@ export function projectPlayer(
   const base = projectPlayerBase(player, fixtures, teams, horizon, history, eventIdsOverride);
   const adjustments = base.fixtureMeans.map((mean, index) => marketFactor(player, base, index, sportsbook));
   const marketFixtureMeans = base.fixtureMeans.map((mean, index) => mean * (adjustments[index]?.factor ?? 1));
-  const adjustedFixtureMeans = marketFixtureMeans.map((mean) => calibratedMean(player, mean));
+  const adjustedFixtureMeans = marketFixtureMeans.map((mean, index) => {
+    if (!(mean > 0)) return 0;
+    const appearances = base.fixtureContexts[index]?.fixtures.length ?? 1;
+    const appearancePoints = 2 * (base.minutesByFixture[index]?.appearanceProbability ?? 0) * appearances;
+    const calibrated = calibratedMean(player, mean);
+    return calibrated * (1 - APPEARANCE_ANCHOR_WEIGHT) + appearancePoints * APPEARANCE_ANCHOR_WEIGHT;
+  });
   const expected = adjustedFixtureMeans.reduce((sum, value) => sum + value, 0);
   const calibrationAdjustment = expected - marketFixtureMeans.reduce((sum, value) => sum + value, 0);
   const volatility = calibratedVolatility(player, adjustedFixtureMeans, base.minutesByFixture);

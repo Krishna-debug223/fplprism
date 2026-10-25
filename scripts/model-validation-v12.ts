@@ -1,5 +1,5 @@
 import { projectPlayer as baseProjectPlayer } from "../lib/risk";
-import { MODEL_VERSION, POSITION_CALIBRATION, projectPlayer, recommendJointTransferPlan } from "../lib/risk-v12";
+import { APPEARANCE_ANCHOR_WEIGHT, MODEL_VERSION, POSITION_CALIBRATION, projectPlayer, recommendJointTransferPlan } from "../lib/risk-v12";
 import { analyzePortfolioRisk } from "../lib/portfolio-risk";
 import { impliedGoalMeanFromTotal, type SportsbookPayload } from "../lib/sportsbook";
 import type { FplFixture, FplPlayer, FplTeam } from "../lib/types";
@@ -69,7 +69,9 @@ const midfielder = player({ id: 1, code: 101, team: 1, element_type: 3 });
 const base = baseProjectPlayer(midfielder, fixtures, teams, 1);
 const noMarket = projectPlayer(midfielder, fixtures, teams, 1, undefined, null);
 const midCalibration = POSITION_CALIBRATION.coefficients.MID;
-assert(Math.abs(noMarket.expected - Math.max(0, midCalibration.intercept + midCalibration.slope * base.expected)) < 1e-10, "the position calibration must transform raw one-Gameweek expected points with the held-out coefficients");
+const calibratedBase = Math.max(0, midCalibration.intercept + midCalibration.slope * base.expected);
+const expectedAnchor = 2 * base.minutesByFixture[0].appearanceProbability;
+assert(Math.abs(noMarket.expected - (calibratedBase * (1 - APPEARANCE_ANCHOR_WEIGHT) + expectedAnchor * APPEARANCE_ANCHOR_WEIGHT)) < 1e-10, "the position calibration and appearance anchor must transform raw one-Gameweek expected points");
 assert(Math.abs(noMarket.components.calibrationAdjustment - (noMarket.expected - base.expected)) < 1e-10, "the calibration must be exposed separately in the points breakdown");
 assert(noMarket.components.fixtureDifficulty > 0, "an easy FDR 1/2 fixture should expose a positive fixture-difficulty component");
 

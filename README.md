@@ -22,7 +22,7 @@ The product is live at **[fplprism.com](https://fplprism.com/dashboard)**. It us
 | [Squad of the Week](https://fplprism.com/modelbook/squad-of-the-week) | Optimizes a legal Free Hit squad, captain, vice and bench from the same public projection snapshot. |
 | [About](https://fplprism.com/about) and [Contact](https://fplprism.com/contact) | Explain the project, its limits, and where to send feedback or privacy questions. |
 
-The production dashboard reports the current Gameweek and model version from the live feed. The current source model is **`1.4.3`**; the live Modelbook follows **Gameweek 9**. GW3–GW6 and GW8 retain their archived forecasts; GW8's points remain provisional until FPL marks every fixture final. GW7 is explicitly labelled a retrospective audit because its original pre-deadline export was not retained. It is excluded from prospective benchmark results. Both surfaces show the target Gameweek and training status.
+The production dashboard reports the current Gameweek and model version from the live feed. The current source model is **`1.4.4`**; the live Modelbook follows **Gameweek 9**. GW3–GW6 and GW8 retain their archived forecasts; GW8's points remain provisional until FPL marks every fixture final. GW7 is explicitly labelled a retrospective audit because its original pre-deadline export was not retained. It is excluded from prospective benchmark results. Both surfaces show the target Gameweek and training status.
 
 The scheduled Modelbook workflow checks the official FPL deadline every five minutes, captures an immutable production export in the final ten minutes before the deadline, fingerprints it with SHA-256 and publishes it to `main`. If a lock is missing after a deadline, the Modelbook hides the recalculated forecast instead of presenting it as the original. Once all fixtures are provisionally finished, the workflow builds the historical report from that frozen export and official points.
 
@@ -52,7 +52,7 @@ Market observations are stored with future predeadline Modelbook snapshots for p
 
 The model version is defined in [`lib/risk-v12.ts`](lib/risk-v12.ts). A version change is required for material changes to weights, priors, thresholds, simulation logic or data sources.
 
-The latest current-season walk-forward validation is recorded in [`reports/backtest-1.4.3-2025-26.json`](reports/backtest-1.4.3-2025-26.json). Each target Gameweek is evaluated using only earlier Gameweek rows. Backtests are separate from frozen live forecasts.
+The latest current-season walk-forward validation is recorded in [`reports/backtest-1.4.4-2025-26.json`](reports/backtest-1.4.4-2025-26.json), with [the comparison to v1.4.3](reports/historical-replay/v1.4.4-findings.md). Each target Gameweek is evaluated using only earlier Gameweek rows. Backtests are separate from frozen live forecasts.
 
 ### Independent benchmark feed
 
