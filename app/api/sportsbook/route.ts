@@ -4,8 +4,6 @@ import { fplFetch } from "@/lib/server-fpl";
 import { loadSportsbookSignals } from "@/lib/sportsbook-server";
 import type { FplFixture, FplTeam } from "@/lib/types";
 
-export const revalidate = 300;
-
 const disabledPayload = () => ({
   available: false,
   provider: "none" as const,
@@ -18,9 +16,9 @@ const disabledPayload = () => ({
 });
 
 export async function GET() {
-  if (process.env.SPORTSBOOK_ENABLED !== "true") {
+  if (process.env.SPORTSBOOK_ENABLED === "false") {
     return NextResponse.json(disabledPayload(), {
-      headers: { "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600" },
+      headers: { "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200" },
     });
   }
 
@@ -31,7 +29,7 @@ export async function GET() {
     ]);
     const payload = await loadSportsbookSignals(bootstrap.teams, fixtures);
     return NextResponse.json(payload, {
-      headers: { "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600" },
+      headers: { "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200" },
     });
   } catch {
     return NextResponse.json(disabledPayload());

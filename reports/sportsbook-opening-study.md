@@ -1,5 +1,7 @@
 # Bookmaker odds study: opening prices and team scoring
 
+**Source-use note (25 October 2026):** Football-Data's published [fair-use terms](https://www.football-data.co.uk/contact.php) restrict its free files to personal or academic use. FPL Prism is a commercial site, so this exploratory study is not an approved source for the live model or its training pipeline. Do not rerun the Football-Data download script for the product. The production connector instead targets [The Odds API free plan](https://the-odds-api.com/), whose [terms](https://the-odds-api.com/terms-and-conditions.html) allow commercial use of derived values. No odds weight is enabled in current xPts.
+
 The existing sportsbook connector remains disabled in production. This study tests whether odds can improve the team-scoring inputs that feed FPL Prism's player projections. It does **not** establish an improvement in player xPts or Free Hit squad points.
 
 ## Method
@@ -8,7 +10,7 @@ The existing sportsbook connector remains disabled in production. This study tes
 - De-vig each market, infer a total-goals mean from over/under 2.5, then divide it between teams using the 1X2 probabilities.
 - Build the comparison team's expected goals from only *earlier* FPL Gameweeks' team xG. No target-match xG or result is used in the forecast.
 - Select the blend weight on 2023–24 and 2024–25 (701 matched fixtures). Evaluate once on 2025–26 (350 matched fixtures), which was not used to select the weight.
-- Results are reproducible with `npm run sportsbook:calibrate`; the full numeric report is in `sportsbook-calibration-opening-2025-26.json`.
+- The numeric report from that exploratory run is preserved in `sportsbook-calibration-opening-2025-26.json` for audit only. The download script was removed from the product repository after reviewing source terms.
 
 | 2025–26 holdout measure | Team xG baseline | + 25% market blend | Change |
 | --- | ---: | ---: | ---: |

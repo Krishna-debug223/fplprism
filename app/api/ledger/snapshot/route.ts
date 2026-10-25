@@ -8,7 +8,7 @@ import { fplFetch } from "@/lib/server-fpl";
 import { enrichUnderlyingTeamData } from "@/lib/fpl-enrichment";
 import { MODEL_VERSION, positionName, projectPlayer } from "@/lib/risk-v12";
 import { buildNewsScan } from "@/lib/news-scan";
-import type { SportsbookPayload } from "@/lib/sportsbook";
+import type { SportsbookFixtureSignal, SportsbookPayload } from "@/lib/sportsbook";
 import type {
   BootstrapPayload,
   FplFixture,
@@ -54,6 +54,9 @@ type SnapshotPayload = {
     available: boolean;
     configuredWeight: number;
     calibrationStatus: string;
+    sourceLabel?: string;
+    observedAt?: string;
+    fixtures?: SportsbookFixtureSignal[];
   };
   playerCount: number;
   fixtures: FplFixture[];
@@ -242,6 +245,11 @@ export async function GET(request: NextRequest) {
           available: sportsbook?.available ?? false,
           configuredWeight: sportsbook?.configuredWeight ?? 0,
           calibrationStatus: sportsbook?.calibrationStatus ?? "disabled-until-calibrated",
+          sourceLabel: sportsbook?.available ? sportsbook.sourceLabel : undefined,
+          observedAt: sportsbook?.available ? sportsbook.fetchedAt : undefined,
+          // Freeze derived predeadline market observations beside projections.
+          // They are for prospective validation and do not affect xPts at weight 0.
+          fixtures: sportsbook?.fixtures.filter((fixture) => fixture.event === event.id) ?? [],
         },
         playerCount: rows.length,
         fixtures: eventFixtures,

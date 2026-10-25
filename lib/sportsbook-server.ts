@@ -22,6 +22,12 @@ type OddsEvent = {
   bookmakers: OddsBookmaker[];
 };
 
+// The free plan includes 500 credits/month. One UK-region request for h2h and
+// totals costs two credits; a shared 12-hour fetch cache uses roughly 120/month.
+// Page views must never be allowed to trigger a fresh provider call each time.
+const PROVIDER_CACHE_SECONDS = 43_200;
+const UPCOMING_WINDOW_MS = 14 * 24 * 60 * 60_000;
+
 const provider = () => (process.env.SPORTSBOOK_PROVIDER ?? "the-odds-api").toLowerCase();
 const configuredWeight = () => {
   const parsed = Number.parseFloat(process.env.SPORTSBOOK_MODEL_WEIGHT ?? "0");
@@ -142,9 +148,18 @@ function emptyPayload(note: string): SportsbookPayload {
 export async function loadSportsbookSignals(teams: FplTeam[], fixtures: FplFixture[]): Promise<SportsbookPayload> {
   const apiKey = process.env.THE_ODDS_API_KEY?.trim();
   if (provider() === "none") return emptyPayload("Sportsbook provider disabled.");
+  if (provider() !== "the-odds-api") return emptyPayload("Unsupported sportsbook provider; base model remains active.");
   if (!apiKey) return emptyPayload("Set THE_ODDS_API_KEY to enable current EPL sportsbook signals.");
 
-  const regions = process.env.SPORTSBOOK_REGIONS?.trim() || "uk";
+  const now = Date.now();
+  if (!fixtures.some((fixture) => {
+    const kickoff = Date.parse(fixture.kickoff_time ?? "");
+    return !fixture.started && !fixture.finished && Number.isFinite(kickoff)
+      && kickoff > now && kickoff <= now + UPCOMING_WINDOW_MS;
+  })) return emptyPayload("No EPL fixture is due in the next 14 days; no odds request was made.");
+
+  // The free-budget integration is deliberately limited to one region.
+  const regions = "uk";
   const url = new URL("https://api.the-odds-api.com/v4/sports/soccer_epl/odds");
   url.searchParams.set("apiKey", apiKey);
   url.searchParams.set("regions", regions);
@@ -153,9 +168,13 @@ export async function loadSportsbookSignals(teams: FplTeam[], fixtures: FplFixtu
   url.searchParams.set("dateFormat", "iso");
 
   try {
-    const response = await fetch(url, { next: { revalidate: 300 }, headers: { Accept: "application/json" } });
+    const response = await fetch(url, {
+      next: { revalidate: PROVIDER_CACHE_SECONDS },
+      headers: { Accept: "application/json" },
+    });
     if (!response.ok) return emptyPayload(`Sportsbook provider returned ${response.status}; base model remains active.`);
     const events = await response.json() as OddsEvent[];
+    if (!Array.isArray(events)) return emptyPayload("Sportsbook provider response was not an event list; base model remains active.");
     const fetchedAt = Date.now();
     const signals: SportsbookFixtureSignal[] = [];
 

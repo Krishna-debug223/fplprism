@@ -1539,6 +1539,11 @@ export default function LiveRefreshV12() {
                 ? `It is currently active at ${(sportsbook.configuredWeight * 100).toFixed(0)}% configured weight.`
                 : "It is not applied in the current forecasts."}
             </p>
+            <p>
+              {sportsbook?.available
+                ? `The free market feed currently covers ${sportsbook.fixtures.length} upcoming fixture${sportsbook.fixtures.length === 1 ? "" : "s"}. It is being observed before we decide whether it improves player forecasts.`
+                : "No betting-market observations are currently connected."}
+            </p>
 
             <h2>Limitations</h2>
             <p>Team news, rotation, injuries and tactics change after forecasts are made. Players with few minutes have thin evidence. Public data doesn&apos;t include your selling prices or remaining free transfers. Treat every number as an estimate.</p>

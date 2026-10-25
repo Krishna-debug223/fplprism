@@ -18,8 +18,7 @@
     "replay:compile": "tsc --target ES2022 --module commonjs --moduleResolution node --strict --esModuleInterop --skipLibCheck --outDir .backtest-build scripts/historical-replay.ts scripts/backtest.ts lib/risk-v12.ts lib/risk.ts lib/sportsbook.ts lib/types.ts",
     "replay:forecast": "REPLAY_PHASE=forecast node .backtest-build/scripts/historical-replay.js",
     "replay:score": "REPLAY_PHASE=score node .backtest-build/scripts/historical-replay.js",
-    "replay:check": "npm run replay:compile && node --test scripts/historical-replay.test.mjs",
-    "sportsbook:calibrate": "rm -rf .sportsbook-calibration && tsc --target ES2022 --module commonjs --moduleResolution node --strict --esModuleInterop --skipLibCheck --outDir .sportsbook-calibration scripts/calibrate-sportsbook.ts lib/sportsbook.ts && node .sportsbook-calibration/scripts/calibrate-sportsbook.js"
+    "replay:check": "npm run replay:compile && node --test scripts/historical-replay.test.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.7.0",

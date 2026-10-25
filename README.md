@@ -44,9 +44,11 @@ The active model is component-based and fixture-aware. It combines:
 - legal transfer filtering before ranking, including budget, position, ownership and the three-player club limit;
 - seeded 10,000-path simulation for expected gain, beat-hold probability, downside and p10/p50/p90 outcomes.
 
-The optional sportsbook integration is present behind a server-side flag and is disabled in the current release (`SPORTSBOOK_ENABLED` is not `true`, and the model weight remains `0`). When no market data is available, the core model continues unchanged.
+The optional [The Odds API](https://the-odds-api.com/) connector uses its free EPL coverage when `THE_ODDS_API_KEY` is set as a server-side Vercel environment variable. It requests one UK region and the win/draw/loss and total-goals markets, caches each provider response for 12 hours, and skips requests when no EPL fixture is due within 14 days. The free plan provides 500 credits a month; the two-market request costs two credits, so a continuously warm cache would use roughly 120 credits in a 30-day month. Cache eviction, deployments or other uses of the same key can increase that number, so monitor the provider's usage counter. Set `SPORTSBOOK_ENABLED=false` to stop requests. No key is configured in the repository.
 
-[The opening-odds study](reports/sportsbook-opening-study.md) found a small improvement in historical match-goal and clean-sheet predictions, while an approximate player-point check was mixed. The production weight therefore stays at zero while timestamped predeadline odds and full player-model outcomes are collected.
+Market observations are stored with future predeadline Modelbook snapshots for prospective evaluation. The production model weight remains `0`, so the connector cannot alter current player xPts, frozen forecasts or Squad of the Week until a player-level test supports it. When no market data is available, the core model continues unchanged.
+
+[The opening-odds study](reports/sportsbook-opening-study.md) found a small improvement in historical match-goal and clean-sheet predictions, while an approximate player-point check was mixed. Its free CSV source is restricted to personal or academic use, so it is not part of the commercial model pipeline. The production weight stays at zero while commercially permitted, timestamped predeadline odds and full player-model outcomes are collected.
 
 The model version is defined in [`lib/risk-v12.ts`](lib/risk-v12.ts). A version change is required for material changes to weights, priors, thresholds, simulation logic or data sources.
 
@@ -109,7 +111,7 @@ The GitHub Actions workflow runs the type check, both deterministic model suites
 | `app/` | Next.js routes, metadata, legal pages and API endpoints. |
 | `components/` | Dashboard, decision desk, squad pitch, planner, account and shared UI components. |
 | `lib/` | FPL types and data access, projection engines, transfer logic, strategy planner, analytics and optional integrations. |
-| `scripts/` | Deterministic validation, backtesting and sportsbook calibration utilities. |
+| `scripts/` | Deterministic validation, backtesting and Modelbook automation utilities. |
 | `.github/workflows/` | Continuous validation and production-build checks. |
 
 ## Deployment
