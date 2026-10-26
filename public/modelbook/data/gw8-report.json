@@ -2,9 +2,9 @@
   "gameweek": 8,
   "modelVersion": "1.4.3",
   "final": false,
-  "generatedAt": "2026-10-25T18:34:16.663Z",
+  "generatedAt": "2026-10-26T00:29:22.952Z",
   "snapshotHash": "6033b55140cfb3174656108c98e08a1373933e2fff0e0d5fa2ca0e3ed476d6f9",
-  "actualsFetchedAt": "2026-10-25T18:34:16.663Z",
+  "actualsFetchedAt": "2026-10-26T00:29:22.952Z",
   "actualsSource": "https://fantasy.premierleague.com/api/event/8/live/",
   "actualsFinality": {
     "fixtureCount": 10,
@@ -25,28 +25,28 @@
   },
   "overall": {
     "count": 668,
-    "mae": 1.06,
-    "rmse": 2.092,
-    "bias": 0.367,
-    "within1": 71.4,
-    "within2": 84.9,
+    "mae": 1.069,
+    "rmse": 2.113,
+    "bias": 0.376,
+    "within1": 71.3,
+    "within2": 84.7,
     "within3": 90.3
   },
   "activeCohort": {
     "count": 303,
-    "mae": 1.982,
-    "rmse": 3.029,
-    "bias": 1.164,
-    "within1": 47.5,
-    "within2": 68.6,
+    "mae": 2.002,
+    "rmse": 3.06,
+    "bias": 1.184,
+    "within1": 47.2,
+    "within2": 68.3,
     "within3": 79.2
   },
   "flatTwoBaseline": {
     "count": 303,
-    "mae": 1.974,
-    "rmse": 3.085,
-    "bias": 1.043,
-    "within1": 66.3,
+    "mae": 1.993,
+    "rmse": 3.113,
+    "bias": 1.063,
+    "within1": 66,
     "within2": 76.9,
     "within3": 80.5
   },
@@ -58,8 +58,8 @@
       "playersWithMinutes": 8,
       "totalActual": 36,
       "averageActual": 3.6,
-      "fieldAverageActual": 1.38,
-      "uplift": 2.22
+      "fieldAverageActual": 1.39,
+      "uplift": 2.21
     },
     {
       "count": 20,
@@ -68,8 +68,8 @@
       "playersWithMinutes": 18,
       "totalActual": 77,
       "averageActual": 3.85,
-      "fieldAverageActual": 1.38,
-      "uplift": 2.47
+      "fieldAverageActual": 1.39,
+      "uplift": 2.46
     },
     {
       "count": 50,
@@ -78,37 +78,37 @@
       "playersWithMinutes": 48,
       "totalActual": 171,
       "averageActual": 3.42,
-      "fieldAverageActual": 1.38,
-      "uplift": 2.04
+      "fieldAverageActual": 1.39,
+      "uplift": 2.03
     }
   ],
   "topPickResultsNote": "This is selection signal from the frozen forecast pool, not a guaranteed squad result.",
   "byPosition": {
     "GKP": {
       "count": 20,
-      "mae": 2.835,
-      "rmse": 3.867,
-      "bias": 2.181,
+      "mae": 2.785,
+      "rmse": 3.786,
+      "bias": 2.131,
       "within1": 35,
       "within2": 55,
       "within3": 60
     },
     "DEF": {
       "count": 98,
-      "mae": 2.653,
-      "rmse": 3.794,
-      "bias": 1.807,
+      "mae": 2.683,
+      "rmse": 3.842,
+      "bias": 1.838,
       "within1": 37.8,
       "within2": 56.1,
       "within3": 69.4
     },
     "MID": {
       "count": 150,
-      "mae": 1.506,
-      "rmse": 2.299,
-      "bias": 0.663,
-      "within1": 54,
-      "within2": 77.3,
+      "mae": 1.532,
+      "rmse": 2.349,
+      "bias": 0.689,
+      "within1": 53.3,
+      "within2": 76.7,
       "within3": 86.7
     },
     "FWD": {
@@ -153,6 +153,16 @@
       "minutes": 81
     },
     {
+      "id": 593,
+      "name": "Dedić",
+      "position": "DEF",
+      "projected": 1.4548558073125784,
+      "actual": 11,
+      "error": 9.545144192687422,
+      "absoluteError": 9.545144192687422,
+      "minutes": 90
+    },
+    {
       "id": 514,
       "name": "Tel",
       "position": "MID",
@@ -183,14 +193,14 @@
       "minutes": 90
     },
     {
-      "id": 593,
-      "name": "Dedić",
-      "position": "DEF",
-      "projected": 1.4548558073125784,
-      "actual": 10,
-      "error": 8.545144192687422,
-      "absoluteError": 8.545144192687422,
-      "minutes": 90
+      "id": 240,
+      "name": "Iroegbunam",
+      "position": "MID",
+      "projected": 0.5032331924794089,
+      "actual": 9,
+      "error": 8.496766807520592,
+      "absoluteError": 8.496766807520592,
+      "minutes": 71
     },
     {
       "id": 264,
@@ -231,16 +241,6 @@
       "error": 7.87465208793255,
       "absoluteError": 7.87465208793255,
       "minutes": 77
-    },
-    {
-      "id": 10,
-      "name": "White",
-      "position": "DEF",
-      "projected": 2.138753500685717,
-      "actual": 10,
-      "error": 7.861246499314284,
-      "absoluteError": 7.861246499314284,
-      "minutes": 90
     }
   ],
   "bestPredictions": [
