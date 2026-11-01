@@ -1,0 +1,6613 @@
+{
+  "gameweek": 9,
+  "fixtureId": 87,
+  "fixtureKickoffTime": "2026-11-01T16:30:00Z",
+  "contentHashAlgorithm": "sha256",
+  "contentHash": "ae47ad7f9fb6d614f5e5851194f45041162fb6b638972fafc648d2f17307c267",
+  "snapshot": {
+    "schemaVersion": 2,
+    "gameweek": 9,
+    "eventName": "Gameweek 9",
+    "deadlineTime": "2026-10-31T11:00:00Z",
+    "generatedAt": "2026-11-01T15:03:45.385Z",
+    "modelVersion": "1.4.5",
+    "training": {
+      "trainedThroughGameweek": 8,
+      "targetGameweek": 9,
+      "updatedAt": "2026-11-01T15:03:45.385Z",
+      "source": "Official FPL live feed + 3 completed-season priors",
+      "method": "Walk-forward, minutes-weighted current-season blending",
+      "validation": "GW4–GW5 walk-forward validation"
+    },
+    "source": "FPL Prism production projection engine",
+    "sportsbook": {
+      "available": false,
+      "configuredWeight": 0,
+      "calibrationStatus": "disabled-until-calibrated",
+      "fixtures": []
+    },
+    "playerCount": 65,
+    "fixtures": [
+      {
+        "code": 2645278,
+        "event": 9,
+        "finished": false,
+        "finished_provisional": true,
+        "id": 84,
+        "kickoff_time": "2026-10-31T12:30:00Z",
+        "minutes": 90,
+        "provisional_start_time": false,
+        "started": true,
+        "team_a": 16,
+        "team_a_score": 0,
+        "team_h": 6,
+        "team_h_score": 2,
+        "stats": [
+          {
+            "identifier": "goals_scored",
+            "a": [],
+            "h": [
+              {
+                "value": 1,
+                "element": 40
+              },
+              {
+                "value": 1,
+                "element": 154
+              }
+            ]
+          },
+          {
+            "identifier": "assists",
+            "a": [],
+            "h": [
+              {
+                "value": 1,
+                "element": 145
+              },
+              {
+                "value": 1,
+                "element": 161
+              }
+            ]
+          },
+          {
+            "identifier": "own_goals",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "penalties_saved",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "penalties_missed",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "yellow_cards",
+            "a": [
+              {
+                "value": 1,
+                "element": 418
+              },
+              {
+                "value": 1,
+                "element": 427
+              },
+              {
+                "value": 1,
+                "element": 432
+              },
+              {
+                "value": 1,
+                "element": 440
+              }
+            ],
+            "h": [
+              {
+                "value": 1,
+                "element": 560
+              }
+            ]
+          },
+          {
+            "identifier": "red_cards",
+            "a": [
+              {
+                "value": 1,
+                "element": 419
+              }
+            ],
+            "h": []
+          },
+          {
+            "identifier": "saves",
+            "a": [
+              {
+                "value": 8,
+                "element": 412
+              }
+            ],
+            "h": [
+              {
+                "value": 3,
+                "element": 560
+              }
+            ]
+          },
+          {
+            "identifier": "bonus",
+            "a": [],
+            "h": [
+              {
+                "value": 3,
+                "element": 151
+              },
+              {
+                "value": 2,
+                "element": 145
+              },
+              {
+                "value": 1,
+                "element": 40
+              }
+            ]
+          },
+          {
+            "identifier": "bps",
+            "a": [
+              {
+                "value": 21,
+                "element": 412
+              },
+              {
+                "value": 16,
+                "element": 426
+              },
+              {
+                "value": 15,
+                "element": 427
+              },
+              {
+                "value": 11,
+                "element": 428
+              },
+              {
+                "value": 10,
+                "element": 162
+              },
+              {
+                "value": 10,
+                "element": 420
+              },
+              {
+                "value": 8,
+                "element": 417
+              },
+              {
+                "value": 6,
+                "element": 431
+              },
+              {
+                "value": 4,
+                "element": 430
+              },
+              {
+                "value": 3,
+                "element": 131
+              },
+              {
+                "value": 3,
+                "element": 418
+              },
+              {
+                "value": 2,
+                "element": 421
+              },
+              {
+                "value": -13,
+                "element": 419
+              }
+            ],
+            "h": [
+              {
+                "value": 47,
+                "element": 151
+              },
+              {
+                "value": 46,
+                "element": 145
+              },
+              {
+                "value": 38,
+                "element": 40
+              },
+              {
+                "value": 37,
+                "element": 154
+              },
+              {
+                "value": 37,
+                "element": 161
+              },
+              {
+                "value": 28,
+                "element": 149
+              },
+              {
+                "value": 23,
+                "element": 152
+              },
+              {
+                "value": 23,
+                "element": 560
+              },
+              {
+                "value": 21,
+                "element": 157
+              },
+              {
+                "value": 15,
+                "element": 159
+              },
+              {
+                "value": 9,
+                "element": 156
+              },
+              {
+                "value": 8,
+                "element": 144
+              },
+              {
+                "value": 5,
+                "element": 583
+              },
+              {
+                "value": 3,
+                "element": 136
+              },
+              {
+                "value": 3,
+                "element": 164
+              },
+              {
+                "value": 1,
+                "element": 568
+              }
+            ]
+          },
+          {
+            "identifier": "defensive_contribution",
+            "a": [
+              {
+                "value": 11,
+                "element": 417
+              },
+              {
+                "value": 10,
+                "element": 431
+              },
+              {
+                "value": 9,
+                "element": 162
+              },
+              {
+                "value": 8,
+                "element": 418
+              },
+              {
+                "value": 8,
+                "element": 426
+              },
+              {
+                "value": 7,
+                "element": 420
+              },
+              {
+                "value": 6,
+                "element": 428
+              },
+              {
+                "value": 5,
+                "element": 131
+              },
+              {
+                "value": 5,
+                "element": 427
+              },
+              {
+                "value": 3,
+                "element": 419
+              },
+              {
+                "value": 3,
+                "element": 432
+              },
+              {
+                "value": 2,
+                "element": 421
+              },
+              {
+                "value": 2,
+                "element": 430
+              }
+            ],
+            "h": [
+              {
+                "value": 23,
+                "element": 161
+              },
+              {
+                "value": 11,
+                "element": 154
+              },
+              {
+                "value": 8,
+                "element": 40
+              },
+              {
+                "value": 8,
+                "element": 145
+              },
+              {
+                "value": 8,
+                "element": 149
+              },
+              {
+                "value": 7,
+                "element": 151
+              },
+              {
+                "value": 7,
+                "element": 157
+              },
+              {
+                "value": 4,
+                "element": 159
+              },
+              {
+                "value": 3,
+                "element": 152
+              },
+              {
+                "value": 2,
+                "element": 156
+              },
+              {
+                "value": 2,
+                "element": 568
+              },
+              {
+                "value": 1,
+                "element": 136
+              }
+            ]
+          }
+        ],
+        "team_h_difficulty": 4,
+        "team_a_difficulty": 4,
+        "pulse_id": 0
+      },
+      {
+        "code": 2645275,
+        "event": 9,
+        "finished": false,
+        "finished_provisional": true,
+        "id": 82,
+        "kickoff_time": "2026-10-31T15:00:00Z",
+        "minutes": 90,
+        "provisional_start_time": false,
+        "started": true,
+        "team_a": 13,
+        "team_a_score": 0,
+        "team_h": 3,
+        "team_h_score": 2,
+        "stats": [
+          {
+            "identifier": "goals_scored",
+            "a": [],
+            "h": [
+              {
+                "value": 1,
+                "element": 77
+              },
+              {
+                "value": 1,
+                "element": 79
+              }
+            ]
+          },
+          {
+            "identifier": "assists",
+            "a": [],
+            "h": [
+              {
+                "value": 1,
+                "element": 70
+              },
+              {
+                "value": 1,
+                "element": 78
+              }
+            ]
+          },
+          {
+            "identifier": "own_goals",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "penalties_saved",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "penalties_missed",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "yellow_cards",
+            "a": [
+              {
+                "value": 1,
+                "element": 338
+              },
+              {
+                "value": 1,
+                "element": 598
+              }
+            ],
+            "h": [
+              {
+                "value": 1,
+                "element": 73
+              },
+              {
+                "value": 1,
+                "element": 75
+              }
+            ]
+          },
+          {
+            "identifier": "red_cards",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "saves",
+            "a": [
+              {
+                "value": 3,
+                "element": 385
+              }
+            ],
+            "h": [
+              {
+                "value": 1,
+                "element": 57
+              }
+            ]
+          },
+          {
+            "identifier": "bonus",
+            "a": [],
+            "h": [
+              {
+                "value": 3,
+                "element": 79
+              },
+              {
+                "value": 2,
+                "element": 77
+              },
+              {
+                "value": 2,
+                "element": 566
+              }
+            ]
+          },
+          {
+            "identifier": "bps",
+            "a": [
+              {
+                "value": 13,
+                "element": 332
+              },
+              {
+                "value": 11,
+                "element": 338
+              },
+              {
+                "value": 10,
+                "element": 345
+              },
+              {
+                "value": 9,
+                "element": 260
+              },
+              {
+                "value": 9,
+                "element": 334
+              },
+              {
+                "value": 9,
+                "element": 343
+              },
+              {
+                "value": 8,
+                "element": 331
+              },
+              {
+                "value": 7,
+                "element": 347
+              },
+              {
+                "value": 6,
+                "element": 385
+              },
+              {
+                "value": 5,
+                "element": 330
+              },
+              {
+                "value": 5,
+                "element": 346
+              },
+              {
+                "value": 5,
+                "element": 598
+              },
+              {
+                "value": 3,
+                "element": 337
+              },
+              {
+                "value": 2,
+                "element": 335
+              },
+              {
+                "value": 2,
+                "element": 648
+              }
+            ],
+            "h": [
+              {
+                "value": 42,
+                "element": 79
+              },
+              {
+                "value": 26,
+                "element": 77
+              },
+              {
+                "value": 26,
+                "element": 566
+              },
+              {
+                "value": 25,
+                "element": 57
+              },
+              {
+                "value": 24,
+                "element": 60
+              },
+              {
+                "value": 24,
+                "element": 61
+              },
+              {
+                "value": 22,
+                "element": 64
+              },
+              {
+                "value": 21,
+                "element": 78
+              },
+              {
+                "value": 19,
+                "element": 70
+              },
+              {
+                "value": 16,
+                "element": 75
+              },
+              {
+                "value": 12,
+                "element": 68
+              },
+              {
+                "value": 7,
+                "element": 67
+              },
+              {
+                "value": 6,
+                "element": 73
+              },
+              {
+                "value": 6,
+                "element": 81
+              },
+              {
+                "value": 4,
+                "element": 71
+              },
+              {
+                "value": 3,
+                "element": 62
+              }
+            ]
+          },
+          {
+            "identifier": "defensive_contribution",
+            "a": [
+              {
+                "value": 16,
+                "element": 338
+              },
+              {
+                "value": 12,
+                "element": 334
+              },
+              {
+                "value": 10,
+                "element": 345
+              },
+              {
+                "value": 10,
+                "element": 598
+              },
+              {
+                "value": 7,
+                "element": 343
+              },
+              {
+                "value": 6,
+                "element": 332
+              },
+              {
+                "value": 4,
+                "element": 260
+              },
+              {
+                "value": 4,
+                "element": 330
+              },
+              {
+                "value": 3,
+                "element": 331
+              },
+              {
+                "value": 3,
+                "element": 335
+              },
+              {
+                "value": 2,
+                "element": 339
+              },
+              {
+                "value": 1,
+                "element": 346
+              },
+              {
+                "value": 1,
+                "element": 347
+              }
+            ],
+            "h": [
+              {
+                "value": 15,
+                "element": 75
+              },
+              {
+                "value": 10,
+                "element": 73
+              },
+              {
+                "value": 9,
+                "element": 60
+              },
+              {
+                "value": 9,
+                "element": 566
+              },
+              {
+                "value": 8,
+                "element": 67
+              },
+              {
+                "value": 6,
+                "element": 61
+              },
+              {
+                "value": 6,
+                "element": 71
+              },
+              {
+                "value": 6,
+                "element": 79
+              },
+              {
+                "value": 5,
+                "element": 64
+              },
+              {
+                "value": 5,
+                "element": 70
+              },
+              {
+                "value": 3,
+                "element": 68
+              },
+              {
+                "value": 3,
+                "element": 78
+              },
+              {
+                "value": 2,
+                "element": 81
+              },
+              {
+                "value": 1,
+                "element": 77
+              }
+            ]
+          }
+        ],
+        "team_h_difficulty": 3,
+        "team_a_difficulty": 3,
+        "pulse_id": 0
+      },
+      {
+        "code": 2645277,
+        "event": 9,
+        "finished": false,
+        "finished_provisional": true,
+        "id": 83,
+        "kickoff_time": "2026-10-31T15:00:00Z",
+        "minutes": 90,
+        "provisional_start_time": false,
+        "started": true,
+        "team_a": 18,
+        "team_a_score": 0,
+        "team_h": 4,
+        "team_h_score": 2,
+        "stats": [
+          {
+            "identifier": "goals_scored",
+            "a": [],
+            "h": [
+              {
+                "value": 1,
+                "element": 106
+              }
+            ]
+          },
+          {
+            "identifier": "assists",
+            "a": [],
+            "h": [
+              {
+                "value": 1,
+                "element": 95
+              },
+              {
+                "value": 1,
+                "element": 105
+              }
+            ]
+          },
+          {
+            "identifier": "own_goals",
+            "a": [
+              {
+                "value": 1,
+                "element": 471
+              }
+            ],
+            "h": []
+          },
+          {
+            "identifier": "penalties_saved",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "penalties_missed",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "yellow_cards",
+            "a": [
+              {
+                "value": 1,
+                "element": 201
+              },
+              {
+                "value": 1,
+                "element": 471
+              },
+              {
+                "value": 1,
+                "element": 486
+              }
+            ],
+            "h": [
+              {
+                "value": 1,
+                "element": 88
+              }
+            ]
+          },
+          {
+            "identifier": "red_cards",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "saves",
+            "a": [],
+            "h": [
+              {
+                "value": 1,
+                "element": 82
+              }
+            ]
+          },
+          {
+            "identifier": "bonus",
+            "a": [],
+            "h": [
+              {
+                "value": 3,
+                "element": 106
+              },
+              {
+                "value": 2,
+                "element": 85
+              },
+              {
+                "value": 1,
+                "element": 82
+              }
+            ]
+          },
+          {
+            "identifier": "bps",
+            "a": [
+              {
+                "value": 15,
+                "element": 486
+              },
+              {
+                "value": 11,
+                "element": 472
+              },
+              {
+                "value": 11,
+                "element": 480
+              },
+              {
+                "value": 10,
+                "element": 474
+              },
+              {
+                "value": 8,
+                "element": 483
+              },
+              {
+                "value": 5,
+                "element": 469
+              },
+              {
+                "value": 4,
+                "element": 473
+              },
+              {
+                "value": 4,
+                "element": 489
+              },
+              {
+                "value": 2,
+                "element": 201
+              },
+              {
+                "value": 2,
+                "element": 490
+              },
+              {
+                "value": 2,
+                "element": 493
+              },
+              {
+                "value": 2,
+                "element": 558
+              }
+            ],
+            "h": [
+              {
+                "value": 37,
+                "element": 106
+              },
+              {
+                "value": 33,
+                "element": 85
+              },
+              {
+                "value": 25,
+                "element": 82
+              },
+              {
+                "value": 23,
+                "element": 87
+              },
+              {
+                "value": 22,
+                "element": 95
+              },
+              {
+                "value": 18,
+                "element": 105
+              },
+              {
+                "value": 17,
+                "element": 88
+              },
+              {
+                "value": 17,
+                "element": 98
+              },
+              {
+                "value": 11,
+                "element": 86
+              },
+              {
+                "value": 10,
+                "element": 97
+              },
+              {
+                "value": 10,
+                "element": 565
+              },
+              {
+                "value": 9,
+                "element": 94
+              },
+              {
+                "value": 5,
+                "element": 90
+              },
+              {
+                "value": 4,
+                "element": 96
+              },
+              {
+                "value": 2,
+                "element": 108
+              }
+            ]
+          },
+          {
+            "identifier": "defensive_contribution",
+            "a": [
+              {
+                "value": 15,
+                "element": 472
+              },
+              {
+                "value": 12,
+                "element": 486
+              },
+              {
+                "value": 9,
+                "element": 471
+              },
+              {
+                "value": 6,
+                "element": 474
+              },
+              {
+                "value": 6,
+                "element": 489
+              },
+              {
+                "value": 5,
+                "element": 201
+              },
+              {
+                "value": 5,
+                "element": 469
+              },
+              {
+                "value": 4,
+                "element": 483
+              },
+              {
+                "value": 4,
+                "element": 558
+              },
+              {
+                "value": 3,
+                "element": 167
+              },
+              {
+                "value": 2,
+                "element": 473
+              },
+              {
+                "value": 1,
+                "element": 480
+              },
+              {
+                "value": 1,
+                "element": 493
+              }
+            ],
+            "h": [
+              {
+                "value": 15,
+                "element": 98
+              },
+              {
+                "value": 14,
+                "element": 87
+              },
+              {
+                "value": 12,
+                "element": 85
+              },
+              {
+                "value": 10,
+                "element": 86
+              },
+              {
+                "value": 10,
+                "element": 565
+              },
+              {
+                "value": 8,
+                "element": 97
+              },
+              {
+                "value": 7,
+                "element": 94
+              },
+              {
+                "value": 7,
+                "element": 95
+              },
+              {
+                "value": 7,
+                "element": 106
+              },
+              {
+                "value": 6,
+                "element": 88
+              },
+              {
+                "value": 6,
+                "element": 105
+              },
+              {
+                "value": 4,
+                "element": 90
+              },
+              {
+                "value": 3,
+                "element": 96
+              }
+            ]
+          }
+        ],
+        "team_h_difficulty": 3,
+        "team_a_difficulty": 3,
+        "pulse_id": 0
+      },
+      {
+        "code": 2645279,
+        "event": 9,
+        "finished": false,
+        "finished_provisional": true,
+        "id": 85,
+        "kickoff_time": "2026-10-31T15:00:00Z",
+        "minutes": 90,
+        "provisional_start_time": false,
+        "started": true,
+        "team_a": 20,
+        "team_a_score": 1,
+        "team_h": 7,
+        "team_h_score": 3,
+        "stats": [
+          {
+            "identifier": "goals_scored",
+            "a": [
+              {
+                "value": 1,
+                "element": 542
+              }
+            ],
+            "h": [
+              {
+                "value": 1,
+                "element": 183
+              },
+              {
+                "value": 1,
+                "element": 185
+              },
+              {
+                "value": 1,
+                "element": 492
+              }
+            ]
+          },
+          {
+            "identifier": "assists",
+            "a": [
+              {
+                "value": 1,
+                "element": 539
+              }
+            ],
+            "h": [
+              {
+                "value": 1,
+                "element": 188
+              }
+            ]
+          },
+          {
+            "identifier": "own_goals",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "penalties_saved",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "penalties_missed",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "yellow_cards",
+            "a": [],
+            "h": [
+              {
+                "value": 1,
+                "element": 185
+              },
+              {
+                "value": 1,
+                "element": 188
+              }
+            ]
+          },
+          {
+            "identifier": "red_cards",
+            "a": [
+              {
+                "value": 1,
+                "element": 535
+              }
+            ],
+            "h": []
+          },
+          {
+            "identifier": "saves",
+            "a": [
+              {
+                "value": 1,
+                "element": 529
+              }
+            ],
+            "h": [
+              {
+                "value": 1,
+                "element": 110
+              }
+            ]
+          },
+          {
+            "identifier": "bonus",
+            "a": [
+              {
+                "value": 1,
+                "element": 542
+              }
+            ],
+            "h": [
+              {
+                "value": 3,
+                "element": 492
+              },
+              {
+                "value": 2,
+                "element": 183
+              }
+            ]
+          },
+          {
+            "identifier": "bps",
+            "a": [
+              {
+                "value": 32,
+                "element": 542
+              },
+              {
+                "value": 19,
+                "element": 544
+              },
+              {
+                "value": 14,
+                "element": 539
+              },
+              {
+                "value": 14,
+                "element": 545
+              },
+              {
+                "value": 12,
+                "element": 548
+              },
+              {
+                "value": 6,
+                "element": 541
+              },
+              {
+                "value": 6,
+                "element": 551
+              },
+              {
+                "value": 6,
+                "element": 552
+              },
+              {
+                "value": 5,
+                "element": 646
+              },
+              {
+                "value": 3,
+                "element": 553
+              },
+              {
+                "value": 2,
+                "element": 549
+              },
+              {
+                "value": -1,
+                "element": 529
+              },
+              {
+                "value": -13,
+                "element": 535
+              }
+            ],
+            "h": [
+              {
+                "value": 38,
+                "element": 492
+              },
+              {
+                "value": 36,
+                "element": 183
+              },
+              {
+                "value": 20,
+                "element": 185
+              },
+              {
+                "value": 19,
+                "element": 188
+              },
+              {
+                "value": 11,
+                "element": 655
+              },
+              {
+                "value": 10,
+                "element": 175
+              },
+              {
+                "value": 9,
+                "element": 176
+              },
+              {
+                "value": 8,
+                "element": 91
+              },
+              {
+                "value": 7,
+                "element": 110
+              },
+              {
+                "value": 6,
+                "element": 656
+              },
+              {
+                "value": 5,
+                "element": 184
+              },
+              {
+                "value": 5,
+                "element": 575
+              },
+              {
+                "value": 5,
+                "element": 599
+              },
+              {
+                "value": 3,
+                "element": 194
+              }
+            ]
+          },
+          {
+            "identifier": "defensive_contribution",
+            "a": [
+              {
+                "value": 16,
+                "element": 544
+              },
+              {
+                "value": 13,
+                "element": 535
+              },
+              {
+                "value": 11,
+                "element": 542
+              },
+              {
+                "value": 7,
+                "element": 534
+              },
+              {
+                "value": 7,
+                "element": 539
+              },
+              {
+                "value": 6,
+                "element": 545
+              },
+              {
+                "value": 4,
+                "element": 536
+              },
+              {
+                "value": 4,
+                "element": 548
+              },
+              {
+                "value": 2,
+                "element": 551
+              },
+              {
+                "value": 2,
+                "element": 552
+              },
+              {
+                "value": 2,
+                "element": 646
+              },
+              {
+                "value": 1,
+                "element": 541
+              }
+            ],
+            "h": [
+              {
+                "value": 14,
+                "element": 91
+              },
+              {
+                "value": 11,
+                "element": 183
+              },
+              {
+                "value": 11,
+                "element": 656
+              },
+              {
+                "value": 10,
+                "element": 175
+              },
+              {
+                "value": 8,
+                "element": 188
+              },
+              {
+                "value": 6,
+                "element": 575
+              },
+              {
+                "value": 4,
+                "element": 176
+              },
+              {
+                "value": 4,
+                "element": 185
+              },
+              {
+                "value": 4,
+                "element": 655
+              },
+              {
+                "value": 3,
+                "element": 184
+              },
+              {
+                "value": 3,
+                "element": 194
+              },
+              {
+                "value": 2,
+                "element": 492
+              }
+            ]
+          }
+        ],
+        "team_h_difficulty": 3,
+        "team_a_difficulty": 2,
+        "pulse_id": 0
+      },
+      {
+        "code": 2645280,
+        "event": 9,
+        "finished": false,
+        "finished_provisional": true,
+        "id": 86,
+        "kickoff_time": "2026-10-31T15:00:00Z",
+        "minutes": 90,
+        "provisional_start_time": false,
+        "started": true,
+        "team_a": 12,
+        "team_a_score": 2,
+        "team_h": 11,
+        "team_h_score": 2,
+        "stats": [
+          {
+            "identifier": "goals_scored",
+            "a": [
+              {
+                "value": 1,
+                "element": 571
+              },
+              {
+                "value": 1,
+                "element": 591
+              }
+            ],
+            "h": [
+              {
+                "value": 1,
+                "element": 240
+              },
+              {
+                "value": 1,
+                "element": 295
+              }
+            ]
+          },
+          {
+            "identifier": "assists",
+            "a": [
+              {
+                "value": 1,
+                "element": 310
+              },
+              {
+                "value": 1,
+                "element": 592
+              }
+            ],
+            "h": [
+              {
+                "value": 1,
+                "element": 286
+              },
+              {
+                "value": 1,
+                "element": 295
+              }
+            ]
+          },
+          {
+            "identifier": "own_goals",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "penalties_saved",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "penalties_missed",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "yellow_cards",
+            "a": [
+              {
+                "value": 1,
+                "element": 259
+              },
+              {
+                "value": 1,
+                "element": 591
+              },
+              {
+                "value": 1,
+                "element": 619
+              }
+            ],
+            "h": [
+              {
+                "value": 1,
+                "element": 279
+              },
+              {
+                "value": 1,
+                "element": 289
+              },
+              {
+                "value": 1,
+                "element": 576
+              }
+            ]
+          },
+          {
+            "identifier": "red_cards",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "saves",
+            "a": [
+              {
+                "value": 1,
+                "element": 300
+              }
+            ],
+            "h": [
+              {
+                "value": 1,
+                "element": 572
+              }
+            ]
+          },
+          {
+            "identifier": "bonus",
+            "a": [
+              {
+                "value": 2,
+                "element": 591
+              },
+              {
+                "value": 1,
+                "element": 571
+              }
+            ],
+            "h": [
+              {
+                "value": 3,
+                "element": 295
+              },
+              {
+                "value": 1,
+                "element": 240
+              }
+            ]
+          },
+          {
+            "identifier": "bps",
+            "a": [
+              {
+                "value": 39,
+                "element": 591
+              },
+              {
+                "value": 32,
+                "element": 571
+              },
+              {
+                "value": 29,
+                "element": 592
+              },
+              {
+                "value": 16,
+                "element": 310
+              },
+              {
+                "value": 13,
+                "element": 619
+              },
+              {
+                "value": 8,
+                "element": 313
+              },
+              {
+                "value": 8,
+                "element": 318
+              },
+              {
+                "value": 5,
+                "element": 304
+              },
+              {
+                "value": 5,
+                "element": 305
+              },
+              {
+                "value": 5,
+                "element": 315
+              },
+              {
+                "value": 5,
+                "element": 316
+              },
+              {
+                "value": 4,
+                "element": 259
+              },
+              {
+                "value": 3,
+                "element": 300
+              },
+              {
+                "value": 3,
+                "element": 320
+              },
+              {
+                "value": 3,
+                "element": 640
+              }
+            ],
+            "h": [
+              {
+                "value": 46,
+                "element": 295
+              },
+              {
+                "value": 32,
+                "element": 240
+              },
+              {
+                "value": 21,
+                "element": 286
+              },
+              {
+                "value": 6,
+                "element": 290
+              },
+              {
+                "value": 6,
+                "element": 586
+              },
+              {
+                "value": 5,
+                "element": 563
+              },
+              {
+                "value": 5,
+                "element": 638
+              },
+              {
+                "value": 4,
+                "element": 340
+              },
+              {
+                "value": 4,
+                "element": 572
+              },
+              {
+                "value": 3,
+                "element": 279
+              },
+              {
+                "value": 3,
+                "element": 617
+              },
+              {
+                "value": 2,
+                "element": 576
+              },
+              {
+                "value": 1,
+                "element": 282
+              },
+              {
+                "value": -1,
+                "element": 280
+              },
+              {
+                "value": -1,
+                "element": 289
+              }
+            ]
+          },
+          {
+            "identifier": "defensive_contribution",
+            "a": [
+              {
+                "value": 13,
+                "element": 619
+              },
+              {
+                "value": 11,
+                "element": 259
+              },
+              {
+                "value": 10,
+                "element": 318
+              },
+              {
+                "value": 9,
+                "element": 304
+              },
+              {
+                "value": 7,
+                "element": 305
+              },
+              {
+                "value": 7,
+                "element": 592
+              },
+              {
+                "value": 6,
+                "element": 310
+              },
+              {
+                "value": 6,
+                "element": 571
+              },
+              {
+                "value": 6,
+                "element": 591
+              },
+              {
+                "value": 5,
+                "element": 315
+              },
+              {
+                "value": 4,
+                "element": 313
+              },
+              {
+                "value": 4,
+                "element": 316
+              },
+              {
+                "value": 1,
+                "element": 640
+              }
+            ],
+            "h": [
+              {
+                "value": 11,
+                "element": 279
+              },
+              {
+                "value": 10,
+                "element": 586
+              },
+              {
+                "value": 9,
+                "element": 240
+              },
+              {
+                "value": 8,
+                "element": 576
+              },
+              {
+                "value": 6,
+                "element": 277
+              },
+              {
+                "value": 6,
+                "element": 290
+              },
+              {
+                "value": 5,
+                "element": 282
+              },
+              {
+                "value": 5,
+                "element": 286
+              },
+              {
+                "value": 5,
+                "element": 295
+              },
+              {
+                "value": 4,
+                "element": 563
+              },
+              {
+                "value": 3,
+                "element": 289
+              },
+              {
+                "value": 2,
+                "element": 280
+              },
+              {
+                "value": 2,
+                "element": 638
+              },
+              {
+                "value": 1,
+                "element": 340
+              }
+            ]
+          }
+        ],
+        "team_h_difficulty": 2,
+        "team_a_difficulty": 2,
+        "pulse_id": 0
+      },
+      {
+        "code": 2645282,
+        "event": 9,
+        "finished": false,
+        "finished_provisional": true,
+        "id": 88,
+        "kickoff_time": "2026-10-31T15:00:00Z",
+        "minutes": 90,
+        "provisional_start_time": false,
+        "started": true,
+        "team_a": 5,
+        "team_a_score": 1,
+        "team_h": 15,
+        "team_h_score": 0,
+        "stats": [
+          {
+            "identifier": "goals_scored",
+            "a": [
+              {
+                "value": 1,
+                "element": 129
+              }
+            ],
+            "h": []
+          },
+          {
+            "identifier": "assists",
+            "a": [
+              {
+                "value": 1,
+                "element": 115
+              }
+            ],
+            "h": []
+          },
+          {
+            "identifier": "own_goals",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "penalties_saved",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "penalties_missed",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "yellow_cards",
+            "a": [
+              {
+                "value": 1,
+                "element": 115
+              },
+              {
+                "value": 1,
+                "element": 124
+              },
+              {
+                "value": 1,
+                "element": 639
+              }
+            ],
+            "h": []
+          },
+          {
+            "identifier": "red_cards",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "saves",
+            "a": [
+              {
+                "value": 7,
+                "element": 109
+              }
+            ],
+            "h": [
+              {
+                "value": 2,
+                "element": 384
+              }
+            ]
+          },
+          {
+            "identifier": "bonus",
+            "a": [
+              {
+                "value": 3,
+                "element": 109
+              },
+              {
+                "value": 2,
+                "element": 129
+              },
+              {
+                "value": 1,
+                "element": 115
+              }
+            ],
+            "h": []
+          },
+          {
+            "identifier": "bps",
+            "a": [
+              {
+                "value": 46,
+                "element": 109
+              },
+              {
+                "value": 40,
+                "element": 129
+              },
+              {
+                "value": 30,
+                "element": 115
+              },
+              {
+                "value": 27,
+                "element": 119
+              },
+              {
+                "value": 26,
+                "element": 116
+              },
+              {
+                "value": 26,
+                "element": 504
+              },
+              {
+                "value": 20,
+                "element": 114
+              },
+              {
+                "value": 13,
+                "element": 639
+              },
+              {
+                "value": 11,
+                "element": 605
+              },
+              {
+                "value": 9,
+                "element": 138
+              },
+              {
+                "value": 8,
+                "element": 127
+              },
+              {
+                "value": 8,
+                "element": 614
+              },
+              {
+                "value": 6,
+                "element": 125
+              },
+              {
+                "value": 5,
+                "element": 124
+              },
+              {
+                "value": 2,
+                "element": 130
+              }
+            ],
+            "h": [
+              {
+                "value": 28,
+                "element": 400
+              },
+              {
+                "value": 27,
+                "element": 481
+              },
+              {
+                "value": 16,
+                "element": 384
+              },
+              {
+                "value": 15,
+                "element": 393
+              },
+              {
+                "value": 12,
+                "element": 155
+              },
+              {
+                "value": 12,
+                "element": 237
+              },
+              {
+                "value": 12,
+                "element": 391
+              },
+              {
+                "value": 9,
+                "element": 389
+              },
+              {
+                "value": 9,
+                "element": 399
+              },
+              {
+                "value": 8,
+                "element": 387
+              },
+              {
+                "value": 8,
+                "element": 390
+              },
+              {
+                "value": 6,
+                "element": 411
+              },
+              {
+                "value": 6,
+                "element": 616
+              },
+              {
+                "value": 6,
+                "element": 628
+              },
+              {
+                "value": 3,
+                "element": 398
+              }
+            ]
+          },
+          {
+            "identifier": "defensive_contribution",
+            "a": [
+              {
+                "value": 10,
+                "element": 119
+              },
+              {
+                "value": 10,
+                "element": 124
+              },
+              {
+                "value": 10,
+                "element": 127
+              },
+              {
+                "value": 9,
+                "element": 504
+              },
+              {
+                "value": 8,
+                "element": 129
+              },
+              {
+                "value": 8,
+                "element": 639
+              },
+              {
+                "value": 6,
+                "element": 138
+              },
+              {
+                "value": 6,
+                "element": 605
+              },
+              {
+                "value": 5,
+                "element": 114
+              },
+              {
+                "value": 5,
+                "element": 116
+              },
+              {
+                "value": 4,
+                "element": 123
+              },
+              {
+                "value": 3,
+                "element": 115
+              },
+              {
+                "value": 3,
+                "element": 125
+              },
+              {
+                "value": 3,
+                "element": 614
+              },
+              {
+                "value": 2,
+                "element": 130
+              }
+            ],
+            "h": [
+              {
+                "value": 13,
+                "element": 481
+              },
+              {
+                "value": 11,
+                "element": 393
+              },
+              {
+                "value": 11,
+                "element": 400
+              },
+              {
+                "value": 6,
+                "element": 391
+              },
+              {
+                "value": 5,
+                "element": 389
+              },
+              {
+                "value": 3,
+                "element": 155
+              },
+              {
+                "value": 3,
+                "element": 237
+              },
+              {
+                "value": 3,
+                "element": 387
+              },
+              {
+                "value": 3,
+                "element": 390
+              },
+              {
+                "value": 3,
+                "element": 616
+              },
+              {
+                "value": 2,
+                "element": 399
+              },
+              {
+                "value": 1,
+                "element": 411
+              },
+              {
+                "value": 1,
+                "element": 628
+              }
+            ]
+          }
+        ],
+        "team_h_difficulty": 3,
+        "team_a_difficulty": 5,
+        "pulse_id": 0
+      },
+      {
+        "code": 2645284,
+        "event": 9,
+        "finished": false,
+        "finished_provisional": true,
+        "id": 90,
+        "kickoff_time": "2026-10-31T17:30:00Z",
+        "minutes": 90,
+        "provisional_start_time": false,
+        "started": true,
+        "team_a": 8,
+        "team_a_score": 0,
+        "team_h": 19,
+        "team_h_score": 2,
+        "stats": [
+          {
+            "identifier": "goals_scored",
+            "a": [],
+            "h": [
+              {
+                "value": 1,
+                "element": 112
+              },
+              {
+                "value": 1,
+                "element": 522
+              }
+            ]
+          },
+          {
+            "identifier": "assists",
+            "a": [],
+            "h": [
+              {
+                "value": 1,
+                "element": 512
+              }
+            ]
+          },
+          {
+            "identifier": "own_goals",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "penalties_saved",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "penalties_missed",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "yellow_cards",
+            "a": [
+              {
+                "value": 1,
+                "element": 207
+              }
+            ],
+            "h": [
+              {
+                "value": 1,
+                "element": 522
+              }
+            ]
+          },
+          {
+            "identifier": "red_cards",
+            "a": [
+              {
+                "value": 1,
+                "element": 223
+              }
+            ],
+            "h": []
+          },
+          {
+            "identifier": "saves",
+            "a": [
+              {
+                "value": 7,
+                "element": 198
+              }
+            ],
+            "h": [
+              {
+                "value": 1,
+                "element": 496
+              }
+            ]
+          },
+          {
+            "identifier": "bonus",
+            "a": [],
+            "h": [
+              {
+                "value": 3,
+                "element": 112
+              },
+              {
+                "value": 2,
+                "element": 502
+              },
+              {
+                "value": 1,
+                "element": 512
+              }
+            ]
+          },
+          {
+            "identifier": "bps",
+            "a": [
+              {
+                "value": 23,
+                "element": 198
+              },
+              {
+                "value": 13,
+                "element": 214
+              },
+              {
+                "value": 12,
+                "element": 210
+              },
+              {
+                "value": 10,
+                "element": 241
+              },
+              {
+                "value": 8,
+                "element": 204
+              },
+              {
+                "value": 7,
+                "element": 202
+              },
+              {
+                "value": 7,
+                "element": 211
+              },
+              {
+                "value": 7,
+                "element": 647
+              },
+              {
+                "value": 5,
+                "element": 153
+              },
+              {
+                "value": 5,
+                "element": 203
+              },
+              {
+                "value": 3,
+                "element": 212
+              },
+              {
+                "value": 3,
+                "element": 213
+              },
+              {
+                "value": 3,
+                "element": 588
+              },
+              {
+                "value": 2,
+                "element": 224
+              },
+              {
+                "value": -3,
+                "element": 207
+              },
+              {
+                "value": -4,
+                "element": 223
+              }
+            ],
+            "h": [
+              {
+                "value": 38,
+                "element": 112
+              },
+              {
+                "value": 33,
+                "element": 502
+              },
+              {
+                "value": 32,
+                "element": 512
+              },
+              {
+                "value": 31,
+                "element": 503
+              },
+              {
+                "value": 30,
+                "element": 522
+              },
+              {
+                "value": 23,
+                "element": 496
+              },
+              {
+                "value": 23,
+                "element": 514
+              },
+              {
+                "value": 21,
+                "element": 525
+              },
+              {
+                "value": 18,
+                "element": 455
+              },
+              {
+                "value": 16,
+                "element": 401
+              },
+              {
+                "value": 13,
+                "element": 526
+              },
+              {
+                "value": 11,
+                "element": 499
+              },
+              {
+                "value": 8,
+                "element": 601
+              },
+              {
+                "value": 7,
+                "element": 521
+              },
+              {
+                "value": 4,
+                "element": 519
+              },
+              {
+                "value": 2,
+                "element": 506
+              }
+            ]
+          },
+          {
+            "identifier": "defensive_contribution",
+            "a": [
+              {
+                "value": 15,
+                "element": 202
+              },
+              {
+                "value": 15,
+                "element": 210
+              },
+              {
+                "value": 14,
+                "element": 153
+              },
+              {
+                "value": 14,
+                "element": 203
+              },
+              {
+                "value": 14,
+                "element": 204
+              },
+              {
+                "value": 11,
+                "element": 241
+              },
+              {
+                "value": 10,
+                "element": 214
+              },
+              {
+                "value": 7,
+                "element": 211
+              },
+              {
+                "value": 6,
+                "element": 588
+              },
+              {
+                "value": 5,
+                "element": 207
+              },
+              {
+                "value": 5,
+                "element": 647
+              },
+              {
+                "value": 2,
+                "element": 223
+              },
+              {
+                "value": 2,
+                "element": 224
+              }
+            ],
+            "h": [
+              {
+                "value": 10,
+                "element": 455
+              },
+              {
+                "value": 10,
+                "element": 525
+              },
+              {
+                "value": 9,
+                "element": 514
+              },
+              {
+                "value": 8,
+                "element": 526
+              },
+              {
+                "value": 5,
+                "element": 401
+              },
+              {
+                "value": 4,
+                "element": 522
+              },
+              {
+                "value": 3,
+                "element": 502
+              },
+              {
+                "value": 3,
+                "element": 503
+              },
+              {
+                "value": 3,
+                "element": 519
+              },
+              {
+                "value": 2,
+                "element": 112
+              },
+              {
+                "value": 2,
+                "element": 512
+              },
+              {
+                "value": 1,
+                "element": 499
+              },
+              {
+                "value": 1,
+                "element": 506
+              },
+              {
+                "value": 1,
+                "element": 521
+              }
+            ]
+          }
+        ],
+        "team_h_difficulty": 2,
+        "team_a_difficulty": 3,
+        "pulse_id": 0
+      },
+      {
+        "code": 2645276,
+        "event": 9,
+        "finished": false,
+        "finished_provisional": true,
+        "id": 81,
+        "kickoff_time": "2026-10-31T20:00:00Z",
+        "minutes": 90,
+        "provisional_start_time": false,
+        "started": true,
+        "team_a": 10,
+        "team_a_score": 1,
+        "team_h": 2,
+        "team_h_score": 1,
+        "stats": [
+          {
+            "identifier": "goals_scored",
+            "a": [],
+            "h": [
+              {
+                "value": 1,
+                "element": 166
+              }
+            ]
+          },
+          {
+            "identifier": "assists",
+            "a": [
+              {
+                "value": 1,
+                "element": 261
+              }
+            ],
+            "h": [
+              {
+                "value": 1,
+                "element": 53
+              }
+            ]
+          },
+          {
+            "identifier": "own_goals",
+            "a": [],
+            "h": [
+              {
+                "value": 1,
+                "element": 597
+              }
+            ]
+          },
+          {
+            "identifier": "penalties_saved",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "penalties_missed",
+            "a": [],
+            "h": [
+              {
+                "value": 1,
+                "element": 45
+              }
+            ]
+          },
+          {
+            "identifier": "yellow_cards",
+            "a": [
+              {
+                "value": 1,
+                "element": 257
+              },
+              {
+                "value": 1,
+                "element": 266
+              },
+              {
+                "value": 1,
+                "element": 650
+              }
+            ],
+            "h": [
+              {
+                "value": 1,
+                "element": 32
+              }
+            ]
+          },
+          {
+            "identifier": "red_cards",
+            "a": [],
+            "h": []
+          },
+          {
+            "identifier": "saves",
+            "a": [
+              {
+                "value": 2,
+                "element": 250
+              }
+            ],
+            "h": [
+              {
+                "value": 4,
+                "element": 597
+              }
+            ]
+          },
+          {
+            "identifier": "bonus",
+            "a": [
+              {
+                "value": 1,
+                "element": 261
+              }
+            ],
+            "h": [
+              {
+                "value": 3,
+                "element": 166
+              },
+              {
+                "value": 2,
+                "element": 53
+              }
+            ]
+          },
+          {
+            "identifier": "bps",
+            "a": [
+              {
+                "value": 22,
+                "element": 261
+              },
+              {
+                "value": 17,
+                "element": 254
+              },
+              {
+                "value": 14,
+                "element": 264
+              },
+              {
+                "value": 13,
+                "element": 650
+              },
+              {
+                "value": 12,
+                "element": 250
+              },
+              {
+                "value": 12,
+                "element": 258
+              },
+              {
+                "value": 12,
+                "element": 265
+              },
+              {
+                "value": 11,
+                "element": 580
+              },
+              {
+                "value": 9,
+                "element": 268
+              },
+              {
+                "value": 7,
+                "element": 256
+              },
+              {
+                "value": 5,
+                "element": 257
+              },
+              {
+                "value": 4,
+                "element": 271
+              },
+              {
+                "value": 3,
+                "element": 635
+              },
+              {
+                "value": 2,
+                "element": 570
+              },
+              {
+                "value": 1,
+                "element": 266
+              }
+            ],
+            "h": [
+              {
+                "value": 39,
+                "element": 166
+              },
+              {
+                "value": 24,
+                "element": 53
+              },
+              {
+                "value": 20,
+                "element": 597
+              },
+              {
+                "value": 15,
+                "element": 47
+              },
+              {
+                "value": 14,
+                "element": 32
+              },
+              {
+                "value": 12,
+                "element": 36
+              },
+              {
+                "value": 10,
+                "element": 37
+              },
+              {
+                "value": 9,
+                "element": 41
+              },
+              {
+                "value": 8,
+                "element": 618
+              },
+              {
+                "value": 7,
+                "element": 52
+              },
+              {
+                "value": 5,
+                "element": 160
+              },
+              {
+                "value": 5,
+                "element": 631
+              },
+              {
+                "value": 3,
+                "element": 46
+              },
+              {
+                "value": 2,
+                "element": 45
+              },
+              {
+                "value": 2,
+                "element": 54
+              },
+              {
+                "value": -1,
+                "element": 34
+              }
+            ]
+          },
+          {
+            "identifier": "defensive_contribution",
+            "a": [
+              {
+                "value": 18,
+                "element": 650
+              },
+              {
+                "value": 10,
+                "element": 254
+              },
+              {
+                "value": 10,
+                "element": 265
+              },
+              {
+                "value": 10,
+                "element": 580
+              },
+              {
+                "value": 6,
+                "element": 261
+              },
+              {
+                "value": 6,
+                "element": 268
+              },
+              {
+                "value": 5,
+                "element": 258
+              },
+              {
+                "value": 4,
+                "element": 256
+              },
+              {
+                "value": 3,
+                "element": 257
+              },
+              {
+                "value": 3,
+                "element": 264
+              },
+              {
+                "value": 3,
+                "element": 266
+              },
+              {
+                "value": 3,
+                "element": 570
+              }
+            ],
+            "h": [
+              {
+                "value": 8,
+                "element": 47
+              },
+              {
+                "value": 6,
+                "element": 34
+              },
+              {
+                "value": 6,
+                "element": 36
+              },
+              {
+                "value": 6,
+                "element": 45
+              },
+              {
+                "value": 6,
+                "element": 53
+              },
+              {
+                "value": 5,
+                "element": 32
+              },
+              {
+                "value": 4,
+                "element": 37
+              },
+              {
+                "value": 4,
+                "element": 166
+              },
+              {
+                "value": 4,
+                "element": 618
+              },
+              {
+                "value": 3,
+                "element": 52
+              },
+              {
+                "value": 2,
+                "element": 41
+              },
+              {
+                "value": 2,
+                "element": 54
+              },
+              {
+                "value": 2,
+                "element": 631
+              }
+            ]
+          }
+        ],
+        "team_h_difficulty": 2,
+        "team_a_difficulty": 3,
+        "pulse_id": 0
+      },
+      {
+        "code": 2645281,
+        "event": 9,
+        "finished": false,
+        "finished_provisional": false,
+        "id": 87,
+        "kickoff_time": "2026-11-01T16:30:00Z",
+        "minutes": 0,
+        "provisional_start_time": false,
+        "started": false,
+        "team_a": 1,
+        "team_a_score": null,
+        "team_h": 14,
+        "team_h_score": null,
+        "stats": [],
+        "team_h_difficulty": 4,
+        "team_a_difficulty": 4,
+        "pulse_id": 0
+      },
+      {
+        "code": 2645283,
+        "event": 9,
+        "finished": false,
+        "finished_provisional": false,
+        "id": 89,
+        "kickoff_time": "2026-11-02T20:00:00Z",
+        "minutes": 0,
+        "provisional_start_time": false,
+        "started": false,
+        "team_a": 9,
+        "team_a_score": null,
+        "team_h": 17,
+        "team_h_score": null,
+        "stats": [],
+        "team_h_difficulty": 3,
+        "team_a_difficulty": 3,
+        "pulse_id": 0
+      }
+    ],
+    "newsScan": {
+      "schemaVersion": 1,
+      "eventId": 9,
+      "eventName": "Gameweek 9",
+      "deadlineTime": "2026-10-31T11:00:00Z",
+      "scanWindowStart": "2026-10-31T10:00:00.000Z",
+      "windowState": "closed",
+      "scannedAt": "2026-11-01T15:03:45.280Z",
+      "source": "official-fpl-bootstrap",
+      "alerts": [
+        {
+          "playerId": 32,
+          "playerName": "Cash",
+          "teamId": 2,
+          "team": "AVL",
+          "status": "s",
+          "chanceOfPlaying": 100,
+          "news": "Suspended until 21 Nov",
+          "newsAdded": "2026-10-31T22:00:07.593621Z",
+          "kickoffTime": "2026-10-31T20:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 289,
+          "playerName": "Crooks",
+          "teamId": 11,
+          "team": "HUL",
+          "status": "s",
+          "chanceOfPlaying": 100,
+          "news": "Suspended until 22 Nov",
+          "newsAdded": "2026-10-31T18:00:09.584315Z",
+          "kickoffTime": "2026-10-31T15:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 223,
+          "playerName": "Mateta",
+          "teamId": 8,
+          "team": "CRY",
+          "status": "s",
+          "chanceOfPlaying": 100,
+          "news": "Suspended until 2 Dec",
+          "newsAdded": "2026-10-31T18:00:09.547671Z",
+          "kickoffTime": "2026-10-31T17:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 535,
+          "playerName": "Alderete",
+          "teamId": 20,
+          "team": "SUN",
+          "status": "s",
+          "chanceOfPlaying": 100,
+          "news": "Suspended until 21 Nov",
+          "newsAdded": "2026-10-31T17:30:08.393957Z",
+          "kickoffTime": "2026-10-31T15:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 419,
+          "playerName": "Martinez",
+          "teamId": 16,
+          "team": "MUN",
+          "status": "s",
+          "chanceOfPlaying": 100,
+          "news": "Suspended until 22 Nov",
+          "newsAdded": "2026-10-31T14:00:08.592593Z",
+          "kickoffTime": "2026-10-31T12:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 561,
+          "playerName": "Anselmino",
+          "teamId": 6,
+          "team": "CHE",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Unspecified injury - Unknown return date",
+          "newsAdded": "2026-10-30T16:00:10.210670Z",
+          "kickoffTime": "2026-10-31T12:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 100,
+          "playerName": "Carvalho",
+          "teamId": 4,
+          "team": "BRE",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Knock - Expected back 23 Nov",
+          "newsAdded": "2026-10-30T14:30:09.456391Z",
+          "kickoffTime": "2026-10-31T15:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 148,
+          "playerName": "Hato",
+          "teamId": 6,
+          "team": "CHE",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Unspecified injury - Unknown return date",
+          "newsAdded": "2026-10-29T22:00:09.909621Z",
+          "kickoffTime": "2026-10-31T12:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 147,
+          "playerName": "Tosin",
+          "teamId": 19,
+          "team": "TOT",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Calf injury - Unknown return date",
+          "newsAdded": "2026-10-29T17:00:09.335810Z",
+          "kickoffTime": "2026-10-31T17:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 200,
+          "playerName": "Lacroix",
+          "teamId": 6,
+          "team": "CHE",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Hamstring injury - Unknown return date",
+          "newsAdded": "2026-10-28T23:00:10.088612Z",
+          "kickoffTime": "2026-10-31T12:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 20,
+          "playerName": "Dowman",
+          "teamId": 1,
+          "team": "ARS",
+          "status": "s",
+          "chanceOfPlaying": 0,
+          "news": "Suspended until 29 Nov",
+          "newsAdded": "2026-10-27T22:30:09.534466Z",
+          "kickoffTime": "2026-11-01T16:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 89,
+          "playerName": "Henry",
+          "teamId": 4,
+          "team": "BRE",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Hip injury - Unknown return date",
+          "newsAdded": "2026-10-27T16:30:09.444144Z",
+          "kickoffTime": "2026-10-31T15:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 208,
+          "playerName": "Sarr",
+          "teamId": 8,
+          "team": "CRY",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Groin injury - Expected back 8 Nov",
+          "newsAdded": "2026-10-27T10:30:09.385934Z",
+          "kickoffTime": "2026-10-31T17:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 165,
+          "playerName": "João Pedro",
+          "teamId": 6,
+          "team": "CHE",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Thigh injury - Unknown return date",
+          "newsAdded": "2026-10-24T16:30:09.687729Z",
+          "kickoffTime": "2026-10-31T12:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 76,
+          "playerName": "Tóth.A",
+          "teamId": 3,
+          "team": "BOU",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Hamstring injury - Unknown return date",
+          "newsAdded": "2026-10-23T11:30:09.133819Z",
+          "kickoffTime": "2026-10-31T15:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 12,
+          "playerName": "Saka",
+          "teamId": 1,
+          "team": "ARS",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Thigh injury - Unknown return date",
+          "newsAdded": "2026-10-21T20:30:09.540957Z",
+          "kickoffTime": "2026-11-01T16:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 38,
+          "playerName": "A.García",
+          "teamId": 2,
+          "team": "AVL",
+          "status": "u",
+          "chanceOfPlaying": 0,
+          "news": "Has joined Getafe on loan for the rest of the season",
+          "newsAdded": "2026-10-21T13:24:48.628998Z",
+          "kickoffTime": "2026-10-31T20:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 520,
+          "playerName": "Bergvall",
+          "teamId": 19,
+          "team": "TOT",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Knee injury - Expected back 31 Oct",
+          "newsAdded": "2026-10-18T13:00:09.356060Z",
+          "kickoffTime": "2026-10-31T17:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 403,
+          "playerName": "Sávio",
+          "teamId": 19,
+          "team": "TOT",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Muscular injury - Expected back 21 Nov",
+          "newsAdded": "2026-10-18T13:00:09.266321Z",
+          "kickoffTime": "2026-10-31T17:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 611,
+          "playerName": "Wan-Bissaka",
+          "teamId": 2,
+          "team": "AVL",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Hamstring injury - Expected back 21 Nov",
+          "newsAdded": "2026-10-17T19:30:10.120990Z",
+          "kickoffTime": "2026-10-31T20:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 397,
+          "playerName": "Semenyo",
+          "teamId": 15,
+          "team": "MCI",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Knee injury - Unknown return date",
+          "newsAdded": "2026-10-17T17:30:09.977110Z",
+          "kickoffTime": "2026-10-31T15:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 269,
+          "playerName": "Sessegnon",
+          "teamId": 10,
+          "team": "FUL",
+          "status": "a",
+          "chanceOfPlaying": 0,
+          "news": "",
+          "newsAdded": "2026-10-17T16:30:09.374216Z",
+          "kickoffTime": "2026-10-31T20:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 357,
+          "playerName": "Frimpong",
+          "teamId": 14,
+          "team": "LIV",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Hamstring injury - Unknown return date",
+          "newsAdded": "2026-10-17T15:30:09.979166Z",
+          "kickoffTime": "2026-11-01T16:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 102,
+          "playerName": "Yarmoliuk",
+          "teamId": 4,
+          "team": "BRE",
+          "status": "a",
+          "chanceOfPlaying": 0,
+          "news": "",
+          "newsAdded": "2026-10-17T15:00:07.992801Z",
+          "kickoffTime": "2026-10-31T15:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 28,
+          "playerName": "Martinez",
+          "teamId": 6,
+          "team": "CHE",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Head injury - Unknown return date",
+          "newsAdded": "2026-10-17T13:30:08.724000Z",
+          "kickoffTime": "2026-10-31T12:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 328,
+          "playerName": "Struijk",
+          "teamId": 5,
+          "team": "BHA",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Hamstring injury - Expected back 8 Nov",
+          "newsAdded": "2026-10-16T17:30:09.428175Z",
+          "kickoffTime": "2026-10-31T15:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 432,
+          "playerName": "Mainoo",
+          "teamId": 16,
+          "team": "MUN",
+          "status": "a",
+          "chanceOfPlaying": 25,
+          "news": "",
+          "newsAdded": "2026-10-12T21:30:09.006287Z",
+          "kickoffTime": "2026-10-31T12:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 423,
+          "playerName": "Shaw",
+          "teamId": 16,
+          "team": "MUN",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Unspecified injury - Unknown return date",
+          "newsAdded": "2026-10-12T21:30:08.995810Z",
+          "kickoffTime": "2026-10-31T12:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 516,
+          "playerName": "Bentancur",
+          "teamId": 19,
+          "team": "TOT",
+          "status": "a",
+          "chanceOfPlaying": 0,
+          "news": "",
+          "newsAdded": "2026-10-10T18:30:09.519346Z",
+          "kickoffTime": "2026-10-31T17:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 596,
+          "playerName": "Ruggeri",
+          "teamId": 2,
+          "team": "AVL",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Hamstring injury - Expected back 2 Jan",
+          "newsAdded": "2026-10-10T18:00:10.750593Z",
+          "kickoffTime": "2026-10-31T20:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 142,
+          "playerName": "James",
+          "teamId": 6,
+          "team": "CHE",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Knee injury - Unknown return date",
+          "newsAdded": "2026-10-10T13:30:08.699019Z",
+          "kickoffTime": "2026-10-31T12:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 491,
+          "playerName": "Igor Jesus",
+          "teamId": 18,
+          "team": "NFO",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Calf injury - Unknown return date",
+          "newsAdded": "2026-10-09T14:30:11.491800Z",
+          "kickoffTime": "2026-10-31T15:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 69,
+          "playerName": "Scott",
+          "teamId": 3,
+          "team": "BOU",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Thigh injury - Expected back 21 Nov",
+          "newsAdded": "2026-10-05T09:30:09.910752Z",
+          "kickoffTime": "2026-10-31T15:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 415,
+          "playerName": "Dorgu",
+          "teamId": 16,
+          "team": "MUN",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Hamstring injury - Unknown return date",
+          "newsAdded": "2026-09-27T21:30:07.831640Z",
+          "kickoffTime": "2026-10-31T12:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 158,
+          "playerName": "Gittens",
+          "teamId": 6,
+          "team": "CHE",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Ankle injury - Unknown return date",
+          "newsAdded": "2026-09-26T05:30:09.245832Z",
+          "kickoffTime": "2026-10-31T12:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 532,
+          "playerName": "Ballard",
+          "teamId": 20,
+          "team": "SUN",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Hamstring injury - Unknown return date",
+          "newsAdded": "2026-09-25T21:30:10.370384Z",
+          "kickoffTime": "2026-10-31T15:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 577,
+          "playerName": "Tomiyasu",
+          "teamId": 8,
+          "team": "CRY",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Calf injury - Expected back 8 Nov",
+          "newsAdded": "2026-09-21T13:30:09.030724Z",
+          "kickoffTime": "2026-10-31T17:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 439,
+          "playerName": "Šeško",
+          "teamId": 16,
+          "team": "MUN",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Shin injury - Unknown return date",
+          "newsAdded": "2026-09-20T19:30:08.505755Z",
+          "kickoffTime": "2026-10-31T12:30:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 450,
+          "playerName": "Livramento",
+          "teamId": 17,
+          "team": "NEW",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Knee injury - Unknown return date",
+          "newsAdded": "2026-09-19T14:00:09.046677Z",
+          "kickoffTime": "2026-11-02T20:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 556,
+          "playerName": "Targett",
+          "teamId": 11,
+          "team": "HUL",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Ankle injury - Unknown return date",
+          "newsAdded": "2026-09-17T14:00:26.419938Z",
+          "kickoffTime": "2026-10-31T15:00:00Z",
+          "severity": "high"
+        }
+      ],
+      "summary": {
+        "high": 40,
+        "medium": 0,
+        "low": 0,
+        "total": 40
+      }
+    },
+    "rows": [
+      {
+        "id": 1,
+        "code": 154561,
+        "name": "Raya",
+        "firstName": "David",
+        "secondName": "Raya Martín",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "GKP",
+        "price": 62,
+        "ownership": 46.3,
+        "status": "a",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 2.573428186762502,
+        "volatility": 2.091792052916906,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 57,
+        "floor": 1,
+        "median": 2,
+        "ceiling": 4.300000000000068,
+        "sharpe": 1.5343876196636135,
+        "probabilities": {
+          "bust": 61.328125,
+          "floor": 32.421875,
+          "middle": 5.46875,
+          "haul": 0.78125
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 1.9011464623157892,
+          "attack": 0.05358347926341719,
+          "cleanSheet": 0.5436618777728556,
+          "saves": 0.47479876643114083,
+          "defensiveContribution": 0,
+          "bonus": 0.3694976457130109,
+          "discipline": -0.0392594013002096,
+          "empiricalAnchor": 0.16348030837083136,
+          "calibrationAdjustment": -0.8934809518043334,
+          "fixtureDifficulty": -0.0707532477258539,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 2,
+        "code": 109745,
+        "name": "Arrizabalaga",
+        "firstName": "Kepa",
+        "secondName": "Arrizabalaga Revuelta",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "GKP",
+        "price": 49,
+        "ownership": 0.1,
+        "status": "a",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.2140982561233457,
+        "volatility": 1.1870211190373756,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 22,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 1,
+        "sharpe": 0.3958421714665193,
+        "probabilities": {
+          "bust": 99.34895833333334,
+          "floor": 0.6510416666666667,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.43828446315789477,
+          "attack": 0.013157577070655065,
+          "cleanSheet": 0.17864971316326192,
+          "saves": 0.12670382410494188,
+          "defensiveContribution": 0,
+          "bonus": 0.033900430346325325,
+          "discipline": -0.01458768049731248,
+          "empiricalAnchor": 0.04655938376285543,
+          "calibrationAdjustment": -0.6085694549852763,
+          "fixtureDifficulty": -0.016789136961400497,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 3,
+        "code": 437495,
+        "name": "Meslier",
+        "firstName": "Illan",
+        "secondName": "Meslier",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "GKP",
+        "price": 49,
+        "ownership": 0,
+        "status": "a",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.017288,
+        "volatility": 1.0426861513165901,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 8,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0.011160714285714286,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.1531248,
+          "attack": 0.004574951065888832,
+          "cleanSheet": 0.0698021205284071,
+          "saves": 0.05138606665216372,
+          "defensiveContribution": 0,
+          "bonus": 0.017718534235667677,
+          "discipline": -0.002965065955555556,
+          "empiricalAnchor": 0.023279589477167455,
+          "calibrationAdjustment": -0.2996329960037392,
+          "fixtureDifficulty": -0.006467775428647737,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 4,
+        "code": 226597,
+        "name": "Gabriel",
+        "firstName": "Gabriel",
+        "secondName": "dos Santos Magalhães",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "DEF",
+        "price": 80,
+        "ownership": 24.1,
+        "status": "a",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 3.0655377843307665,
+        "volatility": 2.7497268919072364,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 70,
+        "floor": 1,
+        "median": 2,
+        "ceiling": 6,
+        "sharpe": 1.1149483242786158,
+        "probabilities": {
+          "bust": 57.421875,
+          "floor": 30.989583333333332,
+          "middle": 8.854166666666668,
+          "haul": 2.734375
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 1.789733840280702,
+          "attack": 0.7995169015424086,
+          "cleanSheet": 0.5184074726895641,
+          "saves": 0,
+          "defensiveContribution": 0.5912509051922484,
+          "bonus": 0.35859830747819527,
+          "discipline": -0.15990728839827847,
+          "empiricalAnchor": 0.1915270858481824,
+          "calibrationAdjustment": -1.0235894403022563,
+          "fixtureDifficulty": -0.0834515760129193,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 5,
+        "code": 445122,
+        "name": "J.Timber",
+        "firstName": "Jurriën",
+        "secondName": "Timber",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "DEF",
+        "price": 65,
+        "ownership": 0.8,
+        "status": "a",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.8639633422792694,
+        "volatility": 1.9758786067837972,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 45,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 2.300000000000068,
+        "sharpe": 0.5511815894833614,
+        "probabilities": {
+          "bust": 89.97395833333334,
+          "floor": 7.942708333333333,
+          "middle": 2.083333333333333,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.7026521099498164,
+          "attack": 0.27828450943091204,
+          "cleanSheet": 0.23108125137255744,
+          "saves": 0,
+          "defensiveContribution": 0.030100043230345493,
+          "bonus": 0.09839085877107129,
+          "discipline": -0.06110850272711297,
+          "empiricalAnchor": 0.0930649609798434,
+          "calibrationAdjustment": -0.5085018887281638,
+          "fixtureDifficulty": -0.028009494510355726,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": "2026-07-23T12:01:23.272929Z",
+        "chanceOfPlayingThisRound": 100
+      },
+      {
+        "id": 6,
+        "code": 462424,
+        "name": "Saliba",
+        "firstName": "William",
+        "secondName": "Saliba",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "DEF",
+        "price": 59,
+        "ownership": 0.2,
+        "status": "i",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0,
+        "volatility": 0,
+        "risk": "Low",
+        "confidence": "Low",
+        "dataQuality": 41,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0,
+          "attack": 0,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0,
+          "calibrationAdjustment": 0,
+          "fixtureDifficulty": 0,
+          "sportsbookMarket": 0
+        },
+        "news": "Back injury - Unknown return date",
+        "newsAdded": "2026-07-23T12:01:23.289376Z",
+        "chanceOfPlayingThisRound": 0
+      },
+      {
+        "id": 7,
+        "code": 499169,
+        "name": "Lewis-Skelly",
+        "firstName": "Myles",
+        "secondName": "Lewis-Skelly",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "MID",
+        "price": 54,
+        "ownership": 0.5,
+        "status": "a",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 1.5061391160597863,
+        "volatility": 2.4636715955958692,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 53,
+        "floor": 0,
+        "median": 1,
+        "ceiling": 4,
+        "sharpe": 0.7051006393028378,
+        "probabilities": {
+          "bust": 81.38020833333334,
+          "floor": 14.322916666666666,
+          "middle": 2.994791666666667,
+          "haul": 1.3020833333333335
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 1.2415596641577327,
+          "attack": 0.32355860876582765,
+          "cleanSheet": 0.1449867251955411,
+          "saves": 0,
+          "defensiveContribution": 0.0007215477498055509,
+          "bonus": 0.05578200199013635,
+          "discipline": -0.09755405459051646,
+          "empiricalAnchor": 0.05842936113222589,
+          "calibrationAdjustment": -0.22134473834096657,
+          "fixtureDifficulty": -0.035254772538790835,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 8,
+        "code": 466075,
+        "name": "Calafiori",
+        "firstName": "Riccardo",
+        "secondName": "Calafiori",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "DEF",
+        "price": 59,
+        "ownership": 47.8,
+        "status": "d",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.6259686316014057,
+        "volatility": 1.8019890825651546,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 60,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 3,
+        "sharpe": 0.463309462432721,
+        "probabilities": {
+          "bust": 89.84375,
+          "floor": 8.854166666666668,
+          "middle": 1.171875,
+          "haul": 0.13020833333333331
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.5328482128365645,
+          "attack": 0.2655370537200498,
+          "cleanSheet": 0.20442397605715198,
+          "saves": 0,
+          "defensiveContribution": 0.016704197850918645,
+          "bonus": 0.07072131844965483,
+          "discipline": -0.04290182425184591,
+          "empiricalAnchor": 0.050640850472270175,
+          "calibrationAdjustment": -0.47200515353335826,
+          "fixtureDifficulty": -0.022407628268056534,
+          "sportsbookMarket": 0
+        },
+        "news": "Hip injury - 75% chance of playing",
+        "newsAdded": "2026-10-24T18:30:08.735545Z",
+        "chanceOfPlayingThisRound": 75
+      },
+      {
+        "id": 9,
+        "code": 448104,
+        "name": "Hincapie",
+        "firstName": "Piero",
+        "secondName": "Hincapié",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "DEF",
+        "price": 52,
+        "ownership": 0.7,
+        "status": "a",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.4866047690013708,
+        "volatility": 1.6762718546149968,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 34,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 1.3000000000000682,
+        "sharpe": 0.4364857032681592,
+        "probabilities": {
+          "bust": 95.44270833333334,
+          "floor": 4.557291666666666,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.46549659649122815,
+          "attack": 0.06907480001248867,
+          "cleanSheet": 0.14392603117070638,
+          "saves": 0,
+          "defensiveContribution": 0.134139298972284,
+          "bonus": 0.0669181160958532,
+          "discipline": -0.01968925215860283,
+          "empiricalAnchor": 0.05360840208315305,
+          "calibrationAdjustment": -0.4268692236657399,
+          "fixtureDifficulty": -0.018642326380961416,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": "2026-10-12T15:00:07.550884Z",
+        "chanceOfPlayingThisRound": 100
+      },
+      {
+        "id": 10,
+        "code": 198869,
+        "name": "White",
+        "firstName": "Benjamin",
+        "secondName": "White",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "DEF",
+        "price": 54,
+        "ownership": 4.8,
+        "status": "a",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 1.9240664116780715,
+        "volatility": 2.344683583977167,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 64,
+        "floor": 0,
+        "median": 1,
+        "ceiling": 4,
+        "sharpe": 0.9160813452966441,
+        "probabilities": {
+          "bust": 73.046875,
+          "floor": 22.265625,
+          "middle": 3.515625,
+          "haul": 1.171875
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 1.479108616363529,
+          "attack": 0.3666295434224224,
+          "cleanSheet": 0.5116257904598547,
+          "saves": 0,
+          "defensiveContribution": 0.044974467923133095,
+          "bonus": 0.2074623807321747,
+          "discipline": -0.07186401315336814,
+          "empiricalAnchor": 0.11183527779493896,
+          "calibrationAdjustment": -0.725705651864613,
+          "fixtureDifficulty": -0.054076980888626114,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": "2026-09-20T19:30:08.247780Z",
+        "chanceOfPlayingThisRound": 100
+      },
+      {
+        "id": 11,
+        "code": 500040,
+        "name": "Mosquera",
+        "firstName": "Cristhian",
+        "secondName": "Mosquera",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "DEF",
+        "price": 52,
+        "ownership": 1.2,
+        "status": "a",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.6038387077857733,
+        "volatility": 1.7129899774647077,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 33,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 2,
+        "sharpe": 0.49289205383265705,
+        "probabilities": {
+          "bust": 93.75,
+          "floor": 5.208333333333334,
+          "middle": 1.0416666666666665,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.6375937024561403,
+          "attack": 0.07920329589354727,
+          "cleanSheet": 0.20880270012163057,
+          "saves": 0,
+          "defensiveContribution": 0.12313951350440878,
+          "bonus": 0.03238770644262515,
+          "discipline": -0.0900664462118931,
+          "empiricalAnchor": 0.052496598784404554,
+          "calibrationAdjustment": -0.43971836320509017,
+          "fixtureDifficulty": -0.02129708308144629,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": "2026-09-04T14:00:08.080310Z",
+        "chanceOfPlayingThisRound": 100
+      },
+      {
+        "id": 12,
+        "code": 223340,
+        "name": "Saka",
+        "firstName": "Bukayo",
+        "secondName": "Saka",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "MID",
+        "price": 95,
+        "ownership": 6.6,
+        "status": "i",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0,
+        "volatility": 0,
+        "risk": "Low",
+        "confidence": "Medium",
+        "dataQuality": 61,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0,
+          "attack": 0,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0,
+          "calibrationAdjustment": 0,
+          "fixtureDifficulty": 0,
+          "sportsbookMarket": 0
+        },
+        "news": "Thigh injury - Unknown return date",
+        "newsAdded": "2026-10-21T20:30:09.540957Z",
+        "chanceOfPlayingThisRound": 0
+      },
+      {
+        "id": 13,
+        "code": 204480,
+        "name": "Rice",
+        "firstName": "Declan",
+        "secondName": "Rice",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "MID",
+        "price": 74,
+        "ownership": 11.8,
+        "status": "d",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 1.0525135360908884,
+        "volatility": 2.4536080882002382,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 69,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 3,
+        "sharpe": 0.48582028904050656,
+        "probabilities": {
+          "bust": 85.41666666666666,
+          "floor": 10.677083333333332,
+          "middle": 2.994791666666667,
+          "haul": 0.9114583333333334
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.6662000174175,
+          "attack": 0.3393325134169794,
+          "cleanSheet": 0.07807165959577056,
+          "saves": 0,
+          "defensiveContribution": 0.05367737578255407,
+          "bonus": 0.13144463072035842,
+          "discipline": -0.03574982211678546,
+          "empiricalAnchor": 0.048350605987630586,
+          "calibrationAdjustment": -0.22881344471311937,
+          "fixtureDifficulty": -0.026149530220489936,
+          "sportsbookMarket": 0
+        },
+        "news": "Unspecified injury - 75% chance of playing",
+        "newsAdded": "2026-10-28T00:00:08.477333Z",
+        "chanceOfPlayingThisRound": 75
+      },
+      {
+        "id": 14,
+        "code": 232413,
+        "name": "Eze",
+        "firstName": "Eberechi",
+        "secondName": "Eze",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "MID",
+        "price": 62,
+        "ownership": 1.2,
+        "status": "a",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 1.4704580527164843,
+        "volatility": 2.770179333714248,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 53,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 4,
+        "sharpe": 0.5514329715131532,
+        "probabilities": {
+          "bust": 81.90104166666666,
+          "floor": 11.848958333333332,
+          "middle": 4.427083333333334,
+          "haul": 1.8229166666666667
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.8601724005894736,
+          "attack": 0.5732582855801998,
+          "cleanSheet": 0.09149338689922831,
+          "saves": 0,
+          "defensiveContribution": 0.0052334960916657885,
+          "bonus": 0.14995685526209637,
+          "discipline": -0.025811401642937874,
+          "empiricalAnchor": 0.07402633601617788,
+          "calibrationAdjustment": -0.25787130607941955,
+          "fixtureDifficulty": -0.03527202773052873,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 15,
+        "code": 184029,
+        "name": "Ødegaard",
+        "firstName": "Martin",
+        "secondName": "Ødegaard",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "MID",
+        "price": 67,
+        "ownership": 16.8,
+        "status": "a",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 3.242202914161675,
+        "volatility": 3.3641825217117085,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 68,
+        "floor": 0,
+        "median": 2,
+        "ceiling": 6,
+        "sharpe": 1.0520856223369466,
+        "probabilities": {
+          "bust": 52.34375,
+          "floor": 32.03125,
+          "middle": 11.71875,
+          "haul": 3.90625
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 1.6964759393796711,
+          "attack": 1.4063881364439055,
+          "cleanSheet": 0.21208736231749348,
+          "saves": 0,
+          "defensiveContribution": 0.008677674822758068,
+          "bonus": 0.3435469546219434,
+          "discipline": -0.08585990718325216,
+          "empiricalAnchor": 0.10747101609384813,
+          "calibrationAdjustment": -0.4465842623346923,
+          "fixtureDifficulty": -0.07528137094890575,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 16,
+        "code": 248857,
+        "name": "Madueke",
+        "firstName": "Noni",
+        "secondName": "Madueke",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "MID",
+        "price": 62,
+        "ownership": 0.4,
+        "status": "d",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.221612991095147,
+        "volatility": 1.657839304514153,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 54,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0.251301063062328,
+        "probabilities": {
+          "bust": 98.4375,
+          "floor": 1.171875,
+          "middle": 0.390625,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.19599647291023883,
+          "attack": 0.12092823690003565,
+          "cleanSheet": 0.01893184831243236,
+          "saves": 0,
+          "defensiveContribution": 0.00044470770961485735,
+          "bonus": 0.03988612749503402,
+          "discipline": -0.010841083391327092,
+          "empiricalAnchor": 0.013191134983599728,
+          "calibrationAdjustment": -0.1569244538244813,
+          "fixtureDifficulty": -0.007725253977951596,
+          "sportsbookMarket": 0
+        },
+        "news": "Ankle injury - 50% chance of playing",
+        "newsAdded": "2026-10-28T00:00:08.492716Z",
+        "chanceOfPlayingThisRound": 50
+      },
+      {
+        "id": 17,
+        "code": 195384,
+        "name": "Merino",
+        "firstName": "Mikel",
+        "secondName": "Merino Zazón",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "MID",
+        "price": 57,
+        "ownership": 0.4,
+        "status": "a",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 1.0722613510684107,
+        "volatility": 2.6075112100648568,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 45,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 3,
+        "sharpe": 0.47293724536967624,
+        "probabilities": {
+          "bust": 86.58854166666666,
+          "floor": 9.375,
+          "middle": 3.515625,
+          "haul": 0.5208333333333333
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.5916437407526831,
+          "attack": 0.45106218040261764,
+          "cleanSheet": 0.0529410673945706,
+          "saves": 0,
+          "defensiveContribution": 0.09121257497520519,
+          "bonus": 0.10151948304041819,
+          "discipline": -0.04146668963898892,
+          "empiricalAnchor": 0.04920807946706026,
+          "calibrationAdjustment": -0.2238590853251552,
+          "fixtureDifficulty": -0.026451437477419626,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 18,
+        "code": 444145,
+        "name": "Martinelli",
+        "firstName": "Gabriel",
+        "secondName": "Martinelli Silva",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "MID",
+        "price": 63,
+        "ownership": 0.1,
+        "status": "u",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0,
+        "volatility": 0,
+        "risk": "Low",
+        "confidence": "Low",
+        "dataQuality": 41,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0,
+          "attack": 0,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0,
+          "calibrationAdjustment": 0,
+          "fixtureDifficulty": 0,
+          "sportsbookMarket": 0
+        },
+        "news": "Has joined Al Hilal permanently",
+        "newsAdded": "2026-09-04T12:34:46.738449Z",
+        "chanceOfPlayingThisRound": 0
+      },
+      {
+        "id": 19,
+        "code": 481655,
+        "name": "Zubimendi",
+        "firstName": "Martín",
+        "secondName": "Zubimendi Ibáñez",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "MID",
+        "price": 52,
+        "ownership": 0.5,
+        "status": "a",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.9419068451230845,
+        "volatility": 2.334994688324299,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 36,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 3,
+        "sharpe": 0.4464884695173527,
+        "probabilities": {
+          "bust": 89.32291666666666,
+          "floor": 7.682291666666667,
+          "middle": 1.5625,
+          "haul": 1.4322916666666665
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.6580827669754387,
+          "attack": 0.2104753014057049,
+          "cleanSheet": 0.06291270276948929,
+          "saves": 0,
+          "defensiveContribution": 0.09857181750001821,
+          "bonus": 0.07374549679773372,
+          "discipline": -0.032475892640730745,
+          "empiricalAnchor": 0.06648566739394093,
+          "calibrationAdjustment": -0.19589101507851026,
+          "fixtureDifficulty": -0.023220364493910184,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": "2026-10-12T15:00:07.563478Z",
+        "chanceOfPlayingThisRound": 100
+      },
+      {
+        "id": 20,
+        "code": 616077,
+        "name": "Dowman",
+        "firstName": "Max",
+        "secondName": "Dowman",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "MID",
+        "price": 53,
+        "ownership": 0.1,
+        "status": "s",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0,
+        "volatility": 0,
+        "risk": "Low",
+        "confidence": "Low",
+        "dataQuality": 28,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0,
+          "attack": 0,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0,
+          "calibrationAdjustment": 0,
+          "fixtureDifficulty": 0,
+          "sportsbookMarket": 0
+        },
+        "news": "Suspended until 29 Nov",
+        "newsAdded": "2026-10-27T22:30:09.534466Z",
+        "chanceOfPlayingThisRound": 0
+      },
+      {
+        "id": 22,
+        "code": 499175,
+        "name": "Nwaneri",
+        "firstName": "Ethan",
+        "secondName": "Nwaneri",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "MID",
+        "price": 54,
+        "ownership": 0,
+        "status": "u",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0,
+        "volatility": 0,
+        "risk": "Low",
+        "confidence": "Low",
+        "dataQuality": 35,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0,
+          "attack": 0,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0,
+          "calibrationAdjustment": 0,
+          "fixtureDifficulty": 0,
+          "sportsbookMarket": 0
+        },
+        "news": "Has joined Borussia Dortmund on loan for the rest of the season",
+        "newsAdded": "2026-09-02T16:01:07.058827Z",
+        "chanceOfPlayingThisRound": 0
+      },
+      {
+        "id": 23,
+        "code": 438098,
+        "name": "Fábio Vieira",
+        "firstName": "Fábio",
+        "secondName": "Ferreira Vieira",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "MID",
+        "price": 55,
+        "ownership": 0,
+        "status": "u",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0,
+        "volatility": 0,
+        "risk": "Low",
+        "confidence": "Low",
+        "dataQuality": 28,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0,
+          "attack": 0,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0,
+          "calibrationAdjustment": 0,
+          "fixtureDifficulty": 0,
+          "sportsbookMarket": 0
+        },
+        "news": "Has joined Hamburger SV permanently",
+        "newsAdded": "2026-09-02T16:00:28.446370Z",
+        "chanceOfPlayingThisRound": 0
+      },
+      {
+        "id": 24,
+        "code": 200641,
+        "name": "Nelson",
+        "firstName": "Reiss",
+        "secondName": "Nelson",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "MID",
+        "price": 55,
+        "ownership": 0,
+        "status": "u",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0,
+        "volatility": 0,
+        "risk": "Low",
+        "confidence": "Low",
+        "dataQuality": 41,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0,
+          "attack": 0,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0,
+          "calibrationAdjustment": 0,
+          "fixtureDifficulty": 0,
+          "sportsbookMarket": 0
+        },
+        "news": "has departed the club as a free agent.",
+        "newsAdded": "2026-08-29T00:33:08.556767Z",
+        "chanceOfPlayingThisRound": 0
+      },
+      {
+        "id": 25,
+        "code": 224117,
+        "name": "Gyökeres",
+        "firstName": "Viktor",
+        "secondName": "Gyökeres",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "FWD",
+        "price": 70,
+        "ownership": 3.1,
+        "status": "a",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 1.2178656069595326,
+        "volatility": 2.7203790819841562,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 38,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 4,
+        "sharpe": 0.5014135056621556,
+        "probabilities": {
+          "bust": 83.203125,
+          "floor": 12.369791666666668,
+          "middle": 3.2552083333333335,
+          "haul": 1.171875
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.7226262561964912,
+          "attack": 0.5710320475611378,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0.0002751397276373518,
+          "bonus": 0.17830969916337355,
+          "discipline": -0.056256266252585355,
+          "empiricalAnchor": 0.08440156600978864,
+          "calibrationAdjustment": -0.2825228354463105,
+          "fixtureDifficulty": -0.030620172293996717,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 26,
+        "code": 219847,
+        "name": "Havertz",
+        "firstName": "Kai",
+        "secondName": "Havertz",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "FWD",
+        "price": 74,
+        "ownership": 5.5,
+        "status": "a",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 2.6394037983650622,
+        "volatility": 3.3041199981267497,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 66,
+        "floor": 0,
+        "median": 2,
+        "ceiling": 6,
+        "sharpe": 0.875783744504778,
+        "probabilities": {
+          "bust": 64.0625,
+          "floor": 25.520833333333332,
+          "middle": 8.072916666666668,
+          "haul": 2.34375
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 1.5181255230937705,
+          "attack": 1.153128078031512,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0.00007534756375116331,
+          "bonus": 0.25711193976156765,
+          "discipline": -0.104990278926137,
+          "empiricalAnchor": 0.11528464766766687,
+          "calibrationAdjustment": -0.29933145882706924,
+          "fixtureDifficulty": -0.05997418892228845,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": "2026-09-24T22:00:09.120308Z",
+        "chanceOfPlayingThisRound": 100
+      },
+      {
+        "id": 27,
+        "code": 205651,
+        "name": "G.Jesus",
+        "firstName": "Gabriel",
+        "secondName": "Fernando de Jesus",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "FWD",
+        "price": 59,
+        "ownership": 0.1,
+        "status": "u",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0,
+        "volatility": 0,
+        "risk": "Low",
+        "confidence": "Low",
+        "dataQuality": 41,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0,
+          "attack": 0,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0,
+          "calibrationAdjustment": 0,
+          "fixtureDifficulty": 0,
+          "sportsbookMarket": 0
+        },
+        "news": "Has joined FC Barcelona permanently",
+        "newsAdded": "2026-09-02T16:00:28.475184Z",
+        "chanceOfPlayingThisRound": 0
+      },
+      {
+        "id": 31,
+        "code": 199798,
+        "name": "Konsa",
+        "firstName": "Ezri",
+        "secondName": "Konsa Ngoyo",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "DEF",
+        "price": 47,
+        "ownership": 21.9,
+        "status": "a",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 2.132718555754958,
+        "volatility": 2.451853154559883,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 65,
+        "floor": 0,
+        "median": 2,
+        "ceiling": 4,
+        "sharpe": 0.9629888798151526,
+        "probabilities": {
+          "bust": 69.40104166666666,
+          "floor": 26.041666666666668,
+          "middle": 3.2552083333333335,
+          "haul": 1.3020833333333335
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 1.5144086710877191,
+          "attack": 0.42299347186581177,
+          "cleanSheet": 0.44570984903142374,
+          "saves": 0,
+          "defensiveContribution": 0.21170479168375153,
+          "bonus": 0.260715446452184,
+          "discipline": -0.06452142018844648,
+          "empiricalAnchor": 0.12438198724124806,
+          "calibrationAdjustment": -0.7826742414187331,
+          "fixtureDifficulty": -0.05949781218721828,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": "2026-10-05T09:30:09.853316Z",
+        "chanceOfPlayingThisRound": 100
+      },
+      {
+        "id": 452,
+        "code": 208706,
+        "name": "Bruno G.",
+        "firstName": "Bruno",
+        "secondName": "Guimarães Rodriguez Moura",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "MID",
+        "price": 67,
+        "ownership": 2.4,
+        "status": "a",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 1.7356108713582947,
+        "volatility": 2.9815142753452526,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 54,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 5,
+        "sharpe": 0.5784267769253578,
+        "probabilities": {
+          "bust": 76.43229166666666,
+          "floor": 16.40625,
+          "middle": 4.817708333333334,
+          "haul": 2.34375
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.9316866651859649,
+          "attack": 0.5056578017058564,
+          "cleanSheet": 0.10181542258849562,
+          "saves": 0,
+          "defensiveContribution": 0.19882186060952126,
+          "bonus": 0.2691265901330163,
+          "discipline": -0.07899389161450392,
+          "empiricalAnchor": 0.09896303642638826,
+          "calibrationAdjustment": -0.29146661367644366,
+          "fixtureDifficulty": -0.041368928266015015,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": "2026-09-04T14:00:08.328779Z",
+        "chanceOfPlayingThisRound": 100
+      },
+      {
+        "id": 557,
+        "code": 439509,
+        "name": "Tzolis",
+        "firstName": "Christos",
+        "secondName": "Tzolis",
+        "teamId": 1,
+        "team": "ARS",
+        "position": "MID",
+        "price": 61,
+        "ownership": 3.8,
+        "status": "d",
+        "fixture": "LIV (A)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.5786864664852178,
+        "volatility": 2.0059719747219997,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 33,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 2,
+        "sharpe": 0.40376397967669775,
+        "probabilities": {
+          "bust": 92.96875,
+          "floor": 5.729166666666666,
+          "middle": 1.171875,
+          "haul": 0.13020833333333331
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.444665567784375,
+          "attack": 0.21375680309855702,
+          "cleanSheet": 0.04902025869581851,
+          "saves": 0,
+          "defensiveContribution": 0.0018825603781108802,
+          "bonus": 0.04544933181211376,
+          "discipline": -0.03671972435042517,
+          "empiricalAnchor": 0.0397449812720074,
+          "calibrationAdjustment": -0.17911331220533966,
+          "fixtureDifficulty": -0.015465301605929738,
+          "sportsbookMarket": 0
+        },
+        "news": "Hamstring injury - 75% chance of playing",
+        "newsAdded": "2026-10-02T15:00:11.091226Z",
+        "chanceOfPlayingThisRound": 75
+      },
+      {
+        "id": 350,
+        "code": 116535,
+        "name": "A.Becker",
+        "firstName": "Alisson",
+        "secondName": "Becker",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "GKP",
+        "price": 55,
+        "ownership": 4.1,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 2.477319978785988,
+        "volatility": 2.1517057682533522,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 70,
+        "floor": 1,
+        "median": 2,
+        "ceiling": 4,
+        "sharpe": 1.421635761288616,
+        "probabilities": {
+          "bust": 68.09895833333334,
+          "floor": 29.166666666666668,
+          "middle": 2.34375,
+          "haul": 0.390625
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 1.7834563391578948,
+          "attack": 0.05737506569453267,
+          "cleanSheet": 0.691501810516096,
+          "saves": 0.4408185715692968,
+          "defensiveContribution": 0,
+          "bonus": 0.3195085325662647,
+          "discipline": -0.06805221659478741,
+          "empiricalAnchor": 0.14178007609793752,
+          "calibrationAdjustment": -0.8890682002212476,
+          "fixtureDifficulty": -0.0687017995715764,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 351,
+        "code": 449027,
+        "name": "Mamardashvili",
+        "firstName": "Giorgi",
+        "secondName": "Mamardashvili",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "GKP",
+        "price": 48,
+        "ownership": 0.1,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.04143763922989123,
+        "volatility": 1.0550403202458178,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 15,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0.03720238095238096,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.29675486315789473,
+          "attack": 0.008270398191452841,
+          "cleanSheet": 0.14832300205392604,
+          "saves": 0.11224511117113778,
+          "defensiveContribution": 0,
+          "bonus": 0.028233133093097017,
+          "discipline": 0,
+          "empiricalAnchor": 0.03990686635106564,
+          "calibrationAdjustment": -0.5922957347886828,
+          "fixtureDifficulty": -0.012933334163644394,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 352,
+        "code": 155503,
+        "name": "Woodman",
+        "firstName": "Freddie",
+        "secondName": "Woodman",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "GKP",
+        "price": 40,
+        "ownership": 0.9,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.024047017543859652,
+        "volatility": 1.0460654727560565,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 15,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0.0037202380952380955,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.20649465263157896,
+          "attack": 0.005957485828011459,
+          "cleanSheet": 0.10212981887583579,
+          "saves": 0.09189149866410333,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0.018556980839564138,
+          "calibrationAdjustment": -0.400983419295234,
+          "fixtureDifficulty": -0.008674090547736601,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 353,
+        "code": 586268,
+        "name": "Pecsi",
+        "firstName": "Armin",
+        "secondName": "Pecsi",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "GKP",
+        "price": 40,
+        "ownership": 0,
+        "status": "u",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0,
+        "volatility": 0,
+        "risk": "Low",
+        "confidence": "Low",
+        "dataQuality": 8,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0,
+          "attack": 0,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0,
+          "calibrationAdjustment": 0,
+          "fixtureDifficulty": 0,
+          "sportsbookMarket": 0
+        },
+        "news": "Has joined TSV Hartberg on loan for the rest of the season",
+        "newsAdded": "2026-08-18T14:11:18.638344Z",
+        "chanceOfPlayingThisRound": 0
+      },
+      {
+        "id": 354,
+        "code": 432987,
+        "name": "Jaros",
+        "firstName": "Vitezslav",
+        "secondName": "Jaros",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "GKP",
+        "price": 40,
+        "ownership": 0,
+        "status": "i",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0,
+        "volatility": 0,
+        "risk": "Low",
+        "confidence": "Low",
+        "dataQuality": 8,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0,
+          "attack": 0,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0,
+          "calibrationAdjustment": 0,
+          "fixtureDifficulty": 0,
+          "sportsbookMarket": 0
+        },
+        "news": "Knee injury - Unknown return date",
+        "newsAdded": "2026-07-29T18:00:10.351066Z",
+        "chanceOfPlayingThisRound": 0
+      },
+      {
+        "id": 355,
+        "code": 464353,
+        "name": "Davies",
+        "firstName": "Harvey",
+        "secondName": "Davies",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "GKP",
+        "price": 40,
+        "ownership": 0.2,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.017288,
+        "volatility": 1.0426861513165901,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 8,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0.0037202380952380955,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.1531248,
+          "attack": 0.00448302586462654,
+          "cleanSheet": 0.08061986744393651,
+          "saves": 0.05138606665216372,
+          "defensiveContribution": 0,
+          "bonus": 0.01769138094544866,
+          "discipline": -0.002965065955555556,
+          "empiricalAnchor": 0.021341835066710696,
+          "calibrationAdjustment": -0.3083939100173306,
+          "fixtureDifficulty": -0.006646569592190399,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 356,
+        "code": 97032,
+        "name": "Virgil",
+        "firstName": "Virgil",
+        "secondName": "van Dijk",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "DEF",
+        "price": 64,
+        "ownership": 15.1,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 2.925828647623066,
+        "volatility": 2.6022314445909176,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 70,
+        "floor": 1,
+        "median": 2,
+        "ceiling": 6,
+        "sharpe": 1.2454986544827755,
+        "probabilities": {
+          "bust": 54.557291666666664,
+          "floor": 34.63541666666667,
+          "middle": 9.114583333333332,
+          "haul": 1.6927083333333333
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 1.8637943438596491,
+          "attack": 0.4148055198695237,
+          "cleanSheet": 0.7134495780037707,
+          "saves": 0,
+          "defensiveContribution": 0.7258833756753023,
+          "bonus": 0.18166304272643963,
+          "discipline": -0.16439449263197578,
+          "empiricalAnchor": 0.16418126090100446,
+          "calibrationAdjustment": -0.9735539807806486,
+          "fixtureDifficulty": -0.07957923731436178,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 357,
+        "code": 216094,
+        "name": "Frimpong",
+        "firstName": "Jeremie",
+        "secondName": "Frimpong",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "DEF",
+        "price": 52,
+        "ownership": 1.2,
+        "status": "i",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0,
+        "volatility": 0,
+        "risk": "Low",
+        "confidence": "Low",
+        "dataQuality": 35,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0,
+          "attack": 0,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0,
+          "calibrationAdjustment": 0,
+          "fixtureDifficulty": 0,
+          "sportsbookMarket": 0
+        },
+        "news": "Hamstring injury - Unknown return date",
+        "newsAdded": "2026-10-17T15:30:09.979166Z",
+        "chanceOfPlayingThisRound": 0
+      },
+      {
+        "id": 358,
+        "code": 544877,
+        "name": "Kerkez",
+        "firstName": "Milos",
+        "secondName": "Kerkez",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "DEF",
+        "price": 53,
+        "ownership": 1.9,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 2.1390457844574793,
+        "volatility": 2.37560088561818,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 68,
+        "floor": 0,
+        "median": 2,
+        "ceiling": 4,
+        "sharpe": 1.0554599851237774,
+        "probabilities": {
+          "bust": 72.91666666666666,
+          "floor": 22.786458333333336,
+          "middle": 3.515625,
+          "haul": 0.78125
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 1.6194897773052637,
+          "attack": 0.2945479766954718,
+          "cleanSheet": 0.6217805375913384,
+          "saves": 0,
+          "defensiveContribution": 0.23960605696617934,
+          "bonus": 0.16903710379739628,
+          "discipline": -0.15574640430077383,
+          "empiricalAnchor": 0.1225685098797549,
+          "calibrationAdjustment": -0.7722377734771513,
+          "fixtureDifficulty": -0.05941395016193107,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 359,
+        "code": 171287,
+        "name": "Gomez",
+        "firstName": "Joe",
+        "secondName": "Gomez",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "DEF",
+        "price": 49,
+        "ownership": 0,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.230751177928184,
+        "volatility": 1.3930804472762361,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 47,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 1,
+        "sharpe": 0.3199926424340387,
+        "probabilities": {
+          "bust": 99.34895833333334,
+          "floor": 0.6510416666666667,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.36733167315801435,
+          "attack": 0.06340424886435621,
+          "cleanSheet": 0.12153163497636794,
+          "saves": 0,
+          "defensiveContribution": 0.05447939515737312,
+          "bonus": 0.02442965262214357,
+          "discipline": -0.05552516651411748,
+          "empiricalAnchor": 0.020149755471699202,
+          "calibrationAdjustment": -0.36505001580765295,
+          "fixtureDifficulty": -0.01215920803542525,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": "2026-07-26T08:30:10.078473Z",
+        "chanceOfPlayingThisRound": 100
+      },
+      {
+        "id": 360,
+        "code": 492777,
+        "name": "Bradley",
+        "firstName": "Conor",
+        "secondName": "Bradley",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "DEF",
+        "price": 49,
+        "ownership": 0,
+        "status": "i",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0,
+        "volatility": 0,
+        "risk": "Low",
+        "confidence": "Low",
+        "dataQuality": 41,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0,
+          "attack": 0,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0,
+          "calibrationAdjustment": 0,
+          "fixtureDifficulty": 0,
+          "sportsbookMarket": 0
+        },
+        "news": "Knee injury - Unknown return date",
+        "newsAdded": "2026-07-23T12:01:23.565711Z",
+        "chanceOfPlayingThisRound": 0
+      },
+      {
+        "id": 361,
+        "code": 519440,
+        "name": "Lucky",
+        "firstName": "Wellity",
+        "secondName": "Lucky",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "DEF",
+        "price": 40,
+        "ownership": 0.1,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.026304,
+        "volatility": 1.2078921342036257,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 8,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0.014880952380952382,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.1945984,
+          "attack": 0.047713813659488694,
+          "cleanSheet": 0.08077500710627061,
+          "saves": 0,
+          "defensiveContribution": 0.014931389191205149,
+          "bonus": 0.01591366819250166,
+          "discipline": -0.008728763733333334,
+          "empiricalAnchor": 0.019546349555913212,
+          "calibrationAdjustment": -0.33844586397204596,
+          "fixtureDifficulty": -0.0074438747749397405,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 362,
+        "code": 606702,
+        "name": "Jacquet",
+        "firstName": "Jeremy",
+        "secondName": "Jacquet",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "DEF",
+        "price": 51,
+        "ownership": 4.4,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 2.55933691848782,
+        "volatility": 2.554554730611253,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 49,
+        "floor": 0,
+        "median": 2,
+        "ceiling": 5,
+        "sharpe": 1.1839559851263053,
+        "probabilities": {
+          "bust": 61.848958333333336,
+          "floor": 31.119791666666668,
+          "middle": 6.119791666666666,
+          "haul": 0.9114583333333334
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 1.6631721613333335,
+          "attack": 0.38037721295614607,
+          "cleanSheet": 0.6679799209463196,
+          "saves": 0,
+          "defensiveContribution": 0.459251865319836,
+          "bonus": 0.20874932537244473,
+          "discipline": -0.14241722253046774,
+          "empiricalAnchor": 0.20737843383881685,
+          "calibrationAdjustment": -0.8851547787486083,
+          "fixtureDifficulty": -0.07029574892319257,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": "2026-10-06T00:30:10.323830Z",
+        "chanceOfPlayingThisRound": 100
+      },
+      {
+        "id": 363,
+        "code": 647681,
+        "name": "Leoni",
+        "firstName": "Giovanni",
+        "secondName": "Leoni",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "DEF",
+        "price": 39,
+        "ownership": 0,
+        "status": "i",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0,
+        "volatility": 0,
+        "risk": "Low",
+        "confidence": "Low",
+        "dataQuality": 8,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0,
+          "attack": 0,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0,
+          "calibrationAdjustment": 0,
+          "fixtureDifficulty": 0,
+          "sportsbookMarket": 0
+        },
+        "news": "Knee injury - Unknown return date",
+        "newsAdded": "2026-07-23T12:01:23.596909Z",
+        "chanceOfPlayingThisRound": 0
+      },
+      {
+        "id": 364,
+        "code": 214285,
+        "name": "Tsimikas",
+        "firstName": "Kostas",
+        "secondName": "Tsimikas",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "DEF",
+        "price": 49,
+        "ownership": 0.1,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.5389841706413847,
+        "volatility": 1.7282433875819623,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 42,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 2,
+        "sharpe": 0.41801500438169475,
+        "probabilities": {
+          "bust": 94.140625,
+          "floor": 4.817708333333334,
+          "middle": 0.9114583333333334,
+          "haul": 0.13020833333333331
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.4932926587901441,
+          "attack": 0.15183606828942686,
+          "cleanSheet": 0.18769714814391106,
+          "saves": 0,
+          "defensiveContribution": 0.05977219013576541,
+          "bonus": 0.07367778858176664,
+          "discipline": -0.03049966806676449,
+          "empiricalAnchor": 0.042495158566882074,
+          "calibrationAdjustment": -0.439287173799747,
+          "fixtureDifficulty": -0.019964721315125167,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 365,
+        "code": 489580,
+        "name": "Ramsay",
+        "firstName": "Calvin",
+        "secondName": "Ramsay",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "DEF",
+        "price": 40,
+        "ownership": 0.1,
+        "status": "u",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0,
+        "volatility": 0,
+        "risk": "Low",
+        "confidence": "Low",
+        "dataQuality": 8,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0,
+          "attack": 0,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0,
+          "calibrationAdjustment": 0,
+          "fixtureDifficulty": 0,
+          "sportsbookMarket": 0
+        },
+        "news": "Has joined St Mirren on loan for the rest of the season",
+        "newsAdded": "2026-08-26T14:05:26.748768Z",
+        "chanceOfPlayingThisRound": 0
+      },
+      {
+        "id": 366,
+        "code": 494595,
+        "name": "Wirtz",
+        "firstName": "Florian",
+        "secondName": "Wirtz",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "MID",
+        "price": 72,
+        "ownership": 5.1,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 3.0289641041258366,
+        "volatility": 3.179463031598889,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 54,
+        "floor": 0,
+        "median": 2,
+        "ceiling": 6,
+        "sharpe": 1.038885383958113,
+        "probabilities": {
+          "bust": 53.515625,
+          "floor": 32.16145833333333,
+          "middle": 10.807291666666668,
+          "haul": 3.515625
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 1.716583634007018,
+          "attack": 1.0702611970205556,
+          "cleanSheet": 0.2441594398274704,
+          "saves": 0,
+          "defensiveContribution": 0.03198196911099804,
+          "bonus": 0.2870198219513229,
+          "discipline": -0.08154966313128688,
+          "empiricalAnchor": 0.1688827753194075,
+          "calibrationAdjustment": -0.4083750699796487,
+          "fixtureDifficulty": -0.07014977906337716,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": "2026-10-25T17:00:09.888666Z",
+        "chanceOfPlayingThisRound": 100
+      },
+      {
+        "id": 367,
+        "code": 243298,
+        "name": "Gakpo",
+        "firstName": "Cody",
+        "secondName": "Gakpo",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "MID",
+        "price": 71,
+        "ownership": 6.9,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 2.6964291650895116,
+        "volatility": 3.4053563667201603,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 62,
+        "floor": 0,
+        "median": 2,
+        "ceiling": 6,
+        "sharpe": 0.8024401008169872,
+        "probabilities": {
+          "bust": 63.411458333333336,
+          "floor": 24.609375,
+          "middle": 7.8125,
+          "haul": 4.166666666666666
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 1.3203327601992667,
+          "attack": 1.2011887777957058,
+          "cleanSheet": 0.1787616764292197,
+          "saves": 0,
+          "defensiveContribution": 0.04837446360343131,
+          "bonus": 0.3210667705192767,
+          "discipline": -0.0781847523552741,
+          "empiricalAnchor": 0.10519312276064048,
+          "calibrationAdjustment": -0.4003036538627547,
+          "fixtureDifficulty": -0.06319862895820938,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": "2026-09-27T21:30:07.786183Z",
+        "chanceOfPlayingThisRound": 100
+      },
+      {
+        "id": 368,
+        "code": 424876,
+        "name": "Szoboszlai",
+        "firstName": "Dominik",
+        "secondName": "Szoboszlai",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "MID",
+        "price": 67,
+        "ownership": 13.5,
+        "status": "d",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.5527468915962593,
+        "volatility": 2.0472923914506738,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 62,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 2,
+        "sharpe": 0.3334446113645865,
+        "probabilities": {
+          "bust": 93.88020833333334,
+          "floor": 4.817708333333334,
+          "middle": 1.0416666666666665,
+          "haul": 0.26041666666666663
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.37049298810420395,
+          "attack": 0.24799043835182324,
+          "cleanSheet": 0.047259574629562186,
+          "saves": 0,
+          "defensiveContribution": 0.0222862914571577,
+          "bonus": 0.05305719393198486,
+          "discipline": -0.024877232352609992,
+          "empiricalAnchor": 0.02439752955870291,
+          "calibrationAdjustment": -0.18785989208456533,
+          "fixtureDifficulty": -0.015114424156751571,
+          "sportsbookMarket": 0
+        },
+        "news": "Hamstring injury - 50% chance of playing",
+        "newsAdded": "2026-10-17T15:00:08.293301Z",
+        "chanceOfPlayingThisRound": 50
+      },
+      {
+        "id": 369,
+        "code": 611922,
+        "name": "Ngumoha",
+        "firstName": "Rio",
+        "secondName": "Ngumoha",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "MID",
+        "price": 57,
+        "ownership": 0.5,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.8370603200154707,
+        "volatility": 2.3715528523873797,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 38,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 2,
+        "sharpe": 0.39210694899248205,
+        "probabilities": {
+          "bust": 90.36458333333334,
+          "floor": 6.510416666666667,
+          "middle": 2.083333333333333,
+          "haul": 1.0416666666666665
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.505977739754386,
+          "attack": 0.3283296394894801,
+          "cleanSheet": 0.04624032463051087,
+          "saves": 0,
+          "defensiveContribution": 0.003011076262492584,
+          "bonus": 0.11643722665648462,
+          "discipline": -0.0040102764776766405,
+          "empiricalAnchor": 0.03715598080438978,
+          "calibrationAdjustment": -0.19608139110459666,
+          "fixtureDifficulty": -0.021084524716736164,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 370,
+        "code": 223541,
+        "name": "Chiesa",
+        "firstName": "Federico",
+        "secondName": "Chiesa",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "MID",
+        "price": 53,
+        "ownership": 0,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.473715499107699,
+        "volatility": 1.962129138475315,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 40,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 1,
+        "sharpe": 0.32286264999655195,
+        "probabilities": {
+          "bust": 95.96354166666666,
+          "floor": 2.994791666666667,
+          "middle": 0.6510416666666667,
+          "haul": 0.390625
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.36194319999999996,
+          "attack": 0.2583448853159694,
+          "cleanSheet": 0.022506060684358006,
+          "saves": 0,
+          "defensiveContribution": 0.026412483079299217,
+          "bonus": 0.00007340769227131945,
+          "discipline": -0.053386622,
+          "empiricalAnchor": 0.0132257164618807,
+          "calibrationAdjustment": -0.1554036321260795,
+          "fixtureDifficulty": -0.012839165943546504,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": "2026-08-27T13:30:07.598926Z",
+        "chanceOfPlayingThisRound": 100
+      },
+      {
+        "id": 371,
+        "code": 441266,
+        "name": "Gravenberch",
+        "firstName": "Ryan",
+        "secondName": "Gravenberch",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "MID",
+        "price": 58,
+        "ownership": 0.9,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 1.9114900534212065,
+        "volatility": 2.83646831472473,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 58,
+        "floor": 0,
+        "median": 1,
+        "ceiling": 4,
+        "sharpe": 0.7002443960096371,
+        "probabilities": {
+          "bust": 75.390625,
+          "floor": 18.489583333333336,
+          "middle": 4.166666666666666,
+          "haul": 1.953125
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 1.225315100100253,
+          "attack": 0.40050692344036576,
+          "cleanSheet": 0.16332567559390213,
+          "saves": 0,
+          "defensiveContribution": 0.21732278280254475,
+          "bonus": 0.1770698511780112,
+          "discipline": -0.06965851293314136,
+          "empiricalAnchor": 0.0859133707538282,
+          "calibrationAdjustment": -0.2883051375145571,
+          "fixtureDifficulty": -0.04489377940685246,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": "2026-10-11T17:00:08.994657Z",
+        "chanceOfPlayingThisRound": 100
+      },
+      {
+        "id": 372,
+        "code": 243016,
+        "name": "Mac Allister",
+        "firstName": "Alexis",
+        "secondName": "Mac Allister",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "MID",
+        "price": 54,
+        "ownership": 1.3,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 2.6048407220816188,
+        "volatility": 3.1390984364521786,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 65,
+        "floor": 0,
+        "median": 2,
+        "ceiling": 6,
+        "sharpe": 0.9321939990825227,
+        "probabilities": {
+          "bust": 64.32291666666666,
+          "floor": 23.828125,
+          "middle": 9.505208333333332,
+          "haul": 2.34375
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 1.4922060746105261,
+          "attack": 0.8308592329562275,
+          "cleanSheet": 0.2068003378661175,
+          "saves": 0,
+          "defensiveContribution": 0.29603350786932825,
+          "bonus": 0.21583051974214146,
+          "discipline": -0.16015455347143853,
+          "empiricalAnchor": 0.09207006269148632,
+          "calibrationAdjustment": -0.36880446018277047,
+          "fixtureDifficulty": -0.06068663637274252,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 373,
+        "code": 206915,
+        "name": "C.Jones",
+        "firstName": "Curtis",
+        "secondName": "Jones",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "MID",
+        "price": 55,
+        "ownership": 0,
+        "status": "u",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0,
+        "volatility": 0,
+        "risk": "Low",
+        "confidence": "Low",
+        "dataQuality": 41,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0,
+          "attack": 0,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0,
+          "calibrationAdjustment": 0,
+          "fixtureDifficulty": 0,
+          "sportsbookMarket": 0
+        },
+        "news": "Has joined Internazionale permanently",
+        "newsAdded": "2026-08-16T18:30:07.426408Z",
+        "chanceOfPlayingThisRound": 0
+      },
+      {
+        "id": 374,
+        "code": 158983,
+        "name": "Endo",
+        "firstName": "Endo",
+        "secondName": "Wataru",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "MID",
+        "price": 48,
+        "ownership": 0.1,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.4115907648891634,
+        "volatility": 1.8217327094425995,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 41,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 1,
+        "sharpe": 0.32972106410894003,
+        "probabilities": {
+          "bust": 96.22395833333334,
+          "floor": 2.994791666666667,
+          "middle": 0.6510416666666667,
+          "haul": 0.13020833333333331
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.41443847630413105,
+          "attack": 0.037765101321630676,
+          "cleanSheet": 0.030799339705682414,
+          "saves": 0,
+          "defensiveContribution": 0.11685789813547444,
+          "bonus": 0,
+          "discipline": -0.06190028220603651,
+          "empiricalAnchor": 0.014203256616482226,
+          "calibrationAdjustment": -0.14057302498820085,
+          "fixtureDifficulty": -0.011268648773007484,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": "2026-07-23T12:01:23.612529Z",
+        "chanceOfPlayingThisRound": 100
+      },
+      {
+        "id": 375,
+        "code": 591386,
+        "name": "Nyoni",
+        "firstName": "Trey",
+        "secondName": "Nyoni",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "MID",
+        "price": 48,
+        "ownership": 0,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.7411559219584427,
+        "volatility": 2.1827044591975073,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 31,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 2,
+        "sharpe": 0.4285119419407622,
+        "probabilities": {
+          "bust": 91.14583333333334,
+          "floor": 6.640625,
+          "middle": 1.5625,
+          "haul": 0.6510416666666667
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.5255237866666667,
+          "attack": 0.25378113087061954,
+          "cleanSheet": 0.04978290805464753,
+          "saves": 0,
+          "defensiveContribution": 0.020113745932898778,
+          "bonus": 0.05112775725497696,
+          "discipline": -0.020198321048888888,
+          "empiricalAnchor": 0.03965996341257779,
+          "calibrationAdjustment": -0.17863504918505568,
+          "fixtureDifficulty": -0.018771244309050972,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 376,
+        "code": 535928,
+        "name": "Bajcetic",
+        "firstName": "Stefan",
+        "secondName": "Bajčetić Maquieira",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "MID",
+        "price": 50,
+        "ownership": 0,
+        "status": "u",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0,
+        "volatility": 0,
+        "risk": "Low",
+        "confidence": "Low",
+        "dataQuality": 8,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0,
+          "attack": 0,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0,
+          "calibrationAdjustment": 0,
+          "fixtureDifficulty": 0,
+          "sportsbookMarket": 0
+        },
+        "news": "Has joined Celta Vigo permanently",
+        "newsAdded": "2026-07-23T12:01:23.628373Z",
+        "chanceOfPlayingThisRound": 0
+      },
+      {
+        "id": 377,
+        "code": 551499,
+        "name": "Munoz",
+        "firstName": "Victor",
+        "secondName": "Munoz",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "MID",
+        "price": 65,
+        "ownership": 0.7,
+        "status": "d",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.4007522727577071,
+        "volatility": 1.8617658968337971,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 40,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 2,
+        "sharpe": 0.32149544326541496,
+        "probabilities": {
+          "bust": 93.359375,
+          "floor": 5.338541666666666,
+          "middle": 1.0416666666666665,
+          "haul": 0.26041666666666663
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.30187765846875003,
+          "attack": 0.17499540196730912,
+          "cleanSheet": 0.03728962470762575,
+          "saves": 0,
+          "defensiveContribution": 0.0035407918203348094,
+          "bonus": 0.03982101118509047,
+          "discipline": -0.018580440162375,
+          "empiricalAnchor": 0.0332348463162255,
+          "calibrationAdjustment": -0.17142662154525368,
+          "fixtureDifficulty": -0.011677120291897158,
+          "sportsbookMarket": 0
+        },
+        "news": "Knee injury - 50% chance of playing",
+        "newsAdded": "2026-10-20T18:30:09.999223Z",
+        "chanceOfPlayingThisRound": 50
+      },
+      {
+        "id": 378,
+        "code": 491501,
+        "name": "McConnell",
+        "firstName": "James",
+        "secondName": "McConnell",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "MID",
+        "price": 44,
+        "ownership": 0.2,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.2393304661928732,
+        "volatility": 1.6674313411304504,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 8,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 1,
+        "sharpe": 0.20356235441580897,
+        "probabilities": {
+          "bust": 96.875,
+          "floor": 1.8229166666666667,
+          "middle": 0.9114583333333334,
+          "haul": 0.390625
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.2182976,
+          "attack": 0.12213522655368665,
+          "cleanSheet": 0.021235126804291383,
+          "saves": 0,
+          "defensiveContribution": 0.0017177421694645652,
+          "bonus": 0.021500207775138776,
+          "discipline": -0.008493783466666667,
+          "empiricalAnchor": 0.015816350532606605,
+          "calibrationAdjustment": -0.15287800417564815,
+          "fixtureDifficulty": -0.008004254497316787,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 379,
+        "code": 219168,
+        "name": "Isak",
+        "firstName": "Alexander",
+        "secondName": "Isak",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "FWD",
+        "price": 92,
+        "ownership": 20.9,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 3.504446293763919,
+        "volatility": 3.882031746004272,
+        "risk": "High",
+        "confidence": "Medium",
+        "dataQuality": 65,
+        "floor": 0,
+        "median": 2,
+        "ceiling": 8,
+        "sharpe": 0.8760273024530265,
+        "probabilities": {
+          "bust": 51.822916666666664,
+          "floor": 30.338541666666668,
+          "middle": 11.71875,
+          "haul": 6.119791666666666
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 1.5732355281326909,
+          "attack": 1.5603797683244498,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0.000004883033415044858,
+          "bonus": 0.641026975305527,
+          "discipline": -0.07316693416330158,
+          "empiricalAnchor": 0.15210722598725374,
+          "calibrationAdjustment": -0.3491411528561157,
+          "fixtureDifficulty": -0.07864464176775599,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": "2026-09-27T10:30:09.051435Z",
+        "chanceOfPlayingThisRound": 100
+      },
+      {
+        "id": 380,
+        "code": 510663,
+        "name": "Ekitiké",
+        "firstName": "Hugo",
+        "secondName": "Ekitiké",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "FWD",
+        "price": 74,
+        "ownership": 0.1,
+        "status": "i",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0,
+        "volatility": 0,
+        "risk": "Low",
+        "confidence": "Low",
+        "dataQuality": 28,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0,
+          "attack": 0,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0,
+          "calibrationAdjustment": 0,
+          "fixtureDifficulty": 0,
+          "sportsbookMarket": 0
+        },
+        "news": "Achilles injury - Unknown return date",
+        "newsAdded": "2026-07-23T12:01:23.643771Z",
+        "chanceOfPlayingThisRound": 0
+      },
+      {
+        "id": 381,
+        "code": 514514,
+        "name": "Koumas",
+        "firstName": "Lewis",
+        "secondName": "Koumas",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "MID",
+        "price": 50,
+        "ownership": 0.1,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 1.0286551186145338,
+        "volatility": 2.4316034718826907,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 30,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 3,
+        "sharpe": 0.43620753861021727,
+        "probabilities": {
+          "bust": 87.36979166666666,
+          "floor": 8.854166666666668,
+          "middle": 2.734375,
+          "haul": 1.0416666666666665
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.6605587200000002,
+          "attack": 0.4000969526097982,
+          "cleanSheet": 0.07194899512825749,
+          "saves": 0,
+          "defensiveContribution": 0.0035985816670354555,
+          "bonus": 0.07084825775120526,
+          "discipline": -0.027989020693333345,
+          "empiricalAnchor": 0.058072008131770964,
+          "calibrationAdjustment": -0.2084793759802004,
+          "fixtureDifficulty": -0.025247642746831334,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 382,
+        "code": 500058,
+        "name": "Danns",
+        "firstName": "Jayden",
+        "secondName": "Danns",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "FWD",
+        "price": 45,
+        "ownership": 0.2,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0.10545580827568946,
+        "volatility": 1.5737699697532945,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 8,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0.26080843769978684,
+        "probabilities": {
+          "bust": 99.73958333333334,
+          "floor": 0.26041666666666663,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0.2182976,
+          "attack": 0.13363030669991596,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0.000005026324477306757,
+          "bonus": 0.0230359369019344,
+          "discipline": -0.007721621333333335,
+          "empiricalAnchor": 0.016543400252255206,
+          "calibrationAdjustment": -0.27833484056956004,
+          "fixtureDifficulty": -0.007832462221331604,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": "2026-07-23T12:01:23.659279Z",
+        "chanceOfPlayingThisRound": 100
+      },
+      {
+        "id": 383,
+        "code": 444884,
+        "name": "Elliott",
+        "firstName": "Harvey",
+        "secondName": "Elliott",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "MID",
+        "price": 54,
+        "ownership": 0,
+        "status": "u",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 0,
+        "volatility": 0,
+        "risk": "Low",
+        "confidence": "Low",
+        "dataQuality": 41,
+        "floor": 0,
+        "median": 0,
+        "ceiling": 0,
+        "sharpe": 0,
+        "probabilities": {
+          "bust": 100,
+          "floor": 0,
+          "middle": 0,
+          "haul": 0
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 0,
+          "attack": 0,
+          "cleanSheet": 0,
+          "saves": 0,
+          "defensiveContribution": 0,
+          "bonus": 0,
+          "discipline": 0,
+          "empiricalAnchor": 0,
+          "calibrationAdjustment": 0,
+          "fixtureDifficulty": 0,
+          "sportsbookMarket": 0
+        },
+        "news": "Has joined Valencia on loan for the rest of the season",
+        "newsAdded": "2026-09-02T16:05:49.104326Z",
+        "chanceOfPlayingThisRound": 0
+      },
+      {
+        "id": 579,
+        "code": 445087,
+        "name": "Araujo",
+        "firstName": "Ronald",
+        "secondName": "Araujo",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "DEF",
+        "price": 54,
+        "ownership": 3.9,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 1.9121481993433085,
+        "volatility": 2.3896338962821235,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 43,
+        "floor": 0,
+        "median": 1,
+        "ceiling": 4,
+        "sharpe": 0.8090043293710666,
+        "probabilities": {
+          "bust": 75.91145833333334,
+          "floor": 18.880208333333336,
+          "middle": 3.6458333333333335,
+          "haul": 1.5625
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 1.370776056,
+          "attack": 0.2600139004088315,
+          "cleanSheet": 0.5723452997290585,
+          "saves": 0,
+          "defensiveContribution": 0.20609294555766006,
+          "bonus": 0.17738000870107137,
+          "discipline": -0.12696959763082077,
+          "empiricalAnchor": 0.183505281564123,
+          "calibrationAdjustment": -0.7309956949866152,
+          "fixtureDifficulty": -0.053941712129182307,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      },
+      {
+        "id": 627,
+        "code": 482616,
+        "name": "Barcola",
+        "firstName": "Bradley",
+        "secondName": "Barcola",
+        "teamId": 14,
+        "team": "LIV",
+        "position": "MID",
+        "price": 81,
+        "ownership": 4.2,
+        "status": "a",
+        "fixture": "ARS (H)",
+        "kickoffTime": "2026-11-01T16:30:00Z",
+        "fixtureId": 87,
+        "projected": 2.233035575751385,
+        "volatility": 3.0514035031300417,
+        "risk": "High",
+        "confidence": "Low",
+        "dataQuality": 40,
+        "floor": 0,
+        "median": 1,
+        "ceiling": 5,
+        "sharpe": 0.7600489580314226,
+        "probabilities": {
+          "bust": 68.22916666666666,
+          "floor": 23.177083333333336,
+          "middle": 6.25,
+          "haul": 2.34375
+        },
+        "simulations": 768,
+        "components": {
+          "appearance": 1.2565634866666668,
+          "attack": 0.8349603817126731,
+          "cleanSheet": 0.16929811837830774,
+          "saves": 0,
+          "defensiveContribution": 0.04402984684382343,
+          "bonus": 0.1572202700724317,
+          "discipline": -0.08078549078463286,
+          "empiricalAnchor": 0.18348364993388758,
+          "calibrationAdjustment": -0.3317346870717719,
+          "fixtureDifficulty": -0.05234225026169703,
+          "sportsbookMarket": 0
+        },
+        "news": "",
+        "newsAdded": null,
+        "chanceOfPlayingThisRound": null
+      }
+    ],
+    "forecastMode": "fixture",
+    "fixtureId": 87,
+    "fixtureKickoffTime": "2026-11-01T16:30:00Z"
+  }
+}
