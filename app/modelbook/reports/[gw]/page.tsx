@@ -45,6 +45,8 @@ export default async function ModelbookReportPage({ params }: Params) {
   const isReconstructed = report.forecastProvenance === "reconstructed-after-deadline";
   const isPredeadlinePublished = report.forecastProvenance === "predeadline-published";
   const isPredeadlineFallback = report.forecastProvenance === "predeadline-fallback";
+  const markedFinalByFpl = Boolean(report.actualsFinality?.fixtureCount
+    && report.actualsFinality.finished === report.actualsFinality.fixtureCount);
 
   return (
     <main className="page">
@@ -66,7 +68,7 @@ export default async function ModelbookReportPage({ params }: Params) {
           {report.provenanceNote && <p className="small muted" style={{ marginTop: 10 }}>{report.provenanceNote}</p>}
         </div>
         <span className={`badge ${!report.final ? "badge-warn" : "badge-good"}`}>
-          {isReconstructed ? "Audit" : !report.final ? "Provisional" : isPredeadlineFallback ? "Checkpoint" : isPredeadlinePublished ? "Published" : "Final"}
+          {isReconstructed ? "Audit" : markedFinalByFpl ? "Final results" : !report.final ? "Provisional results" : "Archived results"}
         </span>
       </div>
 
@@ -280,7 +282,9 @@ export default async function ModelbookReportPage({ params }: Params) {
             <dt>Report generated</dt><dd>{formatDate(report.generatedAt)}</dd>
             {report.actualsSource && <><dt>Points source</dt><dd>{report.actualsSource}</dd></>}
             {report.actualsFinality && (
-              <><dt>Result status</dt><dd>{report.actualsFinality.finishedProvisional} of {report.actualsFinality.fixtureCount} fixtures provisionally finished when scored</dd></>
+              <><dt>Result status</dt><dd>{markedFinalByFpl
+                ? `${report.actualsFinality.finished} of ${report.actualsFinality.fixtureCount} fixtures marked finished by FPL when scored`
+                : `${report.actualsFinality.finishedProvisional} of ${report.actualsFinality.fixtureCount} fixtures provisionally finished when scored`}</dd></>
             )}
             {hash && <><dt>Snapshot fingerprint</dt><dd className={styles.hash}>{hash}</dd></>}
           </dl>
