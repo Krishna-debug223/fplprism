@@ -182,6 +182,15 @@ export async function GET(request: NextRequest) {
   const cacheKey = `${Number.isInteger(requestedEvent) && requestedEvent > 0 ? `event:${requestedEvent}` : "next"}:${fixtureRequest ? requestedFixture : rolling ? "rolling" : "deadline"}`;
 
   try {
+    // Historical forecasts are immutable. Serve their verified artifact even
+    // when the upstream FPL API is unavailable.
+    if (!fixtureRequest && !rolling && Number.isInteger(requestedEvent) && requestedEvent > 0) {
+      const frozen = await frozenSnapshot(requestedEvent);
+      if (frozen && Date.parse(frozen.deadlineTime) <= Date.now()) {
+        return NextResponse.json(frozen, { headers: jsonHeaders(request) });
+      }
+    }
+
     const build = async (): Promise<SnapshotPayload> => {
       // Read the official feeds directly instead of calling this app's own public
       // domain. A self-request can be redirected by deployment protection and turn
