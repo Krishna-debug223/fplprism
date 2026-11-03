@@ -14,7 +14,10 @@ const CAPTURE_WINDOW_MS = 10 * 60 * 1000;
 // from the entire pre-deadline comparison window as a fallback.
 const CHECKPOINT_WINDOW_MS = 24 * 60 * 60 * 1000;
 const CHECKPOINT_INTERVAL_MS = 45 * 60 * 1000;
-const FIXTURE_CHECKPOINT_WINDOW_MS = 90 * 60 * 1000;
+// Scheduled GitHub runs can be hours apart. Start well before kickoff so each
+// match has a genuine pre-kickoff fallback even if the final runs are missed.
+const FIXTURE_CHECKPOINT_WINDOW_MS = 48 * 60 * 60 * 1000;
+const FIXTURE_EARLY_INTERVAL_MS = 4 * 60 * 60 * 1000;
 const FIXTURE_CHECKPOINT_INTERVAL_MS = 15 * 60 * 1000;
 const ARCHIVE_IMPORT_MARKER = "// Modelbook archive imports are registered below.";
 const requestedEvent = Number(process.env.MODELBOOK_GAMEWEEK || process.argv[2] || 0);
@@ -96,6 +99,16 @@ function isValidFixtureCheckpoint(candidate, fixture) {
     && digest(JSON.stringify(candidate.snapshot)) === candidate.contentHash;
 }
 
+function isFixtureCheckpointDue(kickoff, lastCapturedAt, now = Date.now()) {
+  const remaining = Number(kickoff) - now;
+  if (!Number.isFinite(remaining) || remaining <= 0 || remaining > FIXTURE_CHECKPOINT_WINDOW_MS) return false;
+  const interval = remaining <= 20 * 60_000
+    ? 0
+    : remaining <= 90 * 60_000 ? FIXTURE_CHECKPOINT_INTERVAL_MS : FIXTURE_EARLY_INTERVAL_MS;
+  const previous = Date.parse(lastCapturedAt ?? "");
+  return !Number.isFinite(previous) || now - previous >= interval;
+}
+
 async function captureFixtureForecasts(fixtures) {
   const now = Date.now();
   const due = fixtures.filter((fixture) => {
@@ -131,10 +144,8 @@ async function captureFixtureForecasts(fixtures) {
       console.log(`Locked GW${fixture.event} fixture ${fixture.id} from its last verified pre-kickoff forecast (${candidate.snapshot.generatedAt}).`);
       continue;
     }
-    const previous = Date.parse(candidate?.snapshot?.generatedAt ?? "");
-    const remaining = kickoff - now;
-    const interval = remaining <= 20 * 60_000 ? 0 : FIXTURE_CHECKPOINT_INTERVAL_MS;
-    if (isValidFixtureCheckpoint(candidate, fixture) && now - previous < interval) continue;
+    if (isValidFixtureCheckpoint(candidate, fixture)
+      && !isFixtureCheckpointDue(kickoff, candidate.snapshot.generatedAt, now)) continue;
     try {
       const source = `${SITE_URL}/api/ledger/snapshot?event=${fixture.event}&fixture=${fixture.id}&capture=${now}`;
       const snapshot = await fetchJson(source);
@@ -581,7 +592,7 @@ async function main() {
   if (!captured && !requestedEvent) console.log("No deadline snapshot was due on this run.");
 }
 
-export { archiveReport, scoreKickoffForecasts, isCaptureWindow, isCheckpointDue, isValidCheckpoint, isValidFixtureCheckpoint, metricSet, CHECKPOINT_INTERVAL_MS, CHECKPOINT_WINDOW_MS };
+export { archiveReport, scoreKickoffForecasts, isCaptureWindow, isCheckpointDue, isFixtureCheckpointDue, isValidCheckpoint, isValidFixtureCheckpoint, metricSet, CHECKPOINT_INTERVAL_MS, CHECKPOINT_WINDOW_MS };
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   main().catch((error) => {

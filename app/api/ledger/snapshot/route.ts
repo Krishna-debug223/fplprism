@@ -289,7 +289,7 @@ export async function GET(request: NextRequest) {
           ? `Official FPL live feed + ${historicalPriorCount} completed-season priors`
           : "Official FPL live feed; historical priors unavailable",
         method: "Walk-forward, minutes-weighted current-season blending",
-        validation: "GW4–GW5 walk-forward validation",
+        validation: "Historical walk-forward replay and archived Modelbook reports",
       };
 
       const snapshot: SnapshotPayload = {

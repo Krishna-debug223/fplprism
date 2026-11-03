@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { archiveReport, scoreKickoffForecasts, isCaptureWindow, isCheckpointDue, isValidCheckpoint, isValidFixtureCheckpoint, metricSet, CHECKPOINT_INTERVAL_MS } from "./modelbook-automation.mjs";
+import { archiveReport, scoreKickoffForecasts, isCaptureWindow, isCheckpointDue, isFixtureCheckpointDue, isValidCheckpoint, isValidFixtureCheckpoint, metricSet, CHECKPOINT_INTERVAL_MS } from "./modelbook-automation.mjs";
 
 test("report metrics use actual minus forecast and one consistent active cohort", () => {
   const locked = {
@@ -112,6 +112,20 @@ test("fixture checkpoints require a matching kickoff and a pre-kickoff hash", ()
   assert.equal(isValidFixtureCheckpoint({ ...candidate, snapshot: badPoints, contentHash: createHash("sha256").update(JSON.stringify(badPoints)).digest("hex") }, fixture), false);
   const late = { ...snapshot, generatedAt: fixture.kickoff_time };
   assert.equal(isValidFixtureCheckpoint({ ...candidate, snapshot: late, contentHash: createHash("sha256").update(JSON.stringify(late)).digest("hex") }, fixture), false);
+});
+
+test("fixture checkpoints begin two days early and accelerate near kickoff", () => {
+  const kickoff = Date.parse("2026-11-06T20:00:00Z");
+  assert.equal(isFixtureCheckpointDue(kickoff, null, kickoff - 49 * 60 * 60_000), false);
+  assert.equal(isFixtureCheckpointDue(kickoff, null, kickoff - 47 * 60 * 60_000), true);
+  const early = kickoff - 40 * 60 * 60_000;
+  assert.equal(isFixtureCheckpointDue(kickoff, new Date(early).toISOString(), early + 3 * 60 * 60_000), false);
+  assert.equal(isFixtureCheckpointDue(kickoff, new Date(early).toISOString(), early + 4 * 60 * 60_000), true);
+  const close = kickoff - 45 * 60_000;
+  assert.equal(isFixtureCheckpointDue(kickoff, new Date(close - 14 * 60_000).toISOString(), close), false);
+  assert.equal(isFixtureCheckpointDue(kickoff, new Date(close - 15 * 60_000).toISOString(), close), true);
+  assert.equal(isFixtureCheckpointDue(kickoff, new Date(kickoff - 21 * 60_000).toISOString(), kickoff - 19 * 60_000), true);
+  assert.equal(isFixtureCheckpointDue(kickoff, null, kickoff), false);
 });
 
 test("pre-kickoff accuracy uses every verified fixture and the same deadline player cohort", () => {
