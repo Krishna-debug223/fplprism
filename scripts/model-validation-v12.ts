@@ -2,6 +2,7 @@ import { projectPlayer as baseProjectPlayer } from "../lib/risk";
 import { APPEARANCE_ANCHOR_WEIGHT, MODEL_VERSION, POSITION_CALIBRATION, projectPlayer, recommendJointTransferPlan } from "../lib/risk-v12";
 import { analyzePortfolioRisk } from "../lib/portfolio-risk";
 import { playerForForecastEvent } from "../lib/fpl-availability";
+import { enrichUnderlyingTeamData } from "../lib/fpl-enrichment";
 import { impliedGoalMeanFromTotal, type SportsbookPayload } from "../lib/sportsbook";
 import type { FplFixture, FplPlayer, FplTeam } from "../lib/types";
 
@@ -71,6 +72,35 @@ const fixtures: FplFixture[] = [
   { id: 12, event: 3, team_h: 5, team_a: 1, team_h_difficulty: 4, team_a_difficulty: 2, kickoff_time: "2026-09-27T14:00:00Z", finished: false, started: false },
   { id: 13, event: 3, team_h: 2, team_a: 3, team_h_difficulty: 3, team_a_difficulty: 3, kickoff_time: "2026-09-27T14:00:00Z", finished: false, started: false },
 ];
+
+const provisionalPast: FplFixture = { ...fixtures[0], id: 3, event: 2, finished: false, finished_provisional: true, team_h_score: 2, team_a_score: 1 };
+const upcomingAfterProvisional: FplFixture = { ...fixtures[2], id: 14, event: 3 };
+const twoMatchPlayer = player({ team: 1, starts: 2, minutes: 180, expected_goals: "3.0" });
+const playedFixtureSet = [fixtures[0], provisionalPast, upcomingAfterProvisional];
+const enrichedAfterProvisional = enrichUnderlyingTeamData([twoMatchPlayer], teams, playedFixtureSet);
+assert(enrichedAfterProvisional[0].underlying_matches === 2
+  && enrichedAfterProvisional[0].underlying_attack_xg_per_match === 1.5,
+"a provisionally finished match must be counted when dividing cumulative player xG by team matches");
+const projectionWithProvisional = projectPlayer(twoMatchPlayer, playedFixtureSet, enrichedAfterProvisional, 1, undefined, null, [3]);
+const projectionWithoutProvisional = projectPlayer(twoMatchPlayer,
+  [fixtures[0], { ...provisionalPast, finished_provisional: false }, upcomingAfterProvisional],
+  enrichedAfterProvisional, 1, undefined, null, [3]);
+assert(projectionWithProvisional.minutes.expected > projectionWithoutProvisional.minutes.expected,
+  "a completed provisional match must count as start evidence for the next fixture");
+const missingOfficialRatings = teams.map((team) => ({ ...team,
+  strength_attack_home: 0, strength_attack_away: 0,
+  strength_defence_home: 0, strength_defence_away: 0 }));
+const fallbackRatings = enrichUnderlyingTeamData([
+  twoMatchPlayer, player({ id: 77, code: 1077, team: 2, expected_goals: "0.5" }),
+], missingOfficialRatings, playedFixtureSet);
+assert(fallbackRatings[0].strength_attack_home > fallbackRatings[1].strength_attack_home,
+  "missing official team ratings must retain the observed attack-strength difference");
+const noRatings = fallbackRatings.map((team) => ({ ...team,
+  strength_attack_home: 0, strength_attack_away: 0,
+  strength_defence_home: 0, strength_defence_away: 0 }));
+assert(projectPlayer(twoMatchPlayer, playedFixtureSet, fallbackRatings, 1, undefined, null, [3]).expected
+  > projectPlayer(twoMatchPlayer, playedFixtureSet, noRatings, 1, undefined, null, [3]).expected,
+"the fallback ratings must affect an otherwise identical favorable fixture forecast");
 
 const currentRoundDoubt = projectPlayer(playerForForecastEvent(lateDoubt, { is_current: true }), fixtures, teams, 1, undefined, null, [2]);
 const nextRoundDoubt = projectPlayer(playerForForecastEvent(lateDoubt, { is_current: false }), fixtures, teams, 1, undefined, null, [2]);

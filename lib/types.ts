@@ -89,6 +89,7 @@ export type FplFixture = {
   team_a_score?: number | null;
   kickoff_time: string | null;
   finished: boolean;
+  finished_provisional?: boolean;
   started: boolean;
 };
 

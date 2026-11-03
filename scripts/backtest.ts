@@ -3,6 +3,7 @@ import { dirname, resolve } from "node:path";
 
 import { MODEL_VERSION, projectPlayer } from "../lib/risk-v12";
 import { projectPlayer as projectPlayerBase } from "../lib/risk";
+import { withFallbackTeamStrengths } from "../lib/fpl-enrichment";
 import type { SportsbookPayload } from "../lib/sportsbook";
 import type { FplFixture, FplPlayer, FplTeam } from "../lib/types";
 
@@ -304,7 +305,12 @@ export function forecastGameweek(
   sportsbook: SportsbookPayload | null = null,
 ): HistoricalForecast[] {
   const safeTargets = targetRows.map(forecastMetadata);
-  const modelTeams = buildTeams(priorRows, teams);
+  const derivedTeams = buildTeams(priorRows, teams);
+  const modelTeams = process.env.BACKTEST_TEAM_STRENGTH_MODE === "legacy"
+    ? derivedTeams
+    : withFallbackTeamStrengths(derivedTeams.map((team) => ({ ...team,
+        strength_attack_home: 0, strength_attack_away: 0,
+        strength_defence_home: 0, strength_defence_away: 0 })));
   const modelFixtures = buildFixtures([...priorRows, ...safeTargets], teams, gw);
   const lookup = teamLookup(teams);
   const priorByPlayer = new Map<number, CsvRow[]>();
@@ -560,6 +566,8 @@ async function main() {
       startingGw: START_GW,
       endingGw: END_GW,
       doubleGameweekPlayerWeeks,
+      teamStrengthMode: process.env.BACKTEST_TEAM_STRENGTH_MODE === "legacy"
+        ? "pre-v1.4.6 synthetic ratings" : "v1.4.6 fallback when official ratings are missing",
       limitations: [
         "Historical injury/suspension snapshots are not reconstructed, so availability is neutral in this harness.",
         "Official historical FDR/static team-strength snapshots are not reconstructed; lagged team xG-derived strength is used instead.",
@@ -578,7 +586,8 @@ async function main() {
     sportsbookComparison: sportsbook ? { status: "signals-loaded", note: "This run includes the supplied historical market payload. Run again without SPORTSBOOK_BACKTEST_JSON for a diffable baseline." } : { status: "not-run", note: "Historical sportsbook odds were not supplied, so no market-improvement claim is made." },
   };
 
-  const output = resolve(`reports/backtest-${MODEL_VERSION}-${TARGET_SEASON}.json`);
+  const modeSuffix = process.env.BACKTEST_TEAM_STRENGTH_MODE === "legacy" ? "-legacy-strength" : "";
+  const output = resolve(`reports/backtest-${MODEL_VERSION}${modeSuffix}-${TARGET_SEASON}.json`);
   mkdirSync(dirname(output), { recursive: true });
   writeFileSync(output, JSON.stringify(report, null, 2));
   console.log(`Wrote ${output}`);

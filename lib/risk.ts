@@ -1,4 +1,5 @@
 import type { FplEvent, FplFixture, FplPlayer, FplTeam, HistoricalPayload, HistoricalSeasonSummary, UsedChip } from "./types";
+import { hasCompletedScore } from "./fpl-fixture-status";
 
 export const MODEL_VERSION = "1.4.4";
 
@@ -222,7 +223,7 @@ type TeamFormSnapshot = {
 };
 
 function leagueGoalBaselines(fixtures: FplFixture[]) {
-  const completed = fixtures.filter((fixture) => fixture.finished && fixture.team_h_score != null && fixture.team_a_score != null);
+  const completed = fixtures.filter(hasCompletedScore);
   const priorMatches = 40;
   const homePrior = 1.52;
   const awayPrior = 1.24;
@@ -236,7 +237,7 @@ function leagueGoalBaselines(fixtures: FplFixture[]) {
 function recentTeamForm(teamId: number, fixtures: FplFixture[]): TeamFormSnapshot {
   const leagueAvg = leagueGoalBaselines(fixtures).overall;
   const recent = fixtures
-    .filter((fixture) => fixture.finished && fixture.team_h_score != null && fixture.team_a_score != null && (fixture.team_h === teamId || fixture.team_a === teamId))
+    .filter((fixture) => hasCompletedScore(fixture) && (fixture.team_h === teamId || fixture.team_a === teamId))
     .sort((a, b) => (b.event ?? 0) - (a.event ?? 0) || (b.kickoff_time ?? "").localeCompare(a.kickoff_time ?? ""))
     .slice(0, 8);
 
@@ -524,7 +525,7 @@ type MinutesEstimate = {
 };
 
 function completedTeamMatches(teamId: number, fixtures: FplFixture[]) {
-  return fixtures.filter((fixture) => fixture.finished && (fixture.team_h === teamId || fixture.team_a === teamId)).length;
+  return fixtures.filter((fixture) => hasCompletedScore(fixture) && (fixture.team_h === teamId || fixture.team_a === teamId)).length;
 }
 
 // Abramowitz-Stegun normal CDF approximation. Keeping this local avoids a

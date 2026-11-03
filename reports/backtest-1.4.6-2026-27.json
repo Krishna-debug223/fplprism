@@ -1,0 +1,323 @@
+{
+  "modelVersion": "1.4.6",
+  "targetSeason": "2026-27",
+  "generatedAt": "2026-11-03T18:58:05.353Z",
+  "methodology": {
+    "walkForward": true,
+    "noLookahead": "Player/team rates and player price for target GW N are built only from rows where GW < N. Target-GW rows supply identity and fixture metadata during forecasting; points and minutes are used only during scoring.",
+    "source": "vaastav/Fantasy-Premier-League historical data",
+    "startingGw": 4,
+    "endingGw": 7,
+    "doubleGameweekPlayerWeeks": 0,
+    "teamStrengthMode": "v1.4.6 fallback when official ratings are missing",
+    "limitations": [
+      "Historical injury/suspension snapshots are not reconstructed, so availability is neutral in this harness.",
+      "Official historical FDR/static team-strength snapshots are not reconstructed; lagged team xG-derived strength is used instead.",
+      "Historical multi-season priors are omitted from this first walk-forward harness.",
+      "No historical sportsbook archive supplied; sportsbook before/after calibration is intentionally not claimed."
+    ]
+  },
+  "overall": {
+    "n": 1980,
+    "mae": 1.2035,
+    "rmse": 2.2475,
+    "bias": -0.2343,
+    "within2": 0.8354,
+    "pearson": 0.5145,
+    "spearman": 0.6611,
+    "appearanceBrier": 0.1316,
+    "interval80Coverage": 0.9056,
+    "topDecileActualAverage": 3.8485,
+    "topDecileHaulRate": 0.0707,
+    "overallHaulRate": 0.0202
+  },
+  "playersWhoAppeared": {
+    "n": 923,
+    "mae": 1.9731,
+    "rmse": 3.1627,
+    "bias": -1.1112,
+    "within2": 0.7031,
+    "pearson": 0.2597,
+    "spearman": 0.3529,
+    "appearanceBrier": 0.1439,
+    "interval80Coverage": 0.7974,
+    "topDecileActualAverage": 4.2688,
+    "topDecileHaulRate": 0.0968,
+    "overallHaulRate": 0.0433
+  },
+  "flatTwoBaselineForPlayersWhoAppeared": {
+    "n": 923,
+    "mae": 2.0423,
+    "rmse": 3.2306,
+    "bias": -1.0173,
+    "within2": 0.7638,
+    "pearson": null,
+    "spearman": null,
+    "appearanceBrier": 0.1439,
+    "interval80Coverage": 0.7974,
+    "topDecileActualAverage": 2.5376,
+    "topDecileHaulRate": 0.043,
+    "overallHaulRate": 0.0433
+  },
+  "temporalCalibrationExperiment": {
+    "split": {
+      "trainingGameweeks": "4-5",
+      "validationGameweeks": "6-7",
+      "trainingPlayers": 1313,
+      "validationPlayers": 667
+    },
+    "baseline": {
+      "allPlayers": {
+        "n": 667,
+        "mae": 1.1519,
+        "rmse": 2.1359,
+        "bias": -0.1711,
+        "within2": 0.8396,
+        "pearson": 0.4904,
+        "spearman": 0.6467,
+        "appearanceBrier": 0.1361,
+        "interval80Coverage": 0.9175,
+        "topDecileActualAverage": 3.597,
+        "topDecileHaulRate": 0.0746,
+        "overallHaulRate": 0.0165
+      },
+      "playersWhoAppeared": {
+        "n": 315,
+        "mae": 1.8281,
+        "rmse": 2.9639,
+        "bias": -0.9734,
+        "within2": 0.7238,
+        "pearson": 0.2298,
+        "spearman": 0.3437,
+        "appearanceBrier": 0.1507,
+        "interval80Coverage": 0.8254,
+        "topDecileActualAverage": 4,
+        "topDecileHaulRate": 0.0938,
+        "overallHaulRate": 0.0349
+      }
+    },
+    "flatTwo": {
+      "playersWhoAppeared": {
+        "n": 315,
+        "mae": 1.8952,
+        "rmse": 2.9958,
+        "bias": -0.854,
+        "within2": 0.7873,
+        "pearson": null,
+        "spearman": null,
+        "appearanceBrier": 0.1507,
+        "interval80Coverage": 0.8254,
+        "topDecileActualAverage": 3.8438,
+        "topDecileHaulRate": 0.0625,
+        "overallHaulRate": 0.0349
+      }
+    },
+    "conditionalOnAppearance": {
+      "note": "For players with minutes, unconditional expected points are divided by the model's appearance probability. This is conditional expected points, not the pre-deadline all-player xPts used for transfers.",
+      "playersWhoAppeared": {
+        "n": 315,
+        "mae": 1.9901,
+        "rmse": 2.8134,
+        "bias": -0.2065,
+        "within2": 0.6952,
+        "pearson": 0.213,
+        "spearman": 0.3304,
+        "appearanceBrier": null,
+        "interval80Coverage": null,
+        "topDecileActualAverage": 4.3125,
+        "topDecileHaulRate": 0.125,
+        "overallHaulRate": 0.0349
+      }
+    },
+    "positionLinearCalibration": {
+      "coefficients": {
+        "GKP": {
+          "intercept": -0.0012887243763670675,
+          "slope": 1.6051413381123167,
+          "samples": 142
+        },
+        "DEF": {
+          "intercept": -0.10177826925430544,
+          "slope": 1.5422761687619946,
+          "samples": 429
+        },
+        "MID": {
+          "intercept": -0.3505696633788571,
+          "slope": 1.3278977828728906,
+          "samples": 586
+        },
+        "FWD": {
+          "intercept": -0.41924348099430087,
+          "slope": 1.4900303131067107,
+          "samples": 156
+        }
+      },
+      "allPlayers": {
+        "n": 667,
+        "mae": 1.2316,
+        "rmse": 2.1585,
+        "bias": 0.1176,
+        "within2": 0.7826,
+        "pearson": 0.4774,
+        "spearman": 0.6362,
+        "appearanceBrier": 0.1361,
+        "interval80Coverage": 0.9535,
+        "topDecileActualAverage": 3.2687,
+        "topDecileHaulRate": 0.0597,
+        "overallHaulRate": 0.0165
+      },
+      "playersWhoAppeared": {
+        "n": 315,
+        "mae": 1.9539,
+        "rmse": 2.9054,
+        "bias": -0.4049,
+        "within2": 0.6603,
+        "pearson": 0.205,
+        "spearman": 0.3061,
+        "appearanceBrier": 0.1507,
+        "interval80Coverage": 0.9016,
+        "topDecileActualAverage": 3.2188,
+        "topDecileHaulRate": 0.0313,
+        "overallHaulRate": 0.0349
+      }
+    }
+  },
+  "fullSeasonPositionCalibration": {
+    "pooled": {
+      "intercept": -0.15072225921564653,
+      "slope": 1.328401000023614,
+      "samples": 1980
+    },
+    "byPosition": {
+      "GKP": {
+        "intercept": -0.004861817867064522,
+        "slope": 1.389465769577288,
+        "samples": 215
+      },
+      "DEF": {
+        "intercept": -0.04484110997263868,
+        "slope": 1.3947112445152943,
+        "samples": 646
+      },
+      "MID": {
+        "intercept": -0.2973704442942231,
+        "slope": 1.3099388529148583,
+        "samples": 884
+      },
+      "FWD": {
+        "intercept": -0.2332842044170269,
+        "slope": 1.3774339912980895,
+        "samples": 235
+      }
+    }
+  },
+  "externalCalibrationExperiment": {
+    "status": "not-run"
+  },
+  "byPosition": {
+    "GKP": {
+      "n": 215,
+      "mae": 0.7511,
+      "rmse": 1.8611,
+      "bias": -0.2859,
+      "within2": 0.8884,
+      "pearson": 0.6449,
+      "spearman": 0.8364,
+      "appearanceBrier": 0.0439,
+      "interval80Coverage": 0.9116,
+      "topDecileActualAverage": 3.5455,
+      "topDecileHaulRate": 0.0455,
+      "overallHaulRate": 0.014
+    },
+    "DEF": {
+      "n": 646,
+      "mae": 1.3889,
+      "rmse": 2.4718,
+      "bias": -0.3924,
+      "within2": 0.7864,
+      "pearson": 0.4628,
+      "spearman": 0.5685,
+      "appearanceBrier": 0.1507,
+      "interval80Coverage": 0.8622,
+      "topDecileActualAverage": 4.4923,
+      "topDecileHaulRate": 0.0923,
+      "overallHaulRate": 0.0201
+    },
+    "MID": {
+      "n": 884,
+      "mae": 1.1833,
+      "rmse": 2.1379,
+      "bias": -0.1121,
+      "within2": 0.8552,
+      "pearson": 0.5229,
+      "spearman": 0.6951,
+      "appearanceBrier": 0.1357,
+      "interval80Coverage": 0.9299,
+      "topDecileActualAverage": 4,
+      "topDecileHaulRate": 0.0787,
+      "overallHaulRate": 0.0181
+    },
+    "FWD": {
+      "n": 235,
+      "mae": 1.1838,
+      "rmse": 2.3242,
+      "bias": -0.2119,
+      "within2": 0.8468,
+      "pearson": 0.5409,
+      "spearman": 0.6592,
+      "appearanceBrier": 0.1438,
+      "interval80Coverage": 0.9277,
+      "topDecileActualAverage": 3.9583,
+      "topDecileHaulRate": 0.0833,
+      "overallHaulRate": 0.034
+    }
+  },
+  "byGameweek": {
+    "4": {
+      "n": 654,
+      "mae": 1.2557,
+      "rmse": 2.3238,
+      "bias": -0.2407,
+      "within2": 0.8272,
+      "pearson": 0.5137,
+      "spearman": 0.6522,
+      "appearanceBrier": 0.1254,
+      "interval80Coverage": 0.8914,
+      "topDecileActualAverage": 3.8333,
+      "topDecileHaulRate": 0.0606,
+      "overallHaulRate": 0.0214
+    },
+    "5": {
+      "n": 659,
+      "mae": 1.204,
+      "rmse": 2.2804,
+      "bias": -0.2918,
+      "within2": 0.8392,
+      "pearson": 0.5401,
+      "spearman": 0.6906,
+      "appearanceBrier": 0.1332,
+      "interval80Coverage": 0.9074,
+      "topDecileActualAverage": 3.9242,
+      "topDecileHaulRate": 0.0606,
+      "overallHaulRate": 0.0228
+    },
+    "6": {
+      "n": 667,
+      "mae": 1.1519,
+      "rmse": 2.1359,
+      "bias": -0.1711,
+      "within2": 0.8396,
+      "pearson": 0.4904,
+      "spearman": 0.6467,
+      "appearanceBrier": 0.1361,
+      "interval80Coverage": 0.9175,
+      "topDecileActualAverage": 3.597,
+      "topDecileHaulRate": 0.0746,
+      "overallHaulRate": 0.0165
+    }
+  },
+  "sportsbookComparison": {
+    "status": "not-run",
+    "note": "Historical sportsbook odds were not supplied, so no market-improvement claim is made."
+  }
+}
