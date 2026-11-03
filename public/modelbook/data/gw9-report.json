@@ -1,0 +1,308 @@
+{
+  "gameweek": 9,
+  "modelVersion": "1.4.5",
+  "final": false,
+  "generatedAt": "2026-11-03T02:16:40.541Z",
+  "snapshotHash": "3c5429b87f4aae9cdb012ba6d2942ca1841b8fe1db9963b1a0c2b030c38cab3a",
+  "actualsFetchedAt": "2026-11-03T02:16:40.541Z",
+  "actualsSource": "https://fantasy.premierleague.com/api/event/9/live/",
+  "actualsFinality": {
+    "fixtureCount": 10,
+    "started": 10,
+    "finished": 0,
+    "finishedProvisional": 10,
+    "ninetyMinutes": 10
+  },
+  "forecastProvenance": "predeadline-fallback",
+  "provenanceNote": "The final deadline capture was missed, so this report uses the latest saved GW9 checkpoint from before the deadline. The forecast fingerprint is 3c5429b87f4aae9cdb012ba6d2942ca1841b8fe1db9963b1a0c2b030c38cab3a. These points are provisional and will be checked again until FPL marks every fixture finished.",
+  "training": {
+    "trainedThroughGameweek": 8,
+    "targetGameweek": 9,
+    "updatedAt": "2026-10-31T08:50:04.502Z",
+    "source": "Official FPL live feed + 3 completed-season priors",
+    "method": "Walk-forward, minutes-weighted current-season blending",
+    "validation": "GW4–GW5 walk-forward validation"
+  },
+  "overall": {
+    "count": 669,
+    "mae": 0.973,
+    "rmse": 1.921,
+    "bias": 0.308,
+    "within1": 73.5,
+    "within2": 86.8,
+    "within3": 90.6
+  },
+  "activeCohort": {
+    "count": 310,
+    "mae": 1.763,
+    "rmse": 2.753,
+    "bias": 1.001,
+    "within1": 53.2,
+    "within2": 73.2,
+    "within3": 79.7
+  },
+  "flatTwoBaseline": {
+    "count": 310,
+    "mae": 1.8,
+    "rmse": 2.793,
+    "bias": 0.832,
+    "within1": 69.4,
+    "within2": 78.7,
+    "within3": 81
+  },
+  "topPickResults": [
+    {
+      "count": 10,
+      "matchedPlayers": 10,
+      "fieldPlayers": 669,
+      "playersWithMinutes": 10,
+      "totalActual": 47,
+      "averageActual": 4.7,
+      "fieldAverageActual": 1.31,
+      "uplift": 3.39
+    },
+    {
+      "count": 20,
+      "matchedPlayers": 20,
+      "fieldPlayers": 669,
+      "playersWithMinutes": 20,
+      "totalActual": 88,
+      "averageActual": 4.4,
+      "fieldAverageActual": 1.31,
+      "uplift": 3.09
+    },
+    {
+      "count": 50,
+      "matchedPlayers": 50,
+      "fieldPlayers": 669,
+      "playersWithMinutes": 49,
+      "totalActual": 221,
+      "averageActual": 4.42,
+      "fieldAverageActual": 1.31,
+      "uplift": 3.11
+    }
+  ],
+  "topPickResultsNote": "This is selection signal from the frozen forecast pool, not a guaranteed squad result.",
+  "byPosition": {
+    "GKP": {
+      "count": 20,
+      "mae": 2.203,
+      "rmse": 3.107,
+      "bias": 1.374,
+      "within1": 40,
+      "within2": 65,
+      "within3": 70
+    },
+    "DEF": {
+      "count": 101,
+      "mae": 2.172,
+      "rmse": 3.244,
+      "bias": 1.448,
+      "within1": 45.5,
+      "within2": 63.4,
+      "within3": 72.3
+    },
+    "MID": {
+      "count": 153,
+      "mae": 1.401,
+      "rmse": 2.205,
+      "bias": 0.674,
+      "within1": 58.8,
+      "within2": 80.4,
+      "within3": 86.9
+    },
+    "FWD": {
+      "count": 36,
+      "mae": 1.91,
+      "rmse": 3.118,
+      "bias": 0.93,
+      "within1": 58.3,
+      "within2": 75,
+      "within3": 75
+    }
+  },
+  "largestMisses": [
+    {
+      "id": 112,
+      "name": "Van Hecke",
+      "position": "DEF",
+      "projected": 3.0924988246855447,
+      "actual": 15,
+      "error": 11.907501175314454,
+      "absoluteError": 11.907501175314454,
+      "minutes": 90
+    },
+    {
+      "id": 145,
+      "name": "Fofana",
+      "position": "DEF",
+      "projected": 1.5092428129516744,
+      "actual": 11,
+      "error": 9.490757187048326,
+      "absoluteError": 9.490757187048326,
+      "minutes": 90
+    },
+    {
+      "id": 295,
+      "name": "McBurnie",
+      "position": "FWD",
+      "projected": 2.7514813863178014,
+      "actual": 12,
+      "error": 9.248518613682199,
+      "absoluteError": 9.248518613682199,
+      "minutes": 90
+    },
+    {
+      "id": 109,
+      "name": "Verbruggen",
+      "position": "GKP",
+      "projected": 2.133569788937528,
+      "actual": 11,
+      "error": 8.866430211062472,
+      "absoluteError": 8.866430211062472,
+      "minutes": 90
+    },
+    {
+      "id": 85,
+      "name": "Van den Berg",
+      "position": "DEF",
+      "projected": 1.1902140669975423,
+      "actual": 10,
+      "error": 8.809785933002457,
+      "absoluteError": 8.809785933002457,
+      "minutes": 90
+    },
+    {
+      "id": 31,
+      "name": "Konsa",
+      "position": "DEF",
+      "projected": 2.1247439234151972,
+      "actual": 10,
+      "error": 7.875256076584803,
+      "absoluteError": 7.875256076584803,
+      "minutes": 90
+    },
+    {
+      "id": 119,
+      "name": "Costinha",
+      "position": "DEF",
+      "projected": 0.43189626147804194,
+      "actual": 8,
+      "error": 7.568103738521958,
+      "absoluteError": 7.568103738521958,
+      "minutes": 90
+    },
+    {
+      "id": 129,
+      "name": "Ayari",
+      "position": "MID",
+      "projected": 2.4553695198526095,
+      "actual": 10,
+      "error": 7.54463048014739,
+      "absoluteError": 7.54463048014739,
+      "minutes": 90
+    },
+    {
+      "id": 492,
+      "name": "Awoniyi",
+      "position": "FWD",
+      "projected": 1.4718745108073616,
+      "actual": 9,
+      "error": 7.528125489192639,
+      "absoluteError": 7.528125489192639,
+      "minutes": 71
+    },
+    {
+      "id": 151,
+      "name": "Acheampong",
+      "position": "DEF",
+      "projected": 1.4999695839063312,
+      "actual": 9,
+      "error": 7.500030416093669,
+      "absoluteError": 7.500030416093669,
+      "minutes": 90
+    },
+    {
+      "id": 230,
+      "name": "Branthwaite",
+      "position": "DEF",
+      "projected": 1.541542963910163,
+      "actual": 9,
+      "error": 7.458457036089837,
+      "absoluteError": 7.458457036089837,
+      "minutes": 81
+    },
+    {
+      "id": 77,
+      "name": "Adli",
+      "position": "MID",
+      "projected": 0.6526260340401837,
+      "actual": 8,
+      "error": 7.347373965959816,
+      "absoluteError": 7.347373965959816,
+      "minutes": 2
+    }
+  ],
+  "bestPredictions": [
+    {
+      "id": 236,
+      "name": "Dewsbury-Hall",
+      "position": "MID",
+      "projected": 3.2653153245142357,
+      "actual": 4,
+      "error": 0.7346846754857643,
+      "absoluteError": 0.7346846754857643,
+      "minutes": 90
+    },
+    {
+      "id": 544,
+      "name": "Xhaka",
+      "position": "MID",
+      "projected": 3.118686722364682,
+      "actual": 4,
+      "error": 0.8813132776353179,
+      "absoluteError": 0.8813132776353179,
+      "minutes": 90
+    },
+    {
+      "id": 481,
+      "name": "Anderson",
+      "position": "MID",
+      "projected": 3.060528665321348,
+      "actual": 4,
+      "error": 0.9394713346786521,
+      "absoluteError": 0.9394713346786521,
+      "minutes": 90
+    },
+    {
+      "id": 210,
+      "name": "Wharton",
+      "position": "MID",
+      "projected": 2.6806033658599016,
+      "actual": 4,
+      "error": 1.3193966341400984,
+      "absoluteError": 1.3193966341400984,
+      "minutes": 87
+    },
+    {
+      "id": 105,
+      "name": "Anthony",
+      "position": "MID",
+      "projected": 2.5057226866992686,
+      "actual": 4,
+      "error": 1.4942773133007314,
+      "absoluteError": 1.4942773133007314,
+      "minutes": 18
+    }
+  ],
+  "bestPredictionsNote": "High-output players scoring at least 4 points where the pre-deadline forecast was within 1.5 points of the official result.",
+  "kickoffCapture": {
+    "captured": 7,
+    "total": 10,
+    "missingFixtures": [
+      84,
+      90,
+      89
+    ]
+  }
+}
