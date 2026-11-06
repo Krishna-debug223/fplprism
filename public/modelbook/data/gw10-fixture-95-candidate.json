@@ -3,18 +3,18 @@
   "fixtureId": 95,
   "fixtureKickoffTime": "2026-11-07T15:00:00Z",
   "contentHashAlgorithm": "sha256",
-  "contentHash": "49b8728886cd6dfb30ebf71ab22985d4632931ef0fb54dd22d9b4dbfc49eaa73",
+  "contentHash": "32afe4b3cb421b5e259c985588152c0ff3f28ac3bb579e86740bc98215e7d439",
   "snapshot": {
     "schemaVersion": 2,
     "gameweek": 10,
     "eventName": "Gameweek 10",
     "deadlineTime": "2026-11-06T18:30:00Z",
-    "generatedAt": "2026-11-06T00:00:35.383Z",
+    "generatedAt": "2026-11-06T06:29:28.545Z",
     "modelVersion": "1.4.6",
     "training": {
       "trainedThroughGameweek": 9,
       "targetGameweek": 10,
-      "updatedAt": "2026-11-06T00:00:35.383Z",
+      "updatedAt": "2026-11-06T06:29:28.545Z",
       "source": "Official FPL live feed + 3 completed-season priors",
       "method": "Walk-forward, minutes-weighted current-season blending",
       "validation": "Historical walk-forward replay and archived Modelbook reports"
@@ -226,7 +226,7 @@
       "deadlineTime": "2026-11-06T18:30:00Z",
       "scanWindowStart": "2026-11-06T17:30:00.000Z",
       "windowState": "scheduled",
-      "scannedAt": "2026-11-06T00:00:35.360Z",
+      "scannedAt": "2026-11-06T06:29:28.518Z",
       "source": "official-fpl-bootstrap",
       "alerts": [
         {
@@ -2456,7 +2456,7 @@
         "team": "NEW",
         "position": "DEF",
         "price": 53,
-        "ownership": 19.5,
+        "ownership": 19.4,
         "status": "a",
         "fixture": "FUL (A)",
         "kickoffTime": "2026-11-07T15:00:00Z",
@@ -2600,7 +2600,7 @@
         "team": "NEW",
         "position": "MID",
         "price": 61,
-        "ownership": 7.3,
+        "ownership": 7.2,
         "status": "a",
         "fixture": "FUL (A)",
         "kickoffTime": "2026-11-07T15:00:00Z",

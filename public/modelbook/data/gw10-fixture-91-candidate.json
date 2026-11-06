@@ -3,18 +3,18 @@
   "fixtureId": 91,
   "fixtureKickoffTime": "2026-11-07T15:00:00Z",
   "contentHashAlgorithm": "sha256",
-  "contentHash": "dfe71b03ac53f6c2c8f4e6d22578390b7ff68fb38215accdd0a1c2ce6a6ec11e",
+  "contentHash": "0bd8aca19ec23437caad2092ce6e35dffbc0a35e5a5fb9a8c0d8d14fef85d6e7",
   "snapshot": {
     "schemaVersion": 2,
     "gameweek": 10,
     "eventName": "Gameweek 10",
     "deadlineTime": "2026-11-06T18:30:00Z",
-    "generatedAt": "2026-11-06T00:00:35.285Z",
+    "generatedAt": "2026-11-06T06:29:28.292Z",
     "modelVersion": "1.4.6",
     "training": {
       "trainedThroughGameweek": 9,
       "targetGameweek": 10,
-      "updatedAt": "2026-11-06T00:00:35.285Z",
+      "updatedAt": "2026-11-06T06:29:28.292Z",
       "source": "Official FPL live feed + 3 completed-season priors",
       "method": "Walk-forward, minutes-weighted current-season blending",
       "validation": "Historical walk-forward replay and archived Modelbook reports"
@@ -226,7 +226,7 @@
       "deadlineTime": "2026-11-06T18:30:00Z",
       "scanWindowStart": "2026-11-06T17:30:00.000Z",
       "windowState": "scheduled",
-      "scannedAt": "2026-11-06T00:00:35.253Z",
+      "scannedAt": "2026-11-06T06:29:28.256Z",
       "source": "official-fpl-bootstrap",
       "alerts": [
         {
@@ -728,7 +728,7 @@
         "team": "ARS",
         "position": "GKP",
         "price": 62,
-        "ownership": 46.8,
+        "ownership": 46.9,
         "status": "a",
         "fixture": "HUL (H)",
         "kickoffTime": "2026-11-07T15:00:00Z",
@@ -1304,7 +1304,7 @@
         "team": "ARS",
         "position": "MID",
         "price": 74,
-        "ownership": 12.8,
+        "ownership": 12.9,
         "status": "a",
         "fixture": "HUL (H)",
         "kickoffTime": "2026-11-07T15:00:00Z",
