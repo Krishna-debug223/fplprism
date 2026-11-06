@@ -1,9 +1,15 @@
 {
+  "lockSchemaVersion": 3,
   "gameweek": 10,
-  "capturedAt": "2026-11-06T14:34:13.720Z",
+  "lockedAt": "2026-11-06T14:34:13.720Z",
+  "lockMode": "automatic-predeadline-fallback",
+  "lockNote": "The scheduled final lock was missed. This immutable fallback uses the most recent verified checkpoint captured before the official deadline.",
   "deadlineTime": "2026-11-06T18:30:00Z",
-  "contentHash": "abbb6018eb86bfdf8edba6d8d5cf0330f20863c05ea813bd5aaae1c8581b64ec",
+  "modelVersion": "1.4.6",
+  "source": "https://fplprism.com/api/ledger/snapshot?event=10",
   "contentHashAlgorithm": "sha256",
+  "contentHash": "abbb6018eb86bfdf8edba6d8d5cf0330f20863c05ea813bd5aaae1c8581b64ec",
+  "sourceByteLength": 625267,
   "snapshot": {
     "schemaVersion": 2,
     "gameweek": 10,

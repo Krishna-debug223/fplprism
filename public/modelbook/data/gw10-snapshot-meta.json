@@ -1,0 +1,65 @@
+{
+  "season": "2026-27",
+  "gameweek": 10,
+  "lockedAt": "2026-11-06T14:34:13.720Z",
+  "deadline": "2026-11-06T18:30:00Z",
+  "modelVersion": "1.4.6",
+  "sourceModelVersion": "1.4.6",
+  "lockedBeforeDeadline": true,
+  "captureType": "last-predeadline-checkpoint",
+  "contentHash": "abbb6018eb86bfdf8edba6d8d5cf0330f20863c05ea813bd5aaae1c8581b64ec",
+  "feeds": [
+    "Official Fantasy Premier League bootstrap and fixture data",
+    "FPL Prism production projection endpoint"
+  ],
+  "sampleProjections": [
+    {
+      "id": 411,
+      "name": "Haaland",
+      "projected": 4.8509552828309035,
+      "fixture": "NFO (A)"
+    },
+    {
+      "id": 427,
+      "name": "Mbeumo",
+      "projected": 4.107770518871536,
+      "fixture": "AVL (H)"
+    },
+    {
+      "id": 68,
+      "name": "Tavernier",
+      "projected": 3.982797073464332,
+      "fixture": "IPS (A)"
+    },
+    {
+      "id": 426,
+      "name": "B.Fernandes",
+      "projected": 3.86918091455357,
+      "fixture": "AVL (H)"
+    },
+    {
+      "id": 379,
+      "name": "Isak",
+      "projected": 3.749379706048053,
+      "fixture": "CRY (A)"
+    },
+    {
+      "id": 79,
+      "name": "Evanilson",
+      "projected": 3.7361784276604753,
+      "fixture": "IPS (A)"
+    },
+    {
+      "id": 249,
+      "name": "Barry",
+      "projected": 3.7288007641758396,
+      "fixture": "COV (H)"
+    },
+    {
+      "id": 40,
+      "name": "Rogers",
+      "projected": 3.663883717082881,
+      "fixture": "SUN (A)"
+    }
+  ]
+}
