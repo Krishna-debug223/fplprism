@@ -3,18 +3,18 @@
   "fixtureId": 94,
   "fixtureKickoffTime": "2026-11-06T20:00:00Z",
   "contentHashAlgorithm": "sha256",
-  "contentHash": "365c7f4e51585f68c1fe5b6b93409bd1870e68d83d9f1f309bcd49fc4788786f",
+  "contentHash": "a390ae6265fc9b03db88eb20a9f3abb8f6dc2f1af1cb73c5ad2c054401064147",
   "snapshot": {
     "schemaVersion": 2,
     "gameweek": 10,
     "eventName": "Gameweek 10",
     "deadlineTime": "2026-11-06T18:30:00Z",
-    "generatedAt": "2026-11-05T18:55:28.933Z",
+    "generatedAt": "2026-11-06T00:00:35.024Z",
     "modelVersion": "1.4.6",
     "training": {
       "trainedThroughGameweek": 9,
       "targetGameweek": 10,
-      "updatedAt": "2026-11-05T18:55:28.933Z",
+      "updatedAt": "2026-11-06T00:00:35.024Z",
       "source": "Official FPL live feed + 3 completed-season priors",
       "method": "Walk-forward, minutes-weighted current-season blending",
       "validation": "Historical walk-forward replay and archived Modelbook reports"
@@ -226,9 +226,21 @@
       "deadlineTime": "2026-11-06T18:30:00Z",
       "scanWindowStart": "2026-11-06T17:30:00.000Z",
       "windowState": "scheduled",
-      "scannedAt": "2026-11-05T18:55:28.889Z",
+      "scannedAt": "2026-11-06T00:00:34.976Z",
       "source": "official-fpl-bootstrap",
       "alerts": [
+        {
+          "playerId": 573,
+          "playerName": "Sanchez",
+          "teamId": 3,
+          "team": "BOU",
+          "status": "i",
+          "chanceOfPlaying": 0,
+          "news": "Ankle injury - Unknown return date",
+          "newsAdded": "2026-11-05T21:30:08.441541Z",
+          "kickoffTime": "2026-11-08T14:00:00Z",
+          "severity": "high"
+        },
         {
           "playerId": 563,
           "playerName": "Morita",
@@ -263,6 +275,18 @@
           "news": "Suspended until 21 Nov",
           "newsAdded": "2026-11-02T22:00:09.813234Z",
           "kickoffTime": "2026-11-07T15:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 543,
+          "playerName": "Diarra",
+          "teamId": 20,
+          "team": "SUN",
+          "status": "i",
+          "chanceOfPlaying": 100,
+          "news": "Muscular injury - Unknown return date",
+          "newsAdded": "2026-11-01T08:30:09.264068Z",
+          "kickoffTime": "2026-11-08T14:00:00Z",
           "severity": "high"
         },
         {
@@ -683,30 +707,6 @@
           "news": "Hamstring injury - Unknown return date",
           "newsAdded": "2026-09-27T21:30:07.831640Z",
           "kickoffTime": "2026-11-08T16:30:00Z",
-          "severity": "high"
-        },
-        {
-          "playerId": 158,
-          "playerName": "Gittens",
-          "teamId": 6,
-          "team": "CHE",
-          "status": "i",
-          "chanceOfPlaying": 0,
-          "news": "Ankle injury - Unknown return date",
-          "newsAdded": "2026-09-26T05:30:09.245832Z",
-          "kickoffTime": "2026-11-08T14:00:00Z",
-          "severity": "high"
-        },
-        {
-          "playerId": 532,
-          "playerName": "Ballard",
-          "teamId": 20,
-          "team": "SUN",
-          "status": "i",
-          "chanceOfPlaying": 0,
-          "news": "Hamstring injury - Unknown return date",
-          "newsAdded": "2026-09-25T21:30:10.370384Z",
-          "kickoffTime": "2026-11-08T14:00:00Z",
           "severity": "high"
         }
       ],
@@ -1448,7 +1448,7 @@
         "team": "COV",
         "position": "MID",
         "price": 49,
-        "ownership": 0.9,
+        "ownership": 1,
         "status": "a",
         "fixture": "EVE (A)",
         "kickoffTime": "2026-11-06T20:00:00Z",
@@ -3560,7 +3560,7 @@
         "team": "EVE",
         "position": "FWD",
         "price": 56,
-        "ownership": 7.8,
+        "ownership": 7.9,
         "status": "a",
         "fixture": "COV (H)",
         "kickoffTime": "2026-11-06T20:00:00Z",
