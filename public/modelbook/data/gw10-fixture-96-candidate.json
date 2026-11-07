@@ -3,18 +3,18 @@
   "fixtureId": 96,
   "fixtureKickoffTime": "2026-11-08T14:00:00Z",
   "contentHashAlgorithm": "sha256",
-  "contentHash": "d792bbde3f51716f97c5bc2e6a6af25868edb13b5a5da69f5880fa20ff3fc092",
+  "contentHash": "4259f6195eafc87738d089230727f4a21f8b8e423a24db7edc5e4b94a4c31bf8",
   "snapshot": {
     "schemaVersion": 2,
     "gameweek": 10,
     "eventName": "Gameweek 10",
     "deadlineTime": "2026-11-06T18:30:00Z",
-    "generatedAt": "2026-11-06T20:34:24.211Z",
+    "generatedAt": "2026-11-07T06:18:53.015Z",
     "modelVersion": "1.4.6",
     "training": {
       "trainedThroughGameweek": 9,
       "targetGameweek": 10,
-      "updatedAt": "2026-11-06T20:34:24.211Z",
+      "updatedAt": "2026-11-07T06:18:53.015Z",
       "source": "Official FPL live feed + 3 completed-season priors",
       "method": "Walk-forward, minutes-weighted current-season blending",
       "validation": "Historical walk-forward replay and archived Modelbook reports"
@@ -32,26 +32,49 @@
         "code": 2645288,
         "event": 10,
         "finished": false,
-        "finished_provisional": false,
+        "finished_provisional": true,
         "id": 94,
         "kickoff_time": "2026-11-06T20:00:00Z",
-        "minutes": 29,
+        "minutes": 90,
         "provisional_start_time": false,
         "started": true,
         "team_a": 7,
-        "team_a_score": 0,
+        "team_a_score": 1,
         "team_h": 9,
-        "team_h_score": 0,
+        "team_h_score": 3,
         "stats": [
           {
             "identifier": "goals_scored",
-            "a": [],
-            "h": []
+            "a": [
+              {
+                "value": 1,
+                "element": 655
+              }
+            ],
+            "h": [
+              {
+                "value": 2,
+                "element": 249
+              },
+              {
+                "value": 1,
+                "element": 236
+              }
+            ]
           },
           {
             "identifier": "assists",
             "a": [],
-            "h": []
+            "h": [
+              {
+                "value": 1,
+                "element": 233
+              },
+              {
+                "value": 1,
+                "element": 249
+              }
+            ]
           },
           {
             "identifier": "own_goals",
@@ -70,8 +93,18 @@
           },
           {
             "identifier": "yellow_cards",
-            "a": [],
-            "h": []
+            "a": [
+              {
+                "value": 1,
+                "element": 575
+              }
+            ],
+            "h": [
+              {
+                "value": 1,
+                "element": 230
+              }
+            ]
           },
           {
             "identifier": "red_cards",
@@ -82,44 +115,37 @@
             "identifier": "saves",
             "a": [
               {
-                "value": 1,
-                "element": 110
-              }
-            ],
-            "h": []
-          },
-          {
-            "identifier": "bonus",
-            "a": [
-              {
-                "value": 2,
-                "element": 185
-              },
-              {
-                "value": 1,
+                "value": 4,
                 "element": 110
               }
             ],
             "h": [
               {
                 "value": 3,
-                "element": 233
-              },
+                "element": 226
+              }
+            ]
+          },
+          {
+            "identifier": "bonus",
+            "a": [
               {
                 "value": 1,
+                "element": 655
+              }
+            ],
+            "h": [
+              {
+                "value": 3,
+                "element": 249
+              },
+              {
+                "value": 2,
                 "element": 236
               },
               {
                 "value": 1,
-                "element": 242
-              },
-              {
-                "value": 1,
-                "element": 244
-              },
-              {
-                "value": 1,
-                "element": 245
+                "element": 233
               }
             ]
           },
@@ -127,94 +153,134 @@
             "identifier": "bps",
             "a": [
               {
-                "value": 7,
-                "element": 185
-              },
-              {
-                "value": 6,
-                "element": 110
-              },
-              {
-                "value": 5,
-                "element": 176
-              },
-              {
-                "value": 5,
+                "value": 33,
                 "element": 655
               },
               {
-                "value": 4,
-                "element": 91
+                "value": 20,
+                "element": 188
               },
               {
-                "value": 4,
-                "element": 175
-              },
-              {
-                "value": 4,
-                "element": 492
-              },
-              {
-                "value": 4,
-                "element": 575
-              },
-              {
-                "value": 4,
-                "element": 656
-              },
-              {
-                "value": 3,
+                "value": 19,
                 "element": 183
               },
               {
+                "value": 15,
+                "element": 185
+              },
+              {
+                "value": 15,
+                "element": 575
+              },
+              {
+                "value": 7,
+                "element": 110
+              },
+              {
+                "value": 7,
+                "element": 175
+              },
+              {
+                "value": 7,
+                "element": 492
+              },
+              {
+                "value": 5,
+                "element": 656
+              },
+              {
+                "value": 4,
+                "element": 584
+              },
+              {
                 "value": 3,
-                "element": 188
+                "element": 176
+              },
+              {
+                "value": 3,
+                "element": 184
+              },
+              {
+                "value": 3,
+                "element": 599
+              },
+              {
+                "value": 2,
+                "element": 190
+              },
+              {
+                "value": 2,
+                "element": 194
+              },
+              {
+                "value": -2,
+                "element": 91
               }
             ],
             "h": [
               {
-                "value": 9,
-                "element": 233
+                "value": 59,
+                "element": 249
               },
               {
-                "value": 6,
+                "value": 41,
                 "element": 236
               },
               {
-                "value": 6,
+                "value": 33,
+                "element": 233
+              },
+              {
+                "value": 25,
                 "element": 242
               },
               {
-                "value": 6,
-                "element": 244
-              },
-              {
-                "value": 6,
-                "element": 245
-              },
-              {
-                "value": 5,
-                "element": 230
-              },
-              {
-                "value": 4,
-                "element": 226
-              },
-              {
-                "value": 3,
-                "element": 229
-              },
-              {
-                "value": 3,
+                "value": 18,
                 "element": 239
               },
               {
-                "value": 3,
+                "value": 18,
+                "element": 244
+              },
+              {
+                "value": 17,
                 "element": 246
               },
               {
+                "value": 13,
+                "element": 226
+              },
+              {
+                "value": 11,
+                "element": 230
+              },
+              {
+                "value": 10,
+                "element": 245
+              },
+              {
+                "value": 7,
+                "element": 229
+              },
+              {
+                "value": 5,
+                "element": 209
+              },
+              {
+                "value": 5,
+                "element": 247
+              },
+              {
                 "value": 3,
-                "element": 249
+                "element": 231
+              },
+              {
+                "value": 3,
+                "element": 232
+              },
+              {
+                "value": 3,
+                "element": 243
               }
             ]
           },
@@ -222,82 +288,106 @@
             "identifier": "defensive_contribution",
             "a": [
               {
-                "value": 5,
-                "element": 575
-              },
-              {
-                "value": 4,
-                "element": 91
-              },
-              {
-                "value": 4,
-                "element": 176
-              },
-              {
-                "value": 4,
+                "value": 13,
                 "element": 188
               },
               {
-                "value": 3,
-                "element": 175
+                "value": 11,
+                "element": 575
               },
               {
-                "value": 3,
+                "value": 10,
+                "element": 91
+              },
+              {
+                "value": 9,
                 "element": 185
               },
               {
-                "value": 3,
-                "element": 492
+                "value": 8,
+                "element": 175
               },
               {
-                "value": 2,
-                "element": 655
+                "value": 8,
+                "element": 176
               },
               {
-                "value": 1,
+                "value": 8,
                 "element": 183
               },
               {
-                "value": 1,
+                "value": 6,
                 "element": 656
+              },
+              {
+                "value": 4,
+                "element": 492
+              },
+              {
+                "value": 3,
+                "element": 655
+              },
+              {
+                "value": 2,
+                "element": 194
+              },
+              {
+                "value": 1,
+                "element": 184
               }
             ],
             "h": [
               {
-                "value": 3,
+                "value": 11,
                 "element": 230
               },
               {
-                "value": 3,
-                "element": 236
-              },
-              {
-                "value": 3,
-                "element": 239
-              },
-              {
-                "value": 3,
-                "element": 244
-              },
-              {
-                "value": 2,
+                "value": 11,
                 "element": 233
               },
               {
-                "value": 2,
-                "element": 245
+                "value": 10,
+                "element": 239
               },
               {
-                "value": 2,
+                "value": 10,
+                "element": 244
+              },
+              {
+                "value": 9,
+                "element": 236
+              },
+              {
+                "value": 9,
                 "element": 246
               },
               {
-                "value": 1,
+                "value": 8,
                 "element": 242
               },
               {
-                "value": 1,
+                "value": 7,
+                "element": 245
+              },
+              {
+                "value": 4,
+                "element": 229
+              },
+              {
+                "value": 4,
                 "element": 249
+              },
+              {
+                "value": 2,
+                "element": 247
+              },
+              {
+                "value": 1,
+                "element": 231
+              },
+              {
+                "value": 1,
+                "element": 232
               }
             ]
           }
@@ -485,7 +575,7 @@
       "deadlineTime": "2026-11-06T18:30:00Z",
       "scanWindowStart": "2026-11-06T17:30:00.000Z",
       "windowState": "closed",
-      "scannedAt": "2026-11-06T20:34:24.187Z",
+      "scannedAt": "2026-11-07T06:18:52.988Z",
       "source": "official-fpl-bootstrap",
       "alerts": [
         {
@@ -992,8 +1082,8 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 2.2901464592555274,
-        "volatility": 2.0036998926411225,
+        "projected": 2.2902487742695286,
+        "volatility": 2.0037449943324264,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 64,
@@ -1010,15 +1100,15 @@
         "simulations": 768,
         "components": {
           "appearance": 1.8469073320628944,
-          "attack": 0.0666744387941911,
-          "cleanSheet": 0.49344296705833857,
+          "attack": 0.06666234220189256,
+          "cleanSheet": 0.49358157947017406,
           "saves": 0.4028471699321401,
           "defensiveContribution": 0,
-          "bonus": 0.21630866159621567,
+          "bonus": 0.21630520381469687,
           "discipline": -0.040872589340042315,
-          "empiricalAnchor": 0.1481784414492521,
-          "calibrationAdjustment": -0.843339962297462,
-          "fixtureDifficulty": 0.06144091022652942,
+          "empiricalAnchor": 0.14817775885479073,
+          "calibrationAdjustment": -0.8433600227270182,
+          "fixtureDifficulty": 0.061443309745030206,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -1058,15 +1148,15 @@
         "simulations": 768,
         "components": {
           "appearance": 0.24411133927125508,
-          "attack": 0.008332038748427873,
-          "cleanSheet": 0.10032171038466985,
+          "attack": 0.008330527085524094,
+          "cleanSheet": 0.10033508787514554,
           "saves": 0.11924595265895993,
           "defensiveContribution": 0,
           "bonus": 0,
           "discipline": 0,
-          "empiricalAnchor": 0.025965013274078644,
-          "calibrationAdjustment": -0.46991645919569097,
-          "fixtureDifficulty": 0.0097642363595567,
+          "empiricalAnchor": 0.02596489366441022,
+          "calibrationAdjustment": -0.4699282054135944,
+          "fixtureDifficulty": 0.009764466677554817,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -1136,8 +1226,8 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 2.8031330783984623,
-        "volatility": 2.704329276280455,
+        "projected": 2.80315942202771,
+        "volatility": 2.704344519066834,
         "risk": "High",
         "confidence": "High",
         "dataQuality": 77,
@@ -1154,15 +1244,15 @@
         "simulations": 768,
         "components": {
           "appearance": 1.6838086317618284,
-          "attack": 0.47173110975768034,
-          "cleanSheet": 0.4592789445458966,
+          "attack": 0.47164552465171644,
+          "cleanSheet": 0.4594031516738981,
           "saves": 0,
           "defensiveContribution": 0.8530369641906181,
-          "bonus": 0.24026807254141996,
+          "bonus": 0.2402642317590183,
           "discipline": -0.1008280312741996,
-          "empiricalAnchor": 0.15427752639425651,
-          "calibrationAdjustment": -0.9584401395190385,
-          "fixtureDifficulty": 0.07375633760622557,
+          "empiricalAnchor": 0.15427681570392937,
+          "calibrationAdjustment": -0.9584478664391001,
+          "fixtureDifficulty": 0.07375700565621202,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -1184,8 +1274,8 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 2.674064971649609,
-        "volatility": 2.4706626654152863,
+        "projected": 2.6740880692461926,
+        "volatility": 2.470674014444572,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 70,
@@ -1202,15 +1292,15 @@
         "simulations": 768,
         "components": {
           "appearance": 1.8443477348923079,
-          "attack": 0.5669423574640305,
-          "cleanSheet": 0.4952855803860999,
+          "attack": 0.566839498397212,
+          "cleanSheet": 0.4954233031494848,
           "saves": 0,
           "defensiveContribution": 0.36829880672227294,
-          "bonus": 0.2552155432838527,
+          "bonus": 0.2552114635600804,
           "discipline": -0.15502114690369911,
-          "empiricalAnchor": 0.1978822647935101,
-          "calibrationAdjustment": -0.8988861689887653,
-          "fixtureDifficulty": 0.07005786550271331,
+          "empiricalAnchor": 0.19788135323487427,
+          "calibrationAdjustment": -0.8988929438063407,
+          "fixtureDifficulty": 0.07005845123632426,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -1232,8 +1322,8 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 0.26289606690435174,
-        "volatility": 1.4209434215786874,
+        "projected": 0.2629066742273112,
+        "volatility": 1.4209563108330792,
         "risk": "High",
         "confidence": "Low",
         "dataQuality": 43,
@@ -1250,15 +1340,15 @@
         "simulations": 768,
         "components": {
           "appearance": 0.39145236179433196,
-          "attack": 0.011219640459886295,
-          "cleanSheet": 0.11063175926990124,
+          "attack": 0.011217604905949375,
+          "cleanSheet": 0.11064800994655886,
           "saves": 0,
           "defensiveContribution": 0.07549331626776627,
-          "bonus": 0.02126711510979221,
+          "bonus": 0.021266775146348112,
           "discipline": -0.010549750086205035,
-          "empiricalAnchor": 0.03398931182631024,
-          "calibrationAdjustment": -0.37060768773743147,
-          "fixtureDifficulty": 0.012421642247878117,
+          "empiricalAnchor": 0.0339891552521435,
+          "calibrationAdjustment": -0.3706107989995818,
+          "fixtureDifficulty": 0.012421911239743011,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -1328,8 +1418,8 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 2.050650664486301,
-        "volatility": 2.292995584251512,
+        "projected": 2.0506703647195677,
+        "volatility": 2.293007039254291,
         "risk": "High",
         "confidence": "High",
         "dataQuality": 82,
@@ -1346,15 +1436,15 @@
         "simulations": 768,
         "components": {
           "appearance": 1.6678577061302446,
-          "attack": 0.5049468630886471,
-          "cleanSheet": 0.4830743158247858,
+          "attack": 0.504855251723847,
+          "cleanSheet": 0.4831945787773644,
           "saves": 0,
           "defensiveContribution": 0.05804618443108567,
-          "bonus": 0.17084591010602074,
+          "bonus": 0.17084317906498817,
           "discipline": -0.18894238754868714,
-          "empiricalAnchor": 0.09594677267419274,
-          "calibrationAdjustment": -0.7411247002199883,
-          "fixtureDifficulty": 0.05474069342561361,
+          "empiricalAnchor": 0.09594633068860445,
+          "calibrationAdjustment": -0.7411304785478796,
+          "fixtureDifficulty": 0.05474119300524416,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -1424,8 +1514,8 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 0.4415346644755711,
-        "volatility": 1.6052483882342843,
+        "projected": 0.44153155862673477,
+        "volatility": 1.6052443748415717,
         "risk": "High",
         "confidence": "Low",
         "dataQuality": 23,
@@ -1442,15 +1532,15 @@
         "simulations": 768,
         "components": {
           "appearance": 0.47022613661538465,
-          "attack": 0.13680761543721137,
-          "cleanSheet": 0.14656478970650427,
+          "attack": 0.1367827947416463,
+          "cleanSheet": 0.14658642021314963,
           "saves": 0,
           "defensiveContribution": 0.03765570330613271,
-          "bonus": 0.038762685719657054,
+          "bonus": 0.03876206608243443,
           "discipline": -0.020956924901743588,
-          "empiricalAnchor": 0.0449374391319556,
-          "calibrationAdjustment": -0.4124627805395309,
-          "fixtureDifficulty": 0.01674504794147258,
+          "empiricalAnchor": 0.044937232124466805,
+          "calibrationAdjustment": -0.4124618695547362,
+          "fixtureDifficulty": 0.01674496918002888,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -1472,8 +1562,8 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 3.0953434049000874,
-        "volatility": 3.344386321247118,
+        "projected": 3.0951127503864706,
+        "volatility": 3.3442306328734905,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 69,
@@ -1490,15 +1580,15 @@
         "simulations": 768,
         "components": {
           "appearance": 1.602996955031579,
-          "attack": 1.403962456120591,
-          "cleanSheet": 0.19336250340926522,
+          "attack": 1.4037077383945584,
+          "cleanSheet": 0.19338244337472257,
           "saves": 0,
           "defensiveContribution": 0.02247204171570454,
-          "bonus": 0.21358084387500598,
+          "bonus": 0.2135774296987577,
           "discipline": -0.08179486500746311,
-          "empiricalAnchor": 0.17226611718489004,
-          "calibrationAdjustment": -0.4315026474294852,
-          "fixtureDifficulty": 0.06915384416332504,
+          "empiricalAnchor": 0.1722379770537662,
+          "calibrationAdjustment": -0.4314669698751552,
+          "fixtureDifficulty": 0.06914862196591409,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -1520,8 +1610,8 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 3.9793080027229224,
-        "volatility": 3.7444769722541453,
+        "projected": 3.9789852782436492,
+        "volatility": 3.7442781764987303,
         "risk": "High",
         "confidence": "High",
         "dataQuality": 81,
@@ -1538,15 +1628,15 @@
         "simulations": 768,
         "components": {
           "appearance": 1.7649069460728743,
-          "attack": 2.0142507048998772,
-          "cleanSheet": 0.21563748596359875,
+          "attack": 2.013885263960218,
+          "cleanSheet": 0.21565972297411323,
           "saves": 0,
           "defensiveContribution": 0.08271680105053303,
-          "bonus": 0.514811561891453,
+          "bonus": 0.514803332420237,
           "discipline": -0.18875149153033172,
-          "empiricalAnchor": 0.12984165219413812,
-          "calibrationAdjustment": -0.5541056578192207,
-          "fixtureDifficulty": 0.08889046393219857,
+          "empiricalAnchor": 0.12982044221287314,
+          "calibrationAdjustment": -0.5540557389168663,
+          "fixtureDifficulty": 0.08888315719922613,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -1568,8 +1658,8 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 0.7590741292557093,
-        "volatility": 2.2944478805539235,
+        "projected": 0.7590329695090217,
+        "volatility": 2.294382370977027,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 66,
@@ -1586,15 +1676,15 @@
         "simulations": 768,
         "components": {
           "appearance": 0.44703368475662386,
-          "attack": 0.2524827010381355,
-          "cleanSheet": 0.04766863367016735,
+          "attack": 0.25243689367399225,
+          "cleanSheet": 0.047673549364223966,
           "saves": 0,
           "defensiveContribution": 0.13871537828178945,
-          "bonus": 0.08351067018872436,
+          "bonus": 0.08350933523685573,
           "discipline": -0.03457475923767555,
-          "empiricalAnchor": 0.03244329497418794,
-          "calibrationAdjustment": -0.20820547441624349,
-          "fixtureDifficulty": 0.01896626673866575,
+          "empiricalAnchor": 0.03243799527515495,
+          "calibrationAdjustment": -0.20819910784194318,
+          "fixtureDifficulty": 0.018965334850018944,
           "sportsbookMarket": 0
         },
         "news": "Thigh injury - 75% chance of playing",
@@ -1616,8 +1706,8 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 2.2372001830184947,
-        "volatility": 3.051021180174143,
+        "projected": 2.2370432709782384,
+        "volatility": 3.050889284329763,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 71,
@@ -1634,15 +1724,15 @@
         "simulations": 768,
         "components": {
           "appearance": 1.2934247955019187,
-          "attack": 0.9879094184044925,
-          "cleanSheet": 0.14961758781557885,
+          "attack": 0.9877301842380196,
+          "cleanSheet": 0.14963301670939355,
           "saves": 0,
           "defensiveContribution": 0.011177281225192322,
-          "bonus": 0.15256976209096673,
+          "bonus": 0.15256732320155847,
           "discipline": -0.11691707577400573,
-          "empiricalAnchor": 0.09145227738787998,
-          "calibrationAdjustment": -0.33203386363352827,
-          "fixtureDifficulty": 0.050377138169647395,
+          "empiricalAnchor": 0.09143733841369674,
+          "calibrationAdjustment": -0.3320095925375348,
+          "fixtureDifficulty": 0.05037358555913274,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -1664,33 +1754,33 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 1.6286800493440987,
-        "volatility": 2.743501632333992,
+        "projected": 1.628619889250522,
+        "volatility": 2.7434423956867167,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 68,
         "floor": 0,
         "median": 1,
         "ceiling": 4,
-        "sharpe": 0.6060171388381744,
+        "sharpe": 0.6056222409451228,
         "probabilities": {
-          "bust": 78.90625,
-          "floor": 15.494791666666666,
+          "bust": 79.03645833333334,
+          "floor": 15.364583333333334,
           "middle": 3.6458333333333335,
           "haul": 1.953125
         },
         "simulations": 768,
         "components": {
           "appearance": 1.0460462667778072,
-          "attack": 0.37796879479767753,
-          "cleanSheet": 0.11491744184411117,
+          "attack": 0.37790022077598456,
+          "cleanSheet": 0.1149292923827648,
           "saves": 0,
           "defensiveContribution": 0.32834420053065866,
-          "bonus": 0.07364873555986493,
+          "bonus": 0.07364755825501351,
           "discipline": -0.11970274941760739,
-          "empiricalAnchor": 0.07079679928014455,
-          "calibrationAdjustment": -0.2633394400285578,
-          "fixtureDifficulty": 0.0370984213602481,
+          "empiricalAnchor": 0.07078523443357201,
+          "calibrationAdjustment": -0.2633301344876715,
+          "fixtureDifficulty": 0.037097059288984324,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -1712,8 +1802,8 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 0.32184906084696674,
-        "volatility": 1.6910635877495162,
+        "projected": 0.32182587921563127,
+        "volatility": 1.6910343563983161,
         "risk": "High",
         "confidence": "Low",
         "dataQuality": 46,
@@ -1730,15 +1820,15 @@
         "simulations": 768,
         "components": {
           "appearance": 0.29107604000000004,
-          "attack": 0.13727796467207226,
-          "cleanSheet": 0.00276459019028445,
+          "attack": 0.13725305864211168,
+          "cleanSheet": 0.002764875280888502,
           "saves": 0,
           "defensiveContribution": 0.008935446950310826,
-          "bonus": 0.0022491888493277514,
+          "bonus": 0.0022491528951335085,
           "discipline": -0.0008758217121975309,
-          "empiricalAnchor": 0.01291967754719731,
-          "calibrationAdjustment": -0.13249802565002833,
-          "fixtureDifficulty": 0.008908766401901858,
+          "empiricalAnchor": 0.0129175670833046,
+          "calibrationAdjustment": -0.1324944399239203,
+          "fixtureDifficulty": 0.008908241551755902,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -1760,8 +1850,8 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 2.3189848879309403,
-        "volatility": 2.989728872794774,
+        "projected": 2.3188922228599775,
+        "volatility": 2.9896579338437683,
         "risk": "High",
         "confidence": "High",
         "dataQuality": 77,
@@ -1778,15 +1868,15 @@
         "simulations": 768,
         "components": {
           "appearance": 1.4271345580857309,
-          "attack": 0.5897184345478512,
-          "cleanSheet": 0.16823796825619686,
+          "attack": 0.5896114432689944,
+          "cleanSheet": 0.16825531732448307,
           "saves": 0,
           "defensiveContribution": 0.40610662836859185,
-          "bonus": 0.16843706624955018,
+          "bonus": 0.16843437371486175,
           "discipline": -0.19879688603226858,
-          "empiricalAnchor": 0.08976727414937248,
-          "calibrationAdjustment": -0.33162015569408476,
-          "fixtureDifficulty": 0.051972647914216186,
+          "empiricalAnchor": 0.08975261042497636,
+          "calibrationAdjustment": -0.33160582229539237,
+          "fixtureDifficulty": 0.05197054990500716,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -1808,8 +1898,8 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 1.0278589851155864,
-        "volatility": 2.6116113522769826,
+        "projected": 1.0277580923452478,
+        "volatility": 2.611456055388869,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 59,
@@ -1826,15 +1916,15 @@
         "simulations": 768,
         "components": {
           "appearance": 0.5491332104284781,
-          "attack": 0.635105080241471,
-          "cleanSheet": 0.04528476554452095,
+          "attack": 0.6349898545663645,
+          "cleanSheet": 0.04528943540886786,
           "saves": 0,
           "defensiveContribution": 0.024610046990493444,
-          "bonus": 0.06453947547259024,
+          "bonus": 0.0645384437829488,
           "discipline": -0.09904566008896276,
-          "empiricalAnchor": 0.030065783097603747,
-          "calibrationAdjustment": -0.22183371657060835,
-          "fixtureDifficulty": 0.0245037784644353,
+          "empiricalAnchor": 0.030060871771496602,
+          "calibrationAdjustment": -0.22181811051443878,
+          "fixtureDifficulty": 0.024501494173719385,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -1856,8 +1946,8 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 1.9674412425939547,
-        "volatility": 3.0994792564160973,
+        "projected": 1.9673282673002506,
+        "volatility": 3.0993637913025216,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 68,
@@ -1874,15 +1964,15 @@
         "simulations": 768,
         "components": {
           "appearance": 1.030811808051359,
-          "attack": 0.7133682055845568,
-          "cleanSheet": 0.1127825345213365,
+          "attack": 0.7132387808080192,
+          "cleanSheet": 0.11279416490366449,
           "saves": 0,
           "defensiveContribution": 0.43125627597354355,
-          "bonus": 0.10385191786336827,
+          "bonus": 0.10385025774842128,
           "discipline": -0.17463926195772086,
-          "empiricalAnchor": 0.0673130140462295,
-          "calibrationAdjustment": -0.3173032514887182,
-          "fixtureDifficulty": 0.04479891164867977,
+          "empiricalAnchor": 0.06730201828529546,
+          "calibrationAdjustment": -0.3172857765123309,
+          "fixtureDifficulty": 0.04479635380024671,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -1952,8 +2042,8 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 0.6618719179258341,
-        "volatility": 2.2345368204337897,
+        "projected": 0.6618249444086394,
+        "volatility": 2.234455144256436,
         "risk": "High",
         "confidence": "Low",
         "dataQuality": 43,
@@ -1970,15 +2060,15 @@
         "simulations": 768,
         "components": {
           "appearance": 0.39992934026882593,
-          "attack": 0.279849838104828,
-          "cleanSheet": 0.024911583068341313,
+          "attack": 0.2797990655830402,
+          "cleanSheet": 0.024914152005426383,
           "saves": 0,
           "defensiveContribution": 0.06873647625508537,
-          "bonus": 0.0609583782004333,
+          "bonus": 0.06095740375608142,
           "discipline": -0.023384844303846096,
-          "empiricalAnchor": 0.03098409185068991,
-          "calibrationAdjustment": -0.18011294551852364,
-          "fixtureDifficulty": 0.016509507126360012,
+          "empiricalAnchor": 0.030979030516391094,
+          "calibrationAdjustment": -0.1801056796723649,
+          "fixtureDifficulty": 0.01650844360943149,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -2000,33 +2090,33 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 0.9805675883105265,
-        "volatility": 2.563122366884863,
+        "projected": 0.980481642567798,
+        "volatility": 2.562988473394263,
         "risk": "High",
         "confidence": "Low",
         "dataQuality": 44,
         "floor": 0,
         "median": 0,
         "ceiling": 3,
-        "sharpe": 0.439389839017185,
+        "sharpe": 0.4008091800980227,
         "probabilities": {
-          "bust": 87.23958333333334,
-          "floor": 7.682291666666667,
-          "middle": 3.3854166666666665,
-          "haul": 1.6927083333333333
+          "bust": 87.76041666666666,
+          "floor": 6.119791666666666,
+          "middle": 3.90625,
+          "haul": 2.213541666666667
         },
         "simulations": 768,
         "components": {
           "appearance": 0.5106359246963562,
-          "attack": 0.5081415089689736,
-          "cleanSheet": 0.04047540691599644,
+          "attack": 0.5080493180068127,
+          "cleanSheet": 0.04047958082873311,
           "saves": 0,
           "defensiveContribution": 0.005246009967285173,
-          "bonus": 0.1246110019508851,
+          "bonus": 0.12460900999357559,
           "discipline": -0.04751631919186565,
-          "empiricalAnchor": 0.05650835820937396,
-          "calibrationAdjustment": -0.21753430320647826,
-          "fixtureDifficulty": 0.023492193951313745,
+          "empiricalAnchor": 0.056499127417877694,
+          "calibrationAdjustment": -0.21752100915097694,
+          "fixtureDifficulty": 0.023490248072917108,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -2042,39 +2132,39 @@
         "teamId": 3,
         "team": "BOU",
         "position": "FWD",
-        "price": 64,
-        "ownership": 21.9,
+        "price": 65,
+        "ownership": 22,
         "status": "a",
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 3.7291147280221555,
-        "volatility": 3.758365661726401,
+        "projected": 3.731530319174882,
+        "volatility": 3.759423791414795,
         "risk": "High",
         "confidence": "High",
         "dataQuality": 75,
         "floor": 1,
         "median": 3,
         "ceiling": 8,
-        "sharpe": 1.0073179308891713,
+        "sharpe": 0.9743367324080371,
         "probabilities": {
-          "bust": 46.61458333333333,
-          "floor": 33.46354166666667,
-          "middle": 13.020833333333334,
-          "haul": 6.901041666666667
+          "bust": 46.35416666666667,
+          "floor": 32.421875,
+          "middle": 13.802083333333334,
+          "haul": 7.421875
         },
         "simulations": 768,
         "components": {
-          "appearance": 1.7842784036549477,
-          "attack": 1.7978978438319515,
+          "appearance": 1.7846677386703322,
+          "attack": 1.7979982139211608,
           "cleanSheet": 0,
           "saves": 0,
-          "defensiveContribution": 0.008818974562674596,
-          "bonus": 0.3893676151595034,
-          "discipline": -0.08660975139109289,
-          "empiricalAnchor": 0.1782240062510475,
-          "calibrationAdjustment": -0.3428623640468764,
-          "fixtureDifficulty": 0.0798426880797849,
+          "defensiveContribution": 0.0088211837367312,
+          "bonus": 0.3894537853065626,
+          "discipline": -0.08663030363772882,
+          "empiricalAnchor": 0.18019879478339454,
+          "calibrationAdjustment": -0.34297909360557055,
+          "fixtureDifficulty": 0.07989234142706758,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -2144,8 +2234,8 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 0.6960074110763952,
-        "volatility": 2.2270624951419,
+        "projected": 0.6959356489035224,
+        "volatility": 2.226961741079918,
         "risk": "High",
         "confidence": "Low",
         "dataQuality": 38,
@@ -2162,15 +2252,15 @@
         "simulations": 768,
         "components": {
           "appearance": 0.5131413120000001,
-          "attack": 0.35586528718283666,
+          "attack": 0.35580072335042784,
           "cleanSheet": 0,
           "saves": 0,
           "defensiveContribution": 0.00005900716527758743,
-          "bonus": 0.05388291102339348,
+          "bonus": 0.05388204968324861,
           "discipline": -0.01780266122666667,
-          "empiricalAnchor": 0.06015236328289335,
-          "calibrationAdjustment": -0.26929080835133945,
-          "fixtureDifficulty": 0.01892741606721049,
+          "empiricalAnchor": 0.060141449975971144,
+          "calibrationAdjustment": -0.26928623204473623,
+          "fixtureDifficulty": 0.018925919234279553,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -2192,8 +2282,8 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 2.888211661435143,
-        "volatility": 2.719890261071272,
+        "projected": 2.8881950550325683,
+        "volatility": 2.719880906781646,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 63,
@@ -2210,15 +2300,15 @@
         "simulations": 768,
         "components": {
           "appearance": 1.6867812984615385,
-          "attack": 0.7821000173602471,
-          "cleanSheet": 0.45789306545537933,
+          "attack": 0.7819581227268946,
+          "cleanSheet": 0.45801787364763874,
           "saves": 0,
           "defensiveContribution": 0.7058644212911305,
-          "bonus": 0.21571818337754667,
+          "bonus": 0.21571473503506125,
           "discipline": -0.18522681275897437,
-          "empiricalAnchor": 0.2045962684581729,
-          "calibrationAdjustment": -0.979514780209898,
-          "fixtureDifficulty": 0.07583777336558928,
+          "empiricalAnchor": 0.20459532597100472,
+          "calibrationAdjustment": -0.9795099093417265,
+          "fixtureDifficulty": 0.07583735224263322,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -2288,8 +2378,8 @@
         "fixture": "IPS (A)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 0.41684304751015483,
-        "volatility": 1.9135413572195281,
+        "projected": 0.41678046805051894,
+        "volatility": 1.9134542793105933,
         "risk": "High",
         "confidence": "Low",
         "dataQuality": 39,
@@ -2306,15 +2396,15 @@
         "simulations": 768,
         "components": {
           "appearance": 0.29056930400000003,
-          "attack": 0.34899266490006686,
+          "attack": 0.34892934795194064,
           "cleanSheet": 0,
           "saves": 0,
           "defensiveContribution": 1.5309009880991645e-7,
-          "bonus": 0.0711465898700642,
+          "bonus": 0.07114545256302451,
           "discipline": -0.03787061824000001,
-          "empiricalAnchor": 0.011662633984024307,
-          "calibrationAdjustment": -0.26765768009409946,
-          "fixtureDifficulty": 0.013421582894201034,
+          "empiricalAnchor": 0.011660518058776442,
+          "calibrationAdjustment": -0.26765368937332157,
+          "fixtureDifficulty": 0.013420277596545849,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -2354,15 +2444,15 @@
         "simulations": 768,
         "components": {
           "appearance": 0.1531248,
-          "attack": 0.0053538052443804305,
-          "cleanSheet": 0.06747953004927836,
+          "attack": 0.005352833915630488,
+          "cleanSheet": 0.06748781617991635,
           "saves": 0.05138606665216372,
           "defensiveContribution": 0,
-          "bonus": 0.01794859577762212,
+          "bonus": 0.017948308862052904,
           "discipline": -0.002965065955555556,
-          "empiricalAnchor": 0.02218807874229866,
-          "calibrationAdjustment": -0.2972278105101877,
-          "fixtureDifficulty": 0.006166976676670377,
+          "empiricalAnchor": 0.022187976531346038,
+          "calibrationAdjustment": -0.2972347361855539,
+          "fixtureDifficulty": 0.006167112474226577,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -2384,32 +2474,32 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 2.2054892956818093,
-        "volatility": 2.426269433052293,
+        "projected": 2.205579424465077,
+        "volatility": 2.4263246792216946,
         "risk": "High",
         "confidence": "High",
         "dataQuality": 83,
         "floor": 0,
         "median": 2,
         "ceiling": 4,
-        "sharpe": 0.9922740459264262,
+        "sharpe": 1.0465426029268536,
         "probabilities": {
-          "bust": 72.65625,
-          "floor": 22.265625,
-          "middle": 3.6458333333333335,
-          "haul": 1.4322916666666665
+          "bust": 66.66666666666666,
+          "floor": 27.473958333333332,
+          "middle": 4.947916666666666,
+          "haul": 0.9114583333333334
         },
         "simulations": 768,
         "components": {
           "appearance": 1.611867342922507,
-          "attack": 0.29701379542962636,
-          "cleanSheet": 0.489102259272215,
+          "attack": 0.2969669355357926,
+          "cleanSheet": 0.48926543828626917,
           "saves": 0,
           "defensiveContribution": 0.48779608452393414,
-          "bonus": 0.17241592179706686,
+          "bonus": 0.17241378441924848,
           "discipline": -0.13645772188668115,
-          "empiricalAnchor": 0.07737921801950619,
-          "calibrationAdjustment": -0.7936276043963648,
+          "empiricalAnchor": 0.07738160097385327,
+          "calibrationAdjustment": -0.7936540403098462,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -2432,8 +2522,8 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 1.7998818283741276,
-        "volatility": 2.6798186352688544,
+        "projected": 1.7998268787229057,
+        "volatility": 2.6797738700599165,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 73,
@@ -2450,14 +2540,14 @@
         "simulations": 768,
         "components": {
           "appearance": 1.3042552634292857,
-          "attack": 0.4745682655004368,
-          "cleanSheet": 0.15690955341653395,
+          "attack": 0.47449339282152286,
+          "cleanSheet": 0.15693143296026696,
           "saves": 0,
           "defensiveContribution": 0.1104070912552942,
-          "bonus": 0.12223331694518377,
+          "bonus": 0.12223180166296632,
           "discipline": -0.17054314111331312,
-          "empiricalAnchor": 0.06547892889417516,
-          "calibrationAdjustment": -0.26342744995346923,
+          "empiricalAnchor": 0.06546998806874986,
+          "calibrationAdjustment": -0.26341895036186735,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -2480,8 +2570,8 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 1.077909924089343,
-        "volatility": 1.8122504919656917,
+        "projected": 1.0779852161459798,
+        "volatility": 1.8123191155469063,
         "risk": "High",
         "confidence": "Low",
         "dataQuality": 45,
@@ -2498,14 +2588,14 @@
         "simulations": 768,
         "components": {
           "appearance": 0.9646509894736842,
-          "attack": 0.029960162615958838,
-          "cleanSheet": 0.34245656742340796,
+          "attack": 0.029955435798346232,
+          "cleanSheet": 0.3425500386588059,
           "saves": 0.27251562249506284,
           "defensiveContribution": 0,
-          "bonus": 0.12558562908500334,
+          "bonus": 0.12558407224538484,
           "discipline": -0.03828095393684211,
-          "empiricalAnchor": 0.09308551769856954,
-          "calibrationAdjustment": -0.7120636107655016,
+          "empiricalAnchor": 0.09308838434086353,
+          "calibrationAdjustment": -0.7120783729293256,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -2546,14 +2636,14 @@
         "simulations": 768,
         "components": {
           "appearance": 0.30659917732793524,
-          "attack": 0.00936159336780531,
-          "cleanSheet": 0.13092882637943307,
+          "attack": 0.009360116388358293,
+          "cleanSheet": 0.130953264695248,
           "saves": 0.11910453623644492,
           "defensiveContribution": 0,
           "bonus": 0,
           "discipline": -0.022594690573376243,
-          "empiricalAnchor": 0.02307827704858688,
-          "calibrationAdjustment": -0.5317525376005944,
+          "empiricalAnchor": 0.023078987762419657,
+          "calibrationAdjustment": -0.531776209650795,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -2594,14 +2684,14 @@
         "simulations": 768,
         "components": {
           "appearance": 0.1531248,
-          "attack": 0.004725027987385416,
-          "cleanSheet": 0.07055932291048585,
+          "attack": 0.004724282519285088,
+          "cleanSheet": 0.07057089277146572,
           "saves": 0.05138606665216372,
           "defensiveContribution": 0,
-          "bonus": 0.017762864649402056,
+          "bonus": 0.017762644449593957,
           "discipline": -0.002965065955555556,
-          "empiricalAnchor": 0.019982085716453962,
-          "calibrationAdjustment": -0.2972871019603354,
+          "empiricalAnchor": 0.01998270108062073,
+          "calibrationAdjustment": -0.29729832151757357,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -2642,14 +2732,14 @@
         "simulations": 768,
         "components": {
           "appearance": 0.1945984,
-          "attack": 0.05028949458107972,
-          "cleanSheet": 0.07074294787965825,
+          "attack": 0.05028156040289243,
+          "cleanSheet": 0.07075448201397028,
           "saves": 0,
           "defensiveContribution": 0.014931389191205149,
-          "bonus": 0.01597796887933854,
+          "bonus": 0.015977770806237697,
           "discipline": -0.008728763733333334,
-          "empiricalAnchor": 0.01794151187812805,
-          "calibrationAdjustment": -0.3294489486760764,
+          "empiricalAnchor": 0.01794206440120618,
+          "calibrationAdjustment": -0.32945290308217834,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -2672,8 +2762,8 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 2.745532515074701,
-        "volatility": 2.5422139301753393,
+        "projected": 2.745627710439792,
+        "volatility": 2.542262574100171,
         "risk": "High",
         "confidence": "High",
         "dataQuality": 77,
@@ -2690,14 +2780,14 @@
         "simulations": 768,
         "components": {
           "appearance": 1.8187932200071557,
-          "attack": 0.4180127974002642,
-          "cleanSheet": 0.5364978887166053,
+          "attack": 0.4179468474827562,
+          "cleanSheet": 0.5366860015046807,
           "saves": 0,
           "defensiveContribution": 0.6710775755479828,
-          "bonus": 0.21973632525756395,
+          "bonus": 0.21973360126582003,
           "discipline": -0.11308664430874737,
-          "empiricalAnchor": 0.11944788725498742,
-          "calibrationAdjustment": -0.9249465348011103,
+          "empiricalAnchor": 0.11945156574734582,
+          "calibrationAdjustment": -0.9249744568072011,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -2720,15 +2810,15 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 2.6108362292981773,
-        "volatility": 2.4906034178100223,
+        "projected": 2.6108724963619676,
+        "volatility": 2.4906222639600877,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 70,
         "floor": 1,
         "median": 2,
         "ceiling": 5,
-        "sharpe": 1.1540759257141895,
+        "sharpe": 1.154322034898279,
         "probabilities": {
           "bust": 65.10416666666666,
           "floor": 27.994791666666668,
@@ -2738,14 +2828,14 @@
         "simulations": 768,
         "components": {
           "appearance": 1.7835470168097167,
-          "attack": 0.8822797444693299,
-          "cleanSheet": 0.5274287549734671,
+          "attack": 0.8821405471128647,
+          "cleanSheet": 0.5276129069880064,
           "saves": 0,
           "defensiveContribution": 0.16700687670499106,
-          "bonus": 0.1617693743688658,
+          "bonus": 0.16176736897244495,
           "discipline": -0.15170477384162742,
-          "empiricalAnchor": 0.1284393381777731,
-          "calibrationAdjustment": -0.8879301023643382,
+          "empiricalAnchor": 0.12844329356898898,
+          "calibrationAdjustment": -0.8879407399534172,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -2768,8 +2858,8 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 1.385026011010311,
-        "volatility": 2.147665259138121,
+        "projected": 1.3850889181254076,
+        "volatility": 2.1477169806912526,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 58,
@@ -2786,14 +2876,14 @@
         "simulations": 768,
         "components": {
           "appearance": 1.1614416811271253,
-          "attack": 0.19177282778740137,
-          "cleanSheet": 0.37453956610622835,
+          "attack": 0.19174257177071596,
+          "cleanSheet": 0.37464943267164613,
           "saves": 0,
           "defensiveContribution": 0.21677849604470095,
-          "bonus": 0.06082657926322719,
+          "bonus": 0.0608258252181255,
           "discipline": -0.09772066653186393,
-          "empiricalAnchor": 0.08124697374340824,
-          "calibrationAdjustment": -0.6038594465299165,
+          "empiricalAnchor": 0.0812494758083583,
+          "calibrationAdjustment": -0.6038778979834007,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -2864,8 +2954,8 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 0.43703555322121834,
-        "volatility": 1.599446084884839,
+        "projected": 0.437044733991936,
+        "volatility": 1.5994579014580808,
         "risk": "High",
         "confidence": "Low",
         "dataQuality": 19,
@@ -2882,14 +2972,14 @@
         "simulations": 768,
         "components": {
           "appearance": 0.47039477169230776,
-          "attack": 0.12078355579452932,
-          "cleanSheet": 0.1546430081492509,
+          "attack": 0.12076449976181809,
+          "cleanSheet": 0.15467309567374982,
           "saves": 0,
           "defensiveContribution": 0.042153594576543135,
-          "bonus": 0.038375328917044066,
+          "bonus": 0.038374853191972126,
           "discipline": -0.020964440589128205,
-          "empiricalAnchor": 0.0427928689146463,
-          "calibrationAdjustment": -0.41114313423397486,
+          "empiricalAnchor": 0.042794186754960724,
+          "calibrationAdjustment": -0.41114582707028735,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -2912,8 +3002,8 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 1.140438937588419,
-        "volatility": 2.4696393146750366,
+        "projected": 1.1403859738795008,
+        "volatility": 2.469576725604078,
         "risk": "High",
         "confidence": "Low",
         "dataQuality": 36,
@@ -2930,14 +3020,14 @@
         "simulations": 768,
         "components": {
           "appearance": 0.752327236923077,
-          "attack": 0.3975205043825809,
-          "cleanSheet": 0.07749587925322252,
+          "attack": 0.39745778753602795,
+          "cleanSheet": 0.07750668531596586,
           "saves": 0,
           "defensiveContribution": 0.02110829887090454,
-          "bonus": 0.07793065549656164,
+          "bonus": 0.07792968941841355,
           "discipline": -0.030663066524444452,
-          "empiricalAnchor": 0.06063384995474153,
-          "calibrationAdjustment": -0.21591442076822487,
+          "empiricalAnchor": 0.06062557070099587,
+          "calibrationAdjustment": -0.2159062283614397,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -2960,8 +3050,8 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 0.7314288338434702,
-        "volatility": 2.192520549997232,
+        "projected": 0.7313890956143827,
+        "volatility": 2.192462693775509,
         "risk": "High",
         "confidence": "Low",
         "dataQuality": 25,
@@ -2978,14 +3068,14 @@
         "simulations": 768,
         "components": {
           "appearance": 0.5005177206153846,
-          "attack": 0.286999869563,
-          "cleanSheet": 0.04081363784813814,
+          "attack": 0.28695458956717157,
+          "cleanSheet": 0.04081932892146514,
           "saves": 0,
           "defensiveContribution": 0.01181687158370734,
-          "bonus": 0.04812841346103501,
+          "bonus": 0.04812781683050175,
           "discipline": -0.01893689632492308,
-          "empiricalAnchor": 0.04173984621814921,
-          "calibrationAdjustment": -0.17965062912102092,
+          "empiricalAnchor": 0.04173414684760943,
+          "calibrationAdjustment": -0.17964448242653397,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -3056,8 +3146,8 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 0.2979513619005275,
-        "volatility": 1.692524800486048,
+        "projected": 0.297942039508729,
+        "volatility": 1.6925116994365068,
         "risk": "High",
         "confidence": "Low",
         "dataQuality": 38,
@@ -3074,14 +3164,14 @@
         "simulations": 768,
         "components": {
           "appearance": 0.35338240000000004,
-          "attack": 0.07192118990649131,
-          "cleanSheet": 0.01908657946517491,
+          "attack": 0.07190984289374215,
+          "cleanSheet": 0.019089240907012122,
           "saves": 0,
           "defensiveContribution": 0.005240099501300892,
-          "bonus": 0.012302820217978527,
+          "bonus": 0.012302667704366308,
           "discipline": -0.04928755459976105,
-          "empiricalAnchor": 0.014107365879693062,
-          "calibrationAdjustment": -0.1288015384703502,
+          "empiricalAnchor": 0.014105439588324657,
+          "calibrationAdjustment": -0.12880009648625612,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -3098,38 +3188,38 @@
         "teamId": 12,
         "team": "IPS",
         "position": "MID",
-        "price": 53,
+        "price": 52,
         "ownership": 0.1,
         "status": "a",
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 0.9013032001827276,
-        "volatility": 2.271027802318126,
+        "projected": 0.9002580053032871,
+        "volatility": 2.270063877968207,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 51,
         "floor": 0,
         "median": 0,
         "ceiling": 3,
-        "sharpe": 0.4920166414210962,
+        "sharpe": 0.4803286482213824,
         "probabilities": {
-          "bust": 87.63020833333334,
-          "floor": 8.854166666666668,
+          "bust": 87.5,
+          "floor": 9.244791666666668,
           "middle": 2.473958333333333,
-          "haul": 1.0416666666666665
+          "haul": 0.78125
         },
         "simulations": 768,
         "components": {
-          "appearance": 0.6760187800874494,
-          "attack": 0.2962660562092236,
-          "cleanSheet": 0.06595502754666172,
+          "appearance": 0.6756388475336033,
+          "attack": 0.29600612947684923,
+          "cleanSheet": 0.06590871775913872,
           "saves": 0,
-          "defensiveContribution": 0.025887805065177436,
-          "bonus": 0.03269651129029952,
-          "discipline": -0.05573625792001851,
-          "empiricalAnchor": 0.048250516423668344,
-          "calibrationAdjustment": -0.18803523851973403,
+          "defensiveContribution": 0.025866021387142488,
+          "bonus": 0.03267257504303042,
+          "discipline": -0.05569614533130551,
+          "empiricalAnchor": 0.0477759302080573,
+          "calibrationAdjustment": -0.18791407077322875,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -3200,15 +3290,15 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 1.9031055375179893,
-        "volatility": 2.77952476458852,
+        "projected": 1.9030331264083589,
+        "volatility": 2.7794645550814776,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 60,
         "floor": 0,
         "median": 1,
         "ceiling": 4,
-        "sharpe": 0.8137943388788225,
+        "sharpe": 0.8131498065001114,
         "probabilities": {
           "bust": 71.61458333333334,
           "floor": 23.697916666666664,
@@ -3218,14 +3308,14 @@
         "simulations": 768,
         "components": {
           "appearance": 1.2642435602655873,
-          "attack": 0.573638374514783,
-          "cleanSheet": 0.15160261430465533,
+          "attack": 0.5735478715356542,
+          "cleanSheet": 0.15162375384624147,
           "saves": 0,
           "defensiveContribution": 0.011106380874556393,
-          "bonus": 0.17869827998949758,
+          "bonus": 0.17869606473155708,
           "discipline": -0.08289035304881809,
-          "empiricalAnchor": 0.08812428724064329,
-          "calibrationAdjustment": -0.2814176066229157,
+          "empiricalAnchor": 0.08811225430300589,
+          "calibrationAdjustment": -0.28140640609942547,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -3248,32 +3338,32 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 2.748515067782013,
-        "volatility": 3.2267241614089928,
+        "projected": 2.748334463825202,
+        "volatility": 3.22660352459576,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 56,
         "floor": 0,
         "median": 2,
         "ceiling": 6,
-        "sharpe": 0.8751702660470457,
+        "sharpe": 1.0132351490783722,
         "probabilities": {
-          "bust": 60.807291666666664,
-          "floor": 27.34375,
+          "bust": 63.671875,
+          "floor": 25.78125,
           "middle": 8.072916666666668,
-          "haul": 3.7760416666666665
+          "haul": 2.473958333333333
         },
         "simulations": 768,
         "components": {
           "appearance": 1.628622697652422,
-          "attack": 1.0629524085290245,
+          "attack": 1.0627847064297267,
           "cleanSheet": 0,
           "saves": 0,
           "defensiveContribution": 0.000011235780632425578,
-          "bonus": 0.27328514771548934,
+          "bonus": 0.2732817598983624,
           "discipline": -0.060798816339639135,
-          "empiricalAnchor": 0.1333030683466966,
-          "calibrationAdjustment": -0.2888606739026125,
+          "empiricalAnchor": 0.1332820371093381,
+          "calibrationAdjustment": -0.2888491567056404,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -3344,8 +3434,8 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 1.0987093779664232,
-        "volatility": 2.4312686637232988,
+        "projected": 1.0986581577001924,
+        "volatility": 2.4312078663276417,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 51,
@@ -3362,14 +3452,14 @@
         "simulations": 768,
         "components": {
           "appearance": 0.7562389678121458,
-          "attack": 0.3895745672668933,
-          "cleanSheet": 0.07767954453051906,
+          "attack": 0.3895131040515701,
+          "cleanSheet": 0.07769037620363715,
           "saves": 0,
           "defensiveContribution": 0.017878205244682706,
-          "bonus": 0.10158890650058991,
+          "bonus": 0.10158764713966148,
           "discipline": -0.08735958863943476,
-          "empiricalAnchor": 0.053111360334390414,
-          "calibrationAdjustment": -0.2100025850833631,
+          "empiricalAnchor": 0.05310410823957351,
+          "calibrationAdjustment": -0.20999466235164377,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -3440,8 +3530,8 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 0.6854197372060953,
-        "volatility": 2.2233387152487403,
+        "projected": 0.6853569660671811,
+        "volatility": 2.2232493937138016,
         "risk": "High",
         "confidence": "Low",
         "dataQuality": 40,
@@ -3458,14 +3548,14 @@
         "simulations": 768,
         "components": {
           "appearance": 0.5016585698461539,
-          "attack": 0.3767135802931496,
+          "attack": 0.37665414615692466,
           "cleanSheet": 0,
           "saves": 0,
           "defensiveContribution": 0.000015855152560157554,
-          "bonus": 0.05168369399904751,
+          "bonus": 0.051683053294987374,
           "discipline": -0.017254599926153847,
-          "empiricalAnchor": 0.04246205853538315,
-          "calibrationAdjustment": -0.2698594206940452,
+          "empiricalAnchor": 0.04245535929250101,
+          "calibrationAdjustment": -0.26985541774979194,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -3488,8 +3578,8 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 0.6231027413517911,
-        "volatility": 2.13591664588736,
+        "projected": 0.6230495579610221,
+        "volatility": 2.1358431523890027,
         "risk": "High",
         "confidence": "Low",
         "dataQuality": 37,
@@ -3506,14 +3596,14 @@
         "simulations": 768,
         "components": {
           "appearance": 0.5001102744615384,
-          "attack": 0.31566427590854607,
+          "attack": 0.31561447352669103,
           "cleanSheet": 0,
           "saves": 0,
           "defensiveContribution": 0.000012630927416962622,
-          "bonus": 0.051524179879906394,
+          "bonus": 0.0515235411532851,
           "discipline": -0.01720134614153846,
-          "empiricalAnchor": 0.03887816366748368,
-          "calibrationAdjustment": -0.265885437351562,
+          "empiricalAnchor": 0.0388720298560246,
+          "calibrationAdjustment": -0.2658820458223956,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -3584,8 +3674,8 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 0.3752785532426321,
-        "volatility": 1.7826009393830422,
+        "projected": 0.3752644488301923,
+        "volatility": 1.7825805875780143,
         "risk": "High",
         "confidence": "Low",
         "dataQuality": 39,
@@ -3602,14 +3692,14 @@
         "simulations": 768,
         "components": {
           "appearance": 0.39099528711255066,
-          "attack": 0.10651866099352388,
-          "cleanSheet": 0.024536728682991827,
+          "attack": 0.10650185553457794,
+          "cleanSheet": 0.02454015009626205,
           "saves": 0,
           "defensiveContribution": 0.009025355148555802,
-          "bonus": 0.0017659654400972774,
+          "bonus": 0.0017659435480624794,
           "discipline": -0.04187881370734507,
-          "empiricalAnchor": 0.02109296100540059,
-          "calibrationAdjustment": -0.1367775914331429,
+          "empiricalAnchor": 0.02109008086540385,
+          "calibrationAdjustment": -0.1367754097678755,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -3632,8 +3722,8 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 0.24483665963059556,
-        "volatility": 1.6766891628689298,
+        "projected": 0.24481901829142433,
+        "volatility": 1.6766593350088008,
         "risk": "High",
         "confidence": "Low",
         "dataQuality": 18,
@@ -3650,14 +3740,14 @@
         "simulations": 768,
         "components": {
           "appearance": 0.2182976,
-          "attack": 0.12872831456659523,
-          "cleanSheet": 0.01892203998702685,
+          "attack": 0.1287080050885615,
+          "cleanSheet": 0.01892467848539995,
           "saves": 0,
           "defensiveContribution": 0.0017177421694645652,
-          "bonus": 0.021587081405426513,
+          "bonus": 0.02158681379818654,
           "discipline": -0.008493783466666667,
-          "empiricalAnchor": 0.01780736509625367,
-          "calibrationAdjustment": -0.15372970012750467,
+          "empiricalAnchor": 0.01780493358820522,
+          "calibrationAdjustment": -0.1537269713717268,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -3728,8 +3818,8 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 2.000649829777524,
-        "volatility": 2.9709715810642785,
+        "projected": 2.00054096801429,
+        "volatility": 2.9708721655719015,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 51,
@@ -3746,14 +3836,14 @@
         "simulations": 768,
         "components": {
           "appearance": 1.142686875076923,
-          "attack": 0.7990554575593678,
-          "cleanSheet": 0.1341960370778349,
+          "attack": 0.7989293905063058,
+          "cleanSheet": 0.13421474943790543,
           "saves": 0,
           "defensiveContribution": 0.02113720744867952,
-          "bonus": 0.1498436678888025,
+          "bonus": 0.14984181033105123,
           "discipline": -0.058958394837880346,
-          "empiricalAnchor": 0.12075286644484053,
-          "calibrationAdjustment": -0.30806388688104347,
+          "empiricalAnchor": 0.12073637823532457,
+          "calibrationAdjustment": -0.30804704818401873,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -3776,32 +3866,32 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 1.4148968111348075,
-        "volatility": 2.0012866368213422,
+        "projected": 1.4149850449158698,
+        "volatility": 2.0013603498919807,
         "risk": "High",
         "confidence": "Low",
         "dataQuality": 30,
         "floor": 0,
         "median": 1,
         "ceiling": 3,
-        "sharpe": 0.8482052585174104,
+        "sharpe": 0.8485216198827489,
         "probabilities": {
-          "bust": 79.42708333333334,
-          "floor": 18.880208333333336,
+          "bust": 79.296875,
+          "floor": 19.010416666666664,
           "middle": 1.5625,
           "haul": 0.13020833333333331
         },
         "simulations": 768,
         "components": {
           "appearance": 1.0960528,
-          "attack": 0.03339423737100304,
-          "cleanSheet": 0.37481654183112867,
+          "attack": 0.03338896875910035,
+          "cleanSheet": 0.37492481169122743,
           "saves": 0.4271128826766437,
           "defensiveContribution": 0,
-          "bonus": 0.13056100680837213,
+          "bonus": 0.1305593882907956,
           "discipline": -0.021793894399999996,
-          "empiricalAnchor": 0.13477938758580263,
-          "calibrationAdjustment": -0.7600261507381427,
+          "empiricalAnchor": 0.13478353822386493,
+          "calibrationAdjustment": -0.7600434503257625,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -3824,8 +3914,8 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 1.5131115915971052,
-        "volatility": 2.607421831365977,
+        "projected": 1.5130771121446835,
+        "volatility": 2.6073890073879715,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 53,
@@ -3842,14 +3932,14 @@
         "simulations": 768,
         "components": {
           "appearance": 1.0517341879190283,
-          "attack": 0.2772146627406493,
-          "cleanSheet": 0.12076738842426711,
+          "attack": 0.27717092655780173,
+          "cleanSheet": 0.12078422828709899,
           "saves": 0,
           "defensiveContribution": 0.2516196667966485,
-          "bonus": 0.05504719567352429,
+          "bonus": 0.055046513273350514,
           "discipline": -0.0900114135048114,
-          "empiricalAnchor": 0.08959679337497188,
-          "calibrationAdjustment": -0.2428568898271728,
+          "empiricalAnchor": 0.08958455937387015,
+          "calibrationAdjustment": -0.24285155655830315,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -3872,8 +3962,8 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 2.9583792127312756,
-        "volatility": 3.2628017827875646,
+        "projected": 2.958212466457944,
+        "volatility": 3.262688661265259,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 74,
@@ -3890,14 +3980,14 @@
         "simulations": 768,
         "components": {
           "appearance": 1.6061150265183843,
-          "attack": 1.2838495010832098,
-          "cleanSheet": 0.20102666638809671,
+          "attack": 1.2836469480292945,
+          "cleanSheet": 0.20105469764331965,
           "saves": 0,
           "defensiveContribution": 0.030722903654135,
-          "bonus": 0.2738798147955907,
+          "bonus": 0.2738764196065911,
           "discipline": -0.13318571384271344,
-          "empiricalAnchor": 0.10708212559224485,
-          "calibrationAdjustment": -0.411111111457672,
+          "empiricalAnchor": 0.1070675040550991,
+          "calibrationAdjustment": -0.4110853192061663,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -3920,8 +4010,8 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 1.5558962819313042,
-        "volatility": 2.3007515574880255,
+        "projected": 1.555941605843362,
+        "volatility": 2.30078998486099,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 53,
@@ -3938,14 +4028,14 @@
         "simulations": 768,
         "components": {
           "appearance": 1.1391626412307694,
-          "attack": 0.3314326215897491,
-          "cleanSheet": 0.35957413258458676,
+          "attack": 0.33138033143454515,
+          "cleanSheet": 0.35968276657522774,
           "saves": 0,
           "defensiveContribution": 0.18980712147694348,
-          "bonus": 0.14102242001448984,
+          "bonus": 0.14102067181055777,
           "discipline": -0.07996527430218436,
-          "empiricalAnchor": 0.13061387885168083,
-          "calibrationAdjustment": -0.6557512595147301,
+          "empiricalAnchor": 0.13061790120960026,
+          "calibrationAdjustment": -0.6557645535920975,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -4016,32 +4106,32 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 2.7175285954540405,
-        "volatility": 3.4506540297887076,
+        "projected": 2.7174049906649893,
+        "volatility": 3.450548773056672,
         "risk": "High",
         "confidence": "Medium",
         "dataQuality": 55,
         "floor": 0,
         "median": 2,
         "ceiling": 6,
-        "sharpe": 0.7788515861137714,
+        "sharpe": 0.756075019329707,
         "probabilities": {
-          "bust": 61.197916666666664,
-          "floor": 25.911458333333332,
-          "middle": 7.682291666666667,
-          "haul": 5.208333333333334
+          "bust": 62.630208333333336,
+          "floor": 25,
+          "middle": 8.463541666666668,
+          "haul": 3.90625
         },
         "simulations": 768,
         "components": {
           "appearance": 1.2703852603076924,
-          "attack": 0.9165595430094668,
-          "cleanSheet": 0.15271712678987745,
+          "attack": 0.9164149373260317,
+          "cleanSheet": 0.15273842173962154,
           "saves": 0,
           "defensiveContribution": 0.5632093610500666,
-          "bonus": 0.17410616747253801,
+          "bonus": 0.17410400914135538,
           "discipline": -0.07996182924481605,
-          "empiricalAnchor": 0.1263675502337192,
-          "calibrationAdjustment": -0.40585458416450404,
+          "empiricalAnchor": 0.12635029536676973,
+          "calibrationAdjustment": -0.40583546502173196,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
@@ -4064,8 +4154,8 @@
         "fixture": "BOU (H)",
         "kickoffTime": "2026-11-08T14:00:00Z",
         "fixtureId": 96,
-        "projected": 0.7084007483284885,
-        "volatility": 2.264163141942637,
+        "projected": 0.7083359501041953,
+        "volatility": 2.2640689055382093,
         "risk": "High",
         "confidence": "Low",
         "dataQuality": 47,
@@ -4082,14 +4172,14 @@
         "simulations": 768,
         "components": {
           "appearance": 0.5056200198607288,
-          "attack": 0.38162439055634156,
+          "attack": 0.38156418164112954,
           "cleanSheet": 0,
           "saves": 0,
           "defensiveContribution": 0.0019280784398339468,
-          "bonus": 0.09622131522400618,
+          "bonus": 0.09622012240316533,
           "discipline": -0.05331752164113458,
-          "empiricalAnchor": 0.047719441371572295,
-          "calibrationAdjustment": -0.27139497548285973,
+          "empiricalAnchor": 0.047711912670916345,
+          "calibrationAdjustment": -0.27139084327044427,
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
