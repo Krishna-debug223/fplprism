@@ -1,7 +1,10 @@
 {
+  "lockSchemaVersion": 1,
   "gameweek": 10,
   "fixtureId": 97,
   "fixtureKickoffTime": "2026-11-07T12:30:00Z",
+  "lockedAt": "2026-11-07T06:18:52.129Z",
+  "lockMode": "latest-pre-kickoff-checkpoint",
   "contentHashAlgorithm": "sha256",
   "contentHash": "d5a8614bcba3b2087f109f6f74f1d12e054495c1894190533f852b5ff72e8bc3",
   "snapshot": {
