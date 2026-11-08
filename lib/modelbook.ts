@@ -11,11 +11,13 @@ import gw8Report from "@/public/modelbook/data/gw8-report.json";
 import gw8Meta from "@/public/modelbook/data/gw8-snapshot-meta.json";
 import gw9Report from "@/public/modelbook/data/gw9-report.json";
 import gw9Meta from "@/public/modelbook/data/gw9-snapshot-meta.json";
+import gw10Report from "@/public/modelbook/data/gw10-report.json";
+import gw10Meta from "@/public/modelbook/data/gw10-snapshot-meta.json";
 // Modelbook archive imports are registered below.
 
 // GW7 has no recoverable original deadline snapshot; its separate audit reconstruction stays archived.
 // The archive workflow advances this when it publishes each future report.
-export const CURRENT_GAMEWEEK = 10;
+export const CURRENT_GAMEWEEK = 11;
 export const SNAPSHOT_URL = `/api/ledger/snapshot?event=${CURRENT_GAMEWEEK}`;
 export const ROLLING_URL = `${SNAPSHOT_URL}&view=rolling`;
 export const LOCKED_URL = `/modelbook/data/gw${CURRENT_GAMEWEEK}-locked.json`;
@@ -84,6 +86,7 @@ export type SnapshotMeta = {
 };
 
 const ARCHIVE: Record<number, { report: ModelbookReport; meta?: SnapshotMeta }> = {
+  10: { report: gw10Report as ModelbookReport, meta: gw10Meta as SnapshotMeta },
   9: { report: gw9Report as ModelbookReport, meta: gw9Meta as SnapshotMeta },
   8: { report: gw8Report as ModelbookReport, meta: gw8Meta as SnapshotMeta },
   7: { report: gw7Report as ModelbookReport, meta: gw7Meta as SnapshotMeta },

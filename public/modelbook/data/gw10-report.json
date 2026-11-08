@@ -1,0 +1,497 @@
+{
+  "gameweek": 10,
+  "modelVersion": "1.4.6",
+  "final": false,
+  "generatedAt": "2026-11-08T19:04:18.881Z",
+  "snapshotHash": "abbb6018eb86bfdf8edba6d8d5cf0330f20863c05ea813bd5aaae1c8581b64ec",
+  "actualsFetchedAt": "2026-11-08T19:04:18.881Z",
+  "actualsSource": "https://fantasy.premierleague.com/api/event/10/live/",
+  "actualsFinality": {
+    "fixtureCount": 10,
+    "started": 10,
+    "finished": 0,
+    "finishedProvisional": 10,
+    "ninetyMinutes": 10
+  },
+  "forecastProvenance": "predeadline-fallback",
+  "provenanceNote": "The final deadline capture was missed, so this report uses the latest saved GW10 checkpoint from before the deadline. The forecast fingerprint is abbb6018eb86bfdf8edba6d8d5cf0330f20863c05ea813bd5aaae1c8581b64ec. These points are provisional and will be checked again until FPL marks every fixture finished.",
+  "training": {
+    "trainedThroughGameweek": 9,
+    "targetGameweek": 10,
+    "updatedAt": "2026-11-06T14:34:13.720Z",
+    "source": "Official FPL live feed + 3 completed-season priors",
+    "method": "Walk-forward, minutes-weighted current-season blending",
+    "validation": "Historical walk-forward replay and archived Modelbook reports"
+  },
+  "overall": {
+    "count": 670,
+    "mae": 1.016,
+    "rmse": 2.06,
+    "bias": 0.345,
+    "within1": 72.4,
+    "within2": 86.4,
+    "within3": 90.7
+  },
+  "activeCohort": {
+    "count": 313,
+    "mae": 1.868,
+    "rmse": 2.958,
+    "bias": 1.045,
+    "within1": 50.8,
+    "within2": 72.5,
+    "within3": 80.2
+  },
+  "flatTwoBaseline": {
+    "count": 313,
+    "mae": 1.927,
+    "rmse": 3.089,
+    "bias": 0.93,
+    "within1": 66.1,
+    "within2": 78.3,
+    "within3": 83.4
+  },
+  "topPickResults": [
+    {
+      "count": 10,
+      "matchedPlayers": 10,
+      "fieldPlayers": 670,
+      "playersWithMinutes": 10,
+      "totalActual": 68,
+      "averageActual": 6.8,
+      "fieldAverageActual": 1.37,
+      "uplift": 5.43
+    },
+    {
+      "count": 20,
+      "matchedPlayers": 20,
+      "fieldPlayers": 670,
+      "playersWithMinutes": 20,
+      "totalActual": 115,
+      "averageActual": 5.75,
+      "fieldAverageActual": 1.37,
+      "uplift": 4.38
+    },
+    {
+      "count": 50,
+      "matchedPlayers": 50,
+      "fieldPlayers": 670,
+      "playersWithMinutes": 50,
+      "totalActual": 244,
+      "averageActual": 4.88,
+      "fieldAverageActual": 1.37,
+      "uplift": 3.51
+    }
+  ],
+  "topPickResultsNote": "This is selection signal from the frozen forecast pool, not a guaranteed squad result.",
+  "byPosition": {
+    "GKP": {
+      "count": 20,
+      "mae": 1.758,
+      "rmse": 2.67,
+      "bias": 1.119,
+      "within1": 50,
+      "within2": 70,
+      "within3": 80
+    },
+    "DEF": {
+      "count": 105,
+      "mae": 1.849,
+      "rmse": 2.675,
+      "bias": 1.043,
+      "within1": 45.7,
+      "within2": 67.6,
+      "within3": 77.1
+    },
+    "MID": {
+      "count": 150,
+      "mae": 1.826,
+      "rmse": 2.99,
+      "bias": 0.996,
+      "within1": 52.7,
+      "within2": 76,
+      "within3": 83.3
+    },
+    "FWD": {
+      "count": 38,
+      "mae": 2.142,
+      "rmse": 3.64,
+      "bias": 1.207,
+      "within1": 57.9,
+      "within2": 73.7,
+      "within3": 76.3
+    }
+  },
+  "largestMisses": [
+    {
+      "id": 52,
+      "name": "Alysson",
+      "position": "MID",
+      "projected": 1.326992991398568,
+      "actual": 16,
+      "error": 14.673007008601433,
+      "absoluteError": 14.673007008601433,
+      "minutes": 70
+    },
+    {
+      "id": 249,
+      "name": "Barry",
+      "position": "FWD",
+      "projected": 3.7288007641758396,
+      "actual": 16,
+      "error": 12.27119923582416,
+      "absoluteError": 12.27119923582416,
+      "minutes": 90
+    },
+    {
+      "id": 167,
+      "name": "Delap",
+      "position": "FWD",
+      "projected": 2.4590646551597235,
+      "actual": 13,
+      "error": 10.540935344840276,
+      "absoluteError": 10.540935344840276,
+      "minutes": 86
+    },
+    {
+      "id": 366,
+      "name": "Wirtz",
+      "position": "MID",
+      "projected": 3.1945195523250445,
+      "actual": 13,
+      "error": 9.805480447674956,
+      "absoluteError": 9.805480447674956,
+      "minutes": 90
+    },
+    {
+      "id": 415,
+      "name": "Dorgu",
+      "position": "MID",
+      "projected": 0.31485063375623473,
+      "actual": 10,
+      "error": 9.685149366243765,
+      "absoluteError": 9.685149366243765,
+      "minutes": 24
+    },
+    {
+      "id": 504,
+      "name": "Vuskovic",
+      "position": "DEF",
+      "projected": 2.983880618239181,
+      "actual": 12,
+      "error": 9.01611938176082,
+      "absoluteError": 9.01611938176082,
+      "minutes": 90
+    },
+    {
+      "id": 457,
+      "name": "J.Murphy",
+      "position": "MID",
+      "projected": 1.582575477208959,
+      "actual": 10,
+      "error": 8.417424522791041,
+      "absoluteError": 8.417424522791041,
+      "minutes": 90
+    },
+    {
+      "id": 166,
+      "name": "N.Jackson",
+      "position": "FWD",
+      "projected": 3.0577239809595973,
+      "actual": 11,
+      "error": 7.942276019040403,
+      "absoluteError": 7.942276019040403,
+      "minutes": 85
+    },
+    {
+      "id": 15,
+      "name": "Ødegaard",
+      "position": "MID",
+      "projected": 3.535107160600891,
+      "actual": 11,
+      "error": 7.464892839399109,
+      "absoluteError": 7.464892839399109,
+      "minutes": 90
+    },
+    {
+      "id": 542,
+      "name": "E.Le Fée",
+      "position": "MID",
+      "projected": 3.5957134337320893,
+      "actual": 11,
+      "error": 7.404286566267911,
+      "absoluteError": 7.404286566267911,
+      "minutes": 87
+    },
+    {
+      "id": 474,
+      "name": "Jair Cunha",
+      "position": "DEF",
+      "projected": 1.6360424597005143,
+      "actual": 9,
+      "error": 7.363957540299486,
+      "absoluteError": 7.363957540299486,
+      "minutes": 90
+    },
+    {
+      "id": 385,
+      "name": "Trafford",
+      "position": "GKP",
+      "projected": 2.798213645329204,
+      "actual": 10,
+      "error": 7.201786354670796,
+      "absoluteError": 7.201786354670796,
+      "minutes": 90
+    }
+  ],
+  "bestPredictions": [
+    {
+      "id": 480,
+      "name": "Gibbs-White",
+      "position": "MID",
+      "projected": 3.6319700723797497,
+      "actual": 5,
+      "error": 1.3680299276202503,
+      "absoluteError": 1.3680299276202503,
+      "minutes": 90
+    },
+    {
+      "id": 472,
+      "name": "Murillo",
+      "position": "DEF",
+      "projected": 3.0439969438137022,
+      "actual": 4,
+      "error": 0.9560030561862978,
+      "absoluteError": 0.9560030561862978,
+      "minutes": 90
+    },
+    {
+      "id": 112,
+      "name": "Van Hecke",
+      "position": "DEF",
+      "projected": 3.022875733450969,
+      "actual": 4,
+      "error": 0.9771242665490312,
+      "absoluteError": 0.9771242665490312,
+      "minutes": 90
+    },
+    {
+      "id": 60,
+      "name": "Hill",
+      "position": "DEF",
+      "projected": 2.8072067258979745,
+      "actual": 4,
+      "error": 1.1927932741020255,
+      "absoluteError": 1.1927932741020255,
+      "minutes": 90
+    },
+    {
+      "id": 356,
+      "name": "Virgil",
+      "position": "DEF",
+      "projected": 2.7707303244598847,
+      "actual": 4,
+      "error": 1.2292696755401153,
+      "absoluteError": 1.2292696755401153,
+      "minutes": 90
+    },
+    {
+      "id": 619,
+      "name": "Palacios",
+      "position": "MID",
+      "projected": 2.7199658865549274,
+      "actual": 4,
+      "error": 1.2800341134450726,
+      "absoluteError": 1.2800341134450726,
+      "minutes": 90
+    },
+    {
+      "id": 47,
+      "name": "Kamara",
+      "position": "MID",
+      "projected": 2.6225928117095987,
+      "actual": 4,
+      "error": 1.3774071882904013,
+      "absoluteError": 1.3774071882904013,
+      "minutes": 90
+    },
+    {
+      "id": 552,
+      "name": "Brobbey",
+      "position": "FWD",
+      "projected": 2.533348901093289,
+      "actual": 4,
+      "error": 1.466651098906711,
+      "absoluteError": 1.466651098906711,
+      "minutes": 66
+    }
+  ],
+  "bestPredictionsNote": "High-output players scoring at least 4 points where the pre-deadline forecast was within 1.5 points of the official result.",
+  "kickoffCapture": {
+    "captured": 10,
+    "total": 10,
+    "missingFixtures": []
+  },
+  "preKickoff": {
+    "aggregateHash": "8deef172bcec90f385ea58641215e726cf815d231b75905cd0f55201ba6c5ba7",
+    "fixtureHashes": [
+      {
+        "fixtureId": 91,
+        "contentHash": "b4eb03c6f668045bc27d79cabdd98bc41b82ab9c2d80a484fdc0df36aacc0d95",
+        "capturedAt": "2026-11-07T13:22:55.057Z",
+        "modelVersion": "1.4.6"
+      },
+      {
+        "fixtureId": 92,
+        "contentHash": "668e1b567d6401c9583399fd1783e44b3935b1b5bc818ec2e9145499ab0bf783",
+        "capturedAt": "2026-11-08T07:31:55.890Z",
+        "modelVersion": "1.4.6"
+      },
+      {
+        "fixtureId": 93,
+        "contentHash": "dd72722c4d79b68b86fc9fe96ae34a922c7e0866fa71b999a59c5abb852152d5",
+        "capturedAt": "2026-11-08T07:31:56.408Z",
+        "modelVersion": "1.4.6"
+      },
+      {
+        "fixtureId": 94,
+        "contentHash": "f2ff22d1f3de9c5952db3332ccf3878f325ffdf1f600c672d87ea217e6ec2f6c",
+        "capturedAt": "2026-11-06T14:34:14.280Z",
+        "modelVersion": "1.4.6"
+      },
+      {
+        "fixtureId": 95,
+        "contentHash": "1bfa7efca43cb201a5d817fc4a82bd5aa59494226a6dc90f6d1cfa1def01444d",
+        "capturedAt": "2026-11-07T13:22:55.378Z",
+        "modelVersion": "1.4.6"
+      },
+      {
+        "fixtureId": 96,
+        "contentHash": "a42a92966d6bf601beb928e2bf6e72d5e5cbd11773dea476ef2eb5f3f7319d44",
+        "capturedAt": "2026-11-08T07:31:56.753Z",
+        "modelVersion": "1.4.6"
+      },
+      {
+        "fixtureId": 97,
+        "contentHash": "d5a8614bcba3b2087f109f6f74f1d12e054495c1894190533f852b5ff72e8bc3",
+        "capturedAt": "2026-11-07T06:18:52.129Z",
+        "modelVersion": "1.4.6"
+      },
+      {
+        "fixtureId": 98,
+        "contentHash": "ad8462f06a346cb9100ba79338fc5186c95f6a8ff3c028a1bb92f813649bd4be",
+        "capturedAt": "2026-11-08T14:30:05.564Z",
+        "modelVersion": "1.4.6"
+      },
+      {
+        "fixtureId": 99,
+        "contentHash": "173384b247c15a74e98874edff9106ac38496ad047e6c9056bbc39ff8c82d24e",
+        "capturedAt": "2026-11-07T13:22:55.676Z",
+        "modelVersion": "1.4.6"
+      },
+      {
+        "fixtureId": 100,
+        "contentHash": "f94ccf29f9677d5ba094afa493489d7c8baf9cca9257c9e7a666ca67f442390a",
+        "capturedAt": "2026-11-08T07:31:56.998Z",
+        "modelVersion": "1.4.6"
+      }
+    ],
+    "modelVersion": "1.4.6",
+    "overall": {
+      "count": 670,
+      "mae": 1.02,
+      "rmse": 2.063,
+      "bias": 0.345,
+      "within1": 72.2,
+      "within2": 86.3,
+      "within3": 90.7
+    },
+    "activeCohort": {
+      "count": 313,
+      "mae": 1.872,
+      "rmse": 2.961,
+      "bias": 1.05,
+      "within1": 50.8,
+      "within2": 72.2,
+      "within3": 80.2
+    },
+    "flatTwoBaseline": {
+      "count": 313,
+      "mae": 1.927,
+      "rmse": 3.089,
+      "bias": 0.93,
+      "within1": 66.1,
+      "within2": 78.3,
+      "within3": 83.4
+    },
+    "byPosition": {
+      "GKP": {
+        "count": 20,
+        "mae": 1.759,
+        "rmse": 2.673,
+        "bias": 1.123,
+        "within1": 50,
+        "within2": 70,
+        "within3": 80
+      },
+      "DEF": {
+        "count": 105,
+        "mae": 1.85,
+        "rmse": 2.676,
+        "bias": 1.045,
+        "within1": 45.7,
+        "within2": 67.6,
+        "within3": 77.1
+      },
+      "MID": {
+        "count": 150,
+        "mae": 1.834,
+        "rmse": 2.995,
+        "bias": 1.004,
+        "within1": 52.7,
+        "within2": 75.3,
+        "within3": 83.3
+      },
+      "FWD": {
+        "count": 38,
+        "mae": 2.142,
+        "rmse": 3.64,
+        "bias": 1.207,
+        "within1": 57.9,
+        "within2": 73.7,
+        "within3": 76.3
+      }
+    },
+    "topPickResults": [
+      {
+        "count": 10,
+        "matchedPlayers": 10,
+        "fieldPlayers": 670,
+        "playersWithMinutes": 10,
+        "totalActual": 68,
+        "averageActual": 6.8,
+        "fieldAverageActual": 1.37,
+        "uplift": 5.43
+      },
+      {
+        "count": 20,
+        "matchedPlayers": 20,
+        "fieldPlayers": 670,
+        "playersWithMinutes": 20,
+        "totalActual": 115,
+        "averageActual": 5.75,
+        "fieldAverageActual": 1.37,
+        "uplift": 4.38
+      },
+      {
+        "count": 50,
+        "matchedPlayers": 50,
+        "fieldPlayers": 670,
+        "playersWithMinutes": 50,
+        "totalActual": 244,
+        "averageActual": 4.88,
+        "fieldAverageActual": 1.37,
+        "uplift": 3.51
+      }
+    ]
+  }
+}
