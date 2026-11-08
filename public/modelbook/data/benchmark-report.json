@@ -114,19 +114,19 @@
       "captureWindow": "within-24-hours",
       "sourceHash": "abbb6018eb86bfdf8edba6d8d5cf0330f20863c05ea813bd5aaae1c8581b64ec",
       "hashCheck": "embedded-snapshot-verified",
-      "officialPointsFetchedAt": "2026-11-08T19:04:18.881Z",
+      "officialPointsFetchedAt": "2026-11-08T22:51:08.052Z",
       "pointsStatus": "provisional",
       "forecastPlayers": 670,
       "ownershipCohort": {
         "players": 188,
-        "mae": 1.916,
-        "rmse": 3.006
+        "mae": 1.927,
+        "rmse": 3.015
       },
       "ranking": {
         "eligiblePlayers": 670,
         "top15Overlap": 4,
         "top15ActualPoints": 90,
-        "localLinearNdcg15": 0.4428
+        "localLinearNdcg15": 0.4409
       }
     }
   ]

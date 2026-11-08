@@ -2,9 +2,9 @@
   "gameweek": 10,
   "modelVersion": "1.4.6",
   "final": false,
-  "generatedAt": "2026-11-08T19:04:18.881Z",
+  "generatedAt": "2026-11-08T22:51:08.052Z",
   "snapshotHash": "abbb6018eb86bfdf8edba6d8d5cf0330f20863c05ea813bd5aaae1c8581b64ec",
-  "actualsFetchedAt": "2026-11-08T19:04:18.881Z",
+  "actualsFetchedAt": "2026-11-08T22:51:08.052Z",
   "actualsSource": "https://fantasy.premierleague.com/api/event/10/live/",
   "actualsFinality": {
     "fixtureCount": 10,
@@ -25,29 +25,29 @@
   },
   "overall": {
     "count": 670,
-    "mae": 1.016,
-    "rmse": 2.06,
-    "bias": 0.345,
+    "mae": 1.021,
+    "rmse": 2.071,
+    "bias": 0.343,
     "within1": 72.4,
-    "within2": 86.4,
-    "within3": 90.7
+    "within2": 86.3,
+    "within3": 90.6
   },
   "activeCohort": {
     "count": 313,
-    "mae": 1.868,
-    "rmse": 2.958,
-    "bias": 1.045,
+    "mae": 1.877,
+    "rmse": 2.974,
+    "bias": 1.042,
     "within1": 50.8,
-    "within2": 72.5,
-    "within3": 80.2
+    "within2": 72.2,
+    "within3": 79.9
   },
   "flatTwoBaseline": {
     "count": 313,
-    "mae": 1.927,
-    "rmse": 3.089,
-    "bias": 0.93,
-    "within1": 66.1,
-    "within2": 78.3,
+    "mae": 1.936,
+    "rmse": 3.102,
+    "bias": 0.927,
+    "within1": 65.8,
+    "within2": 78,
     "within3": 83.4
   },
   "topPickResults": [
@@ -95,18 +95,18 @@
     },
     "DEF": {
       "count": 105,
-      "mae": 1.849,
-      "rmse": 2.675,
-      "bias": 1.043,
+      "mae": 1.868,
+      "rmse": 2.694,
+      "bias": 1.024,
       "within1": 45.7,
-      "within2": 67.6,
-      "within3": 77.1
+      "within2": 66.7,
+      "within3": 76.2
     },
     "MID": {
       "count": 150,
-      "mae": 1.826,
-      "rmse": 2.99,
-      "bias": 0.996,
+      "mae": 1.833,
+      "rmse": 3.012,
+      "bias": 1.002,
       "within1": 52.7,
       "within2": 76,
       "within3": 83.3
@@ -143,6 +143,16 @@
       "minutes": 90
     },
     {
+      "id": 415,
+      "name": "Dorgu",
+      "position": "MID",
+      "projected": 0.31485063375623473,
+      "actual": 11,
+      "error": 10.685149366243765,
+      "absoluteError": 10.685149366243765,
+      "minutes": 24
+    },
+    {
       "id": 167,
       "name": "Delap",
       "position": "FWD",
@@ -161,16 +171,6 @@
       "error": 9.805480447674956,
       "absoluteError": 9.805480447674956,
       "minutes": 90
-    },
-    {
-      "id": 415,
-      "name": "Dorgu",
-      "position": "MID",
-      "projected": 0.31485063375623473,
-      "actual": 10,
-      "error": 9.685149366243765,
-      "absoluteError": 9.685149366243765,
-      "minutes": 24
     },
     {
       "id": 504,
@@ -398,29 +398,29 @@
     "modelVersion": "1.4.6",
     "overall": {
       "count": 670,
-      "mae": 1.02,
-      "rmse": 2.063,
-      "bias": 0.345,
+      "mae": 1.024,
+      "rmse": 2.074,
+      "bias": 0.344,
       "within1": 72.2,
-      "within2": 86.3,
-      "within3": 90.7
+      "within2": 86.1,
+      "within3": 90.6
     },
     "activeCohort": {
       "count": 313,
-      "mae": 1.872,
-      "rmse": 2.961,
-      "bias": 1.05,
+      "mae": 1.881,
+      "rmse": 2.977,
+      "bias": 1.047,
       "within1": 50.8,
-      "within2": 72.2,
-      "within3": 80.2
+      "within2": 71.9,
+      "within3": 79.9
     },
     "flatTwoBaseline": {
       "count": 313,
-      "mae": 1.927,
-      "rmse": 3.089,
-      "bias": 0.93,
-      "within1": 66.1,
-      "within2": 78.3,
+      "mae": 1.936,
+      "rmse": 3.102,
+      "bias": 0.927,
+      "within1": 65.8,
+      "within2": 78,
       "within3": 83.4
     },
     "byPosition": {
@@ -435,18 +435,18 @@
       },
       "DEF": {
         "count": 105,
-        "mae": 1.85,
-        "rmse": 2.676,
-        "bias": 1.045,
+        "mae": 1.869,
+        "rmse": 2.695,
+        "bias": 1.026,
         "within1": 45.7,
-        "within2": 67.6,
-        "within3": 77.1
+        "within2": 66.7,
+        "within3": 76.2
       },
       "MID": {
         "count": 150,
-        "mae": 1.834,
-        "rmse": 2.995,
-        "bias": 1.004,
+        "mae": 1.84,
+        "rmse": 3.017,
+        "bias": 1.011,
         "within1": 52.7,
         "within2": 75.3,
         "within3": 83.3
