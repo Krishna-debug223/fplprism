@@ -1,20 +1,20 @@
 {
   "gameweek": 10,
   "modelVersion": "1.4.6",
-  "final": false,
-  "generatedAt": "2026-11-08T22:51:08.052Z",
+  "final": true,
+  "generatedAt": "2026-11-09T10:00:07.657Z",
   "snapshotHash": "abbb6018eb86bfdf8edba6d8d5cf0330f20863c05ea813bd5aaae1c8581b64ec",
-  "actualsFetchedAt": "2026-11-08T22:51:08.052Z",
+  "actualsFetchedAt": "2026-11-09T10:00:07.657Z",
   "actualsSource": "https://fantasy.premierleague.com/api/event/10/live/",
   "actualsFinality": {
     "fixtureCount": 10,
     "started": 10,
-    "finished": 0,
+    "finished": 10,
     "finishedProvisional": 10,
     "ninetyMinutes": 10
   },
   "forecastProvenance": "predeadline-fallback",
-  "provenanceNote": "The final deadline capture was missed, so this report uses the latest saved GW10 checkpoint from before the deadline. The forecast fingerprint is abbb6018eb86bfdf8edba6d8d5cf0330f20863c05ea813bd5aaae1c8581b64ec. These points are provisional and will be checked again until FPL marks every fixture finished.",
+  "provenanceNote": "The final deadline capture was missed, so this report uses the latest saved GW10 checkpoint from before the deadline. The forecast fingerprint is abbb6018eb86bfdf8edba6d8d5cf0330f20863c05ea813bd5aaae1c8581b64ec. FPL has marked every fixture finished.",
   "training": {
     "trainedThroughGameweek": 9,
     "targetGameweek": 10,
