@@ -3,18 +3,18 @@
   "fixtureId": 102,
   "fixtureKickoffTime": "2026-11-21T15:00:00Z",
   "contentHashAlgorithm": "sha256",
-  "contentHash": "a800d603c43b5b93bcbf99d7a2095111f8a5ec38794a6396da10c88305b6f263",
+  "contentHash": "aa2f07f40ed5549933e44fd15298d9d5dd0abfc1b1392f449aa6ca788dfc4838",
   "snapshot": {
     "schemaVersion": 2,
     "gameweek": 11,
     "eventName": "Gameweek 11",
     "deadlineTime": "2026-11-21T11:00:00Z",
-    "generatedAt": "2026-11-20T02:40:45.961Z",
+    "generatedAt": "2026-11-20T10:34:40.275Z",
     "modelVersion": "1.4.6",
     "training": {
       "trainedThroughGameweek": 10,
       "targetGameweek": 11,
-      "updatedAt": "2026-11-20T02:40:45.961Z",
+      "updatedAt": "2026-11-20T10:34:40.275Z",
       "source": "Official FPL live feed + 3 completed-season priors",
       "method": "Walk-forward, minutes-weighted current-season blending",
       "validation": "Historical walk-forward replay and archived Modelbook reports"
@@ -226,7 +226,7 @@
       "deadlineTime": "2026-11-21T11:00:00Z",
       "scanWindowStart": "2026-11-21T10:00:00.000Z",
       "windowState": "scheduled",
-      "scannedAt": "2026-11-20T02:40:45.933Z",
+      "scannedAt": "2026-11-20T10:34:40.210Z",
       "source": "official-fpl-bootstrap",
       "alerts": [
         {
@@ -239,6 +239,18 @@
           "news": "Unspecified injury - Unknown return date",
           "newsAdded": "2026-11-19T15:30:05.816247Z",
           "kickoffTime": "2026-11-21T15:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 19,
+          "playerName": "Zubimendi",
+          "teamId": 1,
+          "team": "ARS",
+          "status": "i",
+          "chanceOfPlaying": 100,
+          "news": "Hamstring injury - Unknown return date",
+          "newsAdded": "2026-11-16T19:00:05.154377Z",
+          "kickoffTime": "2026-11-21T17:30:00Z",
           "severity": "high"
         },
         {
@@ -548,7 +560,7 @@
           "team": "ARS",
           "status": "i",
           "chanceOfPlaying": 0,
-          "news": "Thigh injury - Unknown return date",
+          "news": "Thigh injury - Expected back 20 Dec",
           "newsAdded": "2026-10-21T20:30:09.540957Z",
           "kickoffTime": "2026-11-21T17:30:00Z",
           "severity": "high"
@@ -694,18 +706,6 @@
           "chanceOfPlaying": 0,
           "news": "Hamstring injury - Unknown return date",
           "newsAdded": "2026-09-25T21:30:10.370384Z",
-          "kickoffTime": "2026-11-21T15:00:00Z",
-          "severity": "high"
-        },
-        {
-          "playerId": 577,
-          "playerName": "Tomiyasu",
-          "teamId": 8,
-          "team": "CRY",
-          "status": "i",
-          "chanceOfPlaying": 0,
-          "news": "Calf injury - Expected back 29 Nov",
-          "newsAdded": "2026-09-21T13:30:09.030724Z",
           "kickoffTime": "2026-11-21T15:00:00Z",
           "severity": "high"
         }
@@ -1256,7 +1256,7 @@
         "team": "BOU",
         "position": "MID",
         "price": 67,
-        "ownership": 31.8,
+        "ownership": 31.9,
         "status": "a",
         "fixture": "NFO (H)",
         "kickoffTime": "2026-11-21T15:00:00Z",
@@ -1784,7 +1784,7 @@
         "team": "BOU",
         "position": "FWD",
         "price": 65,
-        "ownership": 24.6,
+        "ownership": 24.7,
         "status": "a",
         "fixture": "NFO (H)",
         "kickoffTime": "2026-11-21T15:00:00Z",
@@ -1928,7 +1928,7 @@
         "team": "BOU",
         "position": "DEF",
         "price": 51,
-        "ownership": 3.7,
+        "ownership": 3.8,
         "status": "a",
         "fixture": "NFO (H)",
         "kickoffTime": "2026-11-21T15:00:00Z",
@@ -2120,7 +2120,7 @@
         "team": "NFO",
         "position": "FWD",
         "price": 53,
-        "ownership": 1.6,
+        "ownership": 1.7,
         "status": "a",
         "fixture": "BOU (A)",
         "kickoffTime": "2026-11-21T15:00:00Z",
@@ -2840,7 +2840,7 @@
         "team": "NFO",
         "position": "MID",
         "price": 78,
-        "ownership": 9.2,
+        "ownership": 9.1,
         "status": "a",
         "fixture": "BOU (A)",
         "kickoffTime": "2026-11-21T15:00:00Z",

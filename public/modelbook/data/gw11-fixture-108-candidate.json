@@ -3,18 +3,18 @@
   "fixtureId": 108,
   "fixtureKickoffTime": "2026-11-21T12:30:00Z",
   "contentHashAlgorithm": "sha256",
-  "contentHash": "fa915ced32475a8d9f2666c42dd2267adedf77eea9c5643f845d90ca2e8ab08f",
+  "contentHash": "b8f3a08237ed5e7d2077aa202ad4b4b030eccd4cabe6809cdfbf3b663eb84848",
   "snapshot": {
     "schemaVersion": 2,
     "gameweek": 11,
     "eventName": "Gameweek 11",
     "deadlineTime": "2026-11-21T11:00:00Z",
-    "generatedAt": "2026-11-20T02:40:45.568Z",
+    "generatedAt": "2026-11-20T10:34:39.938Z",
     "modelVersion": "1.4.6",
     "training": {
       "trainedThroughGameweek": 10,
       "targetGameweek": 11,
-      "updatedAt": "2026-11-20T02:40:45.568Z",
+      "updatedAt": "2026-11-20T10:34:39.938Z",
       "source": "Official FPL live feed + 3 completed-season priors",
       "method": "Walk-forward, minutes-weighted current-season blending",
       "validation": "Historical walk-forward replay and archived Modelbook reports"
@@ -226,7 +226,7 @@
       "deadlineTime": "2026-11-21T11:00:00Z",
       "scanWindowStart": "2026-11-21T10:00:00.000Z",
       "windowState": "scheduled",
-      "scannedAt": "2026-11-20T02:40:45.451Z",
+      "scannedAt": "2026-11-20T10:34:39.838Z",
       "source": "official-fpl-bootstrap",
       "alerts": [
         {
@@ -239,6 +239,18 @@
           "news": "Unspecified injury - Unknown return date",
           "newsAdded": "2026-11-19T15:30:05.816247Z",
           "kickoffTime": "2026-11-21T15:00:00Z",
+          "severity": "high"
+        },
+        {
+          "playerId": 19,
+          "playerName": "Zubimendi",
+          "teamId": 1,
+          "team": "ARS",
+          "status": "i",
+          "chanceOfPlaying": 100,
+          "news": "Hamstring injury - Unknown return date",
+          "newsAdded": "2026-11-16T19:00:05.154377Z",
+          "kickoffTime": "2026-11-21T17:30:00Z",
           "severity": "high"
         },
         {
@@ -548,7 +560,7 @@
           "team": "ARS",
           "status": "i",
           "chanceOfPlaying": 0,
-          "news": "Thigh injury - Unknown return date",
+          "news": "Thigh injury - Expected back 20 Dec",
           "newsAdded": "2026-10-21T20:30:09.540957Z",
           "kickoffTime": "2026-11-21T17:30:00Z",
           "severity": "high"
@@ -694,18 +706,6 @@
           "chanceOfPlaying": 0,
           "news": "Hamstring injury - Unknown return date",
           "newsAdded": "2026-09-25T21:30:10.370384Z",
-          "kickoffTime": "2026-11-21T15:00:00Z",
-          "severity": "high"
-        },
-        {
-          "playerId": 577,
-          "playerName": "Tomiyasu",
-          "teamId": 8,
-          "team": "CRY",
-          "status": "i",
-          "chanceOfPlaying": 0,
-          "news": "Calf injury - Expected back 29 Nov",
-          "newsAdded": "2026-09-21T13:30:09.030724Z",
           "kickoffTime": "2026-11-21T15:00:00Z",
           "severity": "high"
         }
@@ -1448,7 +1448,7 @@
         "team": "FUL",
         "position": "MID",
         "price": 55,
-        "ownership": 3.2,
+        "ownership": 3.1,
         "status": "a",
         "fixture": "MCI (A)",
         "kickoffTime": "2026-11-21T12:30:00Z",
@@ -2312,7 +2312,7 @@
         "team": "MCI",
         "position": "DEF",
         "price": 60,
-        "ownership": 13.5,
+        "ownership": 13.4,
         "status": "d",
         "fixture": "FUL (H)",
         "kickoffTime": "2026-11-21T12:30:00Z",
@@ -2456,7 +2456,7 @@
         "team": "MCI",
         "position": "DEF",
         "price": 56,
-        "ownership": 21.6,
+        "ownership": 21.4,
         "status": "d",
         "fixture": "FUL (H)",
         "kickoffTime": "2026-11-21T12:30:00Z",
