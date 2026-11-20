@@ -3,18 +3,18 @@
   "fixtureId": 105,
   "fixtureKickoffTime": "2026-11-21T15:00:00Z",
   "contentHashAlgorithm": "sha256",
-  "contentHash": "5b328985b4b6c875098605da15f7189ee1ad8dbc2ae6b3e54cf6339a1900885f",
+  "contentHash": "5004e92e74c19fa65143d6c39e22ceed2a1ac1a13bbd63627b3a4f5b24738da7",
   "snapshot": {
     "schemaVersion": 2,
     "gameweek": 11,
     "eventName": "Gameweek 11",
     "deadlineTime": "2026-11-21T11:00:00Z",
-    "generatedAt": "2026-11-19T21:44:51.923Z",
+    "generatedAt": "2026-11-20T02:40:46.243Z",
     "modelVersion": "1.4.6",
     "training": {
       "trainedThroughGameweek": 10,
       "targetGameweek": 11,
-      "updatedAt": "2026-11-19T21:44:51.923Z",
+      "updatedAt": "2026-11-20T02:40:46.243Z",
       "source": "Official FPL live feed + 3 completed-season priors",
       "method": "Walk-forward, minutes-weighted current-season blending",
       "validation": "Historical walk-forward replay and archived Modelbook reports"
@@ -226,7 +226,7 @@
       "deadlineTime": "2026-11-21T11:00:00Z",
       "scanWindowStart": "2026-11-21T10:00:00.000Z",
       "windowState": "scheduled",
-      "scannedAt": "2026-11-19T21:44:51.890Z",
+      "scannedAt": "2026-11-20T02:40:46.219Z",
       "source": "official-fpl-bootstrap",
       "alerts": [
         {
@@ -500,7 +500,7 @@
           "team": "CRY",
           "status": "i",
           "chanceOfPlaying": 0,
-          "news": "Groin injury - Expected back 21 Nov",
+          "news": "Groin injury - Expected back 29 Nov",
           "newsAdded": "2026-10-27T10:30:09.385934Z",
           "kickoffTime": "2026-11-21T15:00:00Z",
           "severity": "high"
@@ -704,7 +704,7 @@
           "team": "CRY",
           "status": "i",
           "chanceOfPlaying": 0,
-          "news": "Calf injury - Expected back 21 Nov",
+          "news": "Calf injury - Expected back 29 Nov",
           "newsAdded": "2026-09-21T13:30:09.030724Z",
           "kickoffTime": "2026-11-21T15:00:00Z",
           "severity": "high"
@@ -968,7 +968,7 @@
         "team": "COV",
         "position": "DEF",
         "price": 40,
-        "ownership": 7.2,
+        "ownership": 7.1,
         "status": "d",
         "fixture": "CRY (H)",
         "kickoffTime": "2026-11-21T15:00:00Z",
@@ -2791,26 +2791,26 @@
         "teamId": 8,
         "team": "CRY",
         "position": "DEF",
-        "price": 45,
+        "price": 44,
         "ownership": 4.6,
         "status": "a",
         "fixture": "COV (A)",
         "kickoffTime": "2026-11-21T15:00:00Z",
         "fixtureId": 105,
-        "projected": 2.5115832829169014,
-        "volatility": 2.399820267083805,
+        "projected": 2.510489952256925,
+        "volatility": 2.3992782087881905,
         "risk": "High",
         "confidence": "High",
         "dataQuality": 85,
         "floor": 1,
         "median": 2,
         "ceiling": 5,
-        "sharpe": 1.2708624063165193,
+        "sharpe": 1.1737040354319395,
         "probabilities": {
-          "bust": 63.411458333333336,
-          "floor": 29.817708333333332,
-          "middle": 6.119791666666666,
-          "haul": 0.6510416666666667
+          "bust": 62.890625,
+          "floor": 30.338541666666668,
+          "middle": 5.078125,
+          "haul": 1.6927083333333333
         },
         "simulations": 768,
         "components": {
@@ -2821,9 +2821,9 @@
           "defensiveContribution": 0.2999175114531687,
           "bonus": 0.223820946414305,
           "discipline": -0.10844848649764466,
-          "empiricalAnchor": 0.08657096689082411,
-          "calibrationAdjustment": -0.8526912357535812,
-          "fixtureDifficulty": 0.06596616703275471,
+          "empiricalAnchor": 0.08515694850284512,
+          "calibrationAdjustment": -0.8523705480255788,
+          "fixtureDifficulty": 0.06593844118201009,
           "sportsbookMarket": 0
         },
         "news": "",
@@ -3018,7 +3018,7 @@
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
-        "news": "Groin injury - Expected back 21 Nov",
+        "news": "Groin injury - Expected back 29 Nov",
         "newsAdded": "2026-10-27T10:30:09.385934Z",
         "chanceOfPlayingThisRound": 0
       },
@@ -3930,7 +3930,7 @@
           "fixtureDifficulty": 0,
           "sportsbookMarket": 0
         },
-        "news": "Calf injury - Expected back 21 Nov",
+        "news": "Calf injury - Expected back 29 Nov",
         "newsAdded": "2026-09-21T13:30:09.030724Z",
         "chanceOfPlayingThisRound": 0
       },

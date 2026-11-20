@@ -3,18 +3,18 @@
   "fixtureId": 102,
   "fixtureKickoffTime": "2026-11-21T15:00:00Z",
   "contentHashAlgorithm": "sha256",
-  "contentHash": "8738c6a9db12da0ab0356642a955db40ba8e9107df090ab42c73137c856eb73e",
+  "contentHash": "a800d603c43b5b93bcbf99d7a2095111f8a5ec38794a6396da10c88305b6f263",
   "snapshot": {
     "schemaVersion": 2,
     "gameweek": 11,
     "eventName": "Gameweek 11",
     "deadlineTime": "2026-11-21T11:00:00Z",
-    "generatedAt": "2026-11-19T21:44:51.567Z",
+    "generatedAt": "2026-11-20T02:40:45.961Z",
     "modelVersion": "1.4.6",
     "training": {
       "trainedThroughGameweek": 10,
       "targetGameweek": 11,
-      "updatedAt": "2026-11-19T21:44:51.567Z",
+      "updatedAt": "2026-11-20T02:40:45.961Z",
       "source": "Official FPL live feed + 3 completed-season priors",
       "method": "Walk-forward, minutes-weighted current-season blending",
       "validation": "Historical walk-forward replay and archived Modelbook reports"
@@ -226,7 +226,7 @@
       "deadlineTime": "2026-11-21T11:00:00Z",
       "scanWindowStart": "2026-11-21T10:00:00.000Z",
       "windowState": "scheduled",
-      "scannedAt": "2026-11-19T21:44:51.513Z",
+      "scannedAt": "2026-11-20T02:40:45.933Z",
       "source": "official-fpl-bootstrap",
       "alerts": [
         {
@@ -500,7 +500,7 @@
           "team": "CRY",
           "status": "i",
           "chanceOfPlaying": 0,
-          "news": "Groin injury - Expected back 21 Nov",
+          "news": "Groin injury - Expected back 29 Nov",
           "newsAdded": "2026-10-27T10:30:09.385934Z",
           "kickoffTime": "2026-11-21T15:00:00Z",
           "severity": "high"
@@ -704,7 +704,7 @@
           "team": "CRY",
           "status": "i",
           "chanceOfPlaying": 0,
-          "news": "Calf injury - Expected back 21 Nov",
+          "news": "Calf injury - Expected back 29 Nov",
           "newsAdded": "2026-09-21T13:30:09.030724Z",
           "kickoffTime": "2026-11-21T15:00:00Z",
           "severity": "high"
@@ -1784,7 +1784,7 @@
         "team": "BOU",
         "position": "FWD",
         "price": 65,
-        "ownership": 24.5,
+        "ownership": 24.6,
         "status": "a",
         "fixture": "NFO (H)",
         "kickoffTime": "2026-11-21T15:00:00Z",
@@ -2504,7 +2504,7 @@
         "team": "NFO",
         "position": "DEF",
         "price": 42,
-        "ownership": 1.4,
+        "ownership": 1.3,
         "status": "a",
         "fixture": "BOU (A)",
         "kickoffTime": "2026-11-21T15:00:00Z",
