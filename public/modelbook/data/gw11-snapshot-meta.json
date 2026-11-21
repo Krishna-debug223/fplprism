@@ -1,0 +1,65 @@
+{
+  "season": "2026-27",
+  "gameweek": 11,
+  "lockedAt": "2026-11-21T07:39:12.146Z",
+  "deadline": "2026-11-21T11:00:00Z",
+  "modelVersion": "1.4.6",
+  "sourceModelVersion": "1.4.6",
+  "lockedBeforeDeadline": true,
+  "captureType": "last-predeadline-checkpoint",
+  "contentHash": "b87ebd072a3f2b6ad795964486cd291aa4162ac46fa928c8e540a266dbbcdca4",
+  "feeds": [
+    "Official Fantasy Premier League bootstrap and fixture data",
+    "FPL Prism production projection endpoint"
+  ],
+  "sampleProjections": [
+    {
+      "id": 411,
+      "name": "Haaland",
+      "projected": 4.866194023377981,
+      "fixture": "FUL (H)"
+    },
+    {
+      "id": 68,
+      "name": "Tavernier",
+      "projected": 3.9485325262922455,
+      "fixture": "NFO (H)"
+    },
+    {
+      "id": 379,
+      "name": "Isak",
+      "projected": 3.8462719373840093,
+      "fixture": "MUN (H)"
+    },
+    {
+      "id": 542,
+      "name": "E.Le Fée",
+      "projected": 3.7895182726974697,
+      "fixture": "AVL (A)"
+    },
+    {
+      "id": 79,
+      "name": "Evanilson",
+      "projected": 3.788288924213575,
+      "fixture": "NFO (H)"
+    },
+    {
+      "id": 427,
+      "name": "Mbeumo",
+      "projected": 3.770874020660579,
+      "fixture": "LIV (A)"
+    },
+    {
+      "id": 249,
+      "name": "Barry",
+      "projected": 3.749929111309744,
+      "fixture": "BRE (A)"
+    },
+    {
+      "id": 426,
+      "name": "B.Fernandes",
+      "projected": 3.749667378255324,
+      "fixture": "LIV (A)"
+    }
+  ]
+}
