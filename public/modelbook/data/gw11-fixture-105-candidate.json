@@ -3,18 +3,18 @@
   "fixtureId": 105,
   "fixtureKickoffTime": "2026-11-21T15:00:00Z",
   "contentHashAlgorithm": "sha256",
-  "contentHash": "6fba7c711afbe984760a61d09182409809d2fc01588eb37c99196f3fbd595f4f",
+  "contentHash": "02892cc276761f6fa921804275b2d5720f13a3980d97c3a808141bb0bf7098b5",
   "snapshot": {
     "schemaVersion": 2,
     "gameweek": 11,
     "eventName": "Gameweek 11",
     "deadlineTime": "2026-11-21T11:00:00Z",
-    "generatedAt": "2026-11-21T00:29:57.470Z",
+    "generatedAt": "2026-11-21T07:39:13.279Z",
     "modelVersion": "1.4.6",
     "training": {
       "trainedThroughGameweek": 10,
       "targetGameweek": 11,
-      "updatedAt": "2026-11-21T00:29:57.470Z",
+      "updatedAt": "2026-11-21T07:39:13.279Z",
       "source": "Official FPL live feed + 3 completed-season priors",
       "method": "Walk-forward, minutes-weighted current-season blending",
       "validation": "Historical walk-forward replay and archived Modelbook reports"
@@ -226,7 +226,7 @@
       "deadlineTime": "2026-11-21T11:00:00Z",
       "scanWindowStart": "2026-11-21T10:00:00.000Z",
       "windowState": "scheduled",
-      "scannedAt": "2026-11-21T00:29:57.436Z",
+      "scannedAt": "2026-11-21T07:39:13.249Z",
       "source": "official-fpl-bootstrap",
       "alerts": [
         {
