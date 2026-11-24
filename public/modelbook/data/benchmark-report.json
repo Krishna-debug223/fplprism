@@ -138,8 +138,8 @@
       "captureWindow": "within-24-hours",
       "sourceHash": "b87ebd072a3f2b6ad795964486cd291aa4162ac46fa928c8e540a266dbbcdca4",
       "hashCheck": "embedded-snapshot-verified",
-      "officialPointsFetchedAt": "2026-11-23T22:50:09.663Z",
-      "pointsStatus": "provisional",
+      "officialPointsFetchedAt": "2026-11-24T18:21:39.749Z",
+      "pointsStatus": "final",
       "forecastPlayers": 672,
       "ownershipCohort": {
         "players": 186,
