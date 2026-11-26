@@ -3,18 +3,18 @@
   "fixtureId": 119,
   "fixtureKickoffTime": "2026-11-27T20:00:00Z",
   "contentHashAlgorithm": "sha256",
-  "contentHash": "862ff10de1ab799b8d4a702fcbcefac682f85718606421969e909b591472f285",
+  "contentHash": "a7ce630d29b2e02760d271c757fe28f7745040a11f90804ac9ef7169c0362017",
   "snapshot": {
     "schemaVersion": 2,
     "gameweek": 12,
     "eventName": "Gameweek 12",
     "deadlineTime": "2026-11-27T18:30:00Z",
-    "generatedAt": "2026-11-26T03:13:33.042Z",
+    "generatedAt": "2026-11-26T12:52:04.682Z",
     "modelVersion": "1.4.6",
     "training": {
       "trainedThroughGameweek": 11,
       "targetGameweek": 12,
-      "updatedAt": "2026-11-26T03:13:33.042Z",
+      "updatedAt": "2026-11-26T12:52:04.682Z",
       "source": "Official FPL live feed + 3 completed-season priors",
       "method": "Walk-forward, minutes-weighted current-season blending",
       "validation": "Historical walk-forward replay and archived Modelbook reports"
@@ -226,7 +226,7 @@
       "deadlineTime": "2026-11-27T18:30:00Z",
       "scanWindowStart": "2026-11-27T17:30:00.000Z",
       "windowState": "scheduled",
-      "scannedAt": "2026-11-26T03:13:32.964Z",
+      "scannedAt": "2026-11-26T12:52:04.583Z",
       "source": "official-fpl-bootstrap",
       "alerts": [
         {
@@ -1496,7 +1496,7 @@
         "team": "CHE",
         "position": "MID",
         "price": 98,
-        "ownership": 27.1,
+        "ownership": 27,
         "status": "a",
         "fixture": "NFO (A)",
         "kickoffTime": "2026-11-27T20:00:00Z",
@@ -1880,7 +1880,7 @@
         "team": "CHE",
         "position": "FWD",
         "price": 76,
-        "ownership": 27.4,
+        "ownership": 27.3,
         "status": "i",
         "fixture": "NFO (A)",
         "kickoffTime": "2026-11-27T20:00:00Z",
