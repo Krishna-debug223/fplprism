@@ -1,0 +1,65 @@
+{
+  "season": "2026-27",
+  "gameweek": 12,
+  "lockedAt": "2026-11-27T14:00:25.793Z",
+  "deadline": "2026-11-27T18:30:00Z",
+  "modelVersion": "1.4.6",
+  "sourceModelVersion": "1.4.6",
+  "lockedBeforeDeadline": true,
+  "captureType": "last-predeadline-checkpoint",
+  "contentHash": "ac150efd1f1243801bda939b99f8c3439255d8e3a9a10cf85e6ccf63099d35c1",
+  "feeds": [
+    "Official Fantasy Premier League bootstrap and fixture data",
+    "FPL Prism production projection endpoint"
+  ],
+  "sampleProjections": [
+    {
+      "id": 411,
+      "name": "Haaland",
+      "projected": 4.37926078911167,
+      "fixture": "ARS (A)"
+    },
+    {
+      "id": 68,
+      "name": "Tavernier",
+      "projected": 3.937854649270387,
+      "fixture": "FUL (A)"
+    },
+    {
+      "id": 79,
+      "name": "Evanilson",
+      "projected": 3.8631167260027595,
+      "fixture": "FUL (A)"
+    },
+    {
+      "id": 379,
+      "name": "Isak",
+      "projected": 3.853166358579456,
+      "fixture": "EVE (A)"
+    },
+    {
+      "id": 124,
+      "name": "Groß",
+      "projected": 3.839908698883422,
+      "fixture": "NEW (H)"
+    },
+    {
+      "id": 427,
+      "name": "Mbeumo",
+      "projected": 3.800611449603812,
+      "fixture": "BRE (H)"
+    },
+    {
+      "id": 542,
+      "name": "E.Le Fée",
+      "projected": 3.722038946806236,
+      "fixture": "TOT (H)"
+    },
+    {
+      "id": 480,
+      "name": "Gibbs-White",
+      "projected": 3.687334130602256,
+      "fixture": "CHE (H)"
+    }
+  ]
+}
