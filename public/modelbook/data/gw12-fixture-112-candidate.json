@@ -3,18 +3,18 @@
   "fixtureId": 112,
   "fixtureKickoffTime": "2026-11-29T14:05:00Z",
   "contentHashAlgorithm": "sha256",
-  "contentHash": "3c64e93d85a857d40cecdc5cdb45c7e363c1e017e1b95eb042502cba3e4ddd58",
+  "contentHash": "37fdcd6ecfb7675293d0fb6000c7959f967e32e895af8057bfde233ce9e8a899",
   "snapshot": {
     "schemaVersion": 2,
     "gameweek": 12,
     "eventName": "Gameweek 12",
     "deadlineTime": "2026-11-27T18:30:00Z",
-    "generatedAt": "2026-11-28T04:17:15.839Z",
+    "generatedAt": "2026-11-28T13:19:57.032Z",
     "modelVersion": "1.4.6",
     "training": {
       "trainedThroughGameweek": 11,
       "targetGameweek": 12,
-      "updatedAt": "2026-11-28T04:17:15.839Z",
+      "updatedAt": "2026-11-28T13:19:57.032Z",
       "source": "Official FPL live feed + 3 completed-season priors",
       "method": "Walk-forward, minutes-weighted current-season blending",
       "validation": "Historical walk-forward replay and archived Modelbook reports"
@@ -580,7 +580,7 @@
       "deadlineTime": "2026-11-27T18:30:00Z",
       "scanWindowStart": "2026-11-27T17:30:00.000Z",
       "windowState": "closed",
-      "scannedAt": "2026-11-28T04:17:15.808Z",
+      "scannedAt": "2026-11-28T13:19:56.993Z",
       "source": "official-fpl-bootstrap",
       "alerts": [
         {
@@ -2570,7 +2570,7 @@
         "team": "BHA",
         "position": "MID",
         "price": 44,
-        "ownership": 2.2,
+        "ownership": 2.1,
         "status": "i",
         "fixture": "NEW (H)",
         "kickoffTime": "2026-11-29T14:05:00Z",

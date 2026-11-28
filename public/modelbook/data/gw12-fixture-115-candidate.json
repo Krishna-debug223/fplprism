@@ -3,18 +3,18 @@
   "fixtureId": 115,
   "fixtureKickoffTime": "2026-11-29T14:05:00Z",
   "contentHashAlgorithm": "sha256",
-  "contentHash": "4150520f6b20563b3eb369449f3b2c0b0f6c093bbc51940f61b6c86b3373bb40",
+  "contentHash": "4b33bf3182ce167b69f76231a91296039d2ba77037a0984ecc55a4c3fc84f001",
   "snapshot": {
     "schemaVersion": 2,
     "gameweek": 12,
     "eventName": "Gameweek 12",
     "deadlineTime": "2026-11-27T18:30:00Z",
-    "generatedAt": "2026-11-28T04:17:16.015Z",
+    "generatedAt": "2026-11-28T13:19:57.366Z",
     "modelVersion": "1.4.6",
     "training": {
       "trainedThroughGameweek": 11,
       "targetGameweek": 12,
-      "updatedAt": "2026-11-28T04:17:16.015Z",
+      "updatedAt": "2026-11-28T13:19:57.366Z",
       "source": "Official FPL live feed + 3 completed-season priors",
       "method": "Walk-forward, minutes-weighted current-season blending",
       "validation": "Historical walk-forward replay and archived Modelbook reports"
@@ -580,7 +580,7 @@
       "deadlineTime": "2026-11-27T18:30:00Z",
       "scanWindowStart": "2026-11-27T17:30:00.000Z",
       "windowState": "closed",
-      "scannedAt": "2026-11-28T04:17:15.988Z",
+      "scannedAt": "2026-11-28T13:19:57.341Z",
       "source": "official-fpl-bootstrap",
       "alerts": [
         {
@@ -2138,7 +2138,7 @@
         "team": "BOU",
         "position": "FWD",
         "price": 66,
-        "ownership": 28.7,
+        "ownership": 28.8,
         "status": "a",
         "fixture": "FUL (A)",
         "kickoffTime": "2026-11-29T14:05:00Z",
